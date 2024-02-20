@@ -2,9 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.springlec.base.dao.AdminBrandDao"> 
-	<select id="list">
 	
-		SELECT * FROM brand;
+	<!-- 브랜드 개수 가져오기 -->	
+	<select id="brandCnt" resultType="int">
+	
+		SELECT COUNT(brandid) FROM brand
+		
+	</select>
+
+
+	<!-- 브랜드 조회하기 -->
+	<select id="list" resultType="com.springlec.base.model.BrandDto">
+	
+		SELECT brandid, bname 
+			FROM brand 
+		GROUP BY 
+			brandid, bname
+		ORDER BY 
+			brandid desc
+		LIMIT #{indexNo}, 15;   
 		
 	</select>
 	

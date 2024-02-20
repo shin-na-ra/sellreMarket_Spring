@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>브랜드 관리 - 셀리</title>
 <link rel="shortcut icon" href="http://localhost:8080/SellreMarket/image/logo.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> <!-- 추가 -->
 <link rel="icon" href="http://localhost:8080/SellreMarket/image/logo.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:8080/SellreMarket/image/logo.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:8080/SellreMarket/image/logo.png" />

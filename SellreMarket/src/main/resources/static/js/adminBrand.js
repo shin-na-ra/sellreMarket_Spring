@@ -10,7 +10,7 @@ function init() {
 }
 
 //header-제품현황 알림표시
-/*function productNum() {
+function productNum() {
 		
 		$.ajax({
 			type : "POST",
@@ -28,10 +28,10 @@ function init() {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
-	}*/
+	}
 	
 	//문의 진행중 갯수 Header 알림표시
-	/*function questNum() {
+	function questNum() {
 		
 		$.ajax({
 			type : "POST",
@@ -48,7 +48,7 @@ function init() {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		});
-	}*/
+	}
 
 function paging(pageNum) {
 	
@@ -60,6 +60,8 @@ function paging(pageNum) {
 	$.ajax({
 		type : "get",
 		url : "adminBrand",
+		contentType:'application/json; charset=utf-8',
+		dataType:'json',
 		data : {pageNum : pageNum},
 		success : function(response){
 			createPaging(response)
