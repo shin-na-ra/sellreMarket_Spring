@@ -59,12 +59,14 @@ function paging(pageNum) {
 	
 	$.ajax({
 		type : "get",
-		url : "adminBrand",
+		url : "/adminBrand",
 		contentType:'application/json; charset=utf-8',
 		dataType:'json',
 		data : {pageNum : pageNum},
 		success : function(response){
-			createPaging(response)
+			
+			var data = JSON.stringify(response)
+			createPaging(data)
 		},
 		 error:function(request, status, error){
 			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
