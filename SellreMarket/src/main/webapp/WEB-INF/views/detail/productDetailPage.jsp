@@ -26,7 +26,8 @@
 		<link rel="stylesheet" href="css/detailPage.css" />
 	</head>
 <body>
-	<script src="js/detailPage.js" />
+	<!--  
+	<script src="js/detailPage.js" />-->
 	<jsp:include page="header.jsp" />
 	<div class="css-n48rgu ex9g78v0">
 		<div class="css-16c0d81 e1brqtzw0">
