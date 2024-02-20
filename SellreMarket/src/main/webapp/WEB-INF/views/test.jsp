@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div align="center" style="font-size: 230px; margin-top: 110px;">
-		화이팅!!
-	</div>
+
 </body>
 </html>

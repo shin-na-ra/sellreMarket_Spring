@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>개인정보 수정 - 셀리마켓</title>
 </head>
 <body>
-	<div align="center" style="font-size: 230px; margin-top: 110px;">
-		화이팅!!
-	</div>
+	<jsp:include page="header.jsp"/>
 </body>
 </html>
