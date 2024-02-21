@@ -15,9 +15,15 @@ public class DetailServiceImpl implements DetailService {
 	DetailDao dao;
 	
 	@Override
-	public List<DetailDto> list() throws Exception {
+	public List<DetailDto> productListDao() throws Exception {
 		// TODO Auto-generated method stub
-		return dao.list();
+		return dao.productListDao();
+	}
+
+	@Override
+	public List<DetailDto> recipeListDao() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.recipeListDao();
 	}
 
 }
