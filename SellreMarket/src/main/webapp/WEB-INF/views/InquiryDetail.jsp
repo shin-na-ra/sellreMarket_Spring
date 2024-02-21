@@ -19,32 +19,31 @@
 						<h2 class="css-1268zpe ed9qr671">1:1 문의 내역</h2>
 					</div>
 				</div>
-				<c:forEach items="${detailInquiry}" var="detail">
 				<div class="css-inputrow">
 					<div class="css-titlename">유형</div>
-					<div class="css-width"><input type="text" value="${detail.questid}" style="height: 44px; width:100px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
+					<div class="css-width"><input type="text" value="${detailInquiry.questid}" style="height: 44px; width:100px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
 				</div>
 				<div class="css-inputrow">
 					<div class="css-titlename">등록일자</div>
-					<div class="css-width"><input type="text" value="${detail.insertdate}" style="height: 44px; width:200px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
+					<div class="css-width"><input type="text" value="${detailInquiry.insertdate}" style="height: 44px; width:200px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
 				</div>
 				<div class="css-inputrow">
 					<div class="css-titlename">제목</div>
-					<div class="css-width"><input type="text" value="${detail.intitle}" style="height: 44px; width:640px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
+					<div class="css-width"><input type="text" value="${detailInquiry.intitle}" style="height: 44px; width:640px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
 				</div>
 				<div class="css-inputrow">
 					<div class="css-titlename">내용</div>
-					<div class="css-width"><textarea class="css-textarea" readonly="readonly">${detail.incontent}</textarea></div>
+					<div class="css-width"><textarea class="css-textarea" readonly="readonly">${detailInquiry.incontent}</textarea></div>
 				</div>
 				<div class="css-inputrow">
 					<div class="css-titlename">사진</div>
 					<c:choose>
-						<c:when test="${detail.inimage eq null}">
+						<c:when test="${detailInquiry.inimage eq null}">
 							<div class="css-width" style="margin-top: 12px;">사진이 없습니다.</div>
 						</c:when>
 						<c:otherwise>
 						<div class="css-width">
-							<img src="${pageContext.request.contextPath}/image/${detail.inimage}" style="height: 250px;">
+							<img src="/images/inquiry/${detailInquiry.inimage}" style="height: 250px;">
 						</div>
 						</c:otherwise>
 						</c:choose>
@@ -57,21 +56,20 @@
 				</div>
 				<div class="css-inputrow">
 					<div class="css-titlename">진행상태</div>
-					<div class="css-width"><input type="text" value="${detail.status}" style="height: 44px; width:100px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
+					<div class="css-width"><input type="text" value="${detailInquiry.status}" style="height: 44px; width:100px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
 				</div>
 				<div class="css-inputrow">
 					<div class="css-titlename">답변 등록일자</div>
-					<div class="css-width"><input type="text" value="${detail.answerdate}" style="height: 44px; width:200px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
+					<div class="css-width"><input type="text" value="${detailInquiry.answerdate}" style="height: 44px; width:200px; padding-left: 5px; border-width: 2px;" readonly="readonly"></div>
 				</div>
 				<div class="css-inputrow">
 					<div class="css-titlename">답변</div>
-					<div class="css-width"><textarea class="css-textarea" readonly="readonly">${detail.answer}</textarea></div>
+					<div class="css-width"><textarea class="css-textarea" readonly="readonly">${detailInquiry.answer}</textarea></div>
 				</div>
-				</c:forEach>
 				</div>
 			</div>
 		</div>
 	
-	<jsp:include page="footer.html"/>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

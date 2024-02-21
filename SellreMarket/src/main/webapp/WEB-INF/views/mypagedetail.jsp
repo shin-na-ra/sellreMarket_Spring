@@ -275,6 +275,6 @@
 	</div>
 	</form>
 
-	<jsp:include page="footer.html" />
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

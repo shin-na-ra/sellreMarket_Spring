@@ -200,7 +200,7 @@
 
 
 	<!-- Footer Start -->
-	<jsp:include page="footer.html"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- Footer End -->
 
 

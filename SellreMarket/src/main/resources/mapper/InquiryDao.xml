@@ -10,4 +10,10 @@
 	<insert id="inquiryInsert">
 		insert into personal_inquiry (intitle,incontent,inimage,insertdate,status,questid,userid) values (#{intitle},#{incontent},#{inimage},now(),'진행중',#{questid},#{userid})
 	</insert>
+								
+	<select id="inquiryDetail" resultType="com.springlec.base.model.Inquiry">
+	select i.intitle, i.incontent, i.inimage, i.answer, i.insertdate, i.answerdate, i.status, q.qname 
+	from personal_inquiry i, questcode q where q.questid = i.questid and userid = #{userid} and i.inquiryid = #{inquiryid};
+	</select>
+	
 </mapper>

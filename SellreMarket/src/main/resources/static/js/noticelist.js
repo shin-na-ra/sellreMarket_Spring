@@ -1,9 +1,18 @@
 
+   let curPage = 1;
+   
+document.addEventListener("DOMContentLoaded", function() {
+	// AJAX 요청
+	pageNum(curPage);
+});
+
+/*
 window.onload = function(){
 	let curPage = 1;
 	// AJAX 요청
 	pageNum(curPage);
 }
+*/
 
 function createEventList(data) {
 	// 초기화
@@ -101,7 +110,7 @@ function pageNum(page) {
 	// AJAX 요청
 	$.ajax({
 		type : "POST",
-		url : "noticelist.do",
+		url : "noticelist",
 		data : {
 			curPage : curPage,
 			keyword : keyword
@@ -110,7 +119,8 @@ function pageNum(page) {
 			createEventList(response);
 		}, // success
 		error : function(xhr, status, error) {
-			alert("문제가 발생하였습니다." + error)
+			alert("pageNum error");
+			alert("문제가 발생하였습니다." + error);
 		}
 	}) // $.ajax
 }

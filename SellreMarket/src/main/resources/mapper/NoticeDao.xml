@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.NoticeDao">
+
+	<select id="noticeList" resultType="com.springlec.base.model.Notice">
+		select eventid,ename,inputdate,category,status from event where ename like #{keyword} or eventid like #{keyword} or inputdate like #{keyword} order by inputdate desc limit #{startIndex},10
+	</select>
+	
+	<select id="totalRowCount" resultType="Integer">
+		select COUNT(eventid) as count from event where ename like #{keyword} or eventid like #{keyword} or inputdate like #{keyword}
+	</select>
+
+</mapper>

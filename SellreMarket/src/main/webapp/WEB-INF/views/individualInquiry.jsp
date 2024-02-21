@@ -24,7 +24,6 @@
 					<div width="100" class="css-16tcewl e16adls20">작성일</div>
 					<div width="100" class="css-16tcewl e16adls20">답변상태</div>
 				</div>
-				
 					<c:choose>
 	       				<c:when test="${empty InquiryList}">
 	       				<div class="css-l0r8ps e1cfowvj1" style="margin-top: 40px;">
@@ -34,7 +33,7 @@
 	        			<c:otherwise>
 	            			<c:forEach items="${InquiryList}" var="inquiry">
 	            			<div class="css-l0r8ps e1cfowvj1" style="margin-top: 0px;">
-	            			 <form action="inquirydetail.do" method="post">
+	            			 <form action="inquirydetail" method="post">
 	            			<input type="hidden" name="inquiryid" value="${inquiry.inquiryid}">
 	            				<button type="submit" class="css-e24nfx">
 	            					<div width="100" class="css-15tcewl">${inquiry.questid}</div>
