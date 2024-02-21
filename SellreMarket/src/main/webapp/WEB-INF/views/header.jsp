@@ -34,7 +34,7 @@ var id = '<%=(String)session.getAttribute("id")%>';
 function inquirywrite() {
 	// 로그인 여부 확인
 	if (id !== "null") {
-		window.location.href = 'inquiry.do';
+		window.location.href = 'inquiry';
 	}
 	else {
 		var result = window.confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")
@@ -96,7 +96,7 @@ function inquirywrite() {
 						<div class="css-12olpw6 ecncdj40"><a href="#">주문내역</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 상품</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 레시피</a></div>
-						<div class="css-12olpw6 ecncdj40"><a href="inquiry.do">1:1 문의</a></div>
+						<div class="css-12olpw6 ecncdj40"><a href="inquiry">1:1 문의</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="logout.do">로그아웃</a></div>
 					</div>
 				</div>

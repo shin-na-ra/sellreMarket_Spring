@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <title>Sellre Market Login</title>
 
-<link rel="preload" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" as="style" />
-<link rel="stylesheet" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" data-n-g />
+<!-- <link rel="preload" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" as="style" />
+<link rel="stylesheet" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" data-n-g /> -->
 <link rel="stylesheet" href="css/login.css" />
 
 </head>
@@ -60,7 +60,7 @@
 	
 	
 	<!-- footer start -->
-	<jsp:include page="footer.html"/>
+	<jsp:include page="footer.jsp"/>
 	<!-- footer end -->
 </body>
 </html>

@@ -48,7 +48,7 @@
 	        			</c:otherwise>
 	    			</c:choose>
 				<div class="css-15jhycr e3tf63e0"></div>
-				<form method="POST" action="inquirywrite.jsp">
+				<form method="POST" action="inquirywrite">
 					<button class="css-1ibxj4m e4nu7ef3" id="inquirybtn" type="submit" width="120" radius="3">
 						문의하기
 					</button>
@@ -56,6 +56,6 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="footer.html"/>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>
