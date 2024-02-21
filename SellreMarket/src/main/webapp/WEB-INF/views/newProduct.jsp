@@ -76,16 +76,10 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<!-- Topbar End -->
 
-
-	<!-- Navbar Start -->
-
-	<!-- Navbar End -->
-	
-	
 	<!-- Ad Start -->
 	<div class="container" style="width: 100%">
 		<a href="#"><img class="img-fluid w-100"
-			src="${pageContext.request.contextPath}/image/event/new/${getNewAdImg}"
+			src="${pageContext.request.contextPath}/image/event/new/${img}"
 			alt="Event Image">
 		</a>
 	</div>
@@ -135,27 +129,25 @@
 						<div class="product-item bg-light mb-4"
 							style="width: 300px; height: 350px; display: flex; flex-direction: column; justify-content: center;">
 							<div class="product-img position-relative overflow-hidden">
-								<a href="#"> <img class="img-fluid w-100"
-									src="${pageContext.request.contextPath}/image/product/${dto.pimage}"
-									alt="Product Image"
-									 style="object-fit: cover; width: 100%; height: 100%;">
-								</a>
+									<a href="productDetail.do?productId=${dto.productid}" ><img class="img-fluid w-100"
+										src="${pageContext.request.contextPath}/image/product/${dto.pimage}"
+										alt="Product Image"
+										 style="object-fit: cover; width: 100%; height: 100%;">
+									</a>
 							</div>
 							<div
 								style="margin-top: 7px; margin-left: 1%; border: 1px solid lightgray; border-radius: 5px; width: 98%;">
-								<!-- <form action="newPageCart.do" method="get" id="myForm"> -->
 									<button
 										onclick="sendProductInfo(${dto.productid}); return false;"
 										class="btn btn-primary btn-light align-items-center"
 										style="width: 100%;">장바구니</button>
 									<input type="hidden" id="productid" value="${dto.productid}">
 									<input type="hidden" id="id" value="${id}">
-								<!-- </form> -->
 							</div>
 							
 							<div class="text-center py-4"
 								style="display: flex; flex-direction: column; justify-content: center;">
-								<a class="h6 text-decoration-none text-truncate" href="" style="font-weight: bold;">${dto.pname}</a>
+								<a class="h6 text-decoration-none text-truncate" href="productDetail.do?productId=${dto.productid}" style="font-weight: bold;">${dto.pname}</a>
 								<div class="d-flex align-items-center justify-content-center mt-2">
 									<h7 class="text-muted ml-2">
 										<c:if test="${dto.price ne dto.dPrice}">
@@ -192,15 +184,16 @@
 
 
 	<!-- Paging Start -->
-	<div id="paging"></div>
 	<script src="js/paging.js"></script>
+	<div id="showPaging" style="text-align: center;"></div>
+	<input type="hidden" value="${curPage}" id="curPage">
 	<!-- Paging End -->
 
 	
 
 
 	<!-- Footer Start -->
-	<jsp:include page="footer.html"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- Footer End -->
 
 

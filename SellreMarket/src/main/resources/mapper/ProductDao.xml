@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- *****************    namespace에서 dao 설정해야함    *****************  -->
+<mapper namespace="com.springlec.base.dao.ProductDao"> 
+	
+	<!-- creat -->
+	
+	<!-- read -->
+	<select id="recipeProductView" resultType="com.springlec.base.model.Product">
+		SELECT y.yname, y.ysrc, y.ytitle, 
+		( 
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0) 
+		ELSE FORMAT(price, 0) 
+		END 
+		) AS dPrice, 
+		FORMAT(i.price, 0) price, SUM(likecount) AS likecount, ry.recipeid, FORMAT((e.salerate * 100), 0) AS salerate 
+		FROM youtuber y 
+		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid 
+		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid 
+		JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid 
+		JOIN product p ON p.productid = pr.productid 
+		LEFT JOIN event e ON e.eventid = p.eventid 
+		JOIN price i ON i.productid = p.productid 
+		GROUP BY y.yname, y.ysrc, y.ytitle, dPrice, price, ry.recipeid, salerate 
+		ORDER BY y.youtubeid DESC 
+		LIMIT #{limitFrom}, #{countPerPage}
+	</select>
+	
+	<select id="cartCount" resultType="Integer">
+		SELECT COUNT(*) FROM cart WHERE userid = #{id}
+	</select>
+	
+	<select id="getNewAdImg" resultType="String">
+		SELECT MAX(img) AS img FROM event WHERE category = 2	
+	</select>
+	
+	
+	<!-- update -->
+	
+	<!-- delete -->
+	
+	
+	
+	
+	
+	
+</mapper>
