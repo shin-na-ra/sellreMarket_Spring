@@ -4,27 +4,105 @@
 <!-- *****************    namespace에서 dao 설정해야함    *****************  -->
 <mapper namespace="com.springlec.base.dao.ProductDao"> 
 	
-	<!-- creat -->
+	<!-- CREATE -->
 	
-	<!-- read -->
-	<select id="recipeProductView" resultType="com.springlec.base.model.Product">
-		SELECT y.yname, y.ysrc, y.ytitle, 
-		( 
+	<!-- READ -->
+	<select id="newProductView" resultType="com.springlec.base.model.Product">
+		SELECT DISTINCT (
+		    CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+		    ELSE FORMAT(price, 0)
+		    END
+		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount,
+		p.productid, FORMAT((e.salerate * 100), 0) AS salerate
+		FROM product p
+		LEFT JOIN price pr ON pr.productid = p.productid
+		LEFT JOIN product_image pi ON pi.productid = p.productid
+		LEFT JOIN productlike pl ON pl.productid = p.productid
+		LEFT JOIN event e ON e.eventid = p.eventid
+		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW()
+		GROUP BY dPrice, price, p.pname, pi.image, p.productid
+		ORDER BY p.productid DESC
+		LIMIT ${limitFrom}, ${countPerPage}
+	</select>
+	
+	<select id="newProductAlignAscView" resultType="com.springlec.base.model.Product">
+		SELECT DISTINCT ( 
 		CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0) 
 		ELSE FORMAT(price, 0) 
 		END 
-		) AS dPrice, 
-		FORMAT(i.price, 0) price, SUM(likecount) AS likecount, ry.recipeid, FORMAT((e.salerate * 100), 0) AS salerate 
-		FROM youtuber y 
-		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid 
-		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid 
-		JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid 
-		JOIN product p ON p.productid = pr.productid 
+		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, 
+		p.productid, FORMAT((e.salerate * 100), 0) AS salerate 
+		FROM product p 
+		LEFT JOIN price pr ON pr.productid = p.productid 
+		LEFT JOIN product_image pi ON pi.productid = p.productid 
+		LEFT JOIN productlike pl ON pl.productid = p.productid 
 		LEFT JOIN event e ON e.eventid = p.eventid 
-		JOIN price i ON i.productid = p.productid 
-		GROUP BY y.yname, y.ysrc, y.ytitle, dPrice, price, ry.recipeid, salerate 
-		ORDER BY y.youtubeid DESC 
+		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW() 
+		GROUP BY dPrice, price, p.pname, pi.image, p.productid 
+		ORDER BY dPrice  
 		LIMIT #{limitFrom}, #{countPerPage}
+	</select>
+	
+	<select id="newProductAlignDescView" resultType="com.springlec.base.model.Product">
+		SELECT distinct ( 
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0) 
+		ELSE FORMAT(price, 0) 
+		END 
+		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, 
+		p.productid, FORMAT((e.salerate * 100), 0) AS salerate 
+		FROM product p 
+		LEFT JOIN price pr ON pr.productid = p.productid 
+		LEFT JOIN product_image pi ON pi.productid = p.productid 
+		LEFT JOIN productlike pl ON pl.productid = p.productid 
+		LEFT JOIN event e ON e.eventid = p.eventid 
+		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW() 
+		GROUP BY dPrice, price, p.pname, pi.image, p.productid 
+		ORDER BY dPrice DESC 
+		LIMIT #{limitFrom}, #{countPerPage}
+	</select>
+	
+	<select id="newProductPageCount" resultType="Integer">
+		SELECT COUNT(*) FROM (
+		SELECT DISTINCT (
+			CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+				ELSE FORMAT(price, 0)
+			END
+		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount,
+		p.productid, FORMAT((e.salerate * 100), 0) AS salerate
+		FROM product p
+		LEFT JOIN price pr ON pr.productid = p.productid
+		LEFT JOIN product_image pi ON pi.productid = p.productid
+		LEFT JOIN productlike pl ON pl.productid = p.productid
+		LEFT JOIN event e ON e.eventid = p.eventid
+		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW()
+		GROUP BY dPrice, price, p.pname, pi.image, p.productid
+		ORDER BY p.productid DESC
+		) AS subquery
+	</select>
+	
+	
+	<select id="bestProductPageCount" resultType="Integer">
+		SELECT COUNT(*) FROM (
+			SELECT DISTINCT FORMAT(pr.price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, p.productid
+			FROM product p
+			LEFT JOIN product_image pi ON p.productid = pi.productid
+			LEFT JOIN price pr ON p.productid = pr.productid
+			LEFT JOIN productlike pl ON p.productid = pl.productid
+			GROUP BY price, p.pname, pi.image, p.productid
+			ORDER BY likecount DESC
+			) AS subquery
+	</select>
+	
+	
+	<select id="recipeProductPageCount" resultType="Integer">
+		SELECT COUNT(*) count
+		FROM youtuber y
+		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
+		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
+		JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
+		JOIN product p ON p.productid = pr.productid
+		JOIN price i ON i.productid = p.productid
+		ORDER BY y.youtubeid DESC
 	</select>
 	
 	<select id="cartCount" resultType="Integer">
@@ -36,9 +114,9 @@
 	</select>
 	
 	
-	<!-- update -->
+	<!-- UPDATE -->
 	
-	<!-- delete -->
+	<!-- DELETE -->
 	
 	
 	

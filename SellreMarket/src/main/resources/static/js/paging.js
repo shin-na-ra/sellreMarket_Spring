@@ -3,7 +3,7 @@ window.onload = function() {
 	console.log("load completely");
 	$.ajax({
 		type: "POST",
-		url: "paging.do",
+		url: "paging",
 		data: {curPage:$("#curPage").val()},
 		success: function(response) {
 			paging(response)

@@ -96,21 +96,21 @@
 		<c:if test="${alignCategory eq '신상품순'}">
 			<span style="color: black; font-weight: bold">신상품순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignNewLowPrice.do">낮은 가격순</a> 
+			<a href="alignNewLowPrice">낮은 가격순</a> 
 			&nbsp;&nbsp;|&nbsp;&nbsp; 
-			<a href="alignNewHighPrice.do">높은 가격순</a>
+			<a href="alignNewHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '낮은 가격순'}">
-			<a href="mainPage.do">신상품순</a>
+			<a href="/">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">낮은 가격순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignNewHighPrice.do">높은 가격순</a>
+			<a href="alignNewHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '높은 가격순'}">
-			<a href="mainPage.do">신상품순</a>
+			<a href="/">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignNewLowPrice.do">낮은 가격순</a>
+			<a href="alignNewLowPrice">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">높은 가격순</span>
 		</c:if>
