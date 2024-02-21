@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:8080/SellreMarket/image/logo.png" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="css/adminBrandDetail.css" />
-<script src="js/adminBrandDetail.js"></script>
+<!-- <script src="js/adminBrandDetail.js"></script> -->
 </head>
 <body id="body">
 	<jsp:include page="adminHeader.jsp" flush="false" />
@@ -22,7 +23,11 @@
 					
 				<div class="form-group">
 					<label for="bname">브랜드명</label>
-					<input type="text" id="bname" name="bname">
+					<c:forEach items="${list}" var="dto">
+						<input type="text" id="bname" name="bname" value="${dto.bname }">
+					</c:forEach>
+					
+					
 				</div>
 				
 				<input type="text" id="brandid" name="brandid" hidden="true">

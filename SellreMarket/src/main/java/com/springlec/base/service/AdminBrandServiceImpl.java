@@ -22,8 +22,14 @@ public class AdminBrandServiceImpl implements AdminBrandService {
 	
 	//브랜드 리스트 조회
 	@Override
-	public List<BrandDto> list(int indexNO) throws Exception {
-		return dao.list(indexNO);
+	public List<BrandDto> list() throws Exception {
+		return dao.list();
+	}
+
+	//브랜드 상세 조회하기
+	@Override
+	public List<BrandDto> detail(String bname) throws Exception {
+		return dao.detail(bname);
 	}
 
 	

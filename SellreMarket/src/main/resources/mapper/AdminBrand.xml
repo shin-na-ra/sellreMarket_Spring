@@ -4,24 +4,27 @@
 <mapper namespace="com.springlec.base.dao.AdminBrandDao"> 
 	
 	<!-- 브랜드 개수 가져오기 -->	
-	<select id="brandCnt" resultType="int">
+	<select id="brandCnt" resultType="_int">
 	
-		SELECT COUNT(brandid) FROM brand
+		select count(distinct(bname)) from brand;
 		
 	</select>
 
 
-	<!-- 브랜드 조회하기 -->
+	<!-- 2024.02.21 snr : 브랜드 조회하기 -->
 	<select id="list" resultType="com.springlec.base.model.BrandDto">
 	
-		SELECT brandid, bname 
-			FROM brand 
-		GROUP BY 
-			brandid, bname
-		ORDER BY 
-			brandid desc
-		LIMIT #{indexNo}, 15;   
+		select bname from brand group by bname
 		
+	</select>
+	
+	
+	
+	<!-- 2024.02.21 snr : 브랜드 상세 조회하기  -->
+	<select id="detail" resultType="com.springlec.base.model.BrandDto">
+	
+		select bname from brand where bname = #{bname} group by bname 
+	
 	</select>
 	
 </mapper>

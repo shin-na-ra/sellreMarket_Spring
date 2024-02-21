@@ -15,7 +15,7 @@
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <link rel="stylesheet" href="css/adminBrand.css" />
-<script src="js/adminBrand.js"></script>
+<!-- <script src="js/adminBrand.js"></script> -->
 </head>
 <body>
 	<main>
@@ -26,10 +26,27 @@
 				<a href="adminBrandRegister.do"><button class="registerBtn">등록</button></a>
 			</div>
 			<div class="main_content">
-				<div id="result" class="tableContainer"></div> <!-- 테이블 조회 위치 -->
+				<div id="result" class="tableContainer">
+					<table style="text-align:center;">
+						<tr>
+							<th>행번호</th>
+							<th>브랜드명</th>
+						</tr>
+						<c:set var="cnt" value="1" />
+						<c:forEach items="${list}" var="dto">
+							<tr>
+								<td><a href="adminBrandDetail?bname=${dto.bname }">${cnt}</a></td>
+								<td><a href="adminBrandDetail?bname=${dto.bname }">${dto.bname }</a></td>
+							</tr>
+							<c:set var="cnt" value="${cnt=cnt+1 }" />
+						</c:forEach>
+					</table>
+				</div> <!-- 테이블 조회 위치 -->
 			</div>
 			<div id="paging"></div>	<!-- 페이징 조회 위치 -->
 		</div>
+		
+		<div id="ddd"></div>
 	</main>
 	
 </body>

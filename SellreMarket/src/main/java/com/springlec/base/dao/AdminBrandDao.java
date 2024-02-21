@@ -10,5 +10,9 @@ public interface AdminBrandDao {
 	public int brandCnt() throws Exception; 
 	
 	//브랜드 리스트 조회하기
-	public List<BrandDto> list(int indexNo) throws Exception;
+	public List<BrandDto> list() throws Exception;
+	
+	//브랜드 상세 조회하기
+	public List<BrandDto> detail(String bname) throws Exception;
+	
 }
