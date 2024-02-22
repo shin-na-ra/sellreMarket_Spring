@@ -1,116 +1,60 @@
-window.onload=function(){
-	init();
-}	
-	
-function init() {
-	productNum(); //header[제품현황] 알림표시
-	questNum();
-	
-}
-
-//header-제품현황 알림표시
-function productNum() {
-		
-		$.ajax({
-			type : "POST",
-			url : "adminProductNum.do",
-			success : function(response){
-				if(response == "0"){
-					document.getElementById('productNum').style.display = 'none';
-				} else {
-					document.getElementById('productNum').style.display = 'block';
-					document.getElementById('productNum').innerText = response	
-				}
-				
-			},
-			 error:function(request, status, error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	}
-	
-	//문의 진행중 갯수 Header 알림표시
-	function questNum() {
-		
-		$.ajax({
-			type : "POST",
-			url : "adminQuestNum.do",
-			success : function(response){
-				if(response == "0"){
-					document.getElementById('questNum').style.display = 'none';
-				} else {
-					document.getElementById('questNum').style.display = 'block';
-					document.getElementById('questNum').innerText = response
-				}
-			},
-			 error:function(request, status, error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	}
 
 /************************************************************************************************
 	 * Function : 정규식 체크 
 	 * @param 	: null
 	 * @return 	: null
 	************************************************************************************************/
-	function infoCheck(){
+	function insertBrand(){
 		
 		let form = document.categoryForm;
-		let regex = /^[가-힣]+$/;
+		let regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
 		let num = 0;
 		
-		let type = form.type.value;
-		let subtype = form.subtype.value;
+		let nullMsg = "브랜드명을 입력하세요.";
+		let checkMsg = "특수문자가 포함되어있습니다. 특수문자를 제거해주세요.";
+		let regSpan = document.getElementById("reg");
 		
-		if(type == ""){
-			alert("대분류를 등록하세요.");
-			form.type.select()
+		
+		
+		let bname = form.bname.value;
+		
+		if(bname == "") {
+			regSpan.style.display = "block";
+			regSpan.innerText = nullMsg;
+			form.bname.select()
 			num++;
 			return
+		} 
+		
+		if(regExp.test(bname)) {
+			regSpan.style.display = "block";
+			regSpan.innerText = checkMsg;
+			num++;
+			return;
 		}
 		
-		if(bname == ""){
-			alert("중분류를 등록하세요.");
-			form.subtype.select()
-			num++;
-			return
-		}
-		
-		if (!regex.test(type) || !regex.test(subtype)) {
-			alert('한글로만 입력하세요!')
-			num++;
-			return
+		if(num == 0) {
+			let bname = $("#bname").val();
+			
+			$.ajax({
+				
+				type : "POST",
+				url : "insertBrand",
+				data : {
+					bname: bname
+				},
+				success : function(response){
+					 if (response == "1") {
+						 	alert("브랜드 ["+bname+"]이/가 등록되었습니다.")
+						 	window.location.href="adminBrand";
+			            }
+			        },
+				 error:function(request, status, error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					console.log(error);
+				}
+				
+			});
 		}
 	}
 
-	
-	/************************************************************************************************
-	 * Function : 작성한 정보 inset하기
-	 * @param 	: null
-	 * @return 	: null
-	************************************************************************************************/
-	
-	function insertBrand() {
-					 
-		let bname = $("#bname").val();
-		
-		$.ajax({
-			
-			type : "POST",
-			url : "insertBrand.do",
-			data : {
-				bname: bname
-			},
-			success : function(response){
-				 if (response == "1") {
-					 	alert("브랜드 ["+bname+"]이/가 등록되었습니다.")
-					 	window.location.replace("/SellreMarket/adminBrand.jsp");
-		            }
-		        },
-			 error:function(request, status, error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-			
-		});
-	}
