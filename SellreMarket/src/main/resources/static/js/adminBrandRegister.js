@@ -12,6 +12,7 @@
 		
 		let nullMsg = "브랜드명을 입력하세요.";
 		let checkMsg = "특수문자가 포함되어있습니다. 특수문자를 제거해주세요.";
+		let dupplicateMsg = "이미 존재하는 브랜드입니다.";
 		let regSpan = document.getElementById("reg");
 		
 		
@@ -47,8 +48,14 @@
 					 if (response == "1") {
 						 	alert("브랜드 ["+bname+"]이/가 등록되었습니다.")
 						 	window.location.href="adminBrand";
-			            }
-			        },
+			         } 
+			         
+			         if(response == "0"){
+						regSpan.style.display = "block";
+						regSpan.innerText = dupplicateMsg;
+						form.bname.select()
+					 }
+			     },
 				 error:function(request, status, error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 					console.log(error);
