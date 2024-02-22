@@ -50,7 +50,7 @@
 					<button class="css-qaxuc4 e4nu7ef3" type="button" height="54" radius="3" onclick="checkId()">
 						<span class="css-nytqmg e4nu7ef1">로그인</span>
 					</button>
-					<button class="css-hxorrg e4nu7ef3" type="button" height="54" radius="3" onclick="signup()">
+					<button class="css-hxorrg e4nu7ef3" type="button" height="54" radius="3" onclick="window.location.href = 'signup'">
 						<span class="css-nytqmg e4nu7ef1">회원가입</span>
 					</button>
 				</div>

@@ -17,6 +17,7 @@ import com.springlec.base.model.Inquiry;
 import com.springlec.base.model.Notice;
 import com.springlec.base.service.InquiryService;
 import com.springlec.base.service.NoticeService;
+import com.springlec.base.service.UserInfoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,6 +31,9 @@ public class UserController {
 	
 	@Autowired
 	NoticeService noticeS;
+	
+	@Autowired
+	UserInfoService userS;
 	
 	
 	// 로그인 Page
@@ -74,7 +78,7 @@ public class UserController {
 		String inimage = null;
 		
 		if (file != null && !file.isEmpty()) {
-			inimage = inquiryS.uploadFile(request, file);
+			inimage = inquiryS.uploadFile(file);
 		}
 		
 		String intitle = request.getParameter("intitle");
@@ -107,13 +111,13 @@ public class UserController {
 		return "mypageinfo";
 	}
 	
-	// 공지사항 Page
+	// 공지사항 Page : /notice를 통해 공지사항 Page 연결 후 AJAX를 통해 /noticelist 실행
 	@GetMapping("/notice")
 	public String noticePage() {
 		return "notice";
 	}
 	
-	// 공지사항 목록 Page
+	// 공지사항 목록 AJAX
 	@PostMapping("/noticelist")
 	public ResponseEntity<Map<String, Object>> noticelistPage(HttpServletRequest request) throws Exception {
 		String keyword = request.getParameter("keyword");
@@ -124,14 +128,93 @@ public class UserController {
 		return ResponseEntity.ok().body(responseData);
 	}
 	
+	// 공지사항 상세내역 Page
+	@GetMapping("/noticedetail")
+	public String noticeDetailPage(HttpServletRequest request, Model model) throws Exception {
+		String eventid = request.getParameter("eventid");
+		
+		model.addAttribute("detailDto",noticeS.noticeDetail(eventid));
+		
+		return "noticedetail";
+	}
+	
+	// 이용안내 Page
+	@GetMapping("/user_guide")
+	public String user_guidePage() throws Exception {
+		return "user_guide";
+	}
+	
+	// 아이디 중복체크 AJAX 및 email 중복체크 후 인증번호 발송 
+	@PostMapping("/duplicatedCheck")
+	public ResponseEntity<Map<String,Object>> duplicatedCheckAction(HttpServletRequest request) throws Exception {
+		if(request.getParameter("userid") != null) {
+			return ResponseEntity.ok(userS.checkDuplicatedId(request.getParameter("userid")));
+		}
+		else {
+			return ResponseEntity.ok(userS.checkDuplicatedEmail(request.getParameter("email"), request));
+		}
+	}
+	
+	@PostMapping("/userInfo")
+	public String userInfoAction(HttpServletRequest request) throws Exception {
+		String userid = request.getParameter("memberId");
+		String nowpassword = request.getParameter("nowpassword");
+		String password = request.getParameter("password");
+		String tel = request.getParameter("mobileNumber");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String address = request.getParameter("address");
+		String detailAddress = request.getParameter("detailAddress");
+		
+		if(password == null) {
+			password = nowpassword;
+		}
+		
+		String gender = request.getParameter("gender");
+		System.out.println("gender : " + gender);
+		if(gender.equals("NONE")) {
+			System.out.println("성별 선택안함");
+			// 성별 선택안함
+			gender = Integer.toString(2);
+		}
+		else if(gender.equals("MALE")) {
+			System.out.println("성별 남성");
+			// 성별 남성
+			gender = Integer.toString(0);
+		}
+		else {
+			System.out.println("성별 여성");
+			// 성별 여성
+			gender = Integer.toString(1);
+		}
+		
+		String birthYear = request.getParameter("birthYear");
+		String birthMonth = request.getParameter("birthMonth");
+		String birthDay = request.getParameter("birthDay");
+		
+		String birthdate = birthYear + "-" + birthMonth + "-" + birthDay;
+		
+		// 회원가입
+		if(userS.checkDuplicatedId(userid).get("result").equals("true")) {
+			System.out.println("회원가입");
+			userS.customerSignUp(userid, password, tel, name, email, address, detailAddress, gender, birthdate);
+		}
+		// 정보수정
+		else {
+			userS.updateUserInfo(userid, password, tel, name, email, address, detailAddress, gender, birthdate);
+		}
+		
+		return "redirect:/notice";
+	}
+	
+	
 	@GetMapping("/logout")
 	public String getMethodName(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		// 메인화면으로 수정해야함!
-		return "redirect:/login";
+		return "redirect:/notice";
 	}
-	
 
 	
 }

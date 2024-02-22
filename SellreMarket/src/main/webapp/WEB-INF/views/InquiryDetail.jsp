@@ -43,7 +43,7 @@
 						</c:when>
 						<c:otherwise>
 						<div class="css-width">
-							<img src="/images/inquiry/${detailInquiry.inimage}" style="height: 250px;">
+							<img src="/image/inquiry/${detailInquiry.inimage}" style="height: 250px;">
 						</div>
 						</c:otherwise>
 						</c:choose>

@@ -79,13 +79,13 @@
 					</div>
 					<div class="css-inputrow">
 						<div class="css-titlename">첨부파일</div>
-						<img class="css-width" src="${pageContext.request.contextPath}/image/event/new/${detailDto.img}" alt="첨부파일">
+						<img class="css-width" src="/image/event/new/${detailDto.img}" alt="첨부파일">
 					</div>
 					<div class="css-inputrow" style="border-bottom: solid; border-bottom-width: 2px;"></div>
 					<div class="css-inputrow" style="justify-content: right;">감사합니다.</div>
 				</div>
 			</div>
 		</div>
-	<jsp:include page="footer.html" />
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

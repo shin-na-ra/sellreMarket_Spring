@@ -30,21 +30,34 @@ function updateCartCount(cartCount) {
     $("#cartCount").text(cartCount);
 }
 
-var id = '<%=(String)session.getAttribute("id")%>';
-function inquirywrite() {
+
+/* function inquirywrite() {
+	var userid = document.getElementById("userid").value;
 	// 로그인 여부 확인
-	if (id !== "null") {
+	if (userid !== "") {
 		window.location.href = 'inquiry';
-	}
-	else {
+	} else {
 		var result = window.confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")
 		if (result === true) {
-			window.location.href = 'Login.jsp';
+			window.location.href = 'login';
 		}
+	}
+} */
+
+
+function inquirywrite() {
+	if (document.getElementById("userid").value === "") {
+		var result = window.confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")
+		if (result === true) {
+			window.location.href = 'login';
+		}
+	} else {
+		window.location.href = 'inquiry';
 	}
 }
 </script>
 </head>
+<input type="hidden" id="userid" value="${sessionScope.id}">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="js/category.js" ></script>
 <link rel="preload"
@@ -76,7 +89,6 @@ function inquirywrite() {
 			</button>
 		</div>
 	</div>
-
 	<div>
 		<div class="css-t79vuj e15sbxqa2">
 			<div class="css-1xfyvd1 eo7pjfk4">

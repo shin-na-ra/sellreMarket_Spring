@@ -1,13 +1,11 @@
 package com.springlec.base.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.springlec.base.dao.NoticeDao;
 import com.springlec.base.model.Notice;
@@ -17,6 +15,10 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
 	NoticeDao dao;
+	
+	@Autowired
+	HashMap<String, Object> data;
+	
 	
 	@Override
 	public Map<String, Object> noticeList(String curPage, String keyword) throws Exception {
@@ -34,12 +36,11 @@ public class NoticeServiceImpl implements NoticeService {
 		// 총 데이터의 갯수
 		int totalRowCount = 0;
 		totalRowCount = totalRowCount(keyword);
-
+		
 		// 전체 페이지 수
 		// 85개의 데이터 수 / 10 + 1 = 총 9p
 		// 90개의 데이터 수 / 10 + 1 = 총 10p
-		int totalPage = totalRowCount % pagePerCount == 0 ? (totalRowCount / pagePerCount)
-				: (totalRowCount / pagePerCount) + 1;
+		int totalPage = totalRowCount % pagePerCount == 0 ? (totalRowCount / pagePerCount) : (totalRowCount / pagePerCount) + 1;
 
 		// 현재 페이지에 해당하는 시작 index
 		// curPage = 1 이면, startIndex = 0 | curPage = 2 이면, startIndex = 10
@@ -66,8 +67,6 @@ public class NoticeServiceImpl implements NoticeService {
 
 		List<Notice> eventList = dao.noticeList(startIndex, "%" + keyword + "%");
 
-		Map<String, Object> data = new HashMap<String, Object>();
-
 		data.put("eventList", eventList);
 		data.put("totalPage", totalPage);
 		data.put("blockStartPage", blockStartPage);
@@ -79,8 +78,12 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public int totalRowCount(String keyword) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.totalRowCount(keyword);
+		return dao.totalRowCount("%"+keyword+"%");
+	}
+
+	@Override
+	public Notice noticeDetail(String eventid) throws Exception {
+		return dao.noticeDetail(eventid);
 	}
 
 

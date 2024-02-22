@@ -45,7 +45,7 @@ public class InquiryServiceImpl implements InquiryService {
 	
 	// 이미지 업로드
 	@Override
-	public String uploadFile(HttpServletRequest request, MultipartFile file) {
+	public String uploadFile(MultipartFile file) {
 		// 파일의 이름
 		String inimage = file.getOriginalFilename();
 		UUID uuid = UUID.randomUUID();
@@ -63,7 +63,6 @@ public class InquiryServiceImpl implements InquiryService {
 				i.printStackTrace();
 			}
 		}
-
 		return inimage;
 	}
 	

@@ -15,7 +15,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <body>
 	<jsp:include page="header.jsp" />
-	<form name="signupForm" action="signup.do" method="post">
+	<form name="signupForm" action="userInfo" method="post">
 	<div class="css-pculus e1ovi4141">
 		<div class="css-o5dw7d e1ovi4140">회원가입</div>
 		<div class="css-mhmtvt e15so55l1">
@@ -111,14 +111,14 @@
 					</div>
 					<div class="css-1w0ksfz e744wfw2">
 						<button class="css-ufulao e4nu7ef3" type="button" id="emailDuplicatedCheck">
-							<span class="css-nytqmg e4nu7ef1">중복확인</span>
+							<span class="css-nytqmg e4nu7ef1">인증번호 발송</span>
 						</button>
 					</div>
 				</div>
-				<div class="css-1pjgd36 e744wfw6">
+				<div class="css-1pjgd36 e744wfw6" id="Emailauthentication" style="display: none;">
 					<div class="css-1y8737n e744wfw5">
-						<input class="css-1obgjqh e744wfw4" type="hidden"><span
-							class="css-qq9ke6 e744wfw0"></span>
+						<input class="css-1obgjqh e744wfw4" type="hidden">
+						<span class="css-qq9ke6 e744wfw0"></span>
 					</div>
 					<div class="css-82a6rk e744wfw3">
 						<div class="css-jmalg e1uzxhvi6">
@@ -129,6 +129,7 @@
 								<input type="hidden" id="sysAuthentic">
 							</div>
 						</div>
+						<span id="checkedEmail"></span>
 					</div>
 					<div class="css-1w0ksfz e744wfw2">
 						<button class="css-ufulao e4nu7ef3" type="button" id="confirmCheck" onclick="checkAuthentication()">
@@ -144,7 +145,7 @@
 					<div class="css-82a6rk e744wfw3">
 						<div class="css-jmalg e1uzxhvi6">
 							<div class="css-176lya2 e1uzxhvi3">
-								<input data-testid="input-box" id="mobileNumber" name="mobileNumber" placeholder="숫자만 입력해주세요." type="tel"
+								<input data-testid="input-box" id="mobileNumber" name="mobileNumber" placeholder="숫자만 입력해주세요" type="tel"
 									required="" class="css-u52dqk e1uzxhvi2" value="" maxlength="11">
 							</div>
 						</div>
@@ -254,9 +255,9 @@
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path>
 										<path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-								</div><span>이용약관 동의</span></label><span class="css-64z8en e1sjmfnv5">(필수)</span>
+								</div>
+								<span>이용약관 동의</span></label><span class="css-64z8en e1sjmfnv5">(필수)</span>
 							</div>
-							<a class="css-7chi73 e1sjmfnv3" style="margin-top: 3px;" href="header.jsp" target="_blank">약관보기</a>
 							<button class="css-7chi73 e1sjmfnv3" style="margin-top: 3px;" onclick="signUpCondition(1)">약관보기</button>
 						</div>
 					<%-- 2 --%>
@@ -268,7 +269,8 @@
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path>
 											<path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-									</div><span>개인정보 수집∙이용 동의</span></label><span class="css-64z8en e1sjmfnv5">(필수)</span>
+									</div>
+									<span>개인정보 수집∙이용 동의</span></label><span class="css-64z8en e1sjmfnv5">(필수)</span>
 							</div>
 							<button class="css-7chi73 e1sjmfnv3" style="margin-top: 3px;" onclick="signUpCondition(2)">약관보기</button>
 						</div>
@@ -282,9 +284,7 @@
 										<path d="M23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12Z" stroke="#ddd" fill="#fff"></path>
 										<path d="M7 12.6667L10.3846 16L18 8.5" stroke="#ddd"stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 									</div>
-									<span>본인은 만 14세 이상입니다.</span>
-								</label>
-								<span class="css-64z8en e1sjmfnv5">(필수)</span>
+									<span>본인은 만 14세 이상입니다.</span></label><span class="css-64z8en e1sjmfnv5">(필수)</span>
 							</div>
 						</div>
 					</div>
@@ -299,7 +299,6 @@
 	</div>
 	</div>
 	</form>
-
 	<jsp:include page="footer.jsp" />
 </body>
 </html>

@@ -1,6 +1,5 @@
 package com.springlec.base.service;
 
-import java.util.List;
 import java.util.Map;
 
 import com.springlec.base.model.Notice;
@@ -11,4 +10,5 @@ public interface NoticeService {
 	
 	public int totalRowCount(String keyword) throws Exception;
 	
+	public Notice noticeDetail(String eventid) throws Exception;
 }

@@ -14,7 +14,7 @@ public interface InquiryService {
 	
 	public void inquiryInsert(String intitle, String incontent, String inimage, String questid, String userid) throws Exception;
 
-	public String uploadFile(HttpServletRequest request, MultipartFile file) throws Exception;
+	public String uploadFile(MultipartFile file) throws Exception;
 	
 	public Inquiry inquiryDetail(String userid, String inquiryid) throws Exception;
 }

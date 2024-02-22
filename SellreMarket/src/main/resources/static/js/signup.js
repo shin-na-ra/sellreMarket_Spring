@@ -161,33 +161,22 @@ function checkAuthentication() {
 	let sysAuthentication = $("#sysAuthentic").val();
 	// 유저가 입력한 인증번호
 	let userAuthentication = $("#authentication").val();
-	// 유저 이메일을 통해 인증번호 넣기
-	let email = $("#email").val();
-	
 	
 	if (userAuthentication == null || userAuthentication == "") {
-		alert("인증번호를 입력하세요.");
+		$("#checkedEmail").text("인증번호를 입력하세요.");
+		$("#checkedEmail").css("color", "red");
 	}
 	else if (sysAuthentication != userAuthentication) {
-		alert("정확한 인증번호를 입력하세요.")
+		$("#checkedEmail").text("정확한 인증번호를 입력하세요.");
+		$("#checkedEmail").css("color", "red");
 	}
 	else {
-		$.ajax({
-			type:"POST",
-			url:"authenticKeyCheck.do",
-			data: {
-				authentication:userAuthentication,
-				email:email
-				},
-			success: function(response) {
-				if (response == false) {
-					alert("인증이 완료 되었습니다.")
-				  	$("#confirmCheck").prop("disabled", true); // idDuplicatedCheck 버튼을 비활성화
-					$("#authentication").prop("readonly", true); // memberId 입력란을 읽기 전용으로 설정
-				}
-				
-			}
-		});
+		//$("#emailcheckmessage").text("인증이 완료 되었습니다.");
+		$("#emailcheckmessage").text("");
+		$("#checkedEmail").text("인증이 완료 되었습니다.");
+		$("#checkedEmail").css("color", "green");
+		$("#confirmCheck").prop("disabled", true); // idDuplicatedCheck 버튼을 비활성화
+		$("#authentication").prop("readonly", true); // memberId 입력란을 읽기 전용으로 설정
 	}
 }
 
@@ -195,11 +184,12 @@ $(document).ready(function() {
 	
 	$("#idDuplicatedCheck").click(function() {
 		
-		let wrongword = /^(?!.*\badmin\b).*$/;
-		let regExpId = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,}$/;
+		let wrongword = /admin/;
+		let regExpId = /^[a-zA-Z0-9]{6,}$/
 		let userid = $("#memberId").val();
 		
-		if (userid.match(wrongword)) {
+		
+		if (wrongword.test(userid)) {
 		    let message = "사용할 수 없는 아이디 입니다.";
 		    $("#idcheckmessage").text(message);
 		    $("#idcheckmessage").css("color", "red");
@@ -215,12 +205,12 @@ $(document).ready(function() {
 		
 		$.ajax({
 			method : "POST",
-			url : "duplicatedCheck.do",
+			url : "duplicatedCheck",
 			data : {
 				userid : userid
 			},
 			success : function(response) {
-				if(response === false){
+				if(response.result === "false"){
 					let message = "사용 불가능한 아이디 입니다."
 					 $("#idcheckmessage").text(message);
 					 $("#idcheckmessage").css("color", "red");
@@ -258,26 +248,31 @@ $(document).ready(function() {
 			$("#emailcheckmessage").css("color", "red");
 		}
 		else {
+			$("#emailcheckmessage").text("인증번호를 발송 중 입니다.");
+			$("#emailcheckmessage").css("color", "lightgrey");
 			$.ajax({
 				method : "POST",
-				url : "duplicatedCheck.do",
+				url : "duplicatedCheck",
 				data : {
 					email : email
 				},
 				success : function(response) {
-					if(response.result === false){
+					if(response.result === "false"){
 						let message = "사용 불가능한 이메일입니다."
 						 $("#emailcheckmessage").text(message);
 						 $("#emailcheckmessage").css("color", "red");
 					}
 					else {
-						alert("인증번호를 확인 후 입력 해주세요.");
-						let message = "사용 가능한 이메일입니다."
+						let message = "인증번호를 발송하였습니다.";
 						 $("#emailcheckmessage").text(message);
 						 $("#emailcheckmessage").css("color", "green");
 						 $("#emailDuplicatedCheck").prop("disabled", true); // idDuplicatedCheck 버튼을 비활성화
 						 $("#email").prop("readonly", true); // memberId 입력란을 읽기 전용으로 설정
 						emailcheck = true;
+						
+						var emailElement = document.getElementById('Emailauthentication');
+						// display 속성을 변경
+						emailElement.style.display = 'inline-flex';
 						
 						$("#sysAuthentic").val(response.authentication);
 					}
@@ -365,5 +360,3 @@ $(document).ready(function() {
 	}); // $("#mobileNumber").change
     
 })
-
-
