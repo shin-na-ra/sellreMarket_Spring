@@ -14,4 +14,16 @@ public interface AdminBrandService {
 	
 	//브랜드 상세 조회하기
 	public List<BrandDto> detail(String bname) throws Exception;
+	
+	//브랜드 수정하기
+	public void update(String bname, String oldBname) throws Exception; 
+	
+	//브랜드 삭제하기
+	public void delete(String bname) throws Exception;
+	
+	//브랜드 상태 되돌리기
+	public void updateStatus(String bname) throws Exception;
+	
+	//브랜드 등록하기
+	public void insert(String bname) throws Exception;
 }

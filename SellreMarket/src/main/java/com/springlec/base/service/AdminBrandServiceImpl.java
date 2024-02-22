@@ -32,6 +32,30 @@ public class AdminBrandServiceImpl implements AdminBrandService {
 		return dao.detail(bname);
 	}
 
+	//브랜드 수정하기
+	@Override
+	public void update(String bname, String oldBname) throws Exception {
+		dao.update(bname, oldBname);
+	}
+
+	//브랜드 삭제하기
+	@Override
+	public void delete(String bname) throws Exception {
+		dao.delete(bname);
+	}
+	
+	//브랜드 상태 되돌리기
+	@Override
+	public void updateStatus(String bname) throws Exception {
+		dao.updateStatus(bname);
+	}
+
+	//브랜드 등록하기
+	@Override
+	public void insert(String bname) throws Exception {
+		dao.insert(bname);
+	}
+
 	
 
 	

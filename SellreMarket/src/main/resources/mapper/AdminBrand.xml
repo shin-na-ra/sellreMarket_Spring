@@ -14,7 +14,15 @@
 	<!-- 2024.02.21 snr : 브랜드 조회하기 -->
 	<select id="list" resultType="com.springlec.base.model.BrandDto">
 	
-		select bname from brand group by bname
+	SELECT bname,
+	    CASE
+	        WHEN status = 1 THEN '계약중'
+	        WHEN status = 0 THEN '계약해지'
+	        ELSE NULL
+	    END AS status
+	FROM brand
+	GROUP BY bname, status, brandid
+	ORDER BY brandid desc;
 		
 	</select>
 	
@@ -23,8 +31,36 @@
 	<!-- 2024.02.21 snr : 브랜드 상세 조회하기  -->
 	<select id="detail" resultType="com.springlec.base.model.BrandDto">
 	
-		select bname from brand where bname = #{bname} group by bname 
+		select bname, status from brand where bname = #{bname} group by bname, status 
 	
 	</select>
+	
+	
+	<!-- 2024.02.21 snr : 브랜드 수정하기  -->
+	<update id="update">
+	
+		UPDATE brand SET
+		bname = #{bname}
+		WHERE bname = #{oldBname}
+	
+	</update>
+	
+	<!-- 2024.02.22 snr : 브랜드 삭제하기 -->
+	<update id="delete">
+		UPDATE brand SET STATUS = 0 WHERE  bname = #{bname} 
+	</update>
+	
+	
+	<!-- 2024.02.22 snr : 브랜드 등록하기 -->
+	<insert id="insert">
+		insert into brand (bname, status) values (#{bname}, '1')
+	</insert>
+	
+	<!-- 2024.02.22 snr : 브랜드 상태값 되돌리기 -->
+	<update id="updateStatus">
+		UPDATE brand SET STATUS = 1 WHERE  bname = #{bname} 
+	</update>
+	
+	
 	
 </mapper>
