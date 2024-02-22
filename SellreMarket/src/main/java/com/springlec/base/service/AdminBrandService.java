@@ -2,16 +2,11 @@ package com.springlec.base.service;
 
 import java.util.List;
 
+import com.springlec.base.model.AdminPageDto;
 import com.springlec.base.model.BrandDto;
 
 public interface AdminBrandService {
 
-	//브랜드 리스트 개수 가져오기
-	public int brandCnt() throws Exception; 
-	
-	//브랜드 리스트 조회
-	public List<BrandDto> list() throws Exception;
-	
 	//브랜드 상세 조회하기
 	public List<BrandDto> detail(String bname) throws Exception;
 	
@@ -26,4 +21,16 @@ public interface AdminBrandService {
 	
 	//브랜드 등록하기
 	public void insert(String bname) throws Exception;
+	
+	//게시글 리스트 조회
+	public List<BrandDto> pageList(int index_no) throws Exception;
+	
+	//게시글 수
+	public int boardCount() throws Exception;
+
+	public AdminPageDto pagingParam(int pageStart) throws Exception;
+	
+	//브랜드명 중복 체크
+	public int checkBrand(String bname) throws Exception;
+
 }

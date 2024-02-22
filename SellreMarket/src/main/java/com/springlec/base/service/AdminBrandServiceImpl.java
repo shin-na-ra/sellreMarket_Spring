@@ -6,25 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springlec.base.dao.AdminBrandDao;
+import com.springlec.base.model.AdminPageDto;
 import com.springlec.base.model.BrandDto;
 
 @Service
 public class AdminBrandServiceImpl implements AdminBrandService {
 
+	int pageLimit = 15;
+	int blockLimit = 5;
+	
 	@Autowired
 	AdminBrandDao dao;
 	
-	//브랜드 개수 가져오기
-	@Override
-	public int brandCnt() throws Exception {
-		return dao.brandCnt();
-	}
+	@Autowired
+	AdminPageDto dto;
 	
-	//브랜드 리스트 조회
-	@Override
-	public List<BrandDto> list() throws Exception {
-		return dao.list();
-	}
+	
 
 	//브랜드 상세 조회하기
 	@Override
@@ -56,8 +53,55 @@ public class AdminBrandServiceImpl implements AdminBrandService {
 		dao.insert(bname);
 	}
 
+//	@Override
+//	public List<BrandDto> pageList(int page, int index_no) throws Exception {
+//		
+//		int pageStart = (page - 1) * pageLimit + 1;
+//		System.out.println("[service] pageList :  "+pageStart);
+//		return dao.pageList(pageStart);
+//	}
 	
+	@Override
+	public List<BrandDto> pageList(int page) throws Exception {
+		
+		int pageStart = (page - 1) * pageLimit + 1;
+		System.out.println("[service] pageList :  "+pageStart);
+		return dao.pageList(pageStart);
+	}
 
-	
+	@Override
+	public AdminPageDto pagingParam(int page) throws Exception {
+		int boardCount = dao.boardCount();
+		System.out.println("boardCount :" + boardCount);
+		
+		int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+		
+		//시작페이지 계산
+		int startPage = (int)(Math.ceil((double) page / blockLimit) - 1) * blockLimit + 1;
+		System.out.println("startPage :" + startPage);
+		
+		int endPage = startPage + blockLimit -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		dto.setPage(page);
+		dto.setStartPage(startPage);
+		dto.setMaxPage(maxPage);
+		dto.setEndPage(endPage);
+		
+		return dto;
+ 	}
+
+	@Override
+	public int boardCount() throws Exception {
+		return dao.boardCount();
+
+	}
+
+	@Override
+	public int checkBrand(String bname) throws Exception {
+		return dao.checkBrand(bname);
+	}
 
 }
