@@ -105,7 +105,8 @@ table tr:hover {
        margin-bottom: 150px;
    } 
    
-#paging button {
+#paging button,
+#paging .button {
     background-color: #f2f2f2;
     border: none;
     color: #333;
@@ -115,11 +116,17 @@ table tr:hover {
     border-radius: 4px;
 }
 
-#paging button:hover {
+#paging button:hover,
+#paging .button:hover {
     background-color: #f9f9f9;
 }
 
-#paging button:disabled {
+#paging button:disabled,
+#paging .button:disabled {
     background-color: #ddd;
     cursor: not-allowed;
+}
+
+.button {
+	text-decoration: none;
 }  

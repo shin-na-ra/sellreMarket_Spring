@@ -23,7 +23,7 @@
 		<div class="main">
 			<div class="title" style="display : inline-block">브랜드 관리</div>
 			<div class="btnGroup" style="display : inline-block">
-				<a href="adminBrandRegister.do"><button class="registerBtn">등록</button></a>
+				<a href="adminBrandRegister"><button class="registerBtn">등록</button></a>
 			</div>
 			<div class="main_content">
 				<div id="result" class="tableContainer">
@@ -31,19 +31,59 @@
 						<tr>
 							<th>행번호</th>
 							<th>브랜드명</th>
+							<th>상태</th>
 						</tr>
-						<c:set var="cnt" value="1" />
+						<c:set var="cnt" value="${rowNum }" />
 						<c:forEach items="${list}" var="dto">
 							<tr>
-								<td><a href="adminBrandDetail?bname=${dto.bname }">${cnt}</a></td>
+								<td><a href="adminBrandDetail?bname=${dto.bname }">${rowNum}</a></td>
 								<td><a href="adminBrandDetail?bname=${dto.bname }">${dto.bname }</a></td>
+								<td><a href="adminBrandDetail?bname=${dto.bname }">${dto.status }</a></td>
 							</tr>
-							<c:set var="cnt" value="${cnt=cnt+1 }" />
+							  <c:if test="${rowNum > 1}">
+		                        <c:set var="cnt" value="${rowNum = rowNum-1 }" />
+		                    </c:if>
 						</c:forEach>
 					</table>
 				</div> <!-- 테이블 조회 위치 -->
 			</div>
-			<div id="paging"></div>	<!-- 페이징 조회 위치 -->
+			
+			<!-- 페이징 시작 -->
+			<div id="paging">
+				  <!-- 이전버튼 시작 -->
+				  <c:choose>
+				    <c:when test="${paging.page <= 1}">
+				      <button disabled>&lt;</button>
+				    </c:when>	
+				    <c:otherwise>
+				      <a href="/adminBrand?page=${paging.page - 1}" class="button">&lt;</a>
+				    </c:otherwise>				
+				  </c:choose>
+				  <!-- 이전버튼 끝 -->
+				  
+				  <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+				    <c:choose>
+				      <c:when test="${i eq paging.page}">
+				        <button class="current">${i}</button>
+				      </c:when>
+				      <c:otherwise>
+				        <a href="/adminBrand?page=${i}" class="button">${i}</a>
+				      </c:otherwise>
+				    </c:choose>
+				  </c:forEach>
+				  
+				  <!-- 다음버튼 시작 -->
+				  <c:choose>
+				    <c:when test="${paging.page >= paging.maxPage}">
+				      <button disabled>&gt;</button>
+				    </c:when>	
+				    <c:otherwise>
+				      <a href="/adminBrand?page=${paging.page + 1}" class="button">&gt;</a>
+				    </c:otherwise>				
+				  </c:choose>
+				  <!-- 다음버튼 끝 -->
+			</div>
+
 		</div>
 		
 		<div id="ddd"></div>
