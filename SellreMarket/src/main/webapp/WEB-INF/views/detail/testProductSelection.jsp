@@ -7,7 +7,7 @@
 </head>
 <body>
     <form action="productDetailPage" method="get">
-        <button type="submit" name="productId" value="1">상품 1</button>
+        <button type="submit" name="productId" value="124">상품 1</button>
     </form>
     <form action="productDetailPage" method="get">
         <button type="submit" name="productId" value="2">상품 2</button>

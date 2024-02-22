@@ -23,17 +23,21 @@
 		<!-- 외부 CSS -->
 		<link rel="preload" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" as="style"/>
 		<link rel="stylesheet" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" data-n-g=""/>
-		<link rel="stylesheet" href="css/detailPage.css" />
+		<link rel="stylesheet" href="css/detail/detailPage.css" />
 	</head>
 <body>
 	<!--  
 	<script src="js/detailPage.js" />-->
 	<jsp:include page="../header.jsp" />
-	<c:forEach items="${list}" var="dto">
+	<c:set var="dto" value="${product[0]}"/>
 	<div class="css-n48rgu ex9g78v0">
 		<div class="css-16c0d81 e1brqtzw0">
 			<main id="product-atf" class="css-1eoy87d e17iylht5">
-				<div class="css-5v50l3 e17iylht4"></div>
+				<div class="css-5v50l3 e17iylht4">
+				<c:forEach items="${product}" var="image">
+					<img class="product-image" alt="꼴기.jpg" src="image/product/${image.productImage}">
+				</c:forEach>
+				</div>
 				<section class="css-1ua1wyk e17iylht3">
 					<div class="css-1qy9c46 ezpe9l12">
 						<h1 class="css-79gmk3 ezpe9l11">${dto.productName}</h1>
@@ -117,11 +121,10 @@
 								</div>
 							</div>
 						</div>
-					</div>
-			</section>
-		</main>
+				</section>
+			</main>
+		</div>
 	</div>
-	</c:forEach>
 	<jsp:include page="../footer.jsp" flush="false" />
 	<script>
 	    // 페이지 로드 시 자동으로 지정된 URL로 이동하는 함수

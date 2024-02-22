@@ -24,7 +24,7 @@
     <!-- 외부 CSS -->
     <link rel="preload" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" as="style"/>
     <link rel="stylesheet" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" data-n-g=""/>
-    <link rel="stylesheet" href="css/detailPage.css" />
+    <link rel="stylesheet" href="css/detail/detailPage.css" />
 
     <!-- 내부 CSS -->
     <style>
@@ -121,6 +121,6 @@
     <jsp:include page="../footer.jsp" flush="false" />
 
     <!-- 외부 JavaScript 파일 -->
-    <script src="js/recipeDetailPage.js"></script>    
+    <script src="js/detail/recipeDetailPage.js"></script>    
 </body>
 </html>

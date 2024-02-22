@@ -15,15 +15,25 @@ public class DetailServiceImpl implements DetailService {
 	DetailDao dao;
 	
 	@Override
-	public List<DetailDto> productListDao() throws Exception {
+	public List<DetailDto> productListDao(String string) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.productListDao();
+		return dao.productListDao(string);
 	}
 
 	@Override
-	public List<DetailDto> recipeListDao() throws Exception {
+	public List<DetailDto> recipeListDao(String string) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.recipeListDao();
+		return dao.recipeListDao(string);
+	}
+
+	@Override
+	public void cartInputDao(String[] arrCartItemNames, String[] arrCartItemQuantities) {
+		// TODO Auto-generated method stub
+		for(int i=0; i<arrCartItemNames.length; i++) {
+		dao.cartInputDao(arrCartItemNames[i], arrCartItemQuantities[i]);
+		System.out.println(arrCartItemNames[i]);
+		System.out.println(arrCartItemQuantities[i]);
+		}
 	}
 
 }
