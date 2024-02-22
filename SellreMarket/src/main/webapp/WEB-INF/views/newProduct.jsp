@@ -71,8 +71,9 @@
 
 </head>
 <body>
+    <input type="hidden" value="신상품" id="category">
+    <input type="hidden" value="${alignCategory}" id="alignCategory">
     
-	<!-- Topbar Start -->
 	<jsp:include page="header.jsp"></jsp:include>
 	<!-- Topbar End -->
 
@@ -101,14 +102,14 @@
 			<a href="alignNewHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '낮은 가격순'}">
-			<a href="/">신상품순</a>
+			<a href="/main">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">낮은 가격순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<a href="alignNewHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '높은 가격순'}">
-			<a href="/">신상품순</a>
+			<a href="/main">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<a href="alignNewLowPrice">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;

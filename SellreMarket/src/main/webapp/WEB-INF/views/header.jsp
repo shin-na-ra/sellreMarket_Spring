@@ -115,7 +115,7 @@ function inquirywrite() {
 			<div class="css-r7wmjj e15sbxqa3">
 				<div class="css-boc80u ekdqe1a1">
 					<div class="css-boc80u ekdqe1a1">
-					<a href="mainPage.do"> <img src="image/Sellre.png"
+					<a href="/main"> <img src="image/Sellre.png"
 						alt="셀리마켓 로고" class="css-17mnrrx e1s3pt0j0">
 						<button class="active css-mxd3pm ekdqe1a0">셀리마켓</button>
 					</a>
@@ -159,10 +159,10 @@ function inquirywrite() {
 						<li class="css-59mmhh e17w4cfr4">
 							<span class="css-1xyu7j9 e17w4cfr2">
 								<c:if test="${headerCategory eq '신상품'}">
-									<a href="mainPage.do" style="color: #c14a09; font-weight: bold;">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="/main" style="color: #c14a09; font-weight: bold;">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
 								</c:if>
 								<c:if test="${headerCategory ne '신상품'}">
-									<a href="mainPage.do">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="/main">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
 								</c:if>
 							</span>
 						</li>
@@ -170,20 +170,20 @@ function inquirywrite() {
 					<li class="css-59mmhh e17w4cfr4">
 						<span class="css-1xyu7j9 e17w4cfr2">
 							<c:if test="${headerCategory eq '베스트'}">
-								<a href="bestProduct.do" style="color: #c14a09; font-weight: bold;">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="/bestProduct" style="color: #c14a09; font-weight: bold;">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
 							</c:if>
 							<c:if test="${headerCategory ne '베스트'}">
-								<a href="bestProduct.do">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="/bestProduct">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
 							</c:if>
 						</span>
 					<li class="css-59mmhh e17w4cfr4">
 						<span class="css-1xyu7j9 e17w4cfr2">
 							<span class="css-1xyu7j9 e17w4cfr2">
 							<c:if test="${headerCategory eq '레시피'}">
-								<a href="recipePage.do" style="color: #c14a09; font-weight: bold;">레시피</a>
+								<a href="/recipeProduct" style="color: #c14a09; font-weight: bold;">레시피</a>
 							</c:if>
 							<c:if test="${headerCategory ne '레시피'}">
-								<a href="recipePage.do">레시피</a>
+								<a href="/recipeProduct">레시피</a>
 							</c:if>
 						</span>						
 						</span>

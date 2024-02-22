@@ -4,33 +4,46 @@ import java.util.List;
 
 import com.springlec.base.model.Product;
 
-
 public interface ProductDao {
 	
-	// new Product
-	// new Product info load
+	// New Product
+	// main new Product info 
 	public List<Product> newProductView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
 	// new Product info align asc
 	public List<Product> newProductAlignAscView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
 	// new Product info align desc
 	public List<Product> newProductAlignDescView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
 	// new ad Img 
-	public String getNewAdImg() throws Exception;
+	public String newAdImg() throws Exception;
 	
-	수정해야수정해야수정해야수정해야수정해야수정해야수정해야수정해야수정해야
+	// Best Product
+	// main Best Product info 
+	public List<Product> bestProductView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	// Best Product info align asc
+	public List<Product> bestProductAlignAscView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	// Best Product info align desc
+	public List<Product> bestProductAlignDescView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> bestAdImgs() throws Exception;
+	
+	// Recipe Product
+	// main Recipe Product info 
+	public List<Product> recipeProductView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	// Recipe Product info align asc
+	public List<Product> recipeProductAlignAscView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	// Recipe Product info align desc
+	public List<Product> recipeProductAlignDescView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	
+	
+	
 	// Paging
-	// product page count 
-	public int ProductPageCount(String headerCategory, String alignCategory) throws Exception;
 	// new product page count  
 	public int newProductPageCount() throws Exception;
 	// best product page count 
 	public int bestProductPageCount() throws Exception;
 	// recipe product page count 
 	public int recipeProductPageCount() throws Exception;
-	
-	// best Product info load
-	public List<Product> bestProductView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
 
+	
 	// Cart
 	// sum cart Count 
 	public int cartCount(String id) throws Exception;

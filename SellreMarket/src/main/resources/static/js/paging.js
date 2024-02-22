@@ -1,25 +1,50 @@
-// Ajax 요청	
-window.onload = function() {
-	console.log("load completely");
+// Ajax 요청
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    var category = document.getElementById("category").value;
+    var align = document.getElementById("alignCategory").value;
+    
+    if ($("#curPage").val() < 1) {
+		var curPage = 1;	
+	}
+	else {
+		curPage = $("#curPage").val()
+	}
+	
+    console.log(curPage  + "  inside paging.js curPage data");
+    console.log(category + "  : category");
+    console.log(align + " : align adsfkla");
+    
 	$.ajax({
 		type: "POST",
-		url: "paging",
-		data: {curPage:$("#curPage").val()},
+		url: "/paging",
+		data: {
+			curPage:curPage,
+			category:category,
+			align:align
+			},
 		success: function(response) {
+			console.log("successfully get in paging js")
 			paging(response)
 		}
 	});
-}
+});
+
 
 function paging(data) {
-
+	
 	var curPage = data.curPage;
 	var endPage = data.endPage;
 	var href = data.href;
 	var a = "";
+	
+	console.log(curPage + " :  data curPage");
+	console.log(endPage + " :  data endPage");
+	console.log(href + " :  data href");
 
 	if (curPage >= 4) {
-		a +=  href + (curPage - 1) + "' class='prev' style='border: solid; border-width: 1px; border-color: lightgrey; font-size: 20px; cursor: pointer; margin-left: 10px; margin-right: 10px;'> << </a>";
+		a +=  href +(curPage - 1) + "' class='prev' style='border: solid; border-width: 1px; border-color: lightgrey; font-size: 20px; cursor: pointer; margin-left: 10px; margin-right: 10px;'> << </a>";
 	}
 
 	if (curPage <= 3) {
