@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE >
 <html lang="ko">
 <head>
@@ -228,4 +228,3 @@
 	<script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/introduce","query":{},"buildId":"68L4oDF5CxrH0qdDqMtse","assetPrefix":"https://res.kurly.com","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script>
 </body>
 </html>
-

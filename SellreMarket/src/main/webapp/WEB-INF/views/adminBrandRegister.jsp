@@ -13,24 +13,18 @@
 <link rel="stylesheet" href="css/adminBrandRegister.css" />
 <script src="js/adminBrandRegister.js"></script>
 </head>
-<style>
-
-    
-</style>
-<script>
-
-</script>
 <body id="body">
 	<jsp:include page="adminHeader.jsp" flush="false" />
 		<div class="main">
 			<div class="title">브랜드 등록</div>
 		
-			<form name="categoryForm">
+			<form name="categoryForm" method="post">
 					
 				<div class="form-group">
 					<label for="bname">브랜드명 * </label>
 					<input type="text" id="bname" name="bname">
 				</div>
+				<span id="reg" style="color:red; display:none; margin-top:10px;"></span>
 			</form>
 			<input type="submit" class="registerBtn" onclick="insertBrand()" value="등록">
 	</div>

@@ -269,7 +269,7 @@ button {
 }
 
 .css-axtlq9:hover > span:first-of-type {
-    background: url(../image/menu.png) 0px 0px no-repeat;
+    background: url(/image/menu.png) 0px 0px no-repeat;
 }
 
 .css-axtlq9:hover > span:last-of-type {

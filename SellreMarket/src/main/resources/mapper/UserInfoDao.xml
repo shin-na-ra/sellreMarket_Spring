@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.UserInfoDao">
+
+	<select id="checkDuplicatedId" resultType="Integer">
+		SELECT COUNT(userid) FROM customer WHERE userid = #{userid}
+	</select>
+	
+	<select id="checkDuplicatedEmail" resultType="Integer">
+		SELECT COUNT(email) FROM customer WHERE email = #{email}
+	</select>
+	
+	<insert id="deliveryInfo">
+		INSERT INTO addresslist (address,detailaddress,defaultset,userid) VALUES (#{address}, #{detailAddress}, #{defaultset}, #{userid})
+	</insert>
+	
+	<insert id="customerSignUp">
+		INSERT INTO customer (userid, password, tel_no, name, email, address, detailaddress, gender, birthdate, status, insertdate, updatedate)
+		VALUES (#{userid},#{password},#{tel},#{name},#{email},#{address},#{detailAddress},#{gender},#{birthdate},1,now(),now()) 
+	</insert>
+	
+	<update id="updateUserInfo">
+		UPDATE customer SET password=#{password}, tel_no=#{tel}, name=#{name}, email=#{email}, address=#{address}, detailaddress=#{detailAddress}, gender=#{gender}, birthdate=#{birthdate}, updatedate=now()
+		WHERE userid=#{userid}
+	</update>
+	
+	<select id="checkID" resultType="String">
+		SELECT name FROM customer WHERE userid = #{userid} AND password = #{password} AND status = 1
+	</select>
+	
+	<select id="userDetail" resultType="com.springlec.base.model.UserInfo">
+		SELECT * FROM customer WHERE userid = #{userid}
+	</select>
+	
+	<update id="deleteUserInfo">
+		UPDATE customer SET status = 0, updatedate = now() WHERE userid = #{userid}
+	</update>
+	
+	<select id="findUserID" resultType="String">
+		SELECT userid FROM customer WHERE name = #{name} and email = #{email}
+	</select>
+	
+	<select id="findPW" resultType="Integer">
+		SELECT Count(userid) FROM customer WHERE userid=#{userid} and name=#{name} and email=#{email}
+	</select>
+	
+	<update id="updatePassword">
+		UPDATE customer SET password = #{password}, updatedate = now() WHERE userid = #{userid}
+	</update>
+	
+</mapper>

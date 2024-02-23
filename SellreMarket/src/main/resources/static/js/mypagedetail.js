@@ -22,11 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	phonecheck = true;
  	birthdatecheck = true;
  	
-	console.log(birthdate);
-	console.log(birthYear);
-	console.log(birthMonth);
-	console.log(birthDay);
-	
 	// -----------------------------------
 
     // 라디오 버튼 요소들을 가져옴
@@ -60,10 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
             labelElement.textContent = receivedGender === "MALE" ? "남자" : (receivedGender === "FEMALE" ? "여자" : "선택안함");
         	
         	spanElement.classList.add('css-5xw1m2')
-        	// 각 라디오 버튼의 상태 확인
-        	console.log("라디오 버튼 값: " + radioButton.value);
-        	console.log("span 요소 클래스: " + spanElement.className);
-        	console.log("span 요소 텍스트: " + labelElement.textContent);
         }
     });
 
@@ -92,6 +83,6 @@ function deleteuserinfo() {
 	var result = window.confirm("정말로 탈퇴를 진행하시겠습니까? 탈퇴하면 셀리마켓 이용이 제한될 수 있습니다.")
 	if (result === true) {
 		alert("탈퇴 되었습니다.")
-		window.location.href = 'deleteuserinfo.do';
+		window.location.href = 'deleteuser';
 	}
 }

@@ -7,19 +7,17 @@
 <meta charset="UTF-8">
 <title>Sellre Market Login</title>
 
-<link rel="preload" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" as="style" />
-<link rel="stylesheet" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" data-n-g />
+<!-- <link rel="preload" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" as="style" />
+<link rel="stylesheet" href="https://res.kurly.com/_next/static/css/d59287ec5b86dc49.css" data-n-g /> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="css/login.css" />
-
 </head>
 <script src="js/Login.js"></script>
 
 <body>
-
 	<!-- footer start -->
 		<jsp:include page="header.jsp"/>
 	<!-- footer end -->
-
 	<div class="css-1bb6q2p etkckst2">
 		<div class="css-a7gihu etkckst1">로그인</div>
 		<div class="css-1axolzg etkckst0">
@@ -30,7 +28,6 @@
 							<input id="id"
 								placeholder="아이디를 입력해주세요" type="text"
 								class="css-u52dqk e1uzxhvi2">
-							<c:set var="setId" value="${param.id}" scope="request" />
 						</div>
 					</div>
 					<div class="css-1accgqb e1uzxhvi6">
@@ -40,17 +37,18 @@
 								class="css-u52dqk e1uzxhvi2">
 						</div>
 					</div>
+					<span id="message"></span>
 				</div>
 				<div class="css-1vjdduq e18ap6t75">
-					<a class="css-i4t6me e18ap6t74">아이디 찾기</a><span
+					<a class="css-i4t6me e18ap6t74" href="findid">아이디 찾기</a><span
 						class="css-1cgn39v e18ap6t73"></span><a
-						class="css-i4t6me e18ap6t74">비밀번호 찾기</a>
+						class="css-i4t6me e18ap6t74" href="findpw">비밀번호 찾기</a>
 				</div>
 				<div class="css-s4i9n2 e18ap6t71">
 					<button class="css-qaxuc4 e4nu7ef3" type="button" height="54" radius="3" onclick="checkId()">
 						<span class="css-nytqmg e4nu7ef1">로그인</span>
 					</button>
-					<button class="css-hxorrg e4nu7ef3" type="button" height="54" radius="3" onclick="signup()">
+					<button class="css-hxorrg e4nu7ef3" type="button" height="54" radius="3" onclick="window.location.href = 'signup'">
 						<span class="css-nytqmg e4nu7ef1">회원가입</span>
 					</button>
 				</div>
@@ -60,7 +58,7 @@
 	
 	
 	<!-- footer start -->
-	<jsp:include page="footer.html"/>
+	<jsp:include page="footer.jsp"/>
 	<!-- footer end -->
 </body>
 </html>

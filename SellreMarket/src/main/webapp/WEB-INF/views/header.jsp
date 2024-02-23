@@ -24,27 +24,24 @@
 
 
 <script type="text/javascript">
-
 //header.jsp
 function updateCartCount(cartCount) {
     $("#cartCount").text(cartCount);
 }
 
-var id = '<%=(String)session.getAttribute("id")%>';
 function inquirywrite() {
-	// 로그인 여부 확인
-	if (id !== "null") {
-		window.location.href = 'inquiry.do';
-	}
-	else {
+	if (document.getElementById("userid1").value === "") {
 		var result = window.confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")
 		if (result === true) {
-			window.location.href = 'Login.jsp';
+			window.location.href = 'login';
 		}
+	} else {
+		window.location.href = 'inquiry';
 	}
 }
 </script>
 </head>
+<input type="hidden" id="userid1" value="${sessionScope.id}">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="js/category.js" ></script>
 <link rel="preload"
@@ -57,7 +54,7 @@ function inquirywrite() {
 <body>
 	<div class="css-16h7nba e1p13h9k3">
 		<div class="css-pqw0uk e1p13h9k2">
-			<a href="Login.jsp" rel="noreferrer" target="_self"
+			<a href="login" rel="noreferrer" target="_self"
 				class="css-129c9b5 e1p13h9k1"><div>
 					지금 바로, <b>셀리마켓</b> 가입하세요!
 				</div></a>
@@ -76,28 +73,27 @@ function inquirywrite() {
 			</button>
 		</div>
 	</div>
-
 	<div>
 		<div class="css-t79vuj e15sbxqa2">
 			<div class="css-1xfyvd1 eo7pjfk4">
 			<c:choose>
 				<c:when test="${empty sessionScope.id}">
-				<a class="css-xygizb eo7pjfk2" href="CustomerSignup.jsp">회원가입</a>
+				<a class="css-xygizb eo7pjfk2" href="signup">회원가입</a>
 				<div class="css-1qgm48u eo7pjfk0"></div>
-				<a class="css-oyffzd eo7pjfk2" href="Login.jsp">로그인</a>
+				<a class="css-oyffzd eo7pjfk2" href="login">로그인</a>
 				<div class="css-1qgm48u eo7pjfk0"></div>
 				</c:when>
 				<c:otherwise>
 				<div class="css-1qolcqm eo7pjfk3">
 					<a class="css-oyffzd eo7pjfk2">${sessionScope.userName} 님<span class="css-1lrerrk eo4j3y50"></span></a>
 					<div class="menu css-1ho29iy ecncdj41">
-						<div class="css-12olpw6 ecncdj40"><a href="mypageinfo.jsp">개인정보 수정</a></div>
+						<div class="css-12olpw6 ecncdj40"><a href="mypageinfo">개인정보 수정</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">장바구니</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">주문내역</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 상품</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 레시피</a></div>
-						<div class="css-12olpw6 ecncdj40"><a href="inquiry.do">1:1 문의</a></div>
-						<div class="css-12olpw6 ecncdj40"><a href="logout.do">로그아웃</a></div>
+						<div class="css-12olpw6 ecncdj40"><a href="inquiry">1:1 문의</a></div>
+						<div class="css-12olpw6 ecncdj40"><a href="logout">로그아웃</a></div>
 					</div>
 				</div>
 				<div class="css-1qgm48u eo7pjfk0"></div>
@@ -106,16 +102,16 @@ function inquirywrite() {
 				<div class="css-1qolcqm eo7pjfk3">
 					<a class="css-oyffzd eo7pjfk2">고객센터<span class="css-1lrerrk eo4j3y50"></span></a>
 					<div class="menu css-1ho29iy ecncdj41">
-						<div class="css-12olpw6 ecncdj40"><a href="notice.jsp">공지사항</a></div>
+						<div class="css-12olpw6 ecncdj40"><a href="notice">공지사항</a></div>
 						<div class="css-12olpw6 ecncdj40"><a onclick='inquirywrite()'>1:1 문의</a></div>
-						<div class="css-12olpw6 ecncdj40"><a href="user_guide.jsp">이용안내</a></div>
+						<div class="css-12olpw6 ecncdj40"><a href="user_guide">이용안내</a></div>
 					</div>
 				</div>
 			</div>
 			<div class="css-r7wmjj e15sbxqa3">
 				<div class="css-boc80u ekdqe1a1">
 					<div class="css-boc80u ekdqe1a1">
-					<a href="mainPage.do"> <img src="image/Sellre.png"
+					<a href="/main"> <img src="image/Sellre.png"
 						alt="셀리마켓 로고" class="css-17mnrrx e1s3pt0j0">
 						<button class="active css-mxd3pm ekdqe1a0">셀리마켓</button>
 					</a>
@@ -156,34 +152,34 @@ function inquirywrite() {
 					</div>
 				</div>
 				<ul class="css-1887xqd e17w4cfr5">
-						<li class="css-59mmhh e17w4cfr4">
+						<li class="css-59mmhh e17w4cfr4" style="margin-right: 15px;">
 							<span class="css-1xyu7j9 e17w4cfr2">
 								<c:if test="${headerCategory eq '신상품'}">
-									<a href="mainPage.do" style="color: #c14a09; font-weight: bold;">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="/main" style="color: #c14a09; font-weight: bold;">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
 								</c:if>
 								<c:if test="${headerCategory ne '신상품'}">
-									<a href="mainPage.do">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="/main">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
 								</c:if>
 							</span>
 						</li>
 						
-					<li class="css-59mmhh e17w4cfr4">
+					<li class="css-59mmhh e17w4cfr4" style="margin-right: 15px;">
 						<span class="css-1xyu7j9 e17w4cfr2">
 							<c:if test="${headerCategory eq '베스트'}">
-								<a href="bestProduct.do" style="color: #c14a09; font-weight: bold;">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="/bestProduct" style="color: #c14a09; font-weight: bold;">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
 							</c:if>
 							<c:if test="${headerCategory ne '베스트'}">
-								<a href="bestProduct.do">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="/bestProduct">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
 							</c:if>
 						</span>
 					<li class="css-59mmhh e17w4cfr4">
 						<span class="css-1xyu7j9 e17w4cfr2">
 							<span class="css-1xyu7j9 e17w4cfr2">
 							<c:if test="${headerCategory eq '레시피'}">
-								<a href="recipePage.do" style="color: #c14a09; font-weight: bold;">레시피</a>
+								<a href="/recipeProduct" style="color: #c14a09; font-weight: bold;">레시피</a>
 							</c:if>
 							<c:if test="${headerCategory ne '레시피'}">
-								<a href="recipePage.do">레시피</a>
+								<a href="/recipeProduct">레시피</a>
 							</c:if>
 						</span>						
 						</span>

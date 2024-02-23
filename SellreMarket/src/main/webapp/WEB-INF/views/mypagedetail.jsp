@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<div class="css-1492bdb e1f12ame0">
-				<form name="signupForm" action="signup.do" method="post">
+				<form name="signupForm" action="userInfo" method="post">
 					<div class="css-pculus e1ovi4141" style="margin-top: 20px;">
 						<div class="css-mhmtvt e15so55l1" style="margin-top: 20px; margin-left: 0px; border-top:solid; border-top-width: 1px;">
 							<div class="css-y8aj3r eo6ykj40">
@@ -42,7 +42,7 @@
 											<div class="css-176lya2 e1uzxhvi3">
 												<input data-testid="input-box" id="memberId" name="memberId"
 													placeholder="아이디를 입력해주세요" type="text" required=""
-													class="css-u52dqk e1uzxhvi2" value="${UserDetail.userid}" readonly="readonly">
+													class="css-u52dqk e1uzxhvi2" value="${UserDetail.userid}" readonly="readonly" style="background-color: lightgrey;">
 											</div>
 										</div>
 									</div>
@@ -55,7 +55,7 @@
 									<div class="css-82a6rk e744wfw3">
 										<div class="css-jmalg e1uzxhvi6">
 											<div class="css-176lya2 e1uzxhvi3">
-												<input data-testid="input-box" id="nowpassword" name="nowpassword" placeholder="비밀번호를 입력해주세요" type="password" autocomplete="off" class="css-u52dqk e1uzxhvi2" value="${UserDetail.password}" readonly="readonly">
+												<input data-testid="input-box" id="nowpassword" name="nowpassword" type="password" autocomplete="off" class="css-u52dqk e1uzxhvi2" value="${UserDetail.password}" readonly="readonly">
 											</div>
 										</div>
 									</div>
@@ -124,16 +124,16 @@
 									<div class="css-82a6rk e744wfw3">
 										<div class="css-jmalg e1uzxhvi6">
 											<div class="css-176lya2 e1uzxhvi3">
-												<input data-testid="input-box" id="email" name="email"
+												<input readonly="readonly" id="email" name="email"
 													placeholder="예: SellreMarket@sellre.com" type="text"
-													required="" class="css-u52dqk e1uzxhvi2" value="${UserDetail.email}">
+													required="" class="css-u52dqk e1uzxhvi2" style="background-color: lightgrey;" value="${UserDetail.email}">
 											</div>
 										</div>
 										<span id="emailcheckmessage"></span>
 									</div>
 									<div class="css-1w0ksfz e744wfw2">
 										<button class="css-ufulao e4nu7ef3" type="button"
-											id="emailDuplicatedCheck">
+											id="emailDuplicatedCheck" style="display: none;">
 											<span class="css-nytqmg e4nu7ef1">중복확인</span>
 										</button>
 									</div>
@@ -165,7 +165,7 @@
 									<div class="css-82a6rk e744wfw3">
 										<div class="css-jmalg e1uzxhvi6">
 										<input class="css-u52dqk e1uzxhvi2" type="text" id="postcode" placeholder="우편번호" style="width: 100px; display: none;" readonly="readonly">
-											<input class="css-u52dqk e1uzxhvi2" type="text" name="address" id="address" placeholder="주소" readonly="readonly" value="${UserDetail.address}">
+											<input class="css-u52dqk e1uzxhvi2" type="text" name="address" id="address" placeholder="주소" readonly="readonly" style="background-color: lightgrey;" value="${UserDetail.address}">
 											<input class="css-u52dqk e1uzxhvi2" type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${UserDetail.detailaddress}" style="margin-top: 10px;">
 										</div>
 										<span class="css-vukl2m eq6ygzw0">배송지에 따라 상품 정보가 달라질 수
@@ -275,6 +275,6 @@
 	</div>
 	</form>
 
-	<jsp:include page="footer.html" />
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

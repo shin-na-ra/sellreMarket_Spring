@@ -9,7 +9,7 @@ $(document).ready(function() {
 		 if (!isCategoryLoaded) {
 	        // AJAX를 사용하여 JSP 페이지를 로드하고 보여줌
 	        $.ajax({
-	            url: "Category.jsp",
+	            url: "Category",
 	            method: "GET",
 	            success: function(data) {
 	                // JSP 페이지의 내용을 header.jsp에 있는 categoryBar에 삽입

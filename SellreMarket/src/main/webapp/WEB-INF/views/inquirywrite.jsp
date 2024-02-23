@@ -18,7 +18,7 @@
 					<h2 class="css-1268zpe ed9qr671">1:1 문의</h2>
 				</div>
 			</div>
-			<form id="inquiryForm" action="inquiryInsert.do" method="post" enctype="multipart/form-data">
+			<form id="inquiryForm" action="inquiryInsert" method="post" enctype="multipart/form-data">
 				<div class="css-inputrow">
 					<div class="css-titlename">유형</div>
 					<select name="questid" style="height: 44px; width: 320px; font-size: 50px; margin-top:10px;">
@@ -57,6 +57,6 @@
 			</form>
 		</div>
 	</div>
-	<jsp:include page="footer.html"/>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

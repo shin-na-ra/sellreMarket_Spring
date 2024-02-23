@@ -1,9 +1,18 @@
 
+let curPage = 1;
+   
+document.addEventListener("DOMContentLoaded", function() {
+	// AJAX 요청
+	pageNum(curPage);
+});
+
+/*
 window.onload = function(){
 	let curPage = 1;
 	// AJAX 요청
 	pageNum(curPage);
 }
+*/
 
 function createEventList(data) {
 	// 초기화
@@ -14,16 +23,12 @@ function createEventList(data) {
 	let ul = "";
 	let block = "";
 	
-	
-	//ul += "<input type='hidden' id='curPage' name='curPage' value='" + data.curPage + "'>";
-	
 	for(let i=0; i<data.eventList.length; i++) {
 	console.log("eventid : " + data.eventList[i].eventid)
 	console.log("category : " + data.eventList[i].category)
 		
 		ul += "<li>" 
-//			+ "<a href='#' onclick='eventdetail(\"" + data.eventList[i].eventid + "\")'>" 
-			+ "<a href='noticedetail.do?eventid=" + data.eventList[i].eventid + "'>" 
+			+ "<a href='noticedetail?eventid=" + data.eventList[i].eventid + "'>" 
 			+ "<div class='css-14yglsw e1cfowvj4'>"
 			+ "<div class='css-3o6rrk e1cfowvj2'>" + data.eventList[i].eventid +"</div>";
 
@@ -34,7 +39,7 @@ function createEventList(data) {
 			ul += "<div class='css-fzefrb e1cfowvj2c'>[이벤트] " + data.eventList[i].ename + "</div>"
 		}		
 		
-		ul += "<div class='css-3d2kks eß1cfowvj2'>셀리마켓</div>"
+		ul += "<div class='css-3d2kks e1cfowvj2'>셀리마켓</div>"
 			+ "<div class='css-b1hszl e1cfowvj2'>" + data.eventList[i].inputdate + "</div>"
 			+ "</div></a></li>";
 			
@@ -101,7 +106,7 @@ function pageNum(page) {
 	// AJAX 요청
 	$.ajax({
 		type : "POST",
-		url : "noticelist.do",
+		url : "noticelist",
 		data : {
 			curPage : curPage,
 			keyword : keyword
@@ -110,7 +115,8 @@ function pageNum(page) {
 			createEventList(response);
 		}, // success
 		error : function(xhr, status, error) {
-			alert("문제가 발생하였습니다." + error)
+			alert("pageNum error");
+			alert("문제가 발생하였습니다." + error);
 		}
 	}) // $.ajax
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page isErrorPage = "true" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,6 @@
         <button id="btn" class="css-submitbtn" style="width: 100%; font-size: 1.2vw;">메인화면 돌아가기</button>
     </a>
 </div>
-	<jsp:include page="footer.html" />
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

@@ -23,7 +23,7 @@
 				<h4 class="css-z4258j e1nwufn91">비밀번호 재확인</h4>
 				<p class="css-1fup356 e1nwufn90">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시
 					한번 확인해주세요.</p>
-			 <form action="mypagedetail.do" method="post" id="checkForm" name="checkForm">
+			 <form action="mypagedetail" method="post" id="checkForm" name="checkForm">
 					<div class="css-14gj3aw enqf8aq1" style="border-top: 1px solid rgb(221,221,221)">
 						<div class="css-1pjgd36 e744wfw6">
 							<div class="css-1y8737n e744wfw5">
@@ -63,6 +63,6 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="footer.html" />
+	<jsp:include page="footer.jsp" />
 </body>
 </html>
