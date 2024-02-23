@@ -155,10 +155,10 @@ function inquirywrite() {
 						<li class="css-59mmhh e17w4cfr4" style="margin-right: 15px;">
 							<span class="css-1xyu7j9 e17w4cfr2">
 								<c:if test="${headerCategory eq '신상품'}">
-									<a href="/main" style="color: #c14a09; font-weight: bold;">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="/main" style="color: #c14a09; font-weight: bold;">신상품</a>
 								</c:if>
 								<c:if test="${headerCategory ne '신상품'}">
-									<a href="/main">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="/main">신상품</a>
 								</c:if>
 							</span>
 						</li>
@@ -166,10 +166,10 @@ function inquirywrite() {
 					<li class="css-59mmhh e17w4cfr4" style="margin-right: 15px;">
 						<span class="css-1xyu7j9 e17w4cfr2">
 							<c:if test="${headerCategory eq '베스트'}">
-								<a href="/bestProduct" style="color: #c14a09; font-weight: bold;">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="/bestProduct" style="color: #c14a09; font-weight: bold;">베스트</a>
 							</c:if>
 							<c:if test="${headerCategory ne '베스트'}">
-								<a href="/bestProduct">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="/bestProduct">베스트</a>
 							</c:if>
 						</span>
 					<li class="css-59mmhh e17w4cfr4">
