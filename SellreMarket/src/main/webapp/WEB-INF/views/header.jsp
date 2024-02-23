@@ -168,24 +168,24 @@ function inquirywrite() {
 					</div>
 				</div>
 				<ul class="css-1887xqd e17w4cfr5">
-						<li class="css-59mmhh e17w4cfr4">
+						<li class="css-59mmhh e17w4cfr4" style="margin-right: 15px;">
 							<span class="css-1xyu7j9 e17w4cfr2">
 								<c:if test="${headerCategory eq '신상품'}">
-									<a href="mainPage.do" style="color: #c14a09; font-weight: bold;">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="mainPage.do" style="color: #c14a09; font-weight: bold;">신상품</a>
 								</c:if>
 								<c:if test="${headerCategory ne '신상품'}">
-									<a href="mainPage.do">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="mainPage.do">신상품</a>
 								</c:if>
 							</span>
 						</li>
 						
-					<li class="css-59mmhh e17w4cfr4">
+					<li class="css-59mmhh e17w4cfr4" style="margin-right: 15px;">
 						<span class="css-1xyu7j9 e17w4cfr2">
 							<c:if test="${headerCategory eq '베스트'}">
-								<a href="bestProduct.do" style="color: #c14a09; font-weight: bold;">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="bestProduct.do" style="color: #c14a09; font-weight: bold;">베스트</a>
 							</c:if>
 							<c:if test="${headerCategory ne '베스트'}">
-								<a href="bestProduct.do">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="bestProduct.do">베스트</a>
 							</c:if>
 						</span>
 					<li class="css-59mmhh e17w4cfr4">

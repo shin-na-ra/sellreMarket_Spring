@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springlec.base.dao.UserInfoDao;
+import com.springlec.base.model.UserInfo;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -145,4 +146,21 @@ public class UserInfoServiceImpl implements UserInfoService {
 		dao.updateUserInfo(userid, password, tel, name, email, address, detailAddress, gender, birthdate);
 	}
 
+	@Override
+	public String checkID(String userid, String password) throws Exception {
+		// ID,PW correct : "name" return
+		return dao.checkID(userid, password) != null ? dao.checkID(userid, password) : "false";
+	}
+
+	@Override
+	public UserInfo userDetail(String userid) throws Exception {
+		return dao.userDetail(userid);
+	}
+
+	@Override
+	public void userDelete(String userid) throws Exception {
+		dao.deleteUserInfo(userid);
+	}
+
+	
 }

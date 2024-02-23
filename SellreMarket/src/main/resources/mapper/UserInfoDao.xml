@@ -12,7 +12,7 @@
 	</select>
 	
 	<insert id="deliveryInfo">
-		INSERT INTO addresslist (address,detailaddress,defaultset,userid) values (#{address}, #{detailAddress}, 1, #{userid})
+		INSERT INTO addresslist (address,detailaddress,defaultset,userid) values (#{address}, #{detailAddress}, #{defaultset}, #{userid})
 	</insert>
 	
 	<insert id="customerSignUp">
@@ -23,6 +23,18 @@
 	<update id="updateUserInfo">
 		UPDATE customer SET password=#{password}, tel_no=#{tel}, name=#{name}, email=#{email}, address=#{address}, detailaddress=#{detailAddress}, gender=#{gender}, birthdate=#{birthdate}, updatedate=now()
 		WHERE userid=#{userid}
+	</update>
+	
+	<select id="checkID" resultType="String">
+		SELECT name FROM customer WHERE userid = #{userid} AND password = #{password} AND status = 1
+	</select>
+	
+	<select id="userDetail" resultType="com.springlec.base.model.UserInfo">
+		SELECT * FROM customer WHERE userid = #{userid}
+	</select>
+	
+	<update id="deleteUserInfo">
+		UPDATE customer SET status = 0 WHERE userid = #{userid}
 	</update>
 	
 </mapper>

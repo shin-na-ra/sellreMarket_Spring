@@ -9,19 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springlec.base.model.Inquiry;
-import com.springlec.base.model.Notice;
+import com.springlec.base.model.UserInfo;
 import com.springlec.base.service.InquiryService;
 import com.springlec.base.service.NoticeService;
 import com.springlec.base.service.UserInfoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 @Controller
 public class UserController {
@@ -35,13 +33,36 @@ public class UserController {
 	@Autowired
 	UserInfoService userS;
 	
-	
 	// 로그인 Page
 	@GetMapping("/login")
 	public String loginPage(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.setAttribute("id", "lcy0512");
 		return "Login";
+	}
+	
+	// 로그인 시 ID,PW 확인 AJAX
+	@PostMapping({"/loginCheck","mypage"})
+	public ResponseEntity<String> checkId(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		
+		String userid = request.getParameter("id");
+		String password = request.getParameter("password");
+		String code = request.getParameter("code");
+
+		String name = userS.checkID(userid, password);
+		
+		if(code == "mypage") {
+			// 내 정보 수정을 통해 들어왔을때,
+			// ID,PW를 확인 후 값이 있으면 true, 없으면 false return
+			return ResponseEntity.ok(name != "false" ? "true" : "false");
+		}
+		
+		if (name != "false") {
+			// 로그인 하였을 때 id와 name의 session 생성
+			session.setAttribute("userName", name);
+			session.setAttribute("id", userid);
+		}
+		
+		return ResponseEntity.ok(name);
 	}
 	
 	// 회원가입 Page
@@ -56,10 +77,9 @@ public class UserController {
 		HttpSession session = request.getSession();
 		
 		String userid = (String)session.getAttribute("id");
-//		String userid = "lcy0512";
 		List<Inquiry> inquiryList = inquiryS.inquiryList(userid);
 		
-		model.addAttribute("InquiryList",inquiryList);
+		model.addAttribute("InquiryList", inquiryList);
 		
 		return "individualInquiry";
 	}
@@ -67,9 +87,9 @@ public class UserController {
 	// 1:1 문의 Page
 	@PostMapping("/inquirywrite")
 	public String inquiryWrite(HttpServletRequest request) {
-		
 		return "inquirywrite";
 	}
+
 	
 	// 문의사항 Insert Action
 	@PostMapping("/inquiryInsert")
@@ -77,9 +97,7 @@ public class UserController {
 		HttpSession session = request.getSession(); 
 		String inimage = null;
 		
-		if (file != null && !file.isEmpty()) {
-			inimage = inquiryS.uploadFile(file);
-		}
+		if (file != null && !file.isEmpty()) inimage = inquiryS.uploadFile(file);
 		
 		String intitle = request.getParameter("intitle");
 		String incontent = request.getParameter("incontent");
@@ -98,7 +116,6 @@ public class UserController {
 		
 		String inquiryid = request.getParameter("inquiryid");
 		String userid = (String)session.getAttribute("id");
-//		String userid = "lcy0512";
 		
 		model.addAttribute("detailInquiry", inquiryS.inquiryDetail(userid, inquiryid));
 		
@@ -147,14 +164,12 @@ public class UserController {
 	// 아이디 중복체크 AJAX 및 email 중복체크 후 인증번호 발송 
 	@PostMapping("/duplicatedCheck")
 	public ResponseEntity<Map<String,Object>> duplicatedCheckAction(HttpServletRequest request) throws Exception {
-		if(request.getParameter("userid") != null) {
-			return ResponseEntity.ok(userS.checkDuplicatedId(request.getParameter("userid")));
-		}
-		else {
-			return ResponseEntity.ok(userS.checkDuplicatedEmail(request.getParameter("email"), request));
-		}
+		return ResponseEntity.ok(request.getParameter("userid") != null ? 
+				userS.checkDuplicatedId(request.getParameter("userid")) : 
+					userS.checkDuplicatedEmail(request.getParameter("email"), request));
 	}
 	
+	// 회원가입 및 개인정보 수정
 	@PostMapping("/userInfo")
 	public String userInfoAction(HttpServletRequest request) throws Exception {
 		String userid = request.getParameter("memberId");
@@ -166,27 +181,14 @@ public class UserController {
 		String address = request.getParameter("address");
 		String detailAddress = request.getParameter("detailAddress");
 		
-		if(password == null) {
-			password = nowpassword;
-		}
+		// 개인정보 수정 시 password는 nowpassword란 key값으로 전달된다. 
+		password = (password == null ? password = nowpassword : password);
 		
 		String gender = request.getParameter("gender");
-		System.out.println("gender : " + gender);
-		if(gender.equals("NONE")) {
-			System.out.println("성별 선택안함");
-			// 성별 선택안함
-			gender = Integer.toString(2);
-		}
-		else if(gender.equals("MALE")) {
-			System.out.println("성별 남성");
-			// 성별 남성
-			gender = Integer.toString(0);
-		}
-		else {
-			System.out.println("성별 여성");
-			// 성별 여성
-			gender = Integer.toString(1);
-		}
+		
+		gender = (gender.equals("NONE") ? 
+				Integer.toString(2) : 
+					gender.equals("FEMALE") ? Integer.toString(1) : Integer.toString(0));
 		
 		String birthYear = request.getParameter("birthYear");
 		String birthMonth = request.getParameter("birthMonth");
@@ -196,7 +198,6 @@ public class UserController {
 		
 		// 회원가입
 		if(userS.checkDuplicatedId(userid).get("result").equals("true")) {
-			System.out.println("회원가입");
 			userS.customerSignUp(userid, password, tel, name, email, address, detailAddress, gender, birthdate);
 		}
 		// 정보수정
@@ -207,9 +208,35 @@ public class UserController {
 		return "redirect:/notice";
 	}
 	
+	// Category Menubar MouseOver 시 보여주는 AJAX
+	@GetMapping("/Category")
+	public String categoryMenubar() {
+		return "Category";
+	}
+	
+	@PostMapping("/mypagedetail")
+	public String myPageDetailPage(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+		
+		String userid = (String)session.getAttribute("id");
+		UserInfo user = userS.userDetail(userid);
+		model.addAttribute("UserDetail",user);
+		
+		return "mypagedetail";
+	}
+	
+	@GetMapping("/deleteuser")
+	public String deleteUserAction(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		String userid = (String)session.getAttribute("id");
+		// status : 0으로 변경
+		userS.userDelete(userid);
+		// 메인화면으로 수정해야함!
+		return "redirect:/notice";
+	}
 	
 	@GetMapping("/logout")
-	public String getMethodName(HttpServletRequest request) {
+	public String logoutAction(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		// 메인화면으로 수정해야함!

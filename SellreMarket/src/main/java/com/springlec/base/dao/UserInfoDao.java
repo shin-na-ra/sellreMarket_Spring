@@ -1,5 +1,7 @@
 package com.springlec.base.dao;
 
+import com.springlec.base.model.UserInfo;
+
 public interface UserInfoDao {
 	
 	public Integer checkDuplicatedId(String userid) throws Exception;
@@ -16,4 +18,9 @@ public interface UserInfoDao {
 	public void deleteUserInfo(String userid) throws Exception;
 	
 	public void updatePassword(String userid, String password) throws Exception;
+	
+	public String checkID(String userid, String password) throws Exception;
+	
+	public UserInfo userDetail(String userid) throws Exception;
+	
 }
