@@ -36,13 +36,6 @@ public class AdminController {
 	@Autowired
 	AdminBrandService adminBrandService;
 	
-	//시작페이지
-//	@GetMapping("/")
-//	public String start() {
-//		return "index";
-//	}
-
-	
 	//관리자 브랜드 현황 조회
 	@GetMapping("/adminBrand")
 	public String adminBrand(HttpServletRequest request, Model model) throws Exception {

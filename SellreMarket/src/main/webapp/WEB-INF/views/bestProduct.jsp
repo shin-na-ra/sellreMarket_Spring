@@ -71,6 +71,10 @@
 
 </head>
 <body>
+	<!-- for paging -->
+	<input type="hidden" value="베스트" id="category">
+    <input type="hidden" value="${alignCategory}" id="alignCategory">
+    
 	<!-- Topbar Start -->
 	<jsp:include page="header.jsp"></jsp:include>
 	<!-- Topbar End -->
@@ -80,9 +84,55 @@
 
 	<!-- Navbar End -->
 	
+	<!-- Carousel Start -->
+	<div class="container" style="width: 100%">
+		<div id="imgslider" class="carousel slide" data-ride="carousel"
+			style="width: 100%;">
+			<!-- indicator 없음 -->
+
+			<!-- 슬라이드 쇼 실행 -->
+			<div class="carousel-inner">
+				<c:forEach items="${adImgs}" var="ad">
+					<!-- 첫번째 이미지일 때 active 설정 -->
+					<c:choose>
+						<c:when test="${ad.eimg eq '1.jpg'}">
+							<div class="carousel-item active">
+								<img class="d-block w-100"
+									src="${pageContext.request.contextPath}/image/event/${ad.eimg}"
+									alt="Event Image">
+								<!-- 캡션 없음 -->
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="carousel-item">
+								<img
+									src="${pageContext.request.contextPath}/image/event/${ad.eimg}"
+									class="d-block w-100" alt="Event Image">
+								<!-- 캡션 없음 -->
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</div>
+
+
+			<!-- 컨트롤 -->
+			<a href="#imgslider" class="carousel-control-prev" data-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			</a> <a href="#imgslider" class="carousel-control-next" data-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</a>
+			
+			
+		</div>
+	</div>
 	<br>
 	<br>
 	<br>
+	<!-- Carousel End -->
+	
+	
+	
 	<h3 align="center">베스트</h3>
 	<br>
 
@@ -91,21 +141,21 @@
 		<c:if test="${alignCategory eq '베스트순'}">
 			<span style="color: black; font-weight: bold">베스트순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignBestLowPrice.do">낮은 가격순</a> 
+			<a href="alignBestLowPrice">낮은 가격순</a> 
 			&nbsp;&nbsp;|&nbsp;&nbsp; 
-			<a href="alignBestHighPrice.do">높은 가격순</a>
+			<a href="alignBestHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '낮은 가격순'}">
-			<a href="bestProduct.do">베스트순</a>
+			<a href="bestProduct">베스트순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">낮은 가격순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignBestHighPrice.do">높은 가격순</a>
+			<a href="alignBestHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '높은 가격순'}">
-			<a href="bestProduct.do">베스트순</a>
+			<a href="bestProduct">베스트순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignBestLowPrice.do">낮은 가격순</a>
+			<a href="alignBestLowPrice">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">높은 가격순</span>
 		</c:if>
@@ -178,14 +228,14 @@
 
 
 	<!-- Paging Start -->
-	<div id="paging"></div>
 	<script src="js/paging.js"></script>
-	<input type="hidden" id="curPage" value="${curPage}">
+	<div id="showPaging" style="text-align: center;"></div>
+	<input type="hidden" value="${curPage}" id="curPage">
 	<!-- Paging End -->
 	
 
 	<!-- Footer Start -->
-	<jsp:include page="footer.html"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- Footer End -->
 
 </body>
