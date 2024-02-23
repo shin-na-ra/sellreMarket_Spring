@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,17 +19,27 @@
 		<div class="main">
 			<div class="title">브랜드 상세</div>
 		
-			<form name="categoryForm">
-					
-				<div class="form-group">
-					<label for="bname">브랜드명</label>
-					<input type="text" id="bname" name="bname">
-				</div>
-				
-				<input type="text" id="brandid" name="brandid" hidden="true">
+			<form name="categoryForm" method="post">
+			    <div class="form-group">
+			        <label for="bname">브랜드명</label>
+			        <c:forEach items="${list}" var="dto">
+			            <c:if test="${dto.status == 0}">
+			                <input type="text" id="bname" name="bname" value="${dto.bname}" readonly="readonly" style="background-color:#efefef;">
+			                <input type="text" id="oldBname" name="oldBname" value="${dto.bname}" hidden="true" style="background-color:#efefef;">
+			                <input type="submit" class="deleteBtn" onclick="ReDelete()" value="상태변경" >
+			            </c:if>
+			            <c:if test="${dto.status == 1}">
+			                <input type="text" id="bname" name="bname" value="${dto.bname}">
+			                <input type="text" id="oldBname" name="oldBname" value="${dto.bname}" hidden="true">
+			                <input type="submit" class="updateBtn" onclick="updateBrand()" value="수정">
+			                <input type="submit" class="deleteBtn" onclick="deleteBrand()" value="삭제">
+			                
+			            </c:if>
+			            <span id="reg" style="color:red; display:none; margin-top:10px;"></span>
+			        </c:forEach>
+			    </div>
 			</form>
-			<input type="submit" class="updateBtn" onclick="updateBrand()" value="수정">
-			<input type="submit" class="deleteBtn" onclick="deleteBrand()" value="삭제">
+			
 	</div>
 </body>
 </html>

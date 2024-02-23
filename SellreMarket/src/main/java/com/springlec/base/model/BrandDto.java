@@ -4,6 +4,8 @@ public class BrandDto {
 
 	int brandid;
 	String bname;
+	int productid;
+	String status;
 	
 	public BrandDto() {
 		// TODO Auto-generated constructor stub
@@ -23,6 +25,22 @@ public class BrandDto {
 
 	public void setBname(String bname) {
 		this.bname = bname;
+	}
+
+	public int getProductid() {
+		return productid;
+	}
+
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	
