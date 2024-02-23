@@ -1,0 +1,262 @@
+@charset "UTF-8";
+
+/*구매목록 이름*/
+.titleContainer {
+    margin: 0px 0px 16px;
+}
+
+.titleMain {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+    color: rgb(15, 15, 15);
+}
+
+/*구매목록 검색 + 년도 버튼*/
+.searchAndTimelineContainer {
+	display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin-bottom: 24px;
+}
+
+.searchContainer {
+	display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: row;
+    width: 480px;
+    height: 36px;
+    padding: 0px 5px 0px 8px;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+}
+
+.searchBox {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.searchBoxContent {
+    width: 100%;
+    margin-right: 10px;
+    border: none;
+    font-size: 0.875rem;
+}
+
+.magnifierBox {
+    width: 20px;
+    margin-right: 5px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* ---상품 목록 리스트---*/
+.fullList{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+/* 구매 번호별*/
+.purchaseNumListContainer {
+    width: 800px;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px 0px, rgba(0, 0, 0, 0.16) 0px 0px 1px 0px;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    padding: 24px 24px 16px;
+}
+
+/* 구매 번호별 - 상단*/
+.purchaseNumListHeadContainer {
+    height: 28px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.purchaseDate {
+    display: inline-block;
+    width: 50%;
+    height: 28px;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+    color: rgb(17, 17, 17);
+}
+
+.purchaseDetailGoContainer {
+    text-align: right;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: -0.5px;
+    color: rgb(52, 106, 255);
+    display: inline-flex;
+    vertical-align: middle;
+    position: relative;
+    width: auto;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+
+.purchaseDetailGoText {
+    height: 16px;
+    line-height: 1;
+    margin: auto;
+    font-family: 나눔고딕, nanumgothic, 돋움, dotum, sans-serif;
+}
+
+/* 구매 번호별 - 내용*/
+.purchaseNumListMainContainer {
+    border-radius: 8px;
+    border: 1px solid rgb(238, 238, 238);
+    background-color: rgb(255, 255, 255);
+    margin-top: 16px;
+}
+
+.purchaseNumListMainTableCol {
+    height: 100%;
+    padding: 20px;
+    vertical-align: top;
+}
+
+.purchaseNumListMainContent {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.purchaseProductImageArea {
+    display: flex;
+    width: 64px;
+    position: relative;
+    margin-right: 16px;
+}
+
+.purchaseProductImageContainer{
+    align-items: center;
+    overflow: hidden;
+    border-radius: 4px;
+    display: inline-flex;
+    opacity: 1;
+}
+
+.purchaseInformationArea {
+    flex: 1 1 0%;
+    flex-direction: column;
+}
+
+.purchaseNameArea {
+	margin-bottom: 4px;
+}
+
+.purchaseName {
+    font-size: 1rem;
+    color: rgb(17, 17, 17);
+}
+
+.purchaseDataSection {
+	display: flex;
+	line-height: 1.5;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.purchasePriceAndAmountArea {
+    width: 100%;
+    display: flex;
+    color: rgb(85, 85, 85);
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}
+
+.purchasePrice {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.purchaseDataCenterMargin {
+    position: relative;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 2px;
+    height: 1em;
+    vertical-align: middle;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.purchaseDataCenterPoint {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background-color: rgb(17, 17, 17);
+}
+
+.purchaseAmount {
+    font-size: 1rem;
+}
+
+.cartButton {
+    display: inline-flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-left: 12px;
+    padding-right: 12px;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    appearance: none;
+    height: 2.25rem;
+    border-radius: 4px;
+    color: rgb(17, 17, 17);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(221, 221, 221);
+    -webkit-tap-highlight-color: rgba(52, 106, 255, 0.1);
+    font-size: 0.775rem;
+    min-height: 2.25rem;
+    padding: 0px 12px;
+    white-space: nowrap;
+}
+
+.cartButtonBottom {
+    position: absolute;
+}
+
+.purchaseDataAreaBottom {
+    display: flex;
+    flex-direction: row;
+}
+
+.purchaseNumListBottom {
+    margin-top: 10px;
+}
