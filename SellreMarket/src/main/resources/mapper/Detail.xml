@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.springlec.base.dao.DetailDao">
+ 	<select id="productListDao">
+		SELECT p.productid, p.pname as productName, pr.price as productPrice, 
+					  pr.price-(pr.price*(e.salerate/100))
+					  as discountedPrice,
+					  e.salerate, d.dname as deliveryName, i.image as productImage, 
+		              p.allery as productAllery, p.nutrition as productNutrition,
+		              p.origin as productOrigin, p.description as productDescription,
+		              pack.packtype as productPackType,
+		              pack.packkind as productPackKind,
+		              s.utype as productUnitType,
+		              s.ugram as productUnitGram
+		FROM product p, price pr, event e, delivery_type d, 
+			 	   product_image i, packing pack,
+		     	   saleunit s
+		WHERE p.productid = #{PRODUCTID}
+				   and p.productid = pr.productid
+				   and e.eventid = '1'
+				   and d.productid = p.productid
+				   and i.productid = p.productid
+				   and pack.productid = p.productid
+				   and s.productid = p.productid
+ 	</select>
+ 	
+ 	<select id="recipeListDao">
+ 		SELECT r.recipeid, p.pname as productName,
+ 					  pri.price as productPrice, 
+ 					  (pri.price - (pri.price * (e.salerate)/100)) as discountedPrice
+		FROM recipeOfYoutuber r, product p, productOfRecipe pr, price pri, event e
+		WHERE r.recipeid = #{RECIPEID}
+					  and r.recipeid = pr.recipeid
+					  and pr.productid = p.productid
+					  and pri.productid = p.productid
+					  and e.productid = p.productid
+ 	</select>
+ 	
+ 	<insert id="cartInputDao">
+ 		INSERT INTO cart (productid, qty, userid) VALUES ((SELECT productid FROM product WHERE pname = #{cartItemNames}), #{cartItemQuantities}, 'baboya')
+ 	</insert>
+ 	
+ 	
+ 	
+ 	
+ 	
+ </mapper>
