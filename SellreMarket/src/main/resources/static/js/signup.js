@@ -171,12 +171,21 @@ function checkAuthentication() {
 		$("#checkedEmail").css("color", "red");
 	}
 	else {
-		//$("#emailcheckmessage").text("인증이 완료 되었습니다.");
 		$("#emailcheckmessage").text("");
 		$("#checkedEmail").text("인증이 완료 되었습니다.");
 		$("#checkedEmail").css("color", "green");
-		$("#confirmCheck").prop("disabled", true); // idDuplicatedCheck 버튼을 비활성화
+		
+		$("#confirmCheck").prop("disabled", true); // confirmCheck 버튼을 비활성화
+		
 		$("#authentication").prop("readonly", true); // memberId 입력란을 읽기 전용으로 설정
+		$("#authentication").css("background-color", "lightgrey");
+		
+		$("#emailDuplicatedCheck").prop("disabled", true); // idDuplicatedCheck 버튼을 비활성화
+		
+		$("#email").prop("readonly", true); // email 입력란을 읽기 전용으로 설정
+		$("#email").css("background-color", "lightgrey");
+		
+		emailcheck = true;
 	}
 }
 
@@ -221,6 +230,7 @@ $(document).ready(function() {
 					 $("#idcheckmessage").css("color", "green");
 					 $("#idDuplicatedCheck").prop("disabled", true); // idDuplicatedCheck 버튼을 비활성화
 					 $("#memberId").prop("readonly", true); // memberId 입력란을 읽기 전용으로 설정
+					 $("#memberId").css("background-color", "lightgrey");
 					idcheck = true;
 					
 				}
@@ -249,7 +259,8 @@ $(document).ready(function() {
 		}
 		else {
 			$("#emailcheckmessage").text("인증번호를 발송 중 입니다.");
-			$("#emailcheckmessage").css("color", "lightgrey");
+			$("#emailcheckmessage").css("color", "blue");
+			$("#emailDuplicatedCheck").prop("disabled", true); // idDuplicatedCheck 버튼을 비활성화
 			$.ajax({
 				method : "POST",
 				url : "duplicatedCheck",
@@ -257,6 +268,7 @@ $(document).ready(function() {
 					email : email
 				},
 				success : function(response) {
+					$("#emailDuplicatedCheck").prop("disabled", false); // idDuplicatedCheck 버튼을 비활성화
 					if(response.result === "false"){
 						let message = "사용 불가능한 이메일입니다."
 						 $("#emailcheckmessage").text(message);
@@ -266,9 +278,6 @@ $(document).ready(function() {
 						let message = "인증번호를 발송하였습니다.";
 						 $("#emailcheckmessage").text(message);
 						 $("#emailcheckmessage").css("color", "green");
-						 $("#emailDuplicatedCheck").prop("disabled", true); // idDuplicatedCheck 버튼을 비활성화
-						 $("#email").prop("readonly", true); // memberId 입력란을 읽기 전용으로 설정
-						emailcheck = true;
 						
 						var emailElement = document.getElementById('Emailauthentication');
 						// display 속성을 변경
