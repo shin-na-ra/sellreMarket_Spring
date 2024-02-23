@@ -226,7 +226,6 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public HashMap<String, Object> productPageCount(HttpServletRequest request, HttpServletResponse response,
 			String headerCategory, String alignCategory, String id, int curPage) throws Exception {
-		System.out.println("**********inside implementation service paging**********");
 		HttpSession session = request.getSession();
 		String href = null;
 		int totalProductCount = 1;
@@ -303,7 +302,8 @@ public class ProductServiceImpl implements ProductService{
 		int endPage = (totalProductCount % countPerPage) == 0 ? totalProductCount / countPerPage : ((totalProductCount / countPerPage) + 1);
 		
 	    session.setAttribute("cartCount", cartCount);
-		session.setAttribute("curPage", curPage);
+		
+		System.out.println("chceck inside implementation curPage :" + curPage);
 		
 		datas.put("curPage", curPage);
 		datas.put("endPage", endPage);
@@ -459,5 +459,29 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return dao.bestAdImgs();
 	}
+
+	@Override
+	public void getCart(String id, int productid, String headerCategory) throws Exception {
+		if (headerCategory.equals("레시피")) {
+			dao.getRecipeCart(id, productid);
+		}
+		else dao.getProductCart(id, productid);
+		
+	}
+
+	
+	// Purchase
+	@Override
+	public List<Product> purchaseList() throws Exception {
+		return dao.purchaseList();
+	}
+
+	
+	@Override
+	public Product userInfo(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.userInfo(id);
+	}
+	// Purchase
 
 }

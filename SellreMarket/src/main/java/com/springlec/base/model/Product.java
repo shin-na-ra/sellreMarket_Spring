@@ -40,6 +40,12 @@ public class Product {
 	String pimage;
 	String plikecount;
 	String salerate;
+	int qty;
+	String uname;
+	String tel_no;
+	String email;
+	String address;
+	String detailaddress;
 	
 	
 	public Product(String eimg) {
@@ -47,6 +53,16 @@ public class Product {
 		this.eimg = eimg;
 	}
 	
+	public Product(String pname, String price, String pimage, int qty) {
+		super();
+		this.pname = pname;
+		this.price = price;
+		this.pimage = pimage;
+		this.qty = qty;
+	}
+	
+	
+
 	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
 		super();
 		this.pname = pname;
@@ -68,6 +84,53 @@ public class Product {
 		this.recipelike = recipelike;
 		this.recipeid = recipeid;
 		this.salerate = salerate;
+	}
+	
+	public Product(String uname, String tel_no, String email, String address, String detailaddress) {
+		super();
+		this.uname = uname;
+		this.tel_no = tel_no;
+		this.email = email;
+		this.address = address;
+		this.detailaddress = detailaddress;
+	}
+
+	public Product(int yid, String yname, String ysrc, String ytitle, int rid, String rcontent, int pid, String pname,
+			String pengname, String allery, String nutrition, int pstock, Date pinsertdate, String origin,
+			Date expirationdate, String description, int status, int priceid, String dPrice, String price,
+			String recipelike, String ename, String econtent, String eimg, int recipeid, int productid, String pimage,
+			String plikecount, String salerate, int qty) {
+		super();
+		this.yid = yid;
+		this.yname = yname;
+		this.ysrc = ysrc;
+		this.ytitle = ytitle;
+		this.rid = rid;
+		this.rcontent = rcontent;
+		this.pid = pid;
+		this.pname = pname;
+		this.pengname = pengname;
+		this.allery = allery;
+		this.nutrition = nutrition;
+		this.pstock = pstock;
+		this.pinsertdate = pinsertdate;
+		this.origin = origin;
+		this.expirationdate = expirationdate;
+		this.description = description;
+		this.status = status;
+		this.priceid = priceid;
+		this.dPrice = dPrice;
+		this.price = price;
+		this.recipelike = recipelike;
+		this.ename = ename;
+		this.econtent = econtent;
+		this.eimg = eimg;
+		this.recipeid = recipeid;
+		this.productid = productid;
+		this.pimage = pimage;
+		this.plikecount = plikecount;
+		this.salerate = salerate;
+		this.qty = qty;
 	}
 
 	public int getYid() {
@@ -308,5 +371,54 @@ public class Product {
 
 	public void setSalerate(String salerate) {
 		this.salerate = salerate;
+	}
+
+	public int getQty() {
+		return qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+
+	
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
+
+	public String getTel_no() {
+		return tel_no;
+	}
+
+	public void setTel_no(String tel_no) {
+		this.tel_no = tel_no;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getDetailaddress() {
+		return detailaddress;
+	}
+
+	public void setDetailaddress(String detailaddress) {
+		this.detailaddress = detailaddress;
 	}
 }

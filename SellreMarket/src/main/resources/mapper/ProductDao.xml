@@ -5,9 +5,16 @@
 <mapper namespace="com.springlec.base.dao.ProductDao"> 
 	
 	<!-- CREATE -->
+	<insert id="getProductCart">
+		INSERT INTO cart (qty, userid, productid) VALUES (1, #{id} ,#{productid})
+	</insert>
+	
+	<insert id="getRecipeCart">
+		INSERT INTO cart (qty, userid, recipeid) VALUES (1, #{id} ,#{recipeid})
+	</insert>
+	
 	
 	<!-- READ -->
-	
 	<!-- New Product Start -->
 	<select id="newProductView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
@@ -24,7 +31,7 @@
 		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW()
 		GROUP BY dPrice, price, p.pname, pi.image, p.productid
 		ORDER BY p.productid DESC
-		LIMIT ${limitFrom}, ${countPerPage}
+		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
 	<select id="newProductAlignAscView" resultType="com.springlec.base.model.Product">
@@ -85,7 +92,7 @@
 		LEFT JOIN event e ON e.eventid = p.eventid
 		GROUP BY dPrice, price, pname, pi.image, p.productid
 		ORDER BY likecount DESC
-		LIMIT ${limitFrom}, ${countPerPage}
+		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
 	<select id="bestProductAlignAscView" resultType="com.springlec.base.model.Product">
@@ -107,7 +114,7 @@
 		LEFT JOIN event e ON e.eventid = p.eventid
 		GROUP BY dPrice, price, pname, pi.image, p.productid
 		ORDER BY dPrice ASC
-		LIMIT ${limitFrom}, ${countPerPage}
+		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
 	<select id="bestProductAlignDescView" resultType="com.springlec.base.model.Product">
@@ -129,7 +136,7 @@
 		LEFT JOIN event e ON e.eventid = p.eventid
 		GROUP BY dPrice, price, pname, pi.image, p.productid
 		ORDER BY UPPER(dPrice) DESC
-		LIMIT ${limitFrom}, ${countPerPage}
+		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	<!-- Best Product End -->
 	
@@ -162,7 +169,7 @@
 		         ry.recipeid,
 		         salerate
 		ORDER BY UPPER(yname) DESC
-		LIMIT ${limitFrom}, ${countPerPage}
+		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
 	<select id="recipeProductAlignAscView" resultType="com.springlec.base.model.Product">
@@ -193,7 +200,7 @@
 		         ry.recipeid,
 		         salerate
 		ORDER BY dPrice DESC
-		LIMIT ${limitFrom}, ${countPerPage}
+		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
 	<select id="recipeProductAlignDescView" resultType="com.springlec.base.model.Product">
@@ -224,7 +231,7 @@
 		         ry.recipeid,
 		         salerate
 		ORDER BY dPrice
-		LIMIT ${limitFrom}, ${countPerPage}
+		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	<!-- Recipe Product End -->
 	
@@ -289,6 +296,22 @@
 	<select id="bestAdImgs" resultType="com.springlec.base.model.Product">
 		SELECT img FROM event WHERE category = 1;
 	</select>
+	
+	
+	<!-- Purchase Start -->
+	<select id="purchaseList" resultType="com.springlec.base.model.Product">
+		SELECT P.PNAME, PRICE, PI.IMAGE AS pimage, SUM(C.QTY) AS qty 
+		FROM CART C
+		JOIN PRODUCT P ON P.PRODUCTID = C.PRODUCTID
+		JOIN PRICE PR ON PR.PRODUCTID = C.PRODUCTID
+		JOIN PRODUCT_IMAGE PI ON PI.PRODUCTID = C.PRODUCTID
+		GROUP BY P.PNAME, PI.IMAGE, PRICE;
+	</select>
+	
+	<select id="userInfo" resultType="com.springlec.base.model.Product">
+		SELECT name, tel_no, email, address, detailaddress FROM CUSTOMER WHERE userid = #{id};
+	</select>
+	<!-- Purchase End -->
 	
 	<!-- UPDATE -->
 	

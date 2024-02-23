@@ -52,7 +52,9 @@ public class ProductController {
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
+		model.addAttribute("curPage", curPage);
 		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
 		model.addAttribute("newProducts", newProducts);
 		model.addAttribute("img", adImage);
 		
@@ -83,7 +85,9 @@ public class ProductController {
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
+		model.addAttribute("curPage", curPage);
 		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
 		model.addAttribute("newProducts", newProducts);
 		model.addAttribute("img", adImage);
 		
@@ -114,7 +118,9 @@ public class ProductController {
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
+		model.addAttribute("curPage", curPage);
 		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
 		model.addAttribute("newProducts", newProducts);
 		model.addAttribute("img", adImage);
 		
@@ -128,11 +134,13 @@ public class ProductController {
 		String headerCategory = "베스트";
 		String alignCategory = "베스트순";
 		
+		// session으로 보내서 request로 받는게 가능하다?
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		
 		try {
 			id = request.getParameter("id");
@@ -145,8 +153,11 @@ public class ProductController {
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
+		
+		model.addAttribute("curPage", curPage);
 		model.addAttribute("adImgs", adImgs);
 		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
 		model.addAttribute("bestProducts", bestProducts);
 		
 		return "bestProduct";
@@ -176,8 +187,10 @@ public class ProductController {
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
+		model.addAttribute("curPage", curPage);
 		model.addAttribute("adImgs", adImgs);
 		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
 		model.addAttribute("bestProducts", bestProducts);
 		
 		return "bestProduct";
@@ -207,8 +220,10 @@ public class ProductController {
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
+		model.addAttribute("curPage", curPage);
 		model.addAttribute("adImgs", adImgs);
 		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
 		model.addAttribute("bestProducts", bestProducts);
 		
 		return "bestProduct";
@@ -237,7 +252,9 @@ public class ProductController {
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
+		model.addAttribute("curPage", curPage);
 		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
 		model.addAttribute("recipeProducts", recipeProducts);
 		
 		return "recipeList";
@@ -266,7 +283,9 @@ public class ProductController {
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
+		model.addAttribute("curPage", curPage);
 		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
 		model.addAttribute("recipeProducts", recipeProducts);
 		
 		return "recipeList";
@@ -284,6 +303,7 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		
+		
 		try {
 			id = request.getParameter("id");
 		}catch (Exception e) {
@@ -295,8 +315,9 @@ public class ProductController {
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
-		
+		model.addAttribute("curPage", curPage);
 		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
 		model.addAttribute("recipeProducts", recipeProducts);
 		
 		return "recipeList";
@@ -307,14 +328,14 @@ public class ProductController {
 	@PostMapping("/paging")
 	public ResponseEntity<Map<String, Object>> paging(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		System.out.println("test in controller paging");
 		
 		// ajax datas from paging.js
 		int curPage = Integer.parseInt(request.getParameter("curPage"));
 		String align = request.getParameter("align");
 		String category = request.getParameter("category");
 		
-		String id = null;
+		System.out.println("chceck inside Controller curPage :" + curPage);
+		
 		
 		try {
 			id = request.getParameter("id");
@@ -326,4 +347,102 @@ public class ProductController {
 		
 		return ResponseEntity.ok().body(datas);
 	}
+	
+	
+	
+	/************* TEST Start *************/
+	// get in product detail for test
+	@GetMapping("/productDetailPage")
+	public String pDeatilPage(HttpServletRequest request, Model model) {
+		model.addAttribute("productId", request.getParameter("productId"));
+		try { 
+			model.addAttribute("recipeId", request.getParameter("recipeId"));
+		}catch (Exception e) {
+			model.addAttribute("recipeId", null);
+			e.printStackTrace();
+		}
+		return "test";
+	}
+	
+	// get in recipe detail for test
+	@GetMapping("/recipeDetailPage")
+	public String rDeatilPage(HttpServletRequest request, Model model) {
+		model.addAttribute("recipeId", request.getParameter("recipeId"));
+		try { 
+			model.addAttribute("productId", request.getParameter("productId"));
+		}catch (Exception e) {
+			model.addAttribute("productId", null);
+			e.printStackTrace();
+		}
+		return "test";
+	}
+	/************* TEST End *************/
+	
+	
+	/************* Order Start *************/
+	@GetMapping("/order")
+	public String order(Model model) throws Exception {
+		
+		// test 용
+		id = "admin";
+				
+		List<Product> list = service.purchaseList();
+		Product userInfo = service.userInfo(id);
+		
+		model.addAttribute("orderList", list);
+		model.addAttribute("userInfo", userInfo);
+		
+		return "purchaseProduct";
+	}
+	/************* Order End *************/
+	
+	
+	/************* Cart Start *************/
+	@PostMapping("/getCart")
+	public ResponseEntity<Integer> getCart(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+		
+		// ID 받기
+		id = request.getParameter("id");
+		
+		// productid 받기
+		int productid = 0;
+		
+		try {
+			productid = Integer.parseInt(request.getParameter("productid"));
+		} catch (Exception e) {
+			productid = Integer.parseInt(request.getParameter("recipeid"));
+		}
+		
+		// recipe인지, product인지 확인하는 분류 받기
+		String headerCategory = request.getParameter("headerCategory");
+		
+		int cartCount = (int) session.getAttribute("cartCount");
+		
+		// getCart insert문
+		service.getCart(id, productid, headerCategory);
+		
+		return ResponseEntity.ok().body(cartCount);
+	}
+	/************* Cart End *************/
+	
+	
+	/************* popup *************/
+	@GetMapping("/popup")
+	public String popup(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		String uname = request.getParameter("uname");
+		String tel_no = request.getParameter("tel_no");
+		
+		session.setAttribute("uname", uname);
+		session.setAttribute("tel_no", tel_no);
+		
+		
+		return "popup";
+	}
+	
+	
+	/************* popup *************/
+	
 }

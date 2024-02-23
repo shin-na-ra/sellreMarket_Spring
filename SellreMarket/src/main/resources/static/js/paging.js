@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var category = document.getElementById("category").value;
     var align = document.getElementById("alignCategory").value;
     
+    console.log("before success : " + $("#curPage").val());
+    
     if ($("#curPage").val() < 1) {
 		var curPage = 1;	
 	}

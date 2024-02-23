@@ -44,6 +44,12 @@ public interface ProductService {
 //	// recipe product page count 
 //	public int recipeProductPageCount() throws Exception;
 	
+	// Cart
 	public int cartCount(String id) throws Exception;
+	public void getCart(String id, int productid, String headerCategory) throws Exception;
+	public List<Product> purchaseList() throws Exception;
 	
+	
+	// Purchase
+	public Product userInfo(String id) throws Exception;
 }

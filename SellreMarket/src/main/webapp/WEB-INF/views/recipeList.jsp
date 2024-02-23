@@ -67,7 +67,7 @@
 </script>
 
 <!-- // js 따로 관리한다. -->
-<script src="js/recipePage.js"></script>
+<script src="js/getCart.js"></script>
 
 
 </head>
@@ -75,6 +75,7 @@
 	<!-- for paging -->
 	<input type="hidden" value="레시피" id="category">
     <input type="hidden" value="${alignCategory}" id="alignCategory">
+    <input type="hidden" value="${headerCategory}" id="headerCategory">
 
 	<!-- Topbar Start -->
 	<jsp:include page="header.jsp"></jsp:include>
@@ -93,17 +94,17 @@
 	<!-- Align by Category Start -->
 	<div class="setAlign" style="margin-left: 75%; color: #919492;">
 		<c:if test="${alignCategory eq '레시피'}">
-			<a href="/alignRecipeLowPrice">낮은 가격순</a>
+			<a href="/alignRecipeLowPrice?curPage=1">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="/alignRecipeHighPrice">높은 가격순</a>
+			<a href="/alignRecipeHighPrice?curPage=1">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '낮은 가격순'}">
 			<span style="color: black; font-weight: bold">낮은 가격순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="/alignRecipeHighPrice">높은 가격순</a>
+			<a href="/alignRecipeHighPrice?curPage=1">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '높은 가격순'}">
-			<a href="/alignRecipeLowPrice">낮은 가격순</a>
+			<a href="/alignRecipeLowPrice?curPage=1">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">높은 가격순</span>
 		</c:if>
@@ -122,7 +123,7 @@
 						<div class="product-item bg-light mb-4"
 							style="width: 300px; height: 350px; display: flex; flex-direction: column; justify-content: center;">
 							<div class="product-img position-relative overflow-hidden">
-								<a href="#"> <img class="img-fluid w-100"
+								<a href="/recipeDetailPage?recipeId=${dto.recipeid}"> <img class="img-fluid w-100"
 									src="${pageContext.request.contextPath}/image/product/${dto.ysrc}"
 									alt="Product Image"
 									style="object-fit: cover; width: 100%; height: 100%;">
@@ -133,15 +134,17 @@
 							<div
 								style="margin-top: 7px; margin-left: 1%; border: 1px solid lightgray; border-radius: 5px; width: 98%;">
 								<button
-									onclick="sendProductInfo(${dto.recipeid}); return false;"
+									onclick="sendRecipeInfo(${dto.recipeid}); return false;"
 									class="btn btn-primary btn-light align-items-center"
 									style="width: 100%;">장바구니</button>
-								<input type="hidden" id="userid" value="${id}">
+								<input type="hidden" id="id" value="${id}">
+								<!-- test -->
+								<!-- <input type="hidden" id="id" value="admin"> -->
 							</div>
 							
 							<div class="text-center py-4"
 								style="display: flex; flex-direction: column; justify-content: center;">
-								<a class="h7 text-decoration-none text-truncate" href="" style="color: #808080;">[${dto.yname}]</a>
+								<a class="h7 text-decoration-none text-truncate" href="/recipeDetailPage?recipeId=${dto.recipeid}" style="color: #808080;">[${dto.yname}]</a>
 									<a class="ytitle" href="" style="font-weight: bold;">${dto.ytitle}</a>
 								<div class="d-flex align-items-center justify-content-center mt-2">
 									<h7 class="text-muted ml-2">
