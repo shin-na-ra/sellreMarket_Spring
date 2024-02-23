@@ -1,5 +1,4 @@
 package com.springlec.base.config;
-import java.util.HashMap;
 
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -28,13 +27,6 @@ public class DataAccessConfig {
 		);
 		
 		return sessionFactory.getObject();
-	}
-	
-	
-	// autowired 사용을 위함
-	@Bean
-	HashMap<String, Object> datas() {
-		return new HashMap<String, Object>();
 	}
 	
 	@Bean
