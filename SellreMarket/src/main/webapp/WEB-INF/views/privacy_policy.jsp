@@ -480,7 +480,7 @@
 	<hr class="line"> 
 	
 	<footer class="text-muted py-5">
-		<jsp:include page="footer.html" flush="false" />
+		<jsp:include page="footer.jsp" flush="false" />
 	</footer>
 </body>
 </html>
