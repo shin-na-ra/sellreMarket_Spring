@@ -1,5 +1,6 @@
 package com.springlec.base.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import com.springlec.base.service.UserInfoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 
 @Controller
 public class UserController {
@@ -171,7 +173,9 @@ public class UserController {
 	
 	// 회원가입 및 개인정보 수정
 	@PostMapping("/userInfo")
-	public String userInfoAction(HttpServletRequest request) throws Exception {
+	public String userInfoAction(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+		
 		String userid = request.getParameter("memberId");
 		String nowpassword = request.getParameter("nowpassword");
 		String password = request.getParameter("password");
@@ -199,13 +203,23 @@ public class UserController {
 		// 회원가입
 		if(userS.checkDuplicatedId(userid).get("result").equals("true")) {
 			userS.customerSignUp(userid, password, tel, name, email, address, detailAddress, gender, birthdate);
+			// 메인 화면으로!!
+			return "redirect:/notice";
 		}
 		// 정보수정
 		else {
 			userS.updateUserInfo(userid, password, tel, name, email, address, detailAddress, gender, birthdate);
+			// 변경된 정보로 session 재설정
+			session.removeAttribute("id");
+			session.removeAttribute("userName");
+			
+			session.setAttribute("id", userid);
+			session.setAttribute("userName", name);
+			
+			return "redirect:/mypageinfo";
 		}
 		
-		return "redirect:/notice";
+		
 	}
 	
 	// Category Menubar MouseOver 시 보여주는 AJAX
@@ -214,6 +228,7 @@ public class UserController {
 		return "Category";
 	}
 	
+	// 개인정보 수정 상세내역 Page
 	@PostMapping("/mypagedetail")
 	public String myPageDetailPage(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
@@ -225,16 +240,18 @@ public class UserController {
 		return "mypagedetail";
 	}
 	
+	// 회원탈퇴
 	@GetMapping("/deleteuser")
 	public String deleteUserAction(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		String userid = (String)session.getAttribute("id");
+		
 		// status : 0으로 변경
 		userS.userDelete(userid);
-		// 메인화면으로 수정해야함!
-		return "redirect:/notice";
+		return "redirect:/logout";
 	}
 	
+	// 로그아웃
 	@GetMapping("/logout")
 	public String logoutAction(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -242,6 +259,64 @@ public class UserController {
 		// 메인화면으로 수정해야함!
 		return "redirect:/notice";
 	}
-
+	
+	// 아이디 찾기 Page
+		@GetMapping("/findid")
+		public String findIdPage() {
+			return "findid";
+		}
+		
+	// 아이디 찾기 AJAX
+	@PostMapping("/findUserID")
+	public ResponseEntity<String> findUserID(HttpServletRequest request) throws Exception {
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		return ResponseEntity.ok(userS.findUserID(name, email));
+	}
+	
+	// 비밀번호 찾기 Page
+	@GetMapping("/findpw")
+	public String findPWPage() {
+		return "findpassword";
+	}
+	
+	// 비밀번호 변경 Page
+	@PostMapping("/updatePwPage")
+	public String updatePWPage(Model model, HttpServletRequest request) {
+		System.out.println("request userid : " + request.getParameter("userid"));
+		model.addAttribute("userid",request.getParameter("userid"));
+		return "updateuserpw";
+	}
+	
+	// 비밀번호 변경 시 사용자가 입력한 값이 존재하는지 확인
+	@PostMapping("/findUserInfoBeforePW")
+	public ResponseEntity<String> findUserInfoBeforePW(HttpServletRequest request) throws Exception {
+		String userid = request.getParameter("userid");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		return ResponseEntity.ok(userS.findPW(userid, name, email));
+	}
+	
+	// 비밀번호 변경 이메일 인증 AJAX
+	@PostMapping("/findUserPW")
+	public ResponseEntity<HashMap<String, Object>> findUserPW(HttpServletRequest request) throws Exception {
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		return ResponseEntity.ok(userS.authentication(name, email, request));
+	}
+	
+	// 비밀번호 변경 Action
+	@PostMapping("/updateUserPW")
+	public String updateUserPWAction(HttpServletRequest request) throws Exception {
+		String userid = request.getParameter("userid");
+		String password = request.getParameter("newPassword");
+		
+		userS.updatePassword(userid, password);
+		
+		// 메인 페이지로 리턴!!
+		return "redirect:/notice";
+	}
 	
 }

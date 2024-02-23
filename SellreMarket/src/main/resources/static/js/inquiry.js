@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function inquirywrite() {
-	if(document.getElementById("userid").value === "") {
+	if(document.getElementById("userid1").value === "") {
 		var result = window.confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")
         if (result === true) {
             window.location.href = 'login';

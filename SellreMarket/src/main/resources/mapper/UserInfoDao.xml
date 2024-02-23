@@ -12,7 +12,7 @@
 	</select>
 	
 	<insert id="deliveryInfo">
-		INSERT INTO addresslist (address,detailaddress,defaultset,userid) values (#{address}, #{detailAddress}, #{defaultset}, #{userid})
+		INSERT INTO addresslist (address,detailaddress,defaultset,userid) VALUES (#{address}, #{detailAddress}, #{defaultset}, #{userid})
 	</insert>
 	
 	<insert id="customerSignUp">
@@ -34,7 +34,19 @@
 	</select>
 	
 	<update id="deleteUserInfo">
-		UPDATE customer SET status = 0 WHERE userid = #{userid}
+		UPDATE customer SET status = 0, updatedate = now() WHERE userid = #{userid}
+	</update>
+	
+	<select id="findUserID" resultType="String">
+		SELECT userid FROM customer WHERE name = #{name} and email = #{email}
+	</select>
+	
+	<select id="findPW" resultType="Integer">
+		SELECT Count(userid) FROM customer WHERE userid=#{userid} and name=#{name} and email=#{email}
+	</select>
+	
+	<update id="updatePassword">
+		UPDATE customer SET password = #{password}, updatedate = now() WHERE userid = #{userid}
 	</update>
 	
 </mapper>

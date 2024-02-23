@@ -23,4 +23,8 @@ public interface UserInfoDao {
 	
 	public UserInfo userDetail(String userid) throws Exception;
 	
+	public String findUserID(String name, String email) throws Exception;
+	
+	public int findPW(String userid, String name, String email) throws Exception;
+	
 }

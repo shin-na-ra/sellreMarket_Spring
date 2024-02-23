@@ -43,12 +43,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 			return data;
 		}
 		else {
-			return authentication(email, request);
+			return authentication(null, email, request);
 		}
 	}
 
 	@Override
-	public HashMap<String, Object> authentication(String email, HttpServletRequest request) throws Exception {
+	public HashMap<String, Object> authentication(String name, String email, HttpServletRequest request) throws Exception {
 		//mail server 설정
 		String smtpEmail = "jsungj3@gmail.com"; 
 		String password = "uliauyosxkhulgmg";
@@ -90,7 +90,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			}
 		}
 		String AuthenticationKey = temp.toString();
-		System.out.println(AuthenticationKey);
+		System.out.println("AuthenticationKey : " + AuthenticationKey);
 
 		javax.mail.Session session = javax.mail.Session.getInstance(p, new javax.mail.Authenticator() {
 			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
@@ -104,10 +104,20 @@ public class UserInfoServiceImpl implements UserInfoService {
 	
 			msg.addRecipient(javax.mail.Message.RecipientType.TO, new javax.mail.internet.InternetAddress(to_email));
 			
-			//메일 제목
-			msg.setSubject("셀리마켓의 회원가입 인증번호");
-			//메일 내용
-			msg.setText("셀리마켓의 회원가입을 위한 인증 번호는 ["+temp +"] 입니다");
+			// 회원가입 시 이메일 전송
+			if(name == null) {
+				//메일 제목
+				msg.setSubject("셀리마켓의 회원가입 인증번호");
+				//메일 내용
+				msg.setText("셀리마켓의 회원가입을 위한 인증 번호는 ["+temp +"] 입니다");
+			}
+			// 비밀번호 찾기 시 이메일 전송
+			else {
+				// 메일 제목
+				msg.setSubject("셀리마켓 - 비밀번호 찾기 인증번호");
+				// 메일 내용
+				msg.setText(name + "님, 비밀번호 찾기 인증 번호는 [" + temp + "] 입니다");
+			}
 			
 			javax.mail.Transport t = session.getTransport("smtp");
 			t.connect(smtpEmail,password);
@@ -160,6 +170,21 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public void userDelete(String userid) throws Exception {
 		dao.deleteUserInfo(userid);
+	}
+
+	@Override
+	public String findUserID(String name, String email) throws Exception {
+		return dao.findUserID(name, email);
+	}
+
+	@Override
+	public String findPW(String userid, String name, String email) throws Exception {
+		return (dao.findPW(userid, name, email) != 0 ? "true" : "false");
+	}
+
+	@Override
+	public void updatePassword(String userid, String password) throws Exception {
+		dao.updatePassword(userid, password);
 	}
 
 	

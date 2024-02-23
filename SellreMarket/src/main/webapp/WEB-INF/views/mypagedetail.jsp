@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<div class="css-1492bdb e1f12ame0">
-				<form name="signupForm" action="signup.do" method="post">
+				<form name="signupForm" action="userInfo" method="post">
 					<div class="css-pculus e1ovi4141" style="margin-top: 20px;">
 						<div class="css-mhmtvt e15so55l1" style="margin-top: 20px; margin-left: 0px; border-top:solid; border-top-width: 1px;">
 							<div class="css-y8aj3r eo6ykj40">

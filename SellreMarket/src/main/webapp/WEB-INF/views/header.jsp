@@ -24,29 +24,13 @@
 
 
 <script type="text/javascript">
-
 //header.jsp
 function updateCartCount(cartCount) {
     $("#cartCount").text(cartCount);
 }
 
-
-/* function inquirywrite() {
-	var userid = document.getElementById("userid").value;
-	// 로그인 여부 확인
-	if (userid !== "") {
-		window.location.href = 'inquiry';
-	} else {
-		var result = window.confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")
-		if (result === true) {
-			window.location.href = 'login';
-		}
-	}
-} */
-
-
 function inquirywrite() {
-	if (document.getElementById("userid").value === "") {
+	if (document.getElementById("userid1").value === "") {
 		var result = window.confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")
 		if (result === true) {
 			window.location.href = 'login';
@@ -57,7 +41,7 @@ function inquirywrite() {
 }
 </script>
 </head>
-<input type="hidden" id="userid" value="${sessionScope.id}">
+<input type="hidden" id="userid1" value="${sessionScope.id}">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="js/category.js" ></script>
 <link rel="preload"
@@ -70,7 +54,7 @@ function inquirywrite() {
 <body>
 	<div class="css-16h7nba e1p13h9k3">
 		<div class="css-pqw0uk e1p13h9k2">
-			<a href="Login.jsp" rel="noreferrer" target="_self"
+			<a href="login" rel="noreferrer" target="_self"
 				class="css-129c9b5 e1p13h9k1"><div>
 					지금 바로, <b>셀리마켓</b> 가입하세요!
 				</div></a>

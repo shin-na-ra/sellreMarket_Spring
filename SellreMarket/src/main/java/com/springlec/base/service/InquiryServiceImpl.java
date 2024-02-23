@@ -56,7 +56,7 @@ public class InquiryServiceImpl implements InquiryService {
 			try {
 				// 파일 업로드
 				// 저장 경로
-				String path = System.getProperty("user.dir") + "/src/main/resources/static/images/inquiry";
+				String path = System.getProperty("user.dir") + "/src/main/resources/static/image/inquiry";
 				file.transferTo(new File(path + "/" + inimage)); // 파일을 저장할 경로 지정
 				System.out.println(path);
 			} catch (IOException i) {
