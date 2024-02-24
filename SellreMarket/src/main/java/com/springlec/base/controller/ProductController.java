@@ -386,11 +386,11 @@ public class ProductController {
 		// test 용
 		id = "admin";
 				
-		List<Product> list = service.purchaseList();
-		Product userInfo = service.userInfo(id);
+		List<Product> list = service.purchaseList(id);
+		Product purchaseInfo = service.purchaseInfo(id);
 		
 		model.addAttribute("orderList", list);
-		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("purchaseInfo", purchaseInfo);
 		
 		return "purchaseProduct";
 	}

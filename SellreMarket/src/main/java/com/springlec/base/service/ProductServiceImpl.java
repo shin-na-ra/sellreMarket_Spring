@@ -472,16 +472,17 @@ public class ProductServiceImpl implements ProductService{
 	
 	// Purchase
 	@Override
-	public List<Product> purchaseList() throws Exception {
-		return dao.purchaseList();
+	public List<Product> purchaseList(String id) throws Exception {
+		return dao.purchaseList(id);
 	}
-
 	
 	@Override
-	public Product userInfo(String id) throws Exception {
+	public Product purchaseInfo(String id) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.userInfo(id);
+		return dao.purchaseInfo(id);
 	}
 	// Purchase
+
+	
 
 }

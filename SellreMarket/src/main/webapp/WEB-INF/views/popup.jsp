@@ -78,7 +78,7 @@
 						class="css-1quw3ub e1uzxhvi2" value="${tel_no}">
 				</div>
 			</div>
-			<div class="css-1j0h5fa e1tjt2bn7">
+			<!-- <div class="css-1j0h5fa e1tjt2bn7">
 				<label for="receiver-delivery-request" class="css-3nsxl0 e1tjt2bn4">배송기사
 					요청사항</label>
 				<div class="css-1ftcmgd e1tjt2bn5">
@@ -93,6 +93,28 @@
 					</span>
 					</span>
 				</div>
+			</div> -->
+			
+			<div class="css-1j0h5fa e1tjt2bn7">
+			    <label for="receiver-delivery-request" class="css-3nsxl0 e1tjt2bn4">배송기사 요청사항</label>
+			    <div class="css-1ftcmgd e1tjt2bn5">
+			        <textarea id="receiver-delivery-request"
+			                  placeholder="예) 벨 누르지 말고 전화주세요"
+			                  inputmode="text"
+			                  aria-label="textarea-message"
+			                  class="css-5etceh e1tjt2bn1"
+			                  oninput="updateCharacterCount(this)"
+			                  maxlength="50"
+			                  value="">
+			        </textarea>
+			        <div class="placeholder css-1ofzfyp e1tjt2bn6"></div>
+			        <span class="content-length-counter css-dbwxb9 e1tjt2bn0">
+			            <span>
+			                <span id="character-count" class="css-14kcwq8 e1tjt2bn2">0 </span>
+			                <span class="css-14kcwq8 e1tjt2bn3">/ 50</span>
+			            </span>
+			        </span>
+			    </div>
 			</div>
 			<div class="css-oticys e12ad82f0">
 				<button class="css-1t93ala e4nu7ef3" type="button" height="56"

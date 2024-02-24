@@ -37,9 +37,9 @@ public class DataAccessConfig {
 		return new HashMap<String, Object>();
 	}
 	
-	@Bean
-	SqlSessionTemplate sessionTemplate(SqlSessionFactory sqlSessionFactory) {
-		return new SqlSessionTemplate(sqlSessionFactory);
-	}
+//	@Bean
+//	SqlSessionTemplate sessionTemplate(SqlSessionFactory sqlSessionFactory) {
+//		return new SqlSessionTemplate(sqlSessionFactory);
+//	}
 	
 }
