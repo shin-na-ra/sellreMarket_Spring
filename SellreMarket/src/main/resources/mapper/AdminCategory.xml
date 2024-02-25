@@ -2,7 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <!-- *****************    namespace에서 dao 설정해야함    *****************  -->
-<mapper namespace="com.springlec.base.dao.Category"> 
+<mapper namespace="com.springlec.base.dao.AdminCategoryDao"> 
 	
+	 <select id="list" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.Category">
+		  SELECT type,
+				subtype,
+			    CASE
+			        WHEN status = 1 THEN '사용'
+			        WHEN status = 0 THEN '미사용'
+			        ELSE NULL
+			    END AS status,
+                catetoryid
+                
+		FROM (
+		    SELECT ROW_NUMBER() OVER (ORDER BY catetoryid desc ) AS num, b.type, b.subtype, status ,catetoryid
+		    FROM catetory b group by type, subtype, status, catetoryid
+		) AS t
+       WHERE num BETWEEN #{pageStart} AND #{pageStart}+14
+        group by status, subtype, catetoryid
+        ORDER BY num;
+        
+	</select>
+	
+		<!-- 브랜드 개수 가져오기 -->	
+	<select id="boardCount" resultType="Integer"  parameterType="com.springlec.base.model.Category">
+		SELECT COUNT(subtype) FROM catetory;
+	</select>
+	
+	<insert id="insertCategory">
+		insert into catetory (type, subtype, status) values (#{type}, #{subtype}, '1')
+	</insert>
+	
+	<!-- 2024.02.21 snr : 카테고리 상세 조회하기  -->
+	<select id="detail" resultType="com.springlec.base.model.Category">
+	
+		select type, subtype, catetoryid, status from catetory
+		where catetoryid = #{catetoryid}  
+		
+	</select>
+	
+	<!-- 카테고리 수정 -->
+	<update id="update">
+		update catetory set
+		type = #{type},
+		subtype = #{subtype}
+		where catetoryid = #{catetoryid}
+	</update>
+	
+	<!-- 카테고리 미사용 처리 -->
+	<update id="delete">
+		update catetory set
+		status = '0'
+		where catetoryid = #{catetoryid}
+	</update>
+	
+	<!-- 카테고리 사용 처리 -->
+	<update id="changeStatus">
+		update catetory set
+		status = '1'
+		where catetoryid = #{catetoryid}
+	</update>
 	
 </mapper>
