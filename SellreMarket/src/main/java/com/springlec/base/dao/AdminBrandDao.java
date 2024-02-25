@@ -28,7 +28,9 @@ public interface AdminBrandDao {
 	//게시글 수
 	public int boardCount() throws Exception;
 	
+	//페이징 처리
 	public AdminPageDto pagingParam(int page) throws Exception;
 	
+	//등록, 수정 시 브랜드 중복 체크
 	public int checkBrand(String bname) throws Exception;
 }
