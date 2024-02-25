@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.springlec.base.model.AdminEventDto;
 import com.springlec.base.model.AdminOrderDto;
 import com.springlec.base.model.AdminPageDto;
 import com.springlec.base.model.AdminQuestDto;
@@ -21,6 +22,7 @@ import com.springlec.base.model.BrandDto;
 import com.springlec.base.model.Category;
 import com.springlec.base.service.AdminBrandService;
 import com.springlec.base.service.AdminCategoryService;
+import com.springlec.base.service.AdminEventService;
 import com.springlec.base.service.AdminOrderService;
 import com.springlec.base.service.AdminQuestService;
 
@@ -49,6 +51,9 @@ public class AdminController {
 	
 	@Autowired
 	AdminCategoryService adminCategoryService;
+	
+	@Autowired
+	AdminEventService adminEventService;
 	
 	//관리자 브랜드 현황 조회
 	@GetMapping("/adminBrand")
@@ -307,7 +312,6 @@ public class AdminController {
 		List<Category> list = adminCategoryService.detail(catetoryid);
 		
 		model.addAttribute("list", list);
-		System.out.println("lisdfsf : "+list.get(0).getStatus());
 		return "adminCategoryDetail";
 	}
 	
@@ -343,4 +347,84 @@ public class AdminController {
 		return "redirect:/adminCategory";
 	}
 	
+	//관리자 이벤트 조회하기
+	@GetMapping("/adminEvent")
+	public String adminEvent (HttpServletRequest request, Model model) throws Exception {
+
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int totalCnt = adminEventService.boardCount();
+		int index_no = (page - 1) * 15;
+		
+		List<AdminEventDto> list = adminEventService.list(page);
+		AdminPageDto dto = adminEventService.pagingParam(page);
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		return "adminEvent";			
+	}
+	
+	//관리자 이벤트 등록페이지 전환
+	@GetMapping("adminEventRegister")
+	public String adminEventRegister() {
+		return "adminEventRegister";
+	}
+	
+	//관리자 이벤트 등록
+	@PostMapping("adminEventInsert")
+	public String adminEventInsert(HttpServletRequest request) throws Exception {
+		String image = request.getParameter("image");
+		String ename = request.getParameter("ename");
+		String econtent = request.getParameter("econtent");
+		String startdate = request.getParameter("startdate");
+		String enddate = request.getParameter("enddate");
+		int salerate = Integer.parseInt(request.getParameter("salerate"));
+		
+		adminEventService.insert(image, ename, econtent, startdate, enddate, salerate);
+		return "redirect:/adminEvent";
+	}
+	
+	//관리자 이벤트 상세
+	@GetMapping("adminEventDetail")
+	public String adminEventDetail(HttpServletRequest request, Model model) throws Exception {
+		
+		int eventid = Integer.parseInt(request.getParameter("eventid"));
+		List<AdminEventDto> list = adminEventService.detail(eventid);
+		
+		model.addAttribute("list", list);
+		return "adminEventDetail";
+	}
+	
+	@PostMapping("adminEventUpdate")
+	public String adminEventUpdate(HttpServletRequest request, Model model) throws Exception {
+		int eventid = Integer.parseInt(request.getParameter("eventid"));
+		String ename= request.getParameter("ename");
+		String econtent= request.getParameter("econtent");
+		String startdate= request.getParameter("startdate");
+		String enddate= request.getParameter("enddate");
+		int salerate= Integer.parseInt(request.getParameter("salerate"));
+		
+		adminEventService.update(eventid, ename, econtent, startdate, enddate, salerate);
+		
+		return "redirect:/adminEvent";
+	}
+	
+	//관리자 카테고리 삭제
+	@PostMapping("adminEventDelete")
+	public String adminEventDelete(HttpServletRequest request, Model model) throws Exception {
+		int eventid = Integer.parseInt(request.getParameter("eventid"));
+		
+		adminEventService.delete(eventid);
+		
+		return "redirect:/adminEvent";
+	}
 }

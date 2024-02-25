@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- *****************    namespace에서 dao 설정해야함    *****************  -->
+<mapper namespace="com.springlec.base.dao.AdminEventDao"> 
+	
+	 <select id="list" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.AdminEventDto">
+		  SELECT eventid,
+				ename,
+				DATE_FORMAT(startdate,'%Y-%m-%d') as startdate,
+				DATE_FORMAT(enddate,'%Y-%m-%d') as enddate,
+				salerate
+		FROM (
+		    SELECT ROW_NUMBER() OVER (ORDER BY eventid desc ) AS num, ename, startdate, enddate, salerate, eventid
+		    FROM event 
+		) AS t
+       WHERE num BETWEEN #{pageStart} AND #{pageStart}+14
+       ORDER BY num;
+        
+	</select>
+	
+		<!-- 브랜드 개수 가져오기 -->	
+	<select id="boardCount" resultType="Integer"  parameterType="com.springlec.base.model.AdminEventDto">
+		select count(eventid) from event;
+	</select>
+	
+	<insert id="insert">
+		insert into event (img, ename, econtent, startdate, enddate, salerate, inputdate, status) values 
+		(#{image}, #{ename}, #{econtent}, #{startdate}, #{enddate}, #{salerate}, now(), '1') 
+	</insert>
+	
+	<!-- 2024.02.21 snr : 카테고리 상세 조회하기  -->
+	<select id="detail" resultType="com.springlec.base.model.AdminEventDto">
+	
+		select ename, DATE_FORMAT(startdate,'%Y-%m-%d') as startdate, DATE_FORMAT(enddate,'%Y-%m-%d') as enddate,
+		 salerate, eventid, status, econtent from event
+		where eventid = #{eventid}  
+		
+	</select>
+	
+	<!-- 수정 -->
+	<update id="update">
+		update event set
+			ename = #{ename},
+			econtent = #{econtent},
+			startdate = #{startdate},
+			enddate = #{enddate},
+			salerate = #{salerate}
+		where eventid = #{eventid}
+	</update>
+	
+	<delete id="delete">
+		update event set
+		status = '0'
+		where eventid = #{eventid}
+	</delete>
+</mapper>

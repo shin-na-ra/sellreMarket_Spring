@@ -31,26 +31,31 @@
 				<div class="form-group">
 					<label for="ename">이벤트 명 *</label>
 					<input type="text" id="ename" name="ename">
+					<span id="reg1" style="color:red; display:none; margin-top:10px;"></span>
 				</div>
 				
 				<div class="form-group">
 					<label for="econtent">이벤트 내용 *</label>
 					<input type="text" id="econtent" name="econtent">
+					<span id="reg2" style="color:red; display:none; margin-top:10px;"></span>
 				</div>
 				
 				<div class="form-group">
 					<label for="startdate">이벤트 시작일 *</label>
 					<input type="date" id="startdate" name="startdate">
+					<span id="reg3" style="color:red; display:none; margin-top:10px;"></span>
 				</div>
 				
 				<div class="form-group">
 					<label for="enddate">이벤트 종료일 *</label>
 					<input type="date" id="enddate" name="enddate">
+					<span id="reg3" style="color:red; display:none; margin-top:10px;"></span>
 				</div>
 				
 				<div class="form-group">
 					<label for="salerate">할인율(%) *</label>
 					<input type="text" id="salerate" name="salerate" style="text-align:right">
+					<span id="reg4" style="color:red; display:none; margin-top:10px;"></span>
 				</div>
 				<button type="button" class="registerBtn" onclick="insertCheck()"> 등록</button>	
 			</form>
