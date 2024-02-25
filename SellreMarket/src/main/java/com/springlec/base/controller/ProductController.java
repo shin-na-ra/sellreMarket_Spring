@@ -352,30 +352,30 @@ public class ProductController {
 	
 	/************* TEST Start *************/
 	// get in product detail for test
-	@GetMapping("/productDetailPage")
-	public String pDeatilPage(HttpServletRequest request, Model model) {
-		model.addAttribute("productId", request.getParameter("productId"));
-		try { 
-			model.addAttribute("recipeId", request.getParameter("recipeId"));
-		}catch (Exception e) {
-			model.addAttribute("recipeId", null);
-			e.printStackTrace();
-		}
-		return "test";
-	}
+//	@GetMapping("/productDetailPage")
+//	public String pDeatilPage(HttpServletRequest request, Model model) {
+//		model.addAttribute("productId", request.getParameter("productId"));
+//		try { 
+//			model.addAttribute("recipeId", request.getParameter("recipeId"));
+//		}catch (Exception e) {
+//			model.addAttribute("recipeId", null);
+//			e.printStackTrace();
+//		}
+//		return "test";
+//	}
 	
 	// get in recipe detail for test
-	@GetMapping("/recipeDetailPage")
-	public String rDeatilPage(HttpServletRequest request, Model model) {
-		model.addAttribute("recipeId", request.getParameter("recipeId"));
-		try { 
-			model.addAttribute("productId", request.getParameter("productId"));
-		}catch (Exception e) {
-			model.addAttribute("productId", null);
-			e.printStackTrace();
-		}
-		return "test";
-	}
+//	@GetMapping("/recipeDetailPage")
+//	public String rDeatilPage(HttpServletRequest request, Model model) {
+//		model.addAttribute("recipeId", request.getParameter("recipeId"));
+//		try { 
+//			model.addAttribute("productId", request.getParameter("productId"));
+//		}catch (Exception e) {
+//			model.addAttribute("productId", null);
+//			e.printStackTrace();
+//		}
+//		return "test";
+//	}
 	/************* TEST End *************/
 	
 	
