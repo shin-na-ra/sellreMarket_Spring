@@ -65,7 +65,6 @@ public class AdminBrandServiceImpl implements AdminBrandService {
 	public List<BrandDto> pageList(int page) throws Exception {
 		
 		int pageStart = (page - 1) * pageLimit + 1;
-		System.out.println("[service] pageList :  "+pageStart);
 		return dao.pageList(pageStart);
 	}
 
@@ -78,7 +77,6 @@ public class AdminBrandServiceImpl implements AdminBrandService {
 		
 		//시작페이지 계산
 		int startPage = (int)(Math.ceil((double) page / blockLimit) - 1) * blockLimit + 1;
-		System.out.println("startPage :" + startPage);
 		
 		int endPage = startPage + blockLimit -1;
 		if(endPage > maxPage) {
