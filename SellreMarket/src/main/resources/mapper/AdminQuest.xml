@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.base.dao.AdminQuestDao"> 
+
+	<!-- 고객문의 페이지에 맞게 리스트 가져오기  -->
+	 <select id="questList" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.AdminQuestDto">
+		SELECT inquiryid,
+		intitle,
+		DATE_FORMAT(insertdate,'%Y-%m-%d') as insertdate,
+        status
+		FROM (
+		    SELECT ROW_NUMBER() OVER (ORDER BY inquiryid) AS num, b.inquiryid, intitle, insertdate, status
+		    FROM personal_inquiry b 
+		) AS t
+        WHERE num BETWEEN #{pageStart} AND #{pageStart}+14
+        order by inquiryid desc; 
+	</select>
+	
+	
+	<!-- 고객문의 개수 가져오기 -->	
+	<select id="listCount" resultType="Integer"  parameterType="com.springlec.base.model.AdminQuestDto">
+		select count(inquiryid) from personal_inquiry;   
+	</select>
+	
+	<!-- 고개문의 상세 조회 -->
+	<select id="detail" parameterType="com.springlec.base.model.AdminQuestDto">
+        SELECT 
+        
+        	inquiryid,
+	        intitle,
+	        incontent,
+	        inimage,
+	        answer,
+	        DATE_FORMAT(insertdate,'%Y-%m-%d') as insertdate,
+	        DATE_FORMAT(answerdate,'%Y-%m-%d') as answerdate,
+	        status
+	        
+        FROM personal_inquiry
+     
+        WHERE inquiryid = #{inquiryid}
+	
+	</select>
+	
+	<update id="updateAnswer">
+		UPDATE personal_inquiry SET
+		answer = #{answer},
+		status = '답변완료'
+		WHERE inquiryid = #{inquiryid}
+	</update>
+	
+	
+</mapper>
