@@ -666,7 +666,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10" id="totalPrice">
 									  <span class="css-rfpchb eahaaoi3"></span>
-									  
+									  ${sumDiscountPrice}
 								  </span>
 							  	  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>

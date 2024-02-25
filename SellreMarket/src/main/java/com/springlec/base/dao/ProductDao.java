@@ -50,7 +50,7 @@ public interface ProductDao {
 	public void getProductCart(String id, int productid) throws Exception;
 	public void getRecipeCart(String id, int recipeid) throws Exception;
 	
-	// Purchase
+	// Order
 	public List<Product> purchaseList(String id) throws Exception;
 	public Product purchaseInfo(String id) throws Exception;
 }

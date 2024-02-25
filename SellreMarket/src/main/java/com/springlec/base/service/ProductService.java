@@ -49,7 +49,8 @@ public interface ProductService {
 	public void getCart(String id, int productid, String headerCategory) throws Exception;
 	
 	
-	// Purchase
+	// Order
 	public List<Product> purchaseList(String id) throws Exception;
+	// 구매할 때 고객 정보와 sum result 값
 	public Product purchaseInfo(String id) throws Exception;
 }

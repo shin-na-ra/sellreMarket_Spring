@@ -380,6 +380,7 @@ public class ProductController {
 	
 	
 	/************* Order Start *************/
+	
 	@GetMapping("/order")
 	public String order(Model model) throws Exception {
 		
@@ -389,8 +390,24 @@ public class ProductController {
 		List<Product> list = service.purchaseList(id);
 		Product purchaseInfo = service.purchaseInfo(id);
 		
+		System.out.println(purchaseInfo.getDiscount()+ " : discount controller");
+		System.out.println(purchaseInfo.getPrice() + " : ");
+		System.out.println(purchaseInfo.getdPrice() + " : dPrice ");
+		
+		
+		int discountPrice = Integer.parseInt(purchaseInfo.getdPrice().replace(",", ""));
+		// ex) sumDiscountPrice 100,000 이상 배송비 무료
+		if(discountPrice <= 100000) {
+			discountPrice += 3000;
+		}
+		// formatting decimal
+		String strDiscountPrice = String.format("%,d", discountPrice);
+		
 		model.addAttribute("orderList", list);
+		// 구매할 때 고객 정보와 sum result 값
 		model.addAttribute("purchaseInfo", purchaseInfo);
+		// 배송비를 포함한 결제 금액 보내기
+		model.addAttribute("sumDiscountPrice", strDiscountPrice);
 		
 		return "purchaseProduct";
 	}

@@ -470,18 +470,20 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	
-	// Purchase
+	// order
 	@Override
 	public List<Product> purchaseList(String id) throws Exception {
 		return dao.purchaseList(id);
 	}
 	
+	
+	// 구매할 때 고객 정보와 sum result 값
 	@Override
 	public Product purchaseInfo(String id) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.purchaseInfo(id);
 	}
-	// Purchase
+	// order
 
 	
 

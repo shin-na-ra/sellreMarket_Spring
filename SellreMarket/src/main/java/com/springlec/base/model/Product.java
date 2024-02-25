@@ -63,6 +63,28 @@ public class Product {
 		this.qty = qty;
 	}
 	
+	
+	public Product(int productid, String pname, int qty, String dPrice, String price,  String pimage) {
+		super();
+		this.productid = productid;
+		this.pname = pname;
+		this.qty = qty;
+		this.dPrice = dPrice;
+		this.price = price;
+		this.pimage = pimage;
+	}
+	
+	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
+		super();
+		this.pname = pname;
+		this.price = price;
+		this.dPrice = dPrice;
+		this.pimage = pimage;
+		this.plikecount = plikecount;
+		this.productid = productid;
+		this.salerate = salerate;
+	}
+	
 	public Product(String uname, String tel_no, String email, String address, String detailaddress, String dPrice, String discount, String price) {
 		super();
 		this.uname = uname;
@@ -74,28 +96,7 @@ public class Product {
 		this.discount = discount;
 		this.price = price;
 	}
-
-	public Product(int productid, String pname, int qty, String dPrice, String price,  String pimage) {
-		super();
-		this.productid = productid;
-		this.pname = pname;
-		this.qty = qty;
-		this.dPrice = dPrice;
-		this.price = price;
-		this.pimage = pimage;
-	}
-
-	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
-		super();
-		this.pname = pname;
-		this.price = price;
-		this.dPrice = dPrice;
-		this.pimage = pimage;
-		this.plikecount = plikecount;
-		this.productid = productid;
-		this.salerate = salerate;
-	}
-
+	
 	public Product(String yname, String ysrc, String ytitle, String price, String dPrice, String recipelike, int recipeid, String salerate) {
 		super();
 		this.yname = yname;
@@ -443,5 +444,7 @@ public class Product {
 	public void setDiscount(String discount) {
 		this.discount = discount;
 	}
+	
+	
 	
 }

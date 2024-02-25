@@ -2,13 +2,16 @@
  * 
  */
 
-window.onload() = function() {
-	var discountSum = document.getElementById("discountSum").innerText();	
-	var deliveryFee = document.getElementById("deliveryFee").innerText();
-	var totalPrice = document.getElementById("totalPrice").innerText();
-	
-	totalPrice = discountSum + deliveryFee;
+/*
+window.onload = function() {
+    var discountSum = parseFloat(document.getElementById("discountSum").innerText);
+    var deliveryFee = parseFloat(document.getElementById("deliveryFee").innerText);
+    var totalPrice = document.getElementById("totalPrice");
+
+    // Assuming you want to display the result in totalPrice
+    totalPrice.innerText = (discountSum + deliveryFee).toFixed(2); // Assuming you want to display with 2 decimal places
 }
+*/
 
 
 
