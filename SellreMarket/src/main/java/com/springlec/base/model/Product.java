@@ -46,6 +46,7 @@ public class Product {
 	String email;
 	String address;
 	String detailaddress;
+	String discount;
 	
 	
 	public Product(String eimg) {
@@ -53,6 +54,7 @@ public class Product {
 		this.eimg = eimg;
 	}
 	
+
 	public Product(String pname, String price, String pimage, int qty) {
 		super();
 		this.pname = pname;
@@ -62,7 +64,16 @@ public class Product {
 	}
 	
 	
-
+	public Product(int productid, String pname, int qty, String dPrice, String price,  String pimage) {
+		super();
+		this.productid = productid;
+		this.pname = pname;
+		this.qty = qty;
+		this.dPrice = dPrice;
+		this.price = price;
+		this.pimage = pimage;
+	}
+	
 	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
 		super();
 		this.pname = pname;
@@ -73,7 +84,19 @@ public class Product {
 		this.productid = productid;
 		this.salerate = salerate;
 	}
-
+	
+	public Product(String uname, String tel_no, String email, String address, String detailaddress, String dPrice, String discount, String price) {
+		super();
+		this.uname = uname;
+		this.tel_no = tel_no;
+		this.email = email;
+		this.address = address;
+		this.detailaddress = detailaddress;
+		this.dPrice = dPrice;
+		this.discount = discount;
+		this.price = price;
+	}
+	
 	public Product(String yname, String ysrc, String ytitle, String price, String dPrice, String recipelike, int recipeid, String salerate) {
 		super();
 		this.yname = yname;
@@ -86,15 +109,6 @@ public class Product {
 		this.salerate = salerate;
 	}
 	
-	public Product(String uname, String tel_no, String email, String address, String detailaddress) {
-		super();
-		this.uname = uname;
-		this.tel_no = tel_no;
-		this.email = email;
-		this.address = address;
-		this.detailaddress = detailaddress;
-	}
-
 	public Product(int yid, String yname, String ysrc, String ytitle, int rid, String rcontent, int pid, String pname,
 			String pengname, String allery, String nutrition, int pstock, Date pinsertdate, String origin,
 			Date expirationdate, String description, int status, int priceid, String dPrice, String price,
@@ -421,4 +435,16 @@ public class Product {
 	public void setDetailaddress(String detailaddress) {
 		this.detailaddress = detailaddress;
 	}
+
+	public String getDiscount() {
+		return discount;
+	}
+
+
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
+	
+	
+	
 }
