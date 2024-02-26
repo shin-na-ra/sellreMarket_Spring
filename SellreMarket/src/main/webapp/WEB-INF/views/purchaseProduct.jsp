@@ -333,20 +333,20 @@
 					<div class="css-yazyg9 e150alo82">
 					<span class="css-ln1csn e150alo81">보내는 분</span>
 					<div class="css-82a6rk e150alo80">
-						<div class="css-t6o2y8 e1vfdada2">${purchaseInfo.uname}</div>
+						<div class="css-t6o2y8 e1vfdada2">${userInfo.uname}</div>
 					</div>
 					</div>
 					
 					<div class="css-yazyg9 e150alo82">
 						<span class="css-ln1csn e150alo81">휴대폰</span>
 						<div class="css-82a6rk e150alo80">
-							<div class="css-t6o2y8 e1vfdada2">${purchaseInfo.tel_no}</div>
+							<div class="css-t6o2y8 e1vfdada2">${userInfo.tel_no}</div>
 						</div>
 					</div>
 					
 					<div class="css-yazyg9 e150alo82">
 						<span class="css-ln1csn e150alo81">이메일</span>
-						<div class="css-82a6rk e150alo80">${purchaseInfo.email}
+						<div class="css-82a6rk e150alo80">${userInfo.email}
 							<br>
 							<div class="css-1r0yqr6 e1vfdada1">
 								<p class="css-i7dt79 e1vfdada0">이메일을 통해 주문처리과정을 보내드립니다.</p>
@@ -382,7 +382,7 @@
 						<span class="css-ln1csn e150alo81">배송지</span>
 							<div class="css-82a6rk e150alo80">
 								<span class="css-3uygi7 e17yjk9v3">기본배송지</span>
-								<p class="css-36j4vu e17yjk9v2">${purchaseInfo.address} ${purchaseInfo.detailaddress}</p>
+								<p class="css-36j4vu e17yjk9v2">${userInfo.address} ${userInfo.detailaddress}</p>
 								<div class="css-iqoq9n e17yjk9v0">
 									<button id="changeAddress" class="css-1xky6jf e4nu7ef3" type="button" width="60" height="30" radius="3" onclick="changeAddress()">
 										<span class="css-nytqmg e4nu7ef1">변경</span>
@@ -397,7 +397,7 @@
 						<span class="css-ln1csn e150alo81">배송 요청사항</span>
 							<div class="css-82a6rk e150alo80">
 								<span class="css-3uygi7 e17yjk9v3">기본배송지</span>
-								<p class="css-36j4vu e17yjk9v2">${purchaseInfo.uname} ${purchaseInfo.tel_no}</p>
+								<p class="css-36j4vu e17yjk9v2">${userInfo.uname} ${userInfo.tel_no}</p>
 								<div class="css-iqoq9n e17yjk9v0">
 									<button id="changeAddress" class="css-1xky6jf e4nu7ef3" type="button" width="60" height="30" radius="3" onclick="deliveryMessage(${purchaseInfo.uname}, ${purchaseInfo.tel_no})">
 										<span class="css-nytqmg e4nu7ef1">수정</span>
@@ -554,7 +554,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10" id="discountSum">
 									  <span class="css-rfpchb eahaaoi3"></span>
-									  ${purchaseInfo.dPrice}
+									  ${orderList.dPrice}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -569,7 +569,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10">
 									  <span class="css-rfpchb eahaaoi3"></span>
-									  ${purchaseInfo.price}
+									  ${orderList.price}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -584,7 +584,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10">
 									  <span class="css-rfpchb eahaaoi3">-</span>
-									  ${purchaseInfo.discount}
+									  ${orderList.discount}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>

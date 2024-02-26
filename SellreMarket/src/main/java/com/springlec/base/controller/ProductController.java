@@ -393,17 +393,13 @@ public class ProductController {
 		System.out.println(id + " in order Controller");
 		
 		
-		List<Product> list = service.purchaseList(id);
+		List<Product> list = service.orderList(id);
 		System.out.println("pass the list");
-		Product purchaseInfo = service.purchaseInfo(id);
+		Product userInfo = service.userInfo(id);
 		System.out.println("pass the purchaseInfo");
 		
-		System.out.println(purchaseInfo.getDiscount()+ " : discount controller");
-		System.out.println(purchaseInfo.getPrice() + " : ");
-		System.out.println(purchaseInfo.getdPrice() + " : dPrice ");
 		
-		
-		int discountPrice = Integer.parseInt(purchaseInfo.getdPrice().replace(",", ""));
+		int discountPrice = Integer.parseInt(userInfo.getdPrice().replace(",", ""));
 		// ex) sumDiscountPrice 100,000 이상 배송비 무료
 		if(discountPrice <= 100000) {
 			deliveryFee = 3000;
@@ -417,7 +413,7 @@ public class ProductController {
 		model.addAttribute("id", id);
 		model.addAttribute("orderList", list);
 		// 구매할 때 고객 정보와 sum result 값
-		model.addAttribute("purchaseInfo", purchaseInfo);
+		model.addAttribute("userInfo", userInfo);
 		// 배송비를 포함한 결제 금액 보내기
 		model.addAttribute("sumDiscountPrice", strDiscountPrice);
 		model.addAttribute("deliveryFee", deliveryFee);

@@ -1,7 +1,7 @@
 package com.springlec.base.service;
 
 import java.io.PrintWriter;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -497,17 +497,35 @@ public class ProductServiceImpl implements ProductService{
 	
 	// order
 	@Override
-	public List<Product> purchaseList(String id) throws Exception{
-		return dao.purchaseList(id);
+	public List<Product> orderList(String id) throws Exception{
+		// for문을 돌리기 위해 변수로 선언
+		Integer[] checkOrderCount = dao.clickOrderBtn();
+		List<Product> result = new ArrayList<>();
+		
+		try {
+			for (int i=0; i<checkOrderCount.length; i++) {
+				result.add(dao.orderList(id, checkOrderCount[i]));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	
 	// 구매할 때 고객 정보와 sum result 값
 	@Override
-	public Product purchaseInfo(String id) throws Exception {
+	public Product userInfo(String id) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.purchaseInfo(id);
+		return dao.userInfo(id);
 	}
 	// order
+
+	@Override
+	public int[] clickOrderBtn() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

@@ -52,10 +52,11 @@ public interface ProductService {
 	public int searchCart(String id, int producitd) throws Exception;
 	// Update
 	public void updateCart(String id, int productid, int qty) throws Exception;
+	public int[] clickOrderBtn() throws Exception;
 	
 	
 	// Order
-	public List<Product> purchaseList(String id) throws Exception;
+	public List<Product> orderList(String id) throws Exception;
 	// 구매할 때 고객 정보와 sum result 값
-	public Product purchaseInfo(String id) throws Exception;
+	public Product userInfo(String id) throws Exception;
 }

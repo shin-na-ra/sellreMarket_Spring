@@ -62,17 +62,17 @@ public class Product {
 		this.pimage = pimage;
 		this.qty = qty;
 	}
-	
-	
-	public Product(int productid, String pname, int qty, String dPrice, String price,  String pimage) {
+
+	public Product(String uname, String tel_no, String email, String address, String detailaddress, String dPrice, String discount, String price) {
 		super();
-		this.productid = productid;
-		this.pname = pname;
-		this.qty = qty;
+		this.uname = uname;
+		this.tel_no = tel_no;
+		this.email = email;
+		this.address = address;
+		this.detailaddress = detailaddress;
 		this.dPrice = dPrice;
-		this.price = price;
-		this.pimage = pimage;
 	}
+	
 	
 	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
 		super();
@@ -85,17 +85,17 @@ public class Product {
 		this.salerate = salerate;
 	}
 	
-	public Product(String uname, String tel_no, String email, String address, String detailaddress, String dPrice, String discount, String price) {
+	public Product(int productid, String pname, int qty, String dPrice, String discount, String price,  String pimage) {
 		super();
-		this.uname = uname;
-		this.tel_no = tel_no;
-		this.email = email;
-		this.address = address;
-		this.detailaddress = detailaddress;
+		this.productid = productid;
+		this.pname = pname;
+		this.qty = qty;
 		this.dPrice = dPrice;
 		this.discount = discount;
 		this.price = price;
+		this.pimage = pimage;
 	}
+	
 	
 	public Product(String yname, String ysrc, String ytitle, String price, String dPrice, String recipelike, int recipeid, String salerate) {
 		super();
@@ -444,7 +444,5 @@ public class Product {
 	public void setDiscount(String discount) {
 		this.discount = discount;
 	}
-	
-	
 	
 }
