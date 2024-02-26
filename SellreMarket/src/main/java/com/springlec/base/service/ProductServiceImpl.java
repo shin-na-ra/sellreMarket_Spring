@@ -41,12 +41,13 @@ public class ProductServiceImpl implements ProductService{
 		
 		int cartCount = 0;
 		
-		// 장바구니 카운트 세기
-		if (id != null) {
-			cartCount = dao.cartCount(id);
-		}
 		
-		session.setAttribute("cartCount", cartCount);
+		// 장바구니 카운트 세기
+//		if (id != null) {
+//			cartCount = dao.cartCount(id);
+//		}
+		
+//		session.setAttribute("cartCount", cartCount);
 		// 한 페이지에 몇개를 보여줄 것인가?
 		int countPerPage = 12;
 		// 한 블럭에 몇개의 블럭을 보여줄 것인가?
@@ -229,16 +230,16 @@ public class ProductServiceImpl implements ProductService{
 		HttpSession session = request.getSession();
 		String href = null;
 		int totalProductCount = 1;
-		int cartCount = 0;
+//		int cartCount = 0;
 		
 		
 		// 어딘가에서 id를 session으로 받아야한다. 그래야 로그인 했을 때만 카운트를 샌다.
 		id = (String) session.getAttribute("id");
 		
 		// 장바구니 카운트 세기
-		if (id != null) {
-			cartCount = dao.cartCount(id);
-		}
+//		if (id != null) {
+//			cartCount = dao.cartCount(id);
+//		}
 		
 		// href 변수를 간결하게 수정
 	    if (headerCategory.equals("신상품")) {
@@ -301,7 +302,7 @@ public class ProductServiceImpl implements ProductService{
 		// 마지막 페이지 정하기
 		int endPage = (totalProductCount % countPerPage) == 0 ? totalProductCount / countPerPage : ((totalProductCount / countPerPage) + 1);
 		
-	    session.setAttribute("cartCount", cartCount);
+//	    session.setAttribute("cartCount", cartCount);
 		
 		System.out.println("chceck inside implementation curPage :" + curPage);
 		
@@ -440,8 +441,17 @@ public class ProductServiceImpl implements ProductService{
 
 	// cart count
 	@Override
-	public int cartCount(String id) throws Exception {
-		return dao.cartCount(id);
+	public void cartCount(HttpServletRequest request, String id) throws Exception {
+		HttpSession session = request.getSession();
+		try { 
+			if(!id.equals(null)) {
+		
+			dao.cartCount(id);
+			session.setAttribute("cartCount", dao.cartCount(id));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// Images

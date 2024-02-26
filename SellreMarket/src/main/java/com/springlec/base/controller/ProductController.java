@@ -42,12 +42,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> newProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -75,12 +76,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> newProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -108,12 +110,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> newProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -143,12 +146,13 @@ public class ProductController {
 		
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> bestProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -177,12 +181,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> bestProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -210,12 +215,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> bestProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -242,12 +248,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> recipeProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -273,12 +280,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> recipeProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -305,12 +313,13 @@ public class ProductController {
 		
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> recipeProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -388,7 +397,7 @@ public class ProductController {
 		
 		// test 용
 		id = "admin";
-				
+		
 		List<Product> list = service.purchaseList(id);
 		Product purchaseInfo = service.purchaseInfo(id);
 		

@@ -45,7 +45,7 @@ public interface ProductService {
 //	public int recipeProductPageCount() throws Exception;
 	
 	// Cart
-	public int cartCount(String id) throws Exception;
+	public void cartCount(HttpServletRequest request, String id) throws Exception;
 	public void getCart(String id, int productid, String headerCategory) throws Exception;
 	
 	
