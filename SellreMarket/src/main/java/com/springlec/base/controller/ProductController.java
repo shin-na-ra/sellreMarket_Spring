@@ -352,7 +352,8 @@ public class ProductController {
 	
 	/************* TEST Start *************/
 	// get in product detail for test
-	@GetMapping("/productDetailPage")
+	// productDetailPage
+	@GetMapping("/productDetail")
 	public String pDeatilPage(HttpServletRequest request, Model model) {
 		model.addAttribute("productId", request.getParameter("productId"));
 		try { 
