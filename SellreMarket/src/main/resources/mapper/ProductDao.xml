@@ -9,9 +9,14 @@
 		INSERT INTO cart (qty, userid, productid) VALUES (1, #{id} ,#{productid})
 	</insert>
 	
-	<insert id="getRecipeCart">
+	<!-- <insert id="">
+		INSERT INTO purchase (purchasedate, amount, userid, cartid, payid, purchaseid) VALUES (now(), #{amount}, #{userid}, #{cartid}, #{paymethod});
+	</insert> -->
+	
+	
+	<!-- <insert id="getRecipeCart">
 		INSERT INTO cart (qty, userid, recipeid) VALUES (1, #{id} ,#{recipeid})
-	</insert>
+	</insert> -->
 	
 	
 	<!-- READ -->
@@ -341,7 +346,27 @@
 	</select>
 	<!-- Purchase End -->
 	
+	<select id="searchCart" resultType="Integer">
+		SELECT qty FROM cart WHERE userid = #{id} and productid = #{productid};
+	</select>
+	
 	<!-- UPDATE -->
+	<update id="updateProductCart">
+		UPDATE cart c
+		JOIN product p ON p.productid = c.productid
+		JOIN customer cus ON cus.userid = c.userid
+		SET qty = #{qty} + 1
+		WHERE p.productid = #{productid} AND cus.userid = #{id};
+	</update>
+	
+	<!-- <update id="updateRecipeCart">
+		UPDATE cart c
+		JOIN product p ON p.productid = c.productid
+		JOIN customer cus ON cus.userid = c.userid
+		SET qty = #{qty + 1}
+		WHERE p.productid = #{productid} AND cus.userid = #{id};
+	</update> -->
+	
 	
 	<!-- DELETE -->
 	

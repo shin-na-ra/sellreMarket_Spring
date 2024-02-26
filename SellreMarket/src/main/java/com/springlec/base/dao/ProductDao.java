@@ -49,9 +49,13 @@ public interface ProductDao {
 	public int cartCount(String id) throws Exception;
 	// input cart
 	public void getProductCart(String id, int productid) throws Exception;
-	public void getRecipeCart(String id, int recipeid) throws Exception;
+	// search cart
+	public int searchCart(String id, int productid) throws Exception;
+	// update cart
+	public void updateProductCart(String id, int productid, int qty) throws Exception;
 	
 	// Order
 	public List<Product> purchaseList(String id) throws Exception;
 	public Product purchaseInfo(String id) throws Exception;
+//	public List<Product> 
 }

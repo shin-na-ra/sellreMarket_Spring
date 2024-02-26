@@ -30,6 +30,7 @@ public class ProductController {
 	@GetMapping("/main")
 	public String newProductPage(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
+		String id = null;
 		
 		String adImage = service.newAdImg();
 		String headerCategory = "신상품";
@@ -365,12 +366,7 @@ public class ProductController {
 	@GetMapping("/productDetail")
 	public String pDeatilPage(HttpServletRequest request, Model model) {
 		model.addAttribute("productId", request.getParameter("productId"));
-		try { 
-			model.addAttribute("recipeId", request.getParameter("recipeId"));
-		}catch (Exception e) {
-			model.addAttribute("recipeId", null);
-			e.printStackTrace();
-		}
+		
 		return "test";
 	}
 	
@@ -379,12 +375,7 @@ public class ProductController {
 	@GetMapping("/recipeDetail")
 	public String rDeatilPage(HttpServletRequest request, Model model) {
 		model.addAttribute("recipeId", request.getParameter("recipeId"));
-		try { 
-			model.addAttribute("productId", request.getParameter("productId"));
-		}catch (Exception e) {
-			model.addAttribute("productId", null);
-			e.printStackTrace();
-		}
+		
 		return "test";
 	}
 	/************* TEST End *************/
@@ -397,9 +388,15 @@ public class ProductController {
 		
 		// test 용
 		id = "admin";
+		int deliveryFee = 0;
+		
+		System.out.println(id + " in order Controller");
+		
 		
 		List<Product> list = service.purchaseList(id);
+		System.out.println("pass the list");
 		Product purchaseInfo = service.purchaseInfo(id);
+		System.out.println("pass the purchaseInfo");
 		
 		System.out.println(purchaseInfo.getDiscount()+ " : discount controller");
 		System.out.println(purchaseInfo.getPrice() + " : ");
@@ -409,16 +406,21 @@ public class ProductController {
 		int discountPrice = Integer.parseInt(purchaseInfo.getdPrice().replace(",", ""));
 		// ex) sumDiscountPrice 100,000 이상 배송비 무료
 		if(discountPrice <= 100000) {
-			discountPrice += 3000;
+			deliveryFee = 3000;
+			discountPrice += deliveryFee;
 		}
 		// formatting decimal
 		String strDiscountPrice = String.format("%,d", discountPrice);
 		
+		
+		
+		model.addAttribute("id", id);
 		model.addAttribute("orderList", list);
 		// 구매할 때 고객 정보와 sum result 값
 		model.addAttribute("purchaseInfo", purchaseInfo);
 		// 배송비를 포함한 결제 금액 보내기
 		model.addAttribute("sumDiscountPrice", strDiscountPrice);
+		model.addAttribute("deliveryFee", deliveryFee);
 		
 		return "purchaseProduct";
 	}
@@ -429,27 +431,33 @@ public class ProductController {
 	@PostMapping("/getCart")
 	public ResponseEntity<Integer> getCart(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
+		int productid = 0;
+		int queryQty = 0;
 		
 		// ID 받기
 		id = request.getParameter("id");
-		
 		// productid 받기
-		int productid = 0;
-		
-		try {
-			productid = Integer.parseInt(request.getParameter("productid"));
-		} catch (Exception e) {
-			productid = Integer.parseInt(request.getParameter("recipeid"));
-		}
+		productid = Integer.parseInt(request.getParameter("productid"));
 		
 		// recipe인지, product인지 확인하는 분류 받기
-		String headerCategory = request.getParameter("headerCategory");
+//		String headerCategory = request.getParameter("headerCategory");
 		
 		int cartCount = (int) session.getAttribute("cartCount");
 		
-		// getCart insert문
-		service.getCart(id, productid, headerCategory);
 		
+		try {
+			queryQty = service.searchCart(id, productid);
+			System.out.println("forSearch : " + queryQty);
+			// update
+			if (queryQty > 0) {
+				service.updateCart(id, productid, queryQty);
+			}
+		}
+		catch (Exception e) {
+			// insert
+			service.getCart(id, productid);
+			e.printStackTrace();
+		}
 		return ResponseEntity.ok().body(cartCount);
 	}
 	/************* Cart End *************/
@@ -468,6 +476,26 @@ public class ProductController {
 		
 		
 		return "popup";
+	}
+	
+	@PostMapping("/sccessfulOrder")
+	public String sccessfulOrder(HttpServletRequest request, Model model) {
+		
+		
+		
+		model.addAttribute("id", request.getParameter("id"));
+		model.addAttribute("total", request.getParameter("sumDiscountPrice"));
+		System.out.println(request.getParameter("payMethod") + " payMethod in controller");
+		
+		return "sccessfulOrder";
+	}
+	
+	@GetMapping("/test")
+	public String test(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		
+		return "test";
 	}
 	
 	

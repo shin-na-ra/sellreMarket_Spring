@@ -360,7 +360,7 @@
 					<div class="css-12aowi2 edbbr7c2">
 						<h3 class="css-1ddzp0m edbbr7c1">배송 정보</h3>
 						<div class="css-bjn8wh er4y7r83">
-							<a class="css-orhu8r er4y7r82">배송지 변경 안내
+							<a class="css-orhu8r er4y7r82" onclick="alert('장바구니, 홈에서 배송지를 변경할 수 있어요')">배송지 변경 안내
 								<span class="css-gwort8 er4y7r81"></span>
 							</a>
 							<div width="188" height="60" class="css-1k2fiq3 ev65imb2">
@@ -391,20 +391,17 @@
 							</div>
 						</div>
 					</div>
-					<div id="checkout-shipping-details" class="css-1y0xj4c e1pxan881">
-						<div class="css-kc45zq e150alo82">
-							<span class="css-ln1csn e150alo81">배송 요청사항</span>
+					
+					<div class="css-5d6nlw e17yjk9v4">
+						<div class="css-1gshg9u e150alo82">
+						<span class="css-ln1csn e150alo81">배송 요청사항</span>
 							<div class="css-82a6rk e150alo80">
-								<div>
-									<span class="css-11y0tcn efthce41"></span>
-								</div>
-								<div class="css-rqc9f e14u1xpe0">${purchaseInfo.uname}, ${purchaseInfo.tel_no}</div>
-								<div class="css-iqoq9n e1pxan880">
-									<button class="css-117jo2j e4nu7ef3" type="button" width="60" height="30" radius="3" onclick="deliveryMessage(${purchaseInfo.uname}, ${purchaseInfo.tel_no})">
+								<span class="css-3uygi7 e17yjk9v3">기본배송지</span>
+								<p class="css-36j4vu e17yjk9v2">${purchaseInfo.uname} ${purchaseInfo.tel_no}</p>
+								<div class="css-iqoq9n e17yjk9v0">
+									<button id="changeAddress" class="css-1xky6jf e4nu7ef3" type="button" width="60" height="30" radius="3" onclick="deliveryMessage(${purchaseInfo.uname}, ${purchaseInfo.tel_no})">
 										<span class="css-nytqmg e4nu7ef1">수정</span>
 									</button>
-									
-									
 								</div>
 							</div>
 						</div>
@@ -421,7 +418,7 @@
 					  <div class="css-gd125q e4nb37r1">
 						  <div>
 							  <div class="css-18dvwsu ef0cmoa0">
-								  <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="kakao-pay-button" color="#f6e500">
+								  <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="kakao-pay-button" color="#f6e500" onclick="payMethod(this)" id="kakao">
 								  	<span class="css-1oanxtx e106vb1p0">혜택</span>
 									  <img class="css-1wbfblw e1ewacwr0" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iMjAiIH
 									  htbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgI
@@ -444,20 +441,21 @@
 									  c3ZnPgo=" alt="카카오페이">
 								  </button>
 							  </div>
+							  
 							 <div class="css-18dvwsu ef0cmoa0">
-								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="creditcard-button">신용카드</button>
-								 <button type="button" class="css-1pvbmgb ehlmjxl0" data-testid="simplepay-button">
+								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="creditcard-button" id="credit" onclick="payMethod(this)">신용카드</button>
+								 <button type="button" class="css-1pvbmgb ehlmjxl0" data-testid="simplepay-button" id="simple" onclick="payMethod(this)">
 								 	<span class="css-1oanxtx e106vb1p0">혜택</span>간편 결제
 								 </button>
-								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="phonebill">휴대폰</button>
+								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="phonebill" id="phone" onclick="payMethod(this)">휴대폰</button>
 							 </div>
 						 </div>
+						 
 						 <div class="css-nemdq9 evz7bw03">
 							 <div class="css-nznuh9 evz7bw02">
 								 <label class="css-11zj85u et8nqc33" for="naver-pay">
 								 <input data-testid="radio-naver-pay" id="naver-pay" name="naver-pay" type="radio" class="css-1pes2r6 et8nqc32" value="naver-pay">
 								 <span class="css-198i9ca e2sqze61">
-								 	<div class="css-1dahn5m e2sqze60"></div>
 								 </span>
 								 <span aria-labelledby="naver-pay" class="css-mgd87h et8nqc31">
 								 	<span class="css-s5xdrg evz7bw00">네이버페이 </span>
@@ -596,7 +594,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10" id="deliveryFee">
 									  <span class="css-rfpchb eahaaoi3">+</span>
-									  3,000
+									  ${deliveryFee}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -671,15 +669,20 @@
 							  	  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
 						  </div>
-					  	  <div class="css-1ujngs9 eahaaoi1">컬리카드 결제 시 최대 1,891원 추가 적립</div>
+					  	  <div class="css-1ujngs9 eahaaoi1"></div>
 						</div>
 					</div>
 				</div>
-				<div class="css-1azakc el0c5j40">
-				  <button class="css-1lha8en e4nu7ef3" type="button" width="240" height="56" radius="3" onclick="confirmPurchase()">
-				  	<span class="css-nytqmg e4nu7ef1">37,810원 결제하기</span>
-				  </button>
-			  </div>
+				<form action="/sccessfulOrder" method="post" id="orderForm">
+					<input type="hidden" value="${id}" name="id">
+					<input type="hidden" value="${sumDiscountPrice}" name="sumDiscountPrice">
+					<input type="hidden" value="" name="payMethod" id="payMethod">
+					<div class="css-1azakc el0c5j40">
+					  <button class="css-1lha8en e4nu7ef3" type="button" width="240" height="56" radius="3" onclick="confirmPurchase()">
+					  	<span class="css-nytqmg e4nu7ef1">${sumDiscountPrice}원 결제하기</span>
+					  </button>
+				  </div>
+			  </form>
 		</div>
 	</div>
    

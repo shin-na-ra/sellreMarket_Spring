@@ -454,6 +454,30 @@ public class ProductServiceImpl implements ProductService{
 		}
 	}
 	
+	// Cart
+	@Override
+	public void getCart(String id, int productid) throws Exception {
+		dao.getProductCart(id, productid);
+		
+	}
+	
+	@Override
+	public void updateCart(String id, int productid, int qty) throws Exception {
+		dao.updateProductCart(id, productid, qty);
+	}
+	
+	@Override
+	public int searchCart(String id, int producitd) throws Exception {
+		// TODO Auto-generated method stub
+		
+		return dao.searchCart(id, producitd);
+	}
+	
+	// Cart
+	
+	
+	
+	
 	// Images
 	// get new page image
 	@Override
@@ -469,20 +493,11 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return dao.bestAdImgs();
 	}
-
-	@Override
-	public void getCart(String id, int productid, String headerCategory) throws Exception {
-		if (headerCategory.equals("레시피")) {
-			dao.getRecipeCart(id, productid);
-		}
-		else dao.getProductCart(id, productid);
-		
-	}
-
+	// Images
 	
 	// order
 	@Override
-	public List<Product> purchaseList(String id) throws Exception {
+	public List<Product> purchaseList(String id) throws Exception{
 		return dao.purchaseList(id);
 	}
 	
@@ -494,7 +509,5 @@ public class ProductServiceImpl implements ProductService{
 		return dao.purchaseInfo(id);
 	}
 	// order
-
-	
 
 }

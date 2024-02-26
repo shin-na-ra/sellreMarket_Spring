@@ -46,7 +46,12 @@ public interface ProductService {
 	
 	// Cart
 	public void cartCount(HttpServletRequest request, String id) throws Exception;
-	public void getCart(String id, int productid, String headerCategory) throws Exception;
+	// Input
+	public void getCart(String id, int productid) throws Exception;
+	// Search
+	public int searchCart(String id, int producitd) throws Exception;
+	// Update
+	public void updateCart(String id, int productid, int qty) throws Exception;
 	
 	
 	// Order
