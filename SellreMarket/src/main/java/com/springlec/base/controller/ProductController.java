@@ -366,7 +366,8 @@ public class ProductController {
 	}
 	
 	// get in recipe detail for test
-	@GetMapping("/recipeDetailPage")
+	// recipeDetailPage
+	@GetMapping("/recipeDetail")
 	public String rDeatilPage(HttpServletRequest request, Model model) {
 		model.addAttribute("recipeId", request.getParameter("recipeId"));
 		try { 
