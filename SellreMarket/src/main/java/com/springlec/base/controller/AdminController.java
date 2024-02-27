@@ -1,33 +1,36 @@
 package com.springlec.base.controller;
 
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.springlec.base.model.AdminChartDto;
+import com.springlec.base.model.AdminDeliveryDto;
 import com.springlec.base.model.AdminEventDto;
 import com.springlec.base.model.AdminOrderDto;
+import com.springlec.base.model.AdminPackDto;
 import com.springlec.base.model.AdminPageDto;
+import com.springlec.base.model.AdminProductDto;
 import com.springlec.base.model.AdminQuestDto;
 import com.springlec.base.model.BrandDto;
 import com.springlec.base.model.Category;
 import com.springlec.base.service.AdminBrandService;
 import com.springlec.base.service.AdminCategoryService;
+import com.springlec.base.service.AdminChartService;
 import com.springlec.base.service.AdminEventService;
 import com.springlec.base.service.AdminOrderService;
+import com.springlec.base.service.AdminProductService;
 import com.springlec.base.service.AdminQuestService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -54,6 +57,13 @@ public class AdminController {
 	
 	@Autowired
 	AdminEventService adminEventService;
+	
+	@Autowired
+	AdminProductService adminProductService;
+	
+	@Autowired
+	AdminChartService adminChartService;
+	
 	
 	//관리자 브랜드 현황 조회
 	@GetMapping("/adminBrand")
@@ -308,8 +318,10 @@ public class AdminController {
 	@GetMapping("adminCategoryDetail")
 	public String adminCategoryDetail(HttpServletRequest request, Model model) throws Exception {
 		
-		int catetoryid = Integer.parseInt(request.getParameter("catetoryid"));
-		List<Category> list = adminCategoryService.detail(catetoryid);
+		String type = request.getParameter("type");
+		String subtype = request.getParameter("subtype");
+		System.out.println(type + " : " + subtype);
+		List<Category> list = adminCategoryService.detail(type, subtype);
 		
 		model.addAttribute("list", list);
 		return "adminCategoryDetail";
@@ -375,21 +387,41 @@ public class AdminController {
 	
 	//관리자 이벤트 등록페이지 전환
 	@GetMapping("adminEventRegister")
-	public String adminEventRegister() {
+	public String adminEventRegister(Model model) throws Exception {
+		List<AdminOrderDto> list = adminEventService.productSelect();
+		
+		model.addAttribute("list", list);
 		return "adminEventRegister";
 	}
 	
 	//관리자 이벤트 등록
 	@PostMapping("adminEventInsert")
-	public String adminEventInsert(HttpServletRequest request) throws Exception {
+	public String adminEventInsert(HttpServletRequest request, @RequestPart MultipartFile files, @RequestBody AdminEventDto form) throws Exception {
+		
+	
+//		LocalDateTime nowTime = LocalDateTime.now();
+//		String formatDate = nowTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//		form.setInsertDate(formatDate);
+//		
+//		//이미지 처리
+//		UploadFile attachFile = fileStore.storeFile(form.getAttchFile());
+//		List<UploadFile> imageFiles = fileStore.storeFile(form.getImage());
+//		form.setAttchFile((MultipartFile) attachFile);
+//		form.setImageFiles(imageFiles);
+		
 		String image = request.getParameter("image");
 		String ename = request.getParameter("ename");
 		String econtent = request.getParameter("econtent");
 		String startdate = request.getParameter("startdate");
 		String enddate = request.getParameter("enddate");
 		int salerate = Integer.parseInt(request.getParameter("salerate"));
+		int produdctid = Integer.parseInt(request.getParameter("pname"));
 		
-		adminEventService.insert(image, ename, econtent, startdate, enddate, salerate);
+		
+		int catetoryid = adminEventService.selectCategoryId(produdctid);
+		
+		adminEventService.insert(image, ename, econtent, startdate, enddate, salerate, produdctid, catetoryid);
+
 		return "redirect:/adminEvent";
 	}
 	
@@ -427,4 +459,387 @@ public class AdminController {
 		
 		return "redirect:/adminEvent";
 	}
+	
+	
+	//관리자 제품조회
+	@GetMapping("/adminProduct")
+	public String adminProduct(HttpServletRequest request, Model model) throws Exception {
+	
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int totalCnt = adminProductService.listCount();
+		int index_no = (page - 1) * 15;
+		
+		List<AdminProductDto> pageList = adminProductService.list(page);
+		AdminPageDto dto = adminProductService.pagingParam(page);
+		
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", pageList);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		return "admin_product";			
+	}
+	
+	//관리자 제품 등록 페이지 전환
+	@GetMapping("adminProductRegister")
+	public String adminProductRegister(Model model) throws Exception {
+		List<BrandDto> brandList =  adminProductService.brandList();
+		List<Category> categoryList = adminProductService.categoryList();
+		List<AdminPackDto> packList = adminProductService.selectPackType();
+		List<AdminPackDto> pakcKind = adminProductService.selectPackKind();
+		List<AdminDeliveryDto> deliveryList = adminProductService.selectDelivery();
+		List<Category> subCategoryList = adminProductService.selectSubCategory();
+		
+		model.addAttribute("brandList", brandList);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("packList", packList);
+		model.addAttribute("pakcKind", pakcKind);
+		model.addAttribute("deliveryList", deliveryList);
+		model.addAttribute("subCategoryList", subCategoryList);
+		
+		return "adminProductRegister";
+	}
+	
+	//중분류 카테고리 가져오기
+	@ResponseBody
+	@PostMapping("selectSubCategory")
+	public List<Category> selectSubCategory(HttpServletRequest request) throws Exception {
+		String type = request.getParameter("categoryType");
+	    List<Category> subList = adminProductService.subCategoryList(type);
+	    return subList;
+	  }
+	
+	//관리자 product 등록
+	@GetMapping("adminProductInsert")
+	public String adminProductInsert(HttpServletRequest request) throws Exception {
+		String pname = request.getParameter("pname");
+		String pEngname = request.getParameter("pEngname");
+		String allery = request.getParameter("allery");
+		String nutrition = request.getParameter("nutrition");
+		int pstock = Integer.parseInt(request.getParameter("pstock"));
+		String origin = request.getParameter("origin");
+		String description = request.getParameter("description");
+		
+		int price = Integer.parseInt(request.getParameter("price"));
+		String bname = request.getParameter("bname");
+		String type = request.getParameter("type");
+		String subtype = request.getParameter("subtype");
+		String packkind = request.getParameter("packkind");
+		String packtype = request.getParameter("packtype");
+		String utype = request.getParameter("utype");
+		String ugram = request.getParameter("ugram");
+		String dname = request.getParameter("dname");
+		
+		
+		//제품등록
+		adminProductService.insertInfo(pname, pEngname, allery, nutrition, pstock, origin, description
+				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname);
+	
+		return "redirect:/adminProduct";
+		
+	}
+	
+	//관리자 제품 검색
+	@PostMapping("productListQuery")
+	public String productListQuery(HttpServletRequest request, Model model) throws Exception {
+		String search = request.getParameter("search");
+		
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		List<AdminProductDto> list = adminProductService.listQuery(search, page);
+		
+		int totalCnt = adminProductService.searchCount(search);
+		int index_no = (page - 1) * 15;
+		
+		AdminPageDto dto = adminProductService.pagingParam2(page, search);
+		
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		
+		return "admin_product";
+	}
+	
+	//관리자 브랜드 검색
+	@PostMapping("brandListQuery")
+	public String brandListQuery(HttpServletRequest request, Model model) throws Exception {
+		String search = request.getParameter("search");
+		
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		List<BrandDto> list = adminBrandService.listQuery(search, page);
+		
+		int totalCnt = adminBrandService.searchCount(search);
+		int index_no = (page - 1) * 15;
+		
+		AdminPageDto dto = adminBrandService.pagingParam2(page, search);
+		
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		
+		return "adminBrand";
+	}
+	
+	//관리자 문의 검색
+	@PostMapping("qusetListQuery")
+	public String qusetListQuery(HttpServletRequest request, Model model) throws Exception {
+		String search = request.getParameter("search");
+		String query = request.getParameter("query");
+		
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		List<AdminQuestDto> list = adminQuestService.listQuery(search, query, page);
+		
+		int totalCnt = adminQuestService.searchCount(search, query);
+		int index_no = (page - 1) * 15;
+		
+		AdminPageDto dto = adminQuestService.pagingParam2(page,search,query);
+		
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		
+		return "adminQuest";
+	}
+	
+	@PostMapping("orderListQuery")
+	public String orderListQuery(HttpServletRequest request, Model model) throws Exception {
+		String search = request.getParameter("search");
+		
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		List<AdminOrderDto> list = adminOrderService.listQuery(search, page);
+		
+		int totalCnt = adminOrderService.searchCount(search);
+		int index_no = (page - 1) * 15;
+		
+		AdminPageDto dto = adminOrderService.pagingParam2(page, search);
+		
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		
+		return "adminOrder";
+	}
+	
+	//카테고리 검색
+	@PostMapping("categoryQuery")
+	public String categoryQuery(HttpServletRequest request, Model model) throws Exception {
+		String search = request.getParameter("search");
+		String query = request.getParameter("query");
+		
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		List<Category> list = adminCategoryService.listQuery(search, query, page);
+		
+		int totalCnt = adminCategoryService.searchCount(search, query);
+		int index_no = (page - 1) * 15;
+		
+		AdminPageDto dto = adminCategoryService.pagingParam2(page,search,query);
+		
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		
+		return "adminCategory";
+	}
+	
+	//이벤트 검색
+	@PostMapping("eventListQuery")
+	public String eventListQuery(HttpServletRequest request, Model model) throws Exception {
+		String search = request.getParameter("search");
+		String query = request.getParameter("query");
+		
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		List<AdminEventDto> list = adminEventService.listQuery(search, query, page);
+		
+		int totalCnt = adminEventService.searchCount(search, query);
+		int index_no = (page - 1) * 15;
+		
+		AdminPageDto dto = adminEventService.pagingParam2(page,search,query);
+		
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		
+		return "adminEvent";
+	}
+	
+	//제품 상세보기
+	@PostMapping("adminProductDetail")
+	public String adminProductDetail(HttpServletRequest request, Model model) throws Exception {
+		
+		//해당 id의 제품 정보 가져오기
+		int productid = Integer.parseInt(request.getParameter("productid"));
+		List<AdminProductDto> list = adminProductService.detail(productid);
+		
+		//select box를 위한 정보 가져오기
+		List<BrandDto> brandList =  adminProductService.brandList();
+		List<Category> categoryList = adminProductService.categoryList();
+		List<AdminPackDto> packList = adminProductService.selectPackType();
+		List<AdminPackDto> pakcKind = adminProductService.selectPackKind();
+		List<AdminDeliveryDto> deliveryList = adminProductService.selectDelivery();
+		List<Category> subCategoryList = adminProductService.selectSubCategory();
+		
+		model.addAttribute("list", list);
+		model.addAttribute("brandList", brandList);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("packList", packList);
+		model.addAttribute("pakcKind", pakcKind);
+		model.addAttribute("deliveryList", deliveryList);
+		model.addAttribute("subCategoryList", subCategoryList);
+		
+		return "adminProductDetail";
+	}
+	
+	//제품 수정하기
+	@PostMapping("adminProductUpdate")
+	public String adminProductUpdate(HttpServletRequest request, Model model) throws Exception {
+		String pname = request.getParameter("pname");
+		String pEngname = request.getParameter("pEngname");
+		String allery = request.getParameter("allery");
+		String nutrition = request.getParameter("nutrition");
+		int pstock = Integer.parseInt(request.getParameter("pstock"));
+		String origin = request.getParameter("origin");
+		String description = request.getParameter("description");
+		
+		int price = Integer.parseInt(request.getParameter("price"));
+		String bname = request.getParameter("bname");
+		String type = request.getParameter("type");
+		String subtype = request.getParameter("subtype");
+		String packkind = request.getParameter("packkind");
+		String packtype = request.getParameter("packtype");
+		String utype = request.getParameter("utype");
+		String ugram = request.getParameter("ugram");
+		String dname = request.getParameter("dname");
+		
+		int productid = Integer.parseInt(request.getParameter("productid"));
+		
+		
+		//제품등록
+		adminProductService.updateInfo(pname, pEngname, allery, nutrition, pstock, origin, description
+				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname, productid);
+	
+		return "redirect:/adminProduct";
+	}
+	
+	//제품 삭제하기
+	@PostMapping("adminProductDelete")
+	public String adminProductDelete(HttpServletRequest request, Model model) throws Exception {
+		int productid = Integer.parseInt(request.getParameter("productid"));
+		adminProductService.delete(productid);
+		
+		return "redirect:/adminProduct";
+	}
+	
+	//현황차트 페이지
+	@GetMapping("adminSales")
+	public String adminSales() {
+		return "adminSales";
+	}
+	
+	//매출 불러오기
+	@ResponseBody
+	@PostMapping("showSaleChart")
+	public List<AdminChartDto> showSaleChart(Model model) throws Exception {
+		List<AdminChartDto> list = adminChartService.list();
+		
+		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping("showPopular")
+	public List<AdminChartDto> showPopular(Model model) throws Exception {
+		List<AdminChartDto> list = adminChartService.popular();
+		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping("showGender")
+	public List<AdminChartDto> showGender(Model model) throws Exception {
+		List<AdminChartDto> list = adminChartService.gender();
+		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping("showUser")
+	public List<AdminChartDto> showUser(Model model) throws Exception {
+		List<AdminChartDto> list = adminChartService.user();
+		return list;
+	}
+	
+	
+	
+	
+	
+//	@PostMapping("selectSubCategory")
+//	public List<Category> selectSubCategory(HttpServletRequest request) throws Exception {
+//		String type = request.getParameter("categoryType");
+//	    List<Category> subList = adminProductService.subCategoryList(type);
+//	    return subList;
+//	  }
 }
