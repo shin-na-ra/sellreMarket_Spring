@@ -19,10 +19,6 @@ public class AdminEventDto {
 	String pname;
 	String img;
 	
-	UploadFile attachFile;
-	List<UploadFile> imageFiles;
-	
-	
 	MultipartFile attchFile;
 	List<MultipartFile> image;
 	
@@ -121,22 +117,6 @@ public class AdminEventDto {
 
 	public void setPname(String pname) {
 		this.pname = pname;
-	}
-
-	public UploadFile getAttachFile() {
-		return attachFile;
-	}
-
-	public void setAttachFile(UploadFile attachFile) {
-		this.attachFile = attachFile;
-	}
-
-	public List<UploadFile> getImageFiles() {
-		return imageFiles;
-	}
-
-	public void setImageFiles(List<UploadFile> imageFiles) {
-		this.imageFiles = imageFiles;
 	}
 
 	public MultipartFile getAttchFile() {

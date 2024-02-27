@@ -9,7 +9,6 @@ import com.springlec.base.dao.AdminEventDao;
 import com.springlec.base.model.AdminEventDto;
 import com.springlec.base.model.AdminOrderDto;
 import com.springlec.base.model.AdminPageDto;
-import com.springlec.base.model.UploadFile;
 
 @Service
 public class AdminEventServiceImpl implements AdminEventService {

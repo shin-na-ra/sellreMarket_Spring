@@ -5,7 +5,6 @@ import java.util.List;
 import com.springlec.base.model.AdminEventDto;
 import com.springlec.base.model.AdminOrderDto;
 import com.springlec.base.model.AdminPageDto;
-import com.springlec.base.model.UploadFile;
 
 public interface AdminEventService {
 
