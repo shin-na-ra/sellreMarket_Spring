@@ -1,5 +1,9 @@
 package com.springlec.base.model;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class AdminEventDto {
 
 	int eventid;
@@ -8,8 +12,24 @@ public class AdminEventDto {
 	String startdate;
 	String enddate;
 	int salerate;
-	String img;
 	String status;
+	int productid;
+	
+	int catetoryid;
+	String pname;
+	String img;
+	
+	UploadFile attachFile;
+	List<UploadFile> imageFiles;
+	
+	
+	MultipartFile attchFile;
+	List<MultipartFile> image;
+	
+	String insertDate;
+	
+	
+	
 	
 	public AdminEventDto() {
 		// TODO Auto-generated constructor stub
@@ -78,8 +98,71 @@ public class AdminEventDto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
-	
+
+	public int getProductid() {
+		return productid;
+	}
+
+	public void setProductid(int productid) {
+		this.productid = productid;
+	}
+
+	public int getCatetoryid() {
+		return catetoryid;
+	}
+
+	public void setCatetoryid(int catetoryid) {
+		this.catetoryid = catetoryid;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public UploadFile getAttachFile() {
+		return attachFile;
+	}
+
+	public void setAttachFile(UploadFile attachFile) {
+		this.attachFile = attachFile;
+	}
+
+	public List<UploadFile> getImageFiles() {
+		return imageFiles;
+	}
+
+	public void setImageFiles(List<UploadFile> imageFiles) {
+		this.imageFiles = imageFiles;
+	}
+
+	public MultipartFile getAttchFile() {
+		return attchFile;
+	}
+
+	public void setAttchFile(MultipartFile attchFile) {
+		this.attchFile = attchFile;
+	}
+
+	public List<MultipartFile> getImage() {
+		return image;
+	}
+
+	public void setImage(List<MultipartFile> image) {
+		this.image = image;
+	}
+
+	public String getInsertDate() {
+		return insertDate;
+	}
+
+	public void setInsertDate(String insertDate) {
+		this.insertDate = insertDate;
+	}
+
+
 }
 	
