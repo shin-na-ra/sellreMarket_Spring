@@ -13,17 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.springlec.base.model.DeliveryInfo;
 import com.springlec.base.model.Inquiry;
 import com.springlec.base.model.UserInfo;
-import com.springlec.base.service.AuthService;
+//import com.springlec.base.service.AuthService;
 import com.springlec.base.service.InquiryService;
 import com.springlec.base.service.NoticeService;
 import com.springlec.base.service.UserInfoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 @Controller
 public class UserController {
@@ -38,7 +36,7 @@ public class UserController {
 	UserInfoService userS;
 	
 	@Autowired
-	AuthService authS;
+//	AuthService authS;
 	
 	// 배송지 목록 Page
 	@GetMapping("/addresslist")
@@ -113,26 +111,26 @@ public class UserController {
 		return "redirect:/addresslist";
 	}
 	
-	@GetMapping("/kakaologin")
-	public String kakaologin() {
-		return "kakaologintest";
-	}
-	
-	@GetMapping("/kakaologinresult")
-	public String kakaologinresult(@RequestParam String code, Model model) throws Exception {
-		System.out.println("code : " + code);
-		String token = authS.getKakaoAccessToken(code);
-		model.addAttribute("token", token);
-		model.addAttribute("mapData",authS.createKakaoUser(token));
-		return "kakaologinresult";
-	}
-	
-	@GetMapping("/kakaologout")
-	public String kakaologout(@RequestParam String token) {
-		System.out.println("token : " + token);
-		authS.kakaologout(token);
-		return "redirect:/kakaologin";
-	}
+//	@GetMapping("/kakaologin")
+//	public String kakaologin() {
+//		return "kakaologintest";
+//	}
+//	
+//	@GetMapping("/kakaologinresult")
+//	public String kakaologinresult(@RequestParam String code, Model model) throws Exception {
+//		System.out.println("code : " + code);
+//		String token = authS.getKakaoAccessToken(code);
+//		model.addAttribute("token", token);
+//		model.addAttribute("mapData",authS.createKakaoUser(token));
+//		return "kakaologinresult";
+//	}
+//	
+//	@GetMapping("/kakaologout")
+//	public String kakaologout(@RequestParam String token) {
+//		System.out.println("token : " + token);
+//		authS.kakaologout(token);
+//		return "redirect:/kakaologin";
+//	}
 	
 	// 로그인 Page
 	@GetMapping("/login")
