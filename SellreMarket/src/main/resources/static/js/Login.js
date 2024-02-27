@@ -15,7 +15,7 @@ function checkId() {
 		// 아이디 비밀번호가 일치하면 success로 받아와 이동한다.
 		success: function(response) {
 			if (response !== "false") {
-				window.location.href = 'notice';
+				window.location.href = 'main';
 			}
 			else {
 				$('#message').text("아이디와 비밀번호를 확인해주세요.").css('color', 'red');

@@ -1,7 +1,9 @@
 package com.springlec.base.service;
 
 import java.util.HashMap;
+import java.util.List;
 
+import com.springlec.base.model.DeliveryInfo;
 import com.springlec.base.model.UserInfo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,4 +31,16 @@ public interface UserInfoService {
 	public String findPW(String userid, String name, String email) throws Exception;
 	
 	public void updatePassword(String userid, String password) throws Exception;
+	
+	public List<DeliveryInfo> addresslist(String userid) throws Exception;
+	
+	public DeliveryInfo addresslistDetail(String addressid) throws Exception;
+	
+	public void addresslistUpdate(String userid, String addressid, String address, String detailaddress, String defaultset) throws Exception;
+
+	public void addresslistInsert(String userid, String address, String detailaddress, String defaultset) throws Exception;
+
+	public void addresslistDelete(String addressid) throws Exception;
+	
+	
 }
