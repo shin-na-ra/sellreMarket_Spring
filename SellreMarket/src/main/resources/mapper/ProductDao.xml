@@ -9,10 +9,9 @@
 		INSERT INTO cart (qty, userid, productid) VALUES (1, #{id} ,#{productid})
 	</insert>
 	
-	<!-- <insert id="">
-		INSERT INTO purchase (purchasedate, amount, userid, cartid, payid, purchaseid) VALUES (now(), #{amount}, #{userid}, #{cartid}, #{paymethod});
-	</insert> -->
-	
+	<insert id="finalOrderBtn">
+		INSERT INTO purchase (purchasedate, amount, userid, cartid, payid, purchaseid) VALUES (now(), #{qty}, #{id}, #{cartid}, #{paymethod}, #{purchaseid})
+	</insert>
 	
 	<!-- <insert id="getRecipeCart">
 		INSERT INTO cart (qty, userid, recipeid) VALUES (1, #{id} ,#{recipeid})
@@ -305,17 +304,17 @@
 	
 	<!-- Purchase Start -->
 	<select id="orderList" resultType="com.springlec.base.model.Product">
-		SELECT c.productid, PRO.pname, c.qty AS qty, FORMAT(SUM(price)-(
+		SELECT c.productid, PRO.pname, c.qty AS qty, SUM(price)-(
 		    SUM(CASE WHEN e.eventid = pro.eventid THEN (salerate*price)
 		             ELSE 0
 		         END)
-		), 0) AS discountSum,
-		FORMAT((
+		) AS discountSum,
+		(
 		    SUM(CASE WHEN e.eventid = pro.eventid THEN (salerate*price)
 		             ELSE 0
 		         END)
-		), 0) AS discount,
-		FORMAT(SUM(price), 0) AS notDiscountSum, PI.image AS image
+		) AS discount,
+		SUM(price) AS notDiscountSum, PI.image AS image, c.cartid
 		FROM cart c
 		LEFT JOIN price p ON p.productid = c.productid
 		LEFT JOIN product PRO ON PRO.productid = c.productid
@@ -327,11 +326,7 @@
 	</select>
 	
 	<select id="userInfo" resultType="com.springlec.base.model.Product">
-		SELECT name, tel_no, email, address, detailaddress, FORMAT(SUM(price)-(
-		    SUM(CASE WHEN e.eventid = pro.eventid THEN (salerate*price)
-		             ELSE 0
-		         END)
-		), 0) AS discountSum
+		SELECT DISTINCT name, tel_no, email, address, detailaddress 
 		FROM cart c
 		LEFT JOIN price p ON p.productid = c.productid
 		LEFT JOIN product pro ON pro.productid = c.productid
@@ -351,7 +346,11 @@
 	<!-- when click order btn for test -->
 	<!-- List type 또한 그냥 just 타입형태만 써주면 된다 -->
 	<select id="clickOrderBtn" resultType="Integer">
-		SELECT cartid FROM cart WHERE cartid = 3 OR cartid = 2;
+		SELECT cartid FROM cart WHERE cartid = 18 OR cartid = 22;
+	</select>
+	
+	<select id="checkPurchaseid" resultType="Integer">
+		SELECT purchaseid FROM purchase;
 	</select>
 	<!-- when click order btn for test -->	
 	
@@ -375,7 +374,10 @@
 	
 	
 	<!-- DELETE -->
-	
+	<delete id="deleteCart">
+		DELETE FROM cart c
+        WHERE cartid = #{cartid}
+	</delete>
 	
 	
 	

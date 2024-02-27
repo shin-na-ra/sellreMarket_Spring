@@ -29,7 +29,7 @@ function payMethod(method) {
 	
 	
 	if (method == kakao) {
-		var list = [credit, simple, phone];
+		var list = [credit, phone];
 	  	method.style.backgroundColor = 'rgb(249, 249, 228)';
 	  	method.style.borderTopColor = 'rgb(249, 249, 228)';
 	  	method.style.borderRightColor = 'rgb(249, 249, 228)';
@@ -46,7 +46,7 @@ function payMethod(method) {
 		  }
   	}
   	if (method == credit) {
-		var list = [kakao, simple, phone];
+		var list = [kakao, phone];
 	  	method.style.backgroundColor = 'rgb(249, 249, 228)';
 	  	method.style.borderTopColor = 'rgb(249, 249, 228)';
 	  	method.style.borderRightColor = 'rgb(249, 249, 228)';
@@ -63,24 +63,8 @@ function payMethod(method) {
 	    payMethod.value = "2";
   	}
   	
-  	if (method == simple) {
-		var list = [kakao, credit, phone];
-	  	method.style.backgroundColor = 'rgb(249, 249, 228)';
-	  	method.style.borderTopColor = 'rgb(249, 249, 228)';
-	  	method.style.borderRightColor = 'rgb(249, 249, 228)';
-	  	method.style.borderBottomColor = 'rgb(249, 249, 228)';
-	  	method.style.borderLeftColor = 'rgb(249, 249, 228)';
-	  	
-	  	for(var i=0; i<list.length; i++) {
-			 list[i].style.backgroundColor = 'rgb(255, 255, 255)';
-			 list[i].style.borderTopColor = 'rgb(249, 249, 228)';
-			 list[i].style.borderRightColor = 'rgb(249, 249, 228)';
-			 list[i].style.borderBottomColor = 'rgb(249, 249, 228)';
-			 list[i].style.borderLeftColor = 'rgb(249, 249, 228)';
-		  }
-  	}
   	if (method == phone) {
-		var list = [kakao, credit, simple];
+		var list = [kakao, credit];
 	  	method.style.backgroundColor = 'rgb(249, 249, 228)';
 	  	method.style.borderTopColor = 'rgb(249, 249, 228)';
 	  	method.style.borderRightColor = 'rgb(249, 249, 228)';
@@ -123,11 +107,26 @@ function changeAddress() {
 function confirmPurchase() {
 	var form = document.getElementById('orderForm');
 	var con = confirm("구매를 완료하시겠습니까?");
+	var payMethod = document.getElementById('payMethod');
+			
 	
-	if(con) {
-		form.submit();
+	// Check if a payment method is selected
+    if (payMethod.value === "") {
+        alert("결제 수단을 선택하세요."); // Display an alert if no payment method is selected
+        
+        // get focus 
+        var elementWithFocus = document.querySelector(".css-ln1csn");
+	    if (elementWithFocus) {
+	        elementWithFocus.focus();
+	    }
+        return;
+    }
+    else{
+		if(con) {
+			form.submit();
+		}
+		else window.close();
 	}
-	else window.close();
 }
  
 function deliveryMessage(uname, tel_no) {

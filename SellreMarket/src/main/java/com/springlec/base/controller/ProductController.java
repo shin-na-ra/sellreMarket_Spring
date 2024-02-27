@@ -2,6 +2,7 @@ package com.springlec.base.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -384,39 +385,20 @@ public class ProductController {
 	/************* Order Start *************/
 	
 	@GetMapping("/order")
-	public String order(Model model) throws Exception {
-		
+	public String order(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
 		// test 용
 		id = "admin";
-		int deliveryFee = 0;
+//		int deliveryFee = 0;
 		
-		System.out.println(id + " in order Controller");
-		
-		
-		List<Product> list = service.orderList(id);
-		System.out.println("pass the list");
+		List<Product> list = service.orderList(id, request);
 		Product userInfo = service.userInfo(id);
-		System.out.println("pass the purchaseInfo");
-		
-		
-		int discountPrice = Integer.parseInt(userInfo.getdPrice().replace(",", ""));
-		// ex) sumDiscountPrice 100,000 이상 배송비 무료
-		if(discountPrice <= 100000) {
-			deliveryFee = 3000;
-			discountPrice += deliveryFee;
-		}
-		// formatting decimal
-		String strDiscountPrice = String.format("%,d", discountPrice);
-		
-		
-		
 		model.addAttribute("id", id);
 		model.addAttribute("orderList", list);
+		// if 구매한다면 정보를 받기 위해 session으로 보냄
+		session.setAttribute("orderList", list);
 		// 구매할 때 고객 정보와 sum result 값
 		model.addAttribute("userInfo", userInfo);
-		// 배송비를 포함한 결제 금액 보내기
-		model.addAttribute("sumDiscountPrice", strDiscountPrice);
-		model.addAttribute("deliveryFee", deliveryFee);
 		
 		return "purchaseProduct";
 	}
@@ -475,13 +457,39 @@ public class ProductController {
 	}
 	
 	@PostMapping("/sccessfulOrder")
-	public String sccessfulOrder(HttpServletRequest request, Model model) {
+	public String sccessfulOrder(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+		// orderList from /order
+		List<Product> orderList =  (List<Product>) session.getAttribute("orderList");
+		// get payMethod from purchaseProduct.js
+		int paymethod = Integer.parseInt(request.getParameter("payMethod"));
+		int randomNumber = 0;
+		// while문을 돌리기 위한 변수
+		Boolean checkFlag = true;
 		
+		// random 번호 생성 for purchaseid
+		while(checkFlag) {
+			Random random = new Random();
+			randomNumber = random.nextInt(900000);
+			
+			Integer[] checkPurchaseid = service.checkPurchaseid();
+			
+			// check purchaseid with randomnumber
+			for (int i=0; i<checkPurchaseid.length; i++) {
+				if (checkPurchaseid[i] == randomNumber) {
+					continue;
+				}
+			}
+			checkFlag = false;
+		}
 		
+		// insert and delete same time 
+		for (Product insert : orderList) {
+			service.finalOrderBtn(insert.getQty(), id, insert.getCartid(), paymethod, randomNumber);
+		}
 		
 		model.addAttribute("id", request.getParameter("id"));
-		model.addAttribute("total", request.getParameter("sumDiscountPrice"));
-		System.out.println(request.getParameter("payMethod") + " payMethod in controller");
+		model.addAttribute("finalSum", request.getParameter("finalSum"));
 		
 		return "sccessfulOrder";
 	}
@@ -493,8 +501,6 @@ public class ProductController {
 		
 		return "test";
 	}
-	
-	
 	/************* popup *************/
 	
 }

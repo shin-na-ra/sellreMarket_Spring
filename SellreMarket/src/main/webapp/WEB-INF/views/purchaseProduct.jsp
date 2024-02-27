@@ -311,13 +311,13 @@
 				                    <span class="css-1efb5i1 e17a7yib5">${item.qty}개</span>
 				                </div>
 				                <div class="item-price">
-				                	<c:if test="${item.price eq item.dPrice}">
-				                		<span class="discount-price css-9dxu4e e17a7yib2">${item.price}원 </span>
+				                	<c:if test="${item.priceNotDiscount eq item.priceGetDiscount}">
+				                		<span class="discount-price css-9dxu4e e17a7yib2">${item.priceNotDiscount}원 </span>
 				                	</c:if>
-				                	<c:if test="${item.price ne item.dPrice}">
-					                    <span class="discount-price css-9dxu4e e17a7yib2">${item.dPrice}원</span>
+				                	<c:if test="${item.priceNotDiscount ne item.priceGetDiscount}">
+					                    <span class="discount-price css-9dxu4e e17a7yib2">${item.priceGetDiscount}원</span>
 					                    <br>
-					                    <span class="original-price css-jnogx7 e17a7yib3">${item.price}원 </span>
+					                    <span class="original-price css-jnogx7 e17a7yib3">${item.priceNotDiscount}원 </span>
 				                    </c:if>
 				                </div>
 				            </div>
@@ -444,82 +444,14 @@
 							  
 							 <div class="css-18dvwsu ef0cmoa0">
 								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="creditcard-button" id="credit" onclick="payMethod(this)">신용카드</button>
-								 <button type="button" class="css-1pvbmgb ehlmjxl0" data-testid="simplepay-button" id="simple" onclick="payMethod(this)">
-								 	<span class="css-1oanxtx e106vb1p0">혜택</span>간편 결제
-								 </button>
 								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="phonebill" id="phone" onclick="payMethod(this)">휴대폰</button>
 							 </div>
 						 </div>
-						 
-						 <div class="css-nemdq9 evz7bw03">
-							 <div class="css-nznuh9 evz7bw02">
-								 <label class="css-11zj85u et8nqc33" for="naver-pay">
-								 <input data-testid="radio-naver-pay" id="naver-pay" name="naver-pay" type="radio" class="css-1pes2r6 et8nqc32" value="naver-pay">
-								 <span class="css-198i9ca e2sqze61">
-								 </span>
-								 <span aria-labelledby="naver-pay" class="css-mgd87h et8nqc31">
-								 	<span class="css-s5xdrg evz7bw00">네이버페이 </span>
-								 </span>
-								 </label>
-							 </div>
-							 <div class="css-nznuh9 evz7bw02">
-								 <label class="css-11zj85u et8nqc33" for="toss">
-									 <input data-testid="radio-toss" id="toss" name="toss" type="radio" class="css-1pes2r6 et8nqc32" value="toss" checked="">
-									 <span class="css-5xw1m2 e2sqze61"><div class="css-1vic0rk e2sqze60"></div></span>
-									 <span aria-labelledby="toss" class="css-mgd87h et8nqc31">
-										 <span class="css-s5xdrg evz7bw00">토스 
-										 	<span class="css-1ox35cj evz7bw01">혜택</span>
-										 </span>
-									 </span>
-								 </label>
-							 </div>
-							 <div class="css-nznuh9 evz7bw02">
-								 <label class="css-11zj85u et8nqc33" for="payco">
-									 <input data-testid="radio-payco" id="payco" name="payco" type="radio" class="css-1pes2r6 et8nqc32" value="payco">
-									 <span class="css-198i9ca e2sqze61">
-									 	<div class="css-1dahn5m e2sqze60"></div>
-									 </span>
-									 <span aria-labelledby="payco" class="css-mgd87h et8nqc31">
-									 <span class="css-s5xdrg evz7bw00">페이코 
-									 	<span class="css-1ox35cj evz7bw01">혜택</span>
-									 </span>
-									 </span>
-								 </label>
-							 </div>
-						 </div>
-						 <div class="css-p04ye2 eqgsbpy1">
-							 <div class="css-1uv50i eqgsbpy0">
-							 <span>혜택안내</span>
-							 <button class="css-1lecd96 ekuwusm0">무이자 혜택 안내 
-								 <svg width="12" height="12" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
-								 <title>Shape</title>
-									 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										 <g id="commonIcon_info" fill="#999" fill-rule="nonzero">
-											 <path d="M6.3,3.5 L7.7,3.5 L7.7,4.9 L6.3,4.9 L6.3,3.5 Z M6.3,6.3 L7.7,6.3 L7.7,10.5 L6.3,10.5 L6.3,6.3 Z
-											  M0,7 C0,10.864 3.129,14 6.993,14 C10.864,14 14,10.864 14,7 C14,3.136 10.864,0 6.993,0 C3.129,0 0,3.136 
-											  0,7 Z M1.4,7 C1.4,3.906 3.906,1.4 7,1.4 C10.094,1.4 12.6,3.906 12.6,7 C12.6,10.094 10.094,12.6 7,12.6 
-											  C3.906,12.6 1.4,10.094 1.4,7 Z" id="Shape">
-											  </path>
-										  </g>
-									  </g>
-								  </svg>
-							  </button>
-							  </div>
-							  <div class="css-1eyoyxr e1dfkh4o6">
-								  <div class="css-109w7xc e1dfkh4o3">
-									  <p class="css-1rlhglk e1dfkh4o2">토스</p>
-									  <p class="css-5jw6s3 e1dfkh4o1">토스페이 6만원 이상 결제 시 2천원 즉시할인</p>
-									  <p class="css-95xna2 e1dfkh4o0">토스머니 &amp; 후불결제 6만원 이상 결제 시 2천원 즉시할인</p>
-									  <p class="css-95xna2 e1dfkh4o0">기간중, 인당 1회 사용가능</p>
-									  <p class="css-95xna2 e1dfkh4o0">2/15 11시 ~ 2/26 11시</p>
-								  </div>
-							  </div>
-						  </div>
 					  </div>
 				  </div>
 			  </div>
 			  <ul class="css-wx42bm e4nb37r0">
-				  <li>※ 카카오페이, 토스 결제하신 수단으로만 환불되는 점 양해부탁드립니다.</li>
+				  <li>※ 카카오페이 결제하신 수단으로만 환불되는 점 양해부탁드립니다.</li>
 				  <li>※ 고객님은 안전거래를 위해 현금 등으로 결제시 저희 쇼핑몰에서 가입한 토스 페이먼츠의 구매안전(에스크로) 서비스를 이용하실 수 있습니다.</li>
 			  </ul>
 			  
@@ -554,7 +486,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10" id="discountSum">
 									  <span class="css-rfpchb eahaaoi3"></span>
-									  ${orderList.dPrice}
+									  ${discountPrice}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -569,7 +501,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10">
 									  <span class="css-rfpchb eahaaoi3"></span>
-									  ${orderList.price}
+									  ${sum}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -584,7 +516,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10">
 									  <span class="css-rfpchb eahaaoi3">-</span>
-									  ${orderList.discount}
+									  ${discount}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -664,7 +596,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10" id="totalPrice">
 									  <span class="css-rfpchb eahaaoi3"></span>
-									  ${sumDiscountPrice}
+									  ${finalSum}
 								  </span>
 							  	  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -675,11 +607,11 @@
 				</div>
 				<form action="/sccessfulOrder" method="post" id="orderForm">
 					<input type="hidden" value="${id}" name="id">
-					<input type="hidden" value="${sumDiscountPrice}" name="sumDiscountPrice">
+					<input type="hidden" value="${finalSum}" name="resultSum">
 					<input type="hidden" value="" name="payMethod" id="payMethod">
 					<div class="css-1azakc el0c5j40">
 					  <button class="css-1lha8en e4nu7ef3" type="button" width="240" height="56" radius="3" onclick="confirmPurchase()">
-					  	<span class="css-nytqmg e4nu7ef1">${sumDiscountPrice}원 결제하기</span>
+					  	<span class="css-nytqmg e4nu7ef1">${finalSum}원 결제하기</span>
 					  </button>
 				  </div>
 			  </form>

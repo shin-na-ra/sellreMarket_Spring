@@ -46,7 +46,11 @@ public class Product {
 	String email;
 	String address;
 	String detailaddress;
-	String discount;
+	int priceGetDiscount;
+	int priceNotDiscount;
+	int discount;
+	int cartid;
+	int purchaseid;
 	
 	
 	public Product(String eimg) {
@@ -63,16 +67,26 @@ public class Product {
 		this.qty = qty;
 	}
 
-	public Product(String uname, String tel_no, String email, String address, String detailaddress, String dPrice, String discount, String price) {
+	public Product(String uname, String tel_no, String email, String address, String detailaddress) {
 		super();
 		this.uname = uname;
 		this.tel_no = tel_no;
 		this.email = email;
 		this.address = address;
 		this.detailaddress = detailaddress;
-		this.dPrice = dPrice;
 	}
 	
+	public Product(int productid, String pname, int qty, int priceGetDiscount, int discount, int priceNotDiscount,  String pimage, int cartid) {
+		super();
+		this.productid = productid;
+		this.pname = pname;
+		this.qty = qty;
+		this.priceGetDiscount = priceGetDiscount;
+		this.discount = discount;
+		this.priceNotDiscount = priceNotDiscount;
+		this.pimage = pimage;
+		this.cartid = cartid;
+	}
 	
 	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
 		super();
@@ -84,18 +98,6 @@ public class Product {
 		this.productid = productid;
 		this.salerate = salerate;
 	}
-	
-	public Product(int productid, String pname, int qty, String dPrice, String discount, String price,  String pimage) {
-		super();
-		this.productid = productid;
-		this.pname = pname;
-		this.qty = qty;
-		this.dPrice = dPrice;
-		this.discount = discount;
-		this.price = price;
-		this.pimage = pimage;
-	}
-	
 	
 	public Product(String yname, String ysrc, String ytitle, String price, String dPrice, String recipelike, int recipeid, String salerate) {
 		super();
@@ -436,13 +438,52 @@ public class Product {
 		this.detailaddress = detailaddress;
 	}
 
-	public String getDiscount() {
+	public int getDiscount() {
 		return discount;
 	}
 
 
-	public void setDiscount(String discount) {
+	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	
+
+	public int getPriceGetDiscount() {
+		return priceGetDiscount;
+	}
+
+
+	public void setPriceGetDiscount(int priceGetDiscount) {
+		this.priceGetDiscount = priceGetDiscount;
+	}
+
+
+	public int getPriceNotDiscount() {
+		return priceNotDiscount;
+	}
+
+
+	public void setPriceNotDiscount(int priceNotDiscount) {
+		this.priceNotDiscount = priceNotDiscount;
+	}
+
+
+	public int getCartid() {
+		return cartid;
+	}
+
+
+	public void setCartid(int cartid) {
+		this.cartid = cartid;
+	}
+
+
+	public int getPurchaseid() {
+		return purchaseid;
+	}
+
+
+	public void setPurchaseid(int purchaseid) {
+		this.purchaseid = purchaseid;
+	}
+
 }
