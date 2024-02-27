@@ -184,7 +184,7 @@ function insertProduct() {
 	if(num == 0) {
 		let form = document.productForm;
 		alert('등록이 되었습니다.');
-		form.action = "adminProductInsert";
+		//form.action = "adminProductInsert";
 		form.submit();
 	}
 }
@@ -198,14 +198,12 @@ function insertProduct() {
 		<div class="main">
 			<div class="title">제품 등록</div>
 				
-		
-			<form name="productForm" enctype="multipart/form-data">
-				
+			<form id="productForm" action="adminProductInsert" method="post" enctype="multipart/form-data">
 				<!-- product_image -->				
 					<div class="form-group">
 						<label for="image">이미지 *</label>
 						 <img id="preview" src="" style="max-width: 100%; max-height: 200px;">
-						<input type="file" id="image" name="image" onchange="readURL(this);">
+						 <input type="file" id="image" name="image" onchange="readURL(this);" accept="*" multiple="multiple" />
 					</div>
 					
 				<!-- product_image -->

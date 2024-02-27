@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -320,7 +321,6 @@ public class AdminController {
 		
 		String type = request.getParameter("type");
 		String subtype = request.getParameter("subtype");
-		System.out.println(type + " : " + subtype);
 		List<Category> list = adminCategoryService.detail(type, subtype);
 		
 		model.addAttribute("list", list);
@@ -396,32 +396,25 @@ public class AdminController {
 	
 	//관리자 이벤트 등록
 	@PostMapping("adminEventInsert")
-	public String adminEventInsert(HttpServletRequest request, @RequestPart MultipartFile files, @RequestBody AdminEventDto form) throws Exception {
-		
+		public String adminEventInsert(HttpServletRequest request, Model model, @RequestParam("image") MultipartFile file)  throws Exception {
 	
-//		LocalDateTime nowTime = LocalDateTime.now();
-//		String formatDate = nowTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//		form.setInsertDate(formatDate);
-//		
-//		//이미지 처리
-//		UploadFile attachFile = fileStore.storeFile(form.getAttchFile());
-//		List<UploadFile> imageFiles = fileStore.storeFile(form.getImage());
-//		form.setAttchFile((MultipartFile) attachFile);
-//		form.setImageFiles(imageFiles);
-		
-		String image = request.getParameter("image");
 		String ename = request.getParameter("ename");
 		String econtent = request.getParameter("econtent");
 		String startdate = request.getParameter("startdate");
 		String enddate = request.getParameter("enddate");
 		int salerate = Integer.parseInt(request.getParameter("salerate"));
-		int produdctid = Integer.parseInt(request.getParameter("pname"));
+		int productid = Integer.parseInt(request.getParameter("pname"));	//제품id
+		
+		int catetoryid = adminEventService.selectCategoryId(productid);
+		
+		String image = null;
+		if(file != null && !file.isEmpty()) image = adminEventService.uploadFile(file);
 		
 		
-		int catetoryid = adminEventService.selectCategoryId(produdctid);
-		
-		adminEventService.insert(image, ename, econtent, startdate, enddate, salerate, produdctid, catetoryid);
+		//제품등록
+		adminEventService.insert(image, ename, econtent, startdate, enddate, salerate, productid, catetoryid);
 
+		
 		return "redirect:/adminEvent";
 	}
 	
@@ -437,7 +430,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("adminEventUpdate")
-	public String adminEventUpdate(HttpServletRequest request, Model model) throws Exception {
+	public String adminEventUpdate(HttpServletRequest request, Model model , @RequestParam("image") MultipartFile file) throws Exception {
 		int eventid = Integer.parseInt(request.getParameter("eventid"));
 		String ename= request.getParameter("ename");
 		String econtent= request.getParameter("econtent");
@@ -445,7 +438,18 @@ public class AdminController {
 		String enddate= request.getParameter("enddate");
 		int salerate= Integer.parseInt(request.getParameter("salerate"));
 		
-		adminEventService.update(eventid, ename, econtent, startdate, enddate, salerate);
+		
+		String image = null;
+		if(file != null && !file.isEmpty()) {
+			image = adminProductService.uploadFile(file);
+			adminEventService.update(eventid, ename, econtent, startdate, enddate, salerate, image);
+		} else {
+			adminEventService.updateNoImage(eventid, ename, econtent, startdate, enddate, salerate);
+		}
+			
+		
+		
+		
 		
 		return "redirect:/adminEvent";
 	}
@@ -491,6 +495,7 @@ public class AdminController {
 	//관리자 제품 등록 페이지 전환
 	@GetMapping("adminProductRegister")
 	public String adminProductRegister(Model model) throws Exception {
+		
 		List<BrandDto> brandList =  adminProductService.brandList();
 		List<Category> categoryList = adminProductService.categoryList();
 		List<AdminPackDto> packList = adminProductService.selectPackType();
@@ -518,8 +523,8 @@ public class AdminController {
 	  }
 	
 	//관리자 product 등록
-	@GetMapping("adminProductInsert")
-	public String adminProductInsert(HttpServletRequest request) throws Exception {
+	@PostMapping("adminProductInsert")
+	public String adminProductInsert(HttpServletRequest request, Model model, @RequestParam("image") MultipartFile file)  throws Exception {
 		String pname = request.getParameter("pname");
 		String pEngname = request.getParameter("pEngname");
 		String allery = request.getParameter("allery");
@@ -538,10 +543,13 @@ public class AdminController {
 		String ugram = request.getParameter("ugram");
 		String dname = request.getParameter("dname");
 		
+		String image = null;
+		if(file != null && !file.isEmpty()) image = adminProductService.uploadFile(file);
+		
 		
 		//제품등록
 		adminProductService.insertInfo(pname, pEngname, allery, nutrition, pstock, origin, description
-				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname);
+				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname, image);
 	
 		return "redirect:/adminProduct";
 		
@@ -758,7 +766,7 @@ public class AdminController {
 	
 	//제품 수정하기
 	@PostMapping("adminProductUpdate")
-	public String adminProductUpdate(HttpServletRequest request, Model model) throws Exception {
+	public String adminProductUpdate(HttpServletRequest request, Model model, @RequestParam("image") MultipartFile file) throws Exception {
 		String pname = request.getParameter("pname");
 		String pEngname = request.getParameter("pEngname");
 		String allery = request.getParameter("allery");
@@ -779,10 +787,12 @@ public class AdminController {
 		
 		int productid = Integer.parseInt(request.getParameter("productid"));
 		
+		String image = null;
+		if(file != null && !file.isEmpty()) image = adminProductService.uploadFile(file);
 		
 		//제품등록
 		adminProductService.updateInfo(pname, pEngname, allery, nutrition, pstock, origin, description
-				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname, productid);
+				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname, productid, image);
 	
 		return "redirect:/adminProduct";
 	}
@@ -832,14 +842,4 @@ public class AdminController {
 		return list;
 	}
 	
-	
-	
-	
-	
-//	@PostMapping("selectSubCategory")
-//	public List<Category> selectSubCategory(HttpServletRequest request) throws Exception {
-//		String type = request.getParameter("categoryType");
-//	    List<Category> subList = adminProductService.subCategoryList(type);
-//	    return subList;
-//	  }
 }

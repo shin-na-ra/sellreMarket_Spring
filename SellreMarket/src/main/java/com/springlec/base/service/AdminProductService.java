@@ -2,6 +2,8 @@ package com.springlec.base.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.springlec.base.model.AdminDeliveryDto;
 import com.springlec.base.model.AdminPackDto;
 import com.springlec.base.model.AdminPageDto;
@@ -39,7 +41,7 @@ public interface AdminProductService {
 	public List<AdminDeliveryDto> selectDelivery() throws Exception;
 
 	public void insertInfo(String pname, String pEngname, String allery, String nutrition, int pstock, String origin, String description
-			,int price, String bname, String subtype, String type, String packkind, String packtype, String utype, String ugram, String dname) throws Exception;
+			,int price, String bname, String subtype, String type, String packkind, String packtype, String utype, String ugram, String dname, String image) throws Exception;
 	
 	//초기 subtype 가져오기
 	public List<Category> selectSubCategory() throws Exception;
@@ -57,8 +59,12 @@ public interface AdminProductService {
 	
 	//제품수정
 	public void updateInfo(String pname, String pEngname, String allery, String nutrition, int pstock, String origin, String description
-			,int price, String bname, String subtype, String type, String packkind, String packtype, String utype, String ugram, String dname, int productid) throws Exception;
+			,int price, String bname, String subtype, String type, String packkind, String packtype, String utype, String ugram, String dname, int productid, String image) throws Exception;
 	
 	//제품 삭제
 	public void delete(int productid) throws Exception;	
+	
+	//파일 등록
+	public String uploadFile(MultipartFile file) throws Exception;
+	
 }

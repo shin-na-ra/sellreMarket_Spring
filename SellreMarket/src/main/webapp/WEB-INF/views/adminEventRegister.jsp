@@ -20,14 +20,14 @@
 	<jsp:include page="adminHeader.jsp" flush="false" />
 		<div class="main">
 			<div class="title">이벤트 등록</div>
-		
-			<form action='#' name="eventForm" method="POST" enctype="multipart/form-data">
 			
-				<div class="form-group">
-					<label for="image">이미지 *</label>
-					 <img id="preview" src="" style="max-width: 100%; max-height: 200px;">
-					<input type="file" id="image" name="image" onchange="readURL(this);">
-				</div>
+			<form id="eventForm" action="adminEventInsert" method="post" enctype="multipart/form-data">
+				<!-- product_image -->				
+					<div class="form-group">
+						<label for="image">이미지 *</label>
+						 <img id="preview" src="" style="max-width: 100%; max-height: 200px;">
+						 <input type="file" id="image" name="image" onchange="readURL(this);" accept="*" multiple="multiple" />
+					</div>
 					
 				<div class="form-group">
 					<label for="ename">이벤트 명 *</label>
@@ -68,8 +68,8 @@
 						</select>
 					<span id="reg4" style="color:red; display:none; margin-top:10px;"></span>
 				</div>
-				<button type="button" class="registerBtn" onclick="insertCheck()"> 등록</button>	
-			</form>
+			<input type="submit" class="registerBtn" value="등록">
+		</form>
 	</div>
 </body>
 </html>

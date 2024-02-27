@@ -102,5 +102,11 @@ public interface AdminProductDao {
 	//제품 삭제
 	public void delete(int productid) throws Exception;
 	
+	//제품 이미지 insert
+	public void insertImage(int productid, String image) throws Exception;
+	
+	//제품 이미지 update
+	public void updateImage(int productid, String image) throws Exception;
+	
 }
 

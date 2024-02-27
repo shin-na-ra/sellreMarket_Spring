@@ -1,10 +1,14 @@
 package com.springlec.base.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.springlec.base.dao.AdminProductDao;
 import com.springlec.base.model.AdminDeliveryDto;
@@ -93,7 +97,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 	@Override
 	public void insertInfo(String pname, String pEngname, String allery, String nutrition, int pstock, String origin,
 			String description, int price, String bname, String subtype, String type, String packkind, String packtype,
-			String utype, String ugram, String dname) throws Exception {
+			String utype, String ugram, String dname, String image) throws Exception {
 		
 		
 		//제품 등록하기
@@ -118,6 +122,9 @@ public class AdminProductServiceImpl implements AdminProductService {
 		dao.insertUnit(productid, utype, ugram);
 		
 		dao.insertDelivery(productid, dname);
+		
+		dao.insertImage(productid, image);
+		System.out.println("image2 : "+image);
 	}
 
 	@Override
@@ -169,7 +176,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 	@Override
 	public void updateInfo(String pname, String pEngname, String allery, String nutrition, int pstock, String origin,
 			String description, int price, String bname, String subtype, String type, String packkind, String packtype,
-			String utype, String ugram, String dname, int productid) throws Exception {
+			String utype, String ugram, String dname, int productid, String image) throws Exception {
 		
 		//제품 등록하기
 		dao.productUpdate(pname, pEngname, allery, nutrition, pstock, origin, description, productid);
@@ -191,11 +198,30 @@ public class AdminProductServiceImpl implements AdminProductService {
 		
 		dao.updateDelivery(productid, dname);
 		
+		//이미지 수정 - 이미지 변경이 있을 때만 update처리
+		if(image != null ) {
+			dao.updateImage(productid, image);
+		}
+		
 	}
 
 	@Override
 	public void delete(int productid) throws Exception {
 		dao.delete(productid);
 	}
-	
+
+	@Override
+	public String uploadFile(MultipartFile file) throws Exception {
+		// 파일이름 :  랜덤 + 파일이름
+		String image = file.getOriginalFilename();
+		UUID uuid = UUID.randomUUID();
+		image = uuid + image;
+		
+		//업로드 처리
+		if(image != null) {
+			String path = System.getProperty("user.dir") + "//src/main/resources/static/image";
+			file.transferTo(new File(path + "/" + image));
+		}
+		return image;
+	}
 }

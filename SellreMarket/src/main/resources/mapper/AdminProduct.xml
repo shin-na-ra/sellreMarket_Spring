@@ -70,8 +70,8 @@
 	
 	<!-- 제품 insert -->
 	<insert id="productInsert">
-		insert into product (pname, pEngname, allery, nutrition, pstock, origin, description, status)
-		values (#{pname}, #{pEngname}, #{allery}, #{nutrition}, #{pstock}, #{origin}, #{description}, '1')
+		insert into product (pname, pEngname, allery, nutrition, pstock, origin, description, status, pinsertdate)
+		values (#{pname}, #{pEngname}, #{allery}, #{nutrition}, #{pstock}, #{origin}, #{description}, '1', now())
 	</insert> 
 
 	<!-- 제품 id 가져오기 -->	
@@ -165,7 +165,8 @@
             packkind,
             utype,
             ugram,
-            dname
+            dname,
+            image
             
 		from product p 
 			 left join price price on p.productid = price.productid
@@ -174,6 +175,7 @@
              left join packing pack on p.productid = pack.productid
              left join saleunit s on p.productid = s.productid
              left join delivery_type d on p.productid = d.productid
+             left join product_image i on p.productid = i.productid
              
 		where p.productid = #{productid};
 	
@@ -245,4 +247,15 @@
 		where productid = #{productid}
 	</update>
 	
+	<!-- 제품 이미지 등록 -->
+	<insert id="insertImage">
+		insert into product_image (productid, image) values (#{productid}, #{image})
+	</insert>
+	
+	<update id="updateImage">
+		update product_image set
+			image = #{image}
+		where productid = #{productid}
+		
+	</update>
 </mapper>

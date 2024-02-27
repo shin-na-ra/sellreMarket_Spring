@@ -17,10 +17,7 @@ public class AdminEventDto {
 	
 	int catetoryid;
 	String pname;
-	String img;
-	
-	MultipartFile attchFile;
-	List<MultipartFile> image;
+	String image;
 	
 	String insertDate;
 	
@@ -79,12 +76,13 @@ public class AdminEventDto {
 		this.salerate = salerate;
 	}
 
-	public String getImg() {
-		return img;
+
+	public String getImage() {
+		return image;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getStatus() {
@@ -119,21 +117,7 @@ public class AdminEventDto {
 		this.pname = pname;
 	}
 
-	public MultipartFile getAttchFile() {
-		return attchFile;
-	}
 
-	public void setAttchFile(MultipartFile attchFile) {
-		this.attchFile = attchFile;
-	}
-
-	public List<MultipartFile> getImage() {
-		return image;
-	}
-
-	public void setImage(List<MultipartFile> image) {
-		this.image = image;
-	}
 
 	public String getInsertDate() {
 		return insertDate;

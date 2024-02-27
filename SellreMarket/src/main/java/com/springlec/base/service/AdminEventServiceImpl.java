@@ -1,9 +1,12 @@
 package com.springlec.base.service;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.springlec.base.dao.AdminEventDao;
 import com.springlec.base.model.AdminEventDto;
@@ -70,9 +73,9 @@ public class AdminEventServiceImpl implements AdminEventService {
 	}
 
 	@Override
-	public void update(int eventid, String ename, String econtent, String startdate, String enddate, int salerate)
+	public void update(int eventid, String ename, String econtent, String startdate, String enddate, int salerate, String image)
 			throws Exception {
-		dao.update(eventid, ename, econtent, startdate, enddate, salerate);
+		dao.update(eventid, ename, econtent, startdate, enddate, salerate, image);
 	}
 
 	@Override
@@ -126,4 +129,24 @@ public class AdminEventServiceImpl implements AdminEventService {
 		return dto;
 	}
 
+	@Override
+	public String uploadFile(MultipartFile file) throws Exception {
+		// 파일이름 :  랜덤 + 파일이름
+		String image = file.getOriginalFilename();
+		UUID uuid = UUID.randomUUID();
+		image = uuid + image;
+		
+		//업로드 처리
+		if(image != null) {
+			String path = System.getProperty("user.dir") + "//src/main/resources/static/image";
+			file.transferTo(new File(path + "/" + image));
+		}
+		return image;
+	}
+
+	@Override
+	public void updateNoImage(int eventid, String ename, String econtent, String startdate, String enddate,
+			int salerate) throws Exception {
+		dao.updateNoImage(eventid, ename, econtent, startdate, enddate, salerate);
+	}
 }

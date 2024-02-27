@@ -2,6 +2,8 @@ package com.springlec.base.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.springlec.base.model.AdminEventDto;
 import com.springlec.base.model.AdminOrderDto;
 import com.springlec.base.model.AdminPageDto;
@@ -24,7 +26,7 @@ public interface AdminEventService {
 	public List<AdminEventDto> detail(int eventid) throws Exception;
 	
 	//수정
-	public void update(int eventid, String ename, String econtent, String startdate, String enddate, int salerate) throws Exception;
+	public void update(int eventid, String ename, String econtent, String startdate, String enddate, int salerate, String image) throws Exception;
 	
 	//삭제
 	public void delete(int eventid) throws Exception;
@@ -44,5 +46,10 @@ public interface AdminEventService {
 	//페이징
 	public AdminPageDto pagingParam2(int page, String search, String query) throws Exception;
 
+	//파일 등록
+	public String uploadFile(MultipartFile file) throws Exception;
+	
+	//이미지 수정 없이 update
+	public void updateNoImage (int eventid, String ename, String econtent, String startdate, String enddate, int salerate) throws Exception;
 	
 }

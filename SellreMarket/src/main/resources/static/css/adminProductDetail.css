@@ -21,6 +21,9 @@ body {
 }
 
 	
+div {
+	display: block;
+}	
 	
 .main {
   display: flex;
