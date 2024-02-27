@@ -47,8 +47,8 @@ public class Product {
 	String address;
 	String detailaddress;
 	int priceGetDiscount;
-	int priceNotDiscount;
 	int discount;
+	int priceNotDiscount;
 	int cartid;
 	int purchaseid;
 	
@@ -66,7 +66,8 @@ public class Product {
 		this.pimage = pimage;
 		this.qty = qty;
 	}
-
+	
+	
 	public Product(String uname, String tel_no, String email, String address, String detailaddress) {
 		super();
 		this.uname = uname;
@@ -75,7 +76,7 @@ public class Product {
 		this.address = address;
 		this.detailaddress = detailaddress;
 	}
-	
+
 	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
 		super();
 		this.pname = pname;
@@ -441,7 +442,6 @@ public class Product {
 	public int getDiscount() {
 		return discount;
 	}
-
 
 	public void setDiscount(int discount) {
 		this.discount = discount;

@@ -55,8 +55,8 @@ public interface ProductService {
 	
 	// Order
 	public List<Product> orderList(String id, HttpServletRequest request) throws Exception;
-	// 구매할 때 고객 정보와 sum result 값
-	public Product userInfo(String id) throws Exception;
+//	// 구매할 때 고객 정보와 sum result 값
+//	public Product userInfo(String id) throws Exception;
 	// 최종적으로 구매 버튼 클릭 시
 	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception;
 	// check Purchaseid

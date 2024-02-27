@@ -393,13 +393,11 @@ public class ProductController {
 		
 		List<Product> list = service.orderList(id, request);
 		
-		Product userInfo = service.userInfo(id);
 		model.addAttribute("id", id);
 		model.addAttribute("orderList", list);
 		// if 구매한다면 정보를 받기 위해 session으로 보냄
 		session.setAttribute("orderList", list);
 		// 구매할 때 고객 정보와 sum result 값
-		model.addAttribute("userInfo", userInfo);
 		
 		return "purchaseProduct";
 	}
@@ -490,7 +488,7 @@ public class ProductController {
 		}
 		
 		model.addAttribute("id", request.getParameter("id"));
-		model.addAttribute("finalSum", request.getParameter("finalSum"));
+		model.addAttribute("finalResult", request.getParameter("finalResult"));
 		
 		return "sccessfulOrder";
 	}

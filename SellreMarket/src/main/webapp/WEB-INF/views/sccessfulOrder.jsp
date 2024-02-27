@@ -28,8 +28,8 @@
 						  <div class="css-1hvttuk eahaaoi12">
 						  	  <div class="css-1rmc3ba eahaaoi11">결제금액</div>
 							  <div>
-								  <span class="css-2pg1ps eahaaoi10" id="discountSum" style="font-weight: bold;">
-									  ${finalSum}
+								  <span class="css-2pg1ps eahaaoi10" id="finalResult" style="font-weight: bold;">
+									  ${finalResult}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -48,7 +48,7 @@
 				</div>
 				<form action="/sccessfulOrder" method="post" id="orderForm">
 					<input type="hidden" value="${id}" name="id">
-					<input type="hidden" value="${finalSum}" name="finalSum">
+					<input type="hidden" value="${finalResult}" name="finalResult">
 					<div class="css-1azakc el0c5j40" style="margin: 40px 20px 0px 0px;">
 					  <button class="css-mp" type="button" width="240" height="56" radius="3" onclick="window.location.href='/test'" border="2">
 					  	주문 상세보기

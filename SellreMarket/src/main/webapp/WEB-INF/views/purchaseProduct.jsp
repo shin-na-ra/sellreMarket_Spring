@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -313,12 +313,12 @@
 				                </div>
 				                <div class="item-price">
 				                	<c:if test="${item.priceNotDiscount eq item.priceGetDiscount}">
-				                		<span class="discount-price css-9dxu4e e17a7yib2">${item.priceNotDiscount} 원 </span>
+				                		<span class="discount-price css-9dxu4e e17a7yib2"><fmt:formatNumber value="${item.priceNotDiscount}" pattern="#,### 원"/></span>
 				                	</c:if>
 				                	<c:if test="${item.priceNotDiscount ne item.priceGetDiscount}">
-					                    <span class="discount-price css-9dxu4e e17a7yib2">${item.priceGetDiscount}원</span>
+					                    <span class="discount-price css-9dxu4e e17a7yib2"><fmt:formatNumber value="${item.priceGetDiscount}" pattern="#,### 원"/></span>
 					                    <br>
-					                    <span class="original-price css-jnogx7 e17a7yib3">${item.priceNotDiscount}원 </span>
+					                    <span class="original-price css-jnogx7 e17a7yib3"><fmt:formatNumber value="${item.priceNotDiscount}" pattern="#,### 원"/></span>
 				                    </c:if>
 				                </div>
 				            </div>
@@ -487,7 +487,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10" id="discountSum">
 									  <span class="css-rfpchb eahaaoi3"></span>
-									  ${discountPrice}
+									  ${discountSum}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -527,69 +527,9 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10" id="deliveryFee">
 									  <span class="css-rfpchb eahaaoi3">+</span>
-									  ${deliveryFee}
+								  		${deliveryFee}
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
-							  </div>
-						  </div>
-						  <div class="css-1bj5qaf eahaaoi12">
-							  <div class="css-1rmc3ba eahaaoi11">쿠폰할인</div>
-							  <div class="css-0">
-								  <span class="css-2pg1ps eahaaoi10">
-									  <span class="css-rfpchb eahaaoi3"></span>
-									  0
-								  </span>
-								  <span class="css-158icaa eahaaoi8">원</span>
-							  </div>
-						  </div>
-						  <div class="css-1bj5qaf eahaaoi12">
-							  <div class="css-1rmc3ba eahaaoi11">카드즉시할인</div>
-							  <div class="css-37wf0k">
-								  <span class="css-2pg1ps eahaaoi10">
-									  <span class="css-rfpchb eahaaoi3"></span>
-									  0
-								  </span>
-								  <span class="css-158icaa eahaaoi8">원</span>
-							  </div>
-						  </div>
-						  <div class="css-1hvttuk eahaaoi12">
-							  <div class="css-1rmc3ba eahaaoi11">적립금 ∙ 컬리캐시</div>
-							  <div>
-								  <span class="css-2pg1ps eahaaoi10">
-									  <span class="css-rfpchb eahaaoi3"></span>
-									  0
-								  </span>
-								  <span class="css-158icaa eahaaoi8">원</span>
-							  </div>
-						  </div>
-						  <div class="css-sk644d eahaaoi9">
-							  <div class="css-zjik7 eahaaoi0">
-								  <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-								  	<path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path>
-								  </svg>
-								  <div class="css-1rmc3ba eahaaoi11">적립금</div>
-							  </div>
-							  <div>
-								  <span class="css-2pg1ps eahaaoi10">
-									  <span class="css-rfpchb eahaaoi3"></span>
-									  0
-								  </span>
-								  <span class="css-158icaa eahaaoi8">원</span>
-							  </div>
-						  </div>
-						  <div class="css-sk644d eahaaoi9">
-							  <div class="css-zjik7 eahaaoi0">
-								  <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-								  	<path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path>
-								  </svg>
-							  	<div class="css-1rmc3ba eahaaoi11">컬리캐시</div>
-							  </div>
-							  <div>
-								  <span class="css-2pg1ps eahaaoi10">
-									  <span class="css-rfpchb eahaaoi3"></span>
-									  0
-								  </span>
-							  	  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
 						  </div>
 						  <div class="css-1hgn7mh eahaaoi7">
@@ -597,7 +537,7 @@
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10" id="totalPrice">
 									  <span class="css-rfpchb eahaaoi3"></span>
-									  ${finalSum}
+								  		${finalResult}
 								  </span>
 							  	  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>
@@ -608,11 +548,11 @@
 				</div>
 				<form action="/sccessfulOrder" method="post" id="orderForm">
 					<input type="hidden" value="${id}" name="id">
-					<input type="hidden" value="${finalSum}" name="resultSum">
+					<input type="hidden" value="${finalResult}" name="finalResult">
 					<input type="hidden" value="" name="payMethod" id="payMethod">
 					<div class="css-1azakc el0c5j40">
 					  <button class="css-1lha8en e4nu7ef3" type="button" width="240" height="56" radius="3" onclick="confirmPurchase()">
-					  	<span class="css-nytqmg e4nu7ef1">${finalSum}원 결제하기</span>
+					  	<span class="css-nytqmg e4nu7ef1">${finalResult}원 결제하기</span>
 					  </button>
 				  </div>
 			  </form>

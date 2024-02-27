@@ -2,28 +2,9 @@
  * 
  */
 
-/*
-window.onload = function() {
-    var discountSum = parseFloat(document.getElementById("discountSum").innerText);
-    var deliveryFee = parseFloat(document.getElementById("deliveryFee").innerText);
-    var totalPrice = document.getElementById("totalPrice");
-
-    // Assuming you want to display the result in totalPrice
-    totalPrice.innerText = (discountSum + deliveryFee).toFixed(2); // Assuming you want to display with 2 decimal places
-}
-background-color: rgb(95, 0, 128);
-    border-top-color: rgb(95, 0, 128);
-    border-right-color: rgb(95, 0, 128);
-    border-bottom-color: rgb(95, 0, 128);
-    border-left-color: rgb(95, 0, 128);
-*/
-
-/* Default selected style for "카카오페이" button */
-
 function payMethod(method) {
 	var kakao = document.getElementById('kakao');
 	var credit = document.getElementById('credit');
-	var simple = document.getElementById('simple');
 	var phone = document.getElementById('phone');
 	var payMethod = document.getElementById('payMethod');
 	

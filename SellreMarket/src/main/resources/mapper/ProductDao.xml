@@ -304,16 +304,16 @@
 	
 	<!-- Purchase Start -->
 	<select id="orderList" resultType="com.springlec.base.model.Product">
-		SELECT c.productid, PRO.pname, c.qty AS qty, SUM(price)-(
+		SELECT c.productid, PRO.pname, c.qty AS qty, ROUND(SUM(price)-(
 		    SUM(CASE WHEN e.eventid = pro.eventid THEN (price/salerate)
 		             ELSE 0
 		         END)
-		) AS discountSum,
-		(
+		), -1) AS discountSum,
+		ROUND((
 		    SUM(CASE WHEN e.eventid = pro.eventid THEN (price/salerate)
 		             ELSE 0
 		         END)
-		) AS discount,
+		), -1) AS discount,
 		SUM(price) AS notDiscountSum, PI.image AS image, c.cartid
 		FROM cart c
 		LEFT JOIN price p ON p.productid = c.productid
@@ -323,11 +323,10 @@
 		LEFT JOIN event e ON e.eventid = pro.eventid
 		WHERE CUS.userid = #{id} AND c.cartid = #{cartid}
 		GROUP BY c.productid, PRO.pname, price, PI.image;
-
 	</select>
 	
 	<select id="userInfo" resultType="com.springlec.base.model.Product">
-		SELECT DISTINCT name, tel_no, email, address, detailaddress 
+		SELECT DISTINCT name, tel_no, email, address, detailaddress
 		FROM cart c
 		LEFT JOIN price p ON p.productid = c.productid
 		LEFT JOIN product pro ON pro.productid = c.productid
@@ -347,7 +346,7 @@
 	<!-- when click order btn for test -->
 	<!-- List type 또한 그냥 just 타입형태만 써주면 된다 -->
 	<select id="clickOrderBtn" resultType="Integer">
-		SELECT cartid FROM cart WHERE cartid = 53 OR cartid = 22;
+		SELECT cartid FROM cart WHERE cartid = 2 OR cartid = 3;
 	</select>
 	
 	<select id="checkPurchaseid" resultType="Integer">

@@ -244,57 +244,49 @@ public class ProductServiceImpl implements ProductService{
 		// for문을 돌리기 위한 카운트 : 선택한 cartid 만큼
 		Integer[] checkOrderCount = dao.clickOrderBtn();
 		List<Product> result = new ArrayList<>();
-		// 최종 구매 가격을 보내기 위한 변수
+		
+		// 합계를 구해서 jsp로 보내기 위한
 		int discountSum = 0;
 		int discount = 0;
 		int sum = 0;
-		int finalSum = 0;
+		// deliveryFee
 		int deliveryFee = 0;
-		// discount Product Price Formatting
-		String[] dPP = new String[checkOrderCount.length];
-		int count = 0;
+		int finalResult = 0;
 		
+		// List가 아닌 하나 씩 받아서 길이만큼 result에 값을 넣어준다.
 		for (int i=0; i<checkOrderCount.length; i++) {
 			result.add(dao.orderList(id, checkOrderCount[i]));
 		}
 		
 		for (Product list : result) {
-			
-			// formatting 하기 위해
-			dPP[count] = String.format("%,d",((list.getPriceGetDiscount()/10) *10));
-			// 최종 할인된 sum 값, 최종 할인 가격, 최종 할인전 가격
-			discountSum += list.getPriceGetDiscount();
-			discount += list.getDiscount();
-			sum += list.getPriceNotDiscount();
-			count++;
-		}
-		// 배송비 처리
-		if (discountSum < 50000) {
-			deliveryFee = 3000;
-			finalSum = discountSum + deliveryFee;
-		}
-		else {
-			finalSum = discountSum;
+			discountSum += list.getPriceGetDiscount(); 
+			discount = list.getDiscount(); 
+			sum = list.getPriceNotDiscount(); 
 		}
 		
-		session.setAttribute("dPP", dPP);
-		// 10단위 반올림하기 위해  (value / 10) * 10
-		session.setAttribute("discountPrice", String.format("%,d", (discountSum/10) * 10));
-		session.setAttribute("discount", String.format("%,d", (discount/10) * 10));
-		session.setAttribute("sum", String.format("%,d", ((sum/10) * 10)));
-		session.setAttribute("finalSum", String.format("%,d", (finalSum/10) * 10));
+		// 처음에 deliveryFee가 포함 안된 가격 만약 30000원 이상이라면 딜리버리피 추가
+		finalResult = discountSum;
+		
+		if (discountSum <= 30000) {
+			deliveryFee = 3000;
+			finalResult = discountSum + deliveryFee;
+		}
+		
+		session.setAttribute("discountSum", String.format("%,d",discountSum));
+		session.setAttribute("discount", String.format("%,d", discount));
+		session.setAttribute("sum", String.format("%,d", sum));
 		session.setAttribute("deliveryFee", String.format("%,d", deliveryFee));
+		session.setAttribute("finalResult", String.format("%,d", finalResult));
 		
 		return result;
 	}
 	
-	
-	// 구매할 때 고객 정보와 sum result 값
-	@Override
-	public Product userInfo(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.userInfo(id);
-	}
+//	// 구매할 때 고객 정보와 sum result 값
+//	@Override
+//	public Product userInfo(String id) throws Exception {
+//		// TODO Auto-generated method stub
+//		return dao.userInfo(id);
+//	}
 	// insert purchase and delete cart
 	@Override
 	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception {
