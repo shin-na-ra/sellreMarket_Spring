@@ -21,9 +21,11 @@
 		<div class="main">
 			<div class="title" style="display : inline-block">입고요청</div>
 			<div class="btnGroup" style="display : inline-block">
-				제품명 : &nbsp;
-				<input type="text" id="search" name="search">
-				<a href="adminOrderSearch"><button class="registerBtn">검색</button></a>
+				<form action="orderListQuery" method="post">
+					제품명 : &nbsp;
+					<input type="text" id="search" name="search">
+					<input type="submit" value="검색" class="searchBtn">
+				</form>
 			</div>
 			<div class="main_content">
 				<div id="result" class="tableContainer">

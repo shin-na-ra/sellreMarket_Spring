@@ -20,7 +20,16 @@
 	<jsp:include page="adminHeader.jsp" flush="false" />
 		<div class="main">
 			<div class="title" style="display : inline-block">카테고리 관리</div>
-			<div class="btnGroup" style="display : inline-block">
+			<div class="btnGroup" >
+				<form action="categoryQuery" method="post">
+					<select name="query" class="query">
+						<option value="type">대분류</option>
+						<option value="subtype">중분류</option>
+					</select>
+					<input type="text" id="search" name="search">
+					<input type="submit" value="검색" class="searchBtn">
+				</form>
+			
 				<a href="adminCategoryRegister"><button class="registerBtn">등록</button></a>
 			</div>
 			<div class="main_content">
@@ -35,10 +44,10 @@
 						<c:set var="cnt" value="${rowNum }" />
 						<c:forEach items="${list}" var="dto">
 							<tr>
-								<td><a href="adminCategoryDetail?catetoryid=${dto.catetoryid }">${rowNum}</a></td>
-								<td><a href="adminCategoryDetail?catetoryid=${dto.catetoryid }">${dto.type }</a></td>
-								<td><a href="adminCategoryDetail?catetoryid=${dto.catetoryid }">${dto.subtype }</a></td>
-								<td><a href="adminCategoryDetail?catetoryid=${dto.catetoryid }">${dto.status }</a></td>
+								<td><a href="adminCategoryDetail?type=${dto.type }&subtype=${dto.subtype}">${rowNum}</a></td>
+								<td><a href="adminCategoryDetail?type=${dto.type }&subtype=${dto.subtype}">${dto.type }</a></td>
+								<td><a href="adminCategoryDetail?type=${dto.type }&subtype=${dto.subtype}">${dto.subtype }</a></td>
+								<td><a href="adminCategoryDetail?type=${dto.type }&subtype=${dto.subtype}">${dto.status }</a></td>
 							</tr>
 							  <c:if test="${rowNum > 1}">
 		                        <c:set var="cnt" value="${rowNum = rowNum-1 }" />

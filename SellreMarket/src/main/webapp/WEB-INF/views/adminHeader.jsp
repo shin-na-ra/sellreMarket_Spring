@@ -43,15 +43,15 @@
 		</div>
 		<div id="header" class="css-17tqugj e17w4cfr1">
 			<div class="css-mlddcv e17w4cfr6">
-					<div>
+					<!-- <div>
 						<span class="stock-num" id="productNum"></span> 
 					</div>
 					<div>
 						<span class="quest-num" id="questNum"></span> 
-					</div>
+					</div> -->
 					<ul class="css-1887xqd e17w4cfr5">
-						<li class="css-59mmhh e17w4cfr4"><a href="adminSales.jsp"><span class="css-1xyu7j9 e17w4cfr2">현황차트</span></a></li>
-						<li class="css-59mmhh e17w4cfr4"><a href="admin_product" ><span class="css-1xyu7j9 e17w4cfr2">제품현황</span></a></li>
+						<li class="css-59mmhh e17w4cfr4"><a href="adminSales"><span class="css-1xyu7j9 e17w4cfr2">현황차트</span></a></li>
+						<li class="css-59mmhh e17w4cfr4"><a href="adminProduct" ><span class="css-1xyu7j9 e17w4cfr2">제품현황</span></a></li>
 						<li class="css-59mmhh e17w4cfr4"><a href="adminCategory"><span class="css-1xyu7j9 e17w4cfr2">카테고리</span></a></li>
 						<li class="css-59mmhh e17w4cfr4"><a href="adminBrand"><span class="css-1xyu7j9 e17w4cfr2">브랜드관리</span></a></li>
 						<li class="css-59mmhh e17w4cfr4"><a href="adminEvent"><span class="css-1xyu7j9 e17w4cfr2">이벤트현황</span></a></li>

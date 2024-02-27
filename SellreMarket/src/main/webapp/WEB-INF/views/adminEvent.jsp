@@ -16,11 +16,22 @@
 <!-- <script src="js/adminEvent.js"></script> -->
 </head>
 <body>
-	<main><main>
+	<main>
 	<jsp:include page="adminHeader.jsp" flush="false" />
 		<div class="main">
 			<div class="title" style="display : inline-block">이벤트 현황</div>
-			<div class="btnGroup" style="display : inline-block">
+			<div class="btnGroup">
+			
+				<form action="eventListQuery" method="post">
+					<select name="query" class="query">
+						<option value="ename">이벤트명</option>
+						<option value="startdate">시작일</option>
+						<option value="enddate">종료일</option>
+					</select>
+					<input type="text" id="search" name="search">
+					<input type="submit" value="검색" class="searchBtn">
+				</form>
+			
 				<a href="adminEventRegister"><button class="registerBtn">등록</button></a>
 			</div>
 			<div class="main_content">

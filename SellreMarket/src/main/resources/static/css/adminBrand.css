@@ -35,13 +35,15 @@ body {
 }
 	
 .btnGroup {
-    text-align: right;
+	display: flex;
+	justify-content: space-between;
+    /*text-align: right;*/
     width: 80%;
     margin-right: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 } 
 
-.registerBtn {
+.registerBtn, .searchBtn {
   background-color: #f2f2f2;
   color: #6F6F67;
   padding: 10px 20px;
@@ -57,7 +59,7 @@ body {
 }
 
 
-.registerBtn:hover {
+.registerBtn:hover, .searchBtn:hover {
   background-color: #E5E5D1;
   color : black;
 }
@@ -130,3 +132,11 @@ table tr:hover {
 .button {
 	text-decoration: none;
 }  
+
+#search {
+  padding: 6px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-right: 10px;
+  border: 1px solid black;
+}

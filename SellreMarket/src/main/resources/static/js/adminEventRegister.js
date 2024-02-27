@@ -85,3 +85,49 @@
 			form.submit();
 		}
 	}
+	
+/************************************************************************************************
+ * Function : 이미지 선택했을 때 preview에 이미지 넣기 이벤트 
+ * @param 	: null
+ * @return 	: null
+*********************************************************/
+$("#image").on("change", function(event) {
+
+    var file = event.target.files[0];
+
+    var reader = new FileReader(); 
+    reader.onload = function(e) {
+
+        $("#preview").attr("src", e.target.result);
+    }
+
+    reader.readAsDataURL(file);
+});
+
+/************************************************************************************************
+ * Function : 파일명 체크 함수
+ * @param 	: 선택한 파일
+ * @return 	: null
+************************************************************************************************/
+function isImageFile(file) {
+    var ext = file.name.split(".").pop().toLowerCase(); // 파일명에서 확장자를 가져온다. 
+
+    return ($.inArray(ext, ["jpg", "jpeg", "gif", "png"]) === -1) ? false : true;
+}
+
+/************************************************************************************************
+ * Function : 이미지 선택했을 때 preview에 이미지 넣기 함수 
+ * @param 	: null
+ * @return 	: null
+************************************************************************************************/
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			document.getElementById('preview').src = e.target.result;
+		};
+		reader.readAsDataURL(input.files[0]);
+	} else {
+		document.getElementById('preview').src = "";
+	}
+}

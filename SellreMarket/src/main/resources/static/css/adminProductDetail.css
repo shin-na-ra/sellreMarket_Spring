@@ -54,6 +54,29 @@ form {
       margin-bottom: 25px;
     }
     
+     .form-group1 {
+	  display: flex;
+	  flex-direction: column;
+	  margin-bottom: 25px;
+	}
+	
+	.form-group1 label {
+	  font-weight: bold;
+	}
+	
+	.form-group1 input,
+	.form-group1 select {
+	  padding: 5px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  font-size: 14px;
+	}
+	
+	.form-group1 select {
+	  height: 30px;
+	}
+	
+	
     
     label {
       display: block;
@@ -61,6 +84,27 @@ form {
       margin-bottom: 5px;
     }
     
+    .form-group2 {
+	  display: flex;
+	  flex-direction: row;
+	  align-items: center;
+	  margin-bottom: 25px;
+	}
+	
+	.form-group2 label {
+	  font-weight: bold;
+	  margin-right: 15px;
+	}
+	
+	.form-group2 select {
+	  padding: 5px;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  font-size: 14px;
+	  height: 30px;
+	  width: 150px; /* 원하는 너비로 조정해주세요 */
+	  margin-right: 5px;
+	}
     .updateBtn {
       padding: 10px 20px;
       background-color: #E5E5D1;
@@ -69,10 +113,8 @@ form {
       border-radius: 3px;
       font-size: 16px;
       cursor: pointer;
-      width: 80%;
-  	  max-width: 700px; 
+      width: 100%;
       margin-top: 30px;
-      margin-left : 10px;
     }
     
     .updateBtn:hover {
@@ -88,11 +130,9 @@ form {
       border-radius: 3px;
       font-size: 16px;
       cursor: pointer;
-      width: 80%;
-  	  max-width: 700px; 
+      width: 100%;
       margin-top: 30px;
       margin-bottom: 200px;
-      margin-left : 10px;
     }
     
     .deleteBtn:hover {
@@ -109,10 +149,6 @@ form {
       border: 1px solid #ccc;
     }
     
-    
-    #pstock, #pname{
-    	background-color: #efefef;
-    }
     
    .alarm {
 		font-size : 10px;

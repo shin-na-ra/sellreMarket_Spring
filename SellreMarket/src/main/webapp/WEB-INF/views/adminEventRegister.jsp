@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +56,16 @@
 				<div class="form-group">
 					<label for="salerate">할인율(%) *</label>
 					<input type="text" id="salerate" name="salerate" style="text-align:right">
+					<span id="reg4" style="color:red; display:none; margin-top:10px;"></span>
+				</div>
+				
+				<div class="form-group">
+					<label for="salerate">이벤트 제품 *</label>
+						<select id="pname" name="pname">
+							<c:forEach items="${list}" var="dto">
+								<option value="${dto.productid }" id="${dto.productid }">${dto.pname }</option>
+							</c:forEach>
+						</select>
 					<span id="reg4" style="color:red; display:none; margin-top:10px;"></span>
 				</div>
 				<button type="button" class="registerBtn" onclick="insertCheck()"> 등록</button>	
