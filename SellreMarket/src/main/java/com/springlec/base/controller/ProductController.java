@@ -392,6 +392,7 @@ public class ProductController {
 //		int deliveryFee = 0;
 		
 		List<Product> list = service.orderList(id, request);
+		
 		Product userInfo = service.userInfo(id);
 		model.addAttribute("id", id);
 		model.addAttribute("orderList", list);

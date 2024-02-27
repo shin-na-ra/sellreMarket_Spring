@@ -22,11 +22,11 @@
 	<!-- New Product Start -->
 	<select id="newProductView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-		    CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+		    CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price/salerate), 0)
 		    ELSE FORMAT(price, 0)
 		    END
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount,
-		p.productid, FORMAT((e.salerate * 100), 0) AS salerate
+		p.productid, FORMAT(e.salerate, 0) AS salerate
 		FROM product p
 		LEFT JOIN price pr ON pr.productid = p.productid
 		LEFT JOIN product_image pi ON pi.productid = p.productid
@@ -40,11 +40,11 @@
 	
 	<select id="newProductAlignAscView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT ( 
-		CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0) 
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0) 
 		ELSE FORMAT(price, 0) 
 		END 
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, 
-		p.productid, FORMAT((e.salerate * 100), 0) AS salerate 
+		p.productid, FORMAT(e.salerate, 0) AS salerate 
 		FROM product p 
 		LEFT JOIN price pr ON pr.productid = p.productid 
 		LEFT JOIN product_image pi ON pi.productid = p.productid 
@@ -58,11 +58,11 @@
 	
 	<select id="newProductAlignDescView" resultType="com.springlec.base.model.Product">
 		SELECT distinct ( 
-		CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0) 
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0) 
 		ELSE FORMAT(price, 0) 
 		END 
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, 
-		p.productid, FORMAT((e.salerate * 100), 0) AS salerate 
+		p.productid, FORMAT(e.salerate, 0) AS salerate 
 		FROM product p 
 		LEFT JOIN price pr ON pr.productid = p.productid 
 		LEFT JOIN product_image pi ON pi.productid = p.productid 
@@ -79,7 +79,7 @@
 	<!-- Best Product Start-->
 	<select id="bestProductView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-        CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+        CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
              ELSE FORMAT(price, 0)
 		        END
 		    ) AS dPrice,
@@ -88,7 +88,7 @@
 		    pi.image,
 		    SUM(pl.likecount) AS likecount,
 		    p.productid,
-		    FORMAT((e.salerate * 100), 0) AS salerate
+		    FORMAT(e.salerate, 0) AS salerate
 		FROM product p
 		LEFT JOIN price pr ON pr.productid = p.productid
 		LEFT JOIN product_image pi ON pi.productid = p.productid
@@ -101,7 +101,7 @@
 	
 	<select id="bestProductAlignAscView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-        CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+        CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
              ELSE FORMAT(price, 0)
 		        END
 		    ) AS dPrice,
@@ -110,7 +110,7 @@
 		    pi.image,
 		    SUM(pl.likecount) AS likecount,
 		    p.productid,
-		    FORMAT((e.salerate * 100), 0) AS salerate
+		    FORMAT(e.salerate , 0) AS salerate
 		FROM product p
 		LEFT JOIN price pr ON pr.productid = p.productid
 		LEFT JOIN product_image pi ON pi.productid = p.productid
@@ -123,7 +123,7 @@
 	
 	<select id="bestProductAlignDescView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-        CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+        CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
              ELSE FORMAT(price, 0)
 		        END
 		    ) AS dPrice,
@@ -132,7 +132,7 @@
 		    pi.image,
 		    SUM(pl.likecount) AS likecount,
 		    p.productid,
-		    FORMAT((e.salerate * 100), 0) AS salerate
+		    FORMAT(e.salerate, 0) AS salerate
 		FROM product p
 		LEFT JOIN price pr ON pr.productid = p.productid
 		LEFT JOIN product_image pi ON pi.productid = p.productid
@@ -150,14 +150,14 @@
 		       y.ysrc,
 		       UPPER(y.ytitle) AS ytitle,
 		       (
-		           CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+		           CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
 		                ELSE FORMAT(price, 0)
 		           END
 		       ) AS dPrice,
 		       FORMAT(i.price, 0) AS price,
 		       SUM(likecount) AS likecount,
 		       ry.recipeid,
-		       FORMAT((e.salerate * 100), 0) AS salerate
+		       FORMAT(e.salerate, 0) AS salerate
 		FROM youtuber y
 		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
 		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
@@ -181,14 +181,14 @@
 		       y.ysrc,
 		       UPPER(y.ytitle) AS ytitle,
 		       (
-		           CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+		           CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
 		                ELSE FORMAT(price, 0)
 		           END
 		       ) AS dPrice,
 		       FORMAT(i.price, 0) AS price,
 		       SUM(likecount) AS likecount,
 		       ry.recipeid,
-		       FORMAT((e.salerate * 100), 0) AS salerate
+		       FORMAT(e.salerate, 0) AS salerate
 		FROM youtuber y
 		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
 		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
@@ -212,14 +212,14 @@
 		       y.ysrc,
 		       UPPER(y.ytitle) AS ytitle,
 		       (
-		           CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+		           CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
 		                ELSE FORMAT(price, 0)
 		           END
 		       ) AS dPrice,
 		       FORMAT(i.price, 0) AS price,
 		       SUM(likecount) AS likecount,
 		       ry.recipeid,
-		       FORMAT((e.salerate * 100), 0) AS salerate
+		       FORMAT(e.salerate, 0) AS salerate
 		FROM youtuber y
 		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
 		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
@@ -244,11 +244,11 @@
 	<select id="newProductPageCount" resultType="Integer">
 		SELECT COUNT(*) FROM (
 		SELECT DISTINCT (
-			CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price * salerate), 0)
+			CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
 				ELSE FORMAT(price, 0)
 			END
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount,
-		p.productid, FORMAT((e.salerate * 100), 0) AS salerate
+		p.productid, FORMAT(e.salerate, 0) AS salerate
 		FROM product p
 		LEFT JOIN price pr ON pr.productid = p.productid
 		LEFT JOIN product_image pi ON pi.productid = p.productid
@@ -305,12 +305,12 @@
 	<!-- Purchase Start -->
 	<select id="orderList" resultType="com.springlec.base.model.Product">
 		SELECT c.productid, PRO.pname, c.qty AS qty, SUM(price)-(
-		    SUM(CASE WHEN e.eventid = pro.eventid THEN (salerate*price)
+		    SUM(CASE WHEN e.eventid = pro.eventid THEN (price/salerate)
 		             ELSE 0
 		         END)
 		) AS discountSum,
 		(
-		    SUM(CASE WHEN e.eventid = pro.eventid THEN (salerate*price)
+		    SUM(CASE WHEN e.eventid = pro.eventid THEN (price/salerate)
 		             ELSE 0
 		         END)
 		) AS discount,
@@ -323,6 +323,7 @@
 		LEFT JOIN event e ON e.eventid = pro.eventid
 		WHERE CUS.userid = #{id} AND c.cartid = #{cartid}
 		GROUP BY c.productid, PRO.pname, price, PI.image;
+
 	</select>
 	
 	<select id="userInfo" resultType="com.springlec.base.model.Product">
@@ -346,7 +347,7 @@
 	<!-- when click order btn for test -->
 	<!-- List type 또한 그냥 just 타입형태만 써주면 된다 -->
 	<select id="clickOrderBtn" resultType="Integer">
-		SELECT cartid FROM cart WHERE cartid = 18 OR cartid = 22;
+		SELECT cartid FROM cart WHERE cartid = 53 OR cartid = 22;
 	</select>
 	
 	<select id="checkPurchaseid" resultType="Integer">

@@ -76,6 +76,17 @@ public class Product {
 		this.detailaddress = detailaddress;
 	}
 	
+	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
+		super();
+		this.pname = pname;
+		this.price = price;
+		this.dPrice = dPrice;
+		this.pimage = pimage;
+		this.plikecount = plikecount;
+		this.productid = productid;
+		this.salerate = salerate;
+	}
+	
 	public Product(int productid, String pname, int qty, int priceGetDiscount, int discount, int priceNotDiscount,  String pimage, int cartid) {
 		super();
 		this.productid = productid;
@@ -86,17 +97,6 @@ public class Product {
 		this.priceNotDiscount = priceNotDiscount;
 		this.pimage = pimage;
 		this.cartid = cartid;
-	}
-	
-	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
-		super();
-		this.pname = pname;
-		this.price = price;
-		this.dPrice = dPrice;
-		this.pimage = pimage;
-		this.plikecount = plikecount;
-		this.productid = productid;
-		this.salerate = salerate;
 	}
 	
 	public Product(String yname, String ysrc, String ytitle, String price, String dPrice, String recipelike, int recipeid, String salerate) {

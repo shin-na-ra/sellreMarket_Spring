@@ -250,16 +250,23 @@ public class ProductServiceImpl implements ProductService{
 		int sum = 0;
 		int finalSum = 0;
 		int deliveryFee = 0;
+		// discount Product Price Formatting
+		String[] dPP = new String[checkOrderCount.length];
+		int count = 0;
 		
 		for (int i=0; i<checkOrderCount.length; i++) {
 			result.add(dao.orderList(id, checkOrderCount[i]));
 		}
 		
 		for (Product list : result) {
+			
+			// formatting 하기 위해
+			dPP[count] = String.format("%,d",((list.getPriceGetDiscount()/10) *10));
 			// 최종 할인된 sum 값, 최종 할인 가격, 최종 할인전 가격
 			discountSum += list.getPriceGetDiscount();
 			discount += list.getDiscount();
 			sum += list.getPriceNotDiscount();
+			count++;
 		}
 		// 배송비 처리
 		if (discountSum < 50000) {
@@ -270,10 +277,12 @@ public class ProductServiceImpl implements ProductService{
 			finalSum = discountSum;
 		}
 		
-		session.setAttribute("discountPrice", String.format("%,d", discountSum));
-		session.setAttribute("discount", String.format("%,d", discount));
-		session.setAttribute("sum", String.format("%,d", sum));
-		session.setAttribute("finalSum", String.format("%,d", finalSum));
+		session.setAttribute("dPP", dPP);
+		// 10단위 반올림하기 위해  (value / 10) * 10
+		session.setAttribute("discountPrice", String.format("%,d", (discountSum/10) * 10));
+		session.setAttribute("discount", String.format("%,d", (discount/10) * 10));
+		session.setAttribute("sum", String.format("%,d", ((sum/10) * 10)));
+		session.setAttribute("finalSum", String.format("%,d", (finalSum/10) * 10));
 		session.setAttribute("deliveryFee", String.format("%,d", deliveryFee));
 		
 		return result;

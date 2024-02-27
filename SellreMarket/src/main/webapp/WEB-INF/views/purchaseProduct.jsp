@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -252,8 +253,8 @@
 			<div class="css-ixlb9s epvroj94">
 				<div class="css-zo1i6f edbbr7c2">
 			  	<h3 class="css-1ddzp0m edbbr7c1">주문 상품</h3>
-			  	<button data-testid="fold-button" class="css-lvqq7y e17cst860" id="fold" onclick="toggleDropdown()">
-				  <!-- ^ 버튼 -->
+			  	<!-- <button data-testid="fold-button" class="css-lvqq7y e17cst860" id="fold" onclick="toggleDropdown()">
+				  ^ 버튼
 				  <svg id="fold-svg" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" style="display:none;">
 				    <defs>
 				    	<path id="7a02qqg3ja" d="M11 12h9v9"></path>
@@ -263,7 +264,7 @@
 				      <use stroke="#333" stroke-width="2" stroke-linecap="round" transform="rotate(-45 15.5 16.5)" href="#7a02qqg3ja"></use>
 				    </g>
 				  </svg>
-				  <!-- v 표시 -->
+				  v 표시
 				  <svg id="open-svg" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
 				    <defs>
 				      <path id="7a02qqg3ja" d="M15 11l6 9h-12z"></path>
@@ -273,7 +274,7 @@
 				      <use stroke="#333" stroke-width="2" stroke-linecap="round" transform="rotate(136 15 19.5)" href="#7a02qqg3ja"></use>
 				    </g>
 				  </svg>
-				</button>
+				</button> -->
 			</div>
 
 				<%-- <div class="css-bd9p1l e17a7yib10">
@@ -301,7 +302,7 @@
 				    <c:forEach items="${orderList}" var="item">
 				        <div class="item-container">
 				            <div class="item-image">
-				                <img src="${item.pimage}" alt="상품 이미지" class="css-17jyui4 e17a7yib9">
+				                <img src="${pageContext.request.contextPath}/image/product/${item.pimage}" alt="상품 이미지" class="css-17jyui4 e17a7yib9">
 				            </div>
 				            <div class="item-info">
 				                <div class="item-name">
@@ -312,7 +313,7 @@
 				                </div>
 				                <div class="item-price">
 				                	<c:if test="${item.priceNotDiscount eq item.priceGetDiscount}">
-				                		<span class="discount-price css-9dxu4e e17a7yib2">${item.priceNotDiscount}원 </span>
+				                		<span class="discount-price css-9dxu4e e17a7yib2">${item.priceNotDiscount} 원 </span>
 				                	</c:if>
 				                	<c:if test="${item.priceNotDiscount ne item.priceGetDiscount}">
 					                    <span class="discount-price css-9dxu4e e17a7yib2">${item.priceGetDiscount}원</span>
