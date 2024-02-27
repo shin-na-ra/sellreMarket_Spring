@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springlec.base.dao.AdminCategoryDao;
 import com.springlec.base.dao.AdminEventDao;
 import com.springlec.base.model.AdminEventDto;
+import com.springlec.base.model.AdminOrderDto;
 import com.springlec.base.model.AdminPageDto;
-import com.springlec.base.model.Category;
+import com.springlec.base.model.UploadFile;
 
 @Service
 public class AdminEventServiceImpl implements AdminEventService {
@@ -59,9 +59,10 @@ public class AdminEventServiceImpl implements AdminEventService {
 	}
 
 	@Override
-	public void insert(String image, String ename, String econtent, String startdate, String enddate, int salerate)
+	public void insert(String image, String ename, String econtent, String startdate, String enddate, int salerate, int produdctid, int catetoryid)
 			throws Exception {
-		dao.insert(image, ename, econtent, startdate, enddate, salerate);
+		dao.insert(image, ename, econtent, startdate, enddate, salerate, produdctid, catetoryid);
+		
 	}
 
 	@Override
@@ -78,6 +79,52 @@ public class AdminEventServiceImpl implements AdminEventService {
 	@Override
 	public void delete(int eventid) throws Exception {
 		dao.delete(eventid);
+	}
+
+	@Override
+	public List<AdminOrderDto> productSelect() throws Exception {
+		return dao.productSelect();
+	}
+
+	@Override
+	public int selectCategoryId(int productid) throws Exception {
+		return dao.selectCategoryId(productid);
+	}
+
+	@Override
+	public List<AdminEventDto> listQuery(String search, String query, int page) throws Exception {
+		search = '%'+search+'%';
+		int pageStart = (page - 1) * pageLimit + 1;
+		return dao.listQuery(search, query, pageStart);
+	}
+
+	@Override
+	public int searchCount(String search, String query) throws Exception {
+		search = '%'+search+'%';
+		return dao.searchCount(search, query);
+	}
+
+	@Override
+	public AdminPageDto pagingParam2(int page, String search, String query) throws Exception {
+		search = '%'+search+'%';
+		int boardCount = dao.searchCount(search, query);
+		
+		int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+		
+		//시작페이지 계산
+		int startPage = (int)(Math.ceil((double) page / blockLimit) - 1) * blockLimit + 1;
+		
+		int endPage = startPage + blockLimit -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		dto.setPage(page);
+		dto.setStartPage(startPage);
+		dto.setMaxPage(maxPage);
+		dto.setEndPage(endPage);
+		
+		return dto;
 	}
 
 }

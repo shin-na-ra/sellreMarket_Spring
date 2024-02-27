@@ -62,8 +62,8 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
 	}
 
 	@Override
-	public List<Category> detail(int catetoryid) throws Exception {
-		return dao.detail(catetoryid);
+	public List<Category> detail(String type, String subtype) throws Exception {
+		return dao.detail(type, subtype);
 	}
 
 	@Override
@@ -80,6 +80,43 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
 	@Override
 	public void changeStatus(int catetoryid) throws Exception {
 		dao.changeStatus(catetoryid);
+	}
+
+
+	@Override
+	public List<Category> listQuery(String search, String query, int page) throws Exception {
+		search = '%'+search+'%';
+		int pageStart = (page - 1) * pageLimit + 1;
+		return dao.listQuery(search, query, pageStart);
+	}
+
+	@Override
+	public int searchCount(String search, String query) throws Exception {
+		search = '%'+search+'%';
+		return dao.searchCount(search, query);
+	}
+
+	@Override
+	public AdminPageDto pagingParam2(int page, String search, String query) throws Exception {
+		search = '%'+search+'%';
+		int boardCount = dao.searchCount(search, query);
+		
+		int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+		
+		//시작페이지 계산
+		int startPage = (int)(Math.ceil((double) page / blockLimit) - 1) * blockLimit + 1;
+		
+		int endPage = startPage + blockLimit -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		dto.setPage(page);
+		dto.setStartPage(startPage);
+		dto.setMaxPage(maxPage);
+		dto.setEndPage(endPage);
+		
+		return dto;
 	}
 
 	

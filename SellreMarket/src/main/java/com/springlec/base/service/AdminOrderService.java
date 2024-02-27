@@ -22,4 +22,13 @@ public interface AdminOrderService {
 	//입고 요청하기
 	public void insertOrder(int rcount, String rcomment, int productid) throws Exception;
 	
+	//제품명 검색
+	public List<AdminOrderDto> listQuery(String search, int pageStart) throws Exception;
+	
+	//게시글 수 검색 
+	public int searchCount(String search) throws Exception;
+
+	//페이징
+	public AdminPageDto pagingParam2(int page, String search) throws Exception;
+	
 }

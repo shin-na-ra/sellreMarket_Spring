@@ -25,8 +25,8 @@
 	</select>
 	
 	<insert id="insert">
-		insert into event (img, ename, econtent, startdate, enddate, salerate, inputdate, status) values 
-		(#{image}, #{ename}, #{econtent}, #{startdate}, #{enddate}, #{salerate}, now(), '1') 
+		insert into event (img, ename, econtent, startdate, enddate, salerate, inputdate, status, productid, category) values 
+		(#{image}, #{ename}, #{econtent}, #{startdate}, #{enddate}, #{salerate}, now(), '1', #{produdctid}, #{catetoryid}) 
 	</insert>
 	
 	<!-- 2024.02.21 snr : 카테고리 상세 조회하기  -->
@@ -49,9 +49,42 @@
 		where eventid = #{eventid}
 	</update>
 	
+	<!--  이벤트 삭제 -->
 	<delete id="delete">
 		update event set
 		status = '0'
 		where eventid = #{eventid}
 	</delete>
+	
+	<!-- 제품 조회 -->
+	<select id="productSelect"  resultType="com.springlec.base.model.AdminOrderDto">
+		select pname, productid from product
+	</select>
+	
+	<!-- 카테고리 id select -->
+	<select id="selectCategoryId" resultType="Integer">
+		select catetoryid from catetory where productid = #{productid}
+	</select>
+	
+	
+	 <select id="listQuery" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.AdminEventDto">
+		  SELECT eventid,
+				ename,
+				DATE_FORMAT(startdate,'%Y-%m-%d') as startdate,
+				DATE_FORMAT(enddate,'%Y-%m-%d') as enddate,
+				salerate
+		FROM (
+		    SELECT ROW_NUMBER() OVER (ORDER BY eventid desc ) AS num, ename, startdate, enddate, salerate, eventid
+		    FROM event 
+		) AS t
+       WHERE num BETWEEN ${pageStart} AND ${pageStart}+14 and ${query} like #{search}
+       ORDER BY num;
+	</select>
+	
+	<select id="searchCount" resultType="Integer"  parameterType="com.springlec.base.model.AdminEventDto">
+		select count(eventid) from event  where ${query} like #{search}
+	</select>
+	
+	
+	
 </mapper>

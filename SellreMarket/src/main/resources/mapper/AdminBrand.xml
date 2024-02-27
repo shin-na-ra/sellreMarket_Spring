@@ -67,4 +67,25 @@
 	</select> 
 	
 	
+	 <select id="listQuery" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.BrandDto">
+		SELECT bname,
+		    CASE
+		        WHEN status = 1 THEN '계약중'
+		        WHEN status = 0 THEN '계약해지'
+		        ELSE NULL
+		    END AS status
+		FROM (
+		    SELECT ROW_NUMBER() OVER (ORDER BY bname) AS num, b.bname, b.status, max(b.brandid) as id
+		    FROM brand b group by bname, status
+		) AS t
+        WHERE num BETWEEN #{pageStart} AND #{pageStart}+14 and bname like #{search}
+        order by id desc; 
+	</select>
+	
+	<!-- 브랜드 개수 가져오기 -->	
+	<select id="searchCount" resultType="Integer"  parameterType="com.springlec.base.model.BrandDto">
+			select count(brandid) from brand where bname like #{search};
+	</select>
+	
+	
 </mapper>

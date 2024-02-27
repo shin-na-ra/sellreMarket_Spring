@@ -11,20 +11,20 @@
 			        WHEN status = 1 THEN '사용'
 			        WHEN status = 0 THEN '미사용'
 			        ELSE NULL
-			    END AS status,
-                catetoryid
+			    END AS status
+                
                 
 		FROM (
-		    SELECT ROW_NUMBER() OVER (ORDER BY catetoryid desc ) AS num, b.type, b.subtype, status ,catetoryid
+		    SELECT ROW_NUMBER() OVER (ORDER BY catetoryid desc ) AS num, b.type, b.subtype, status
 		    FROM catetory b group by type, subtype, status, catetoryid
 		) AS t
        WHERE num BETWEEN #{pageStart} AND #{pageStart}+14
-        group by status, subtype, catetoryid
+        group by status, type, subtype
         ORDER BY num;
         
 	</select>
 	
-		<!-- 브랜드 개수 가져오기 -->	
+	<!-- 브랜드 개수 가져오기 -->	
 	<select id="boardCount" resultType="Integer"  parameterType="com.springlec.base.model.Category">
 		SELECT COUNT(subtype) FROM catetory;
 	</select>
@@ -36,8 +36,9 @@
 	<!-- 2024.02.21 snr : 카테고리 상세 조회하기  -->
 	<select id="detail" resultType="com.springlec.base.model.Category">
 	
-		select type, subtype, catetoryid, status from catetory
-		where catetoryid = #{catetoryid}  
+		select type, subtype,  status from catetory
+		where type=#{type} and subtype = #{subtype}  
+		group by type, subtype, status; 
 		
 	</select>
 	
@@ -63,4 +64,27 @@
 		where catetoryid = #{catetoryid}
 	</update>
 	
+	
+	
+	 <select id="listQuery" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.Category">
+		 SELECT type,
+				subtype,
+			    CASE
+			        WHEN status = 1 THEN '사용'
+			        WHEN status = 0 THEN '미사용'
+			        ELSE NULL
+			    END AS status
+		FROM (
+		    SELECT ROW_NUMBER() OVER (ORDER BY catetoryid ) AS num, b.type, b.subtype, status, catetoryid
+		    FROM catetory b group by type, subtype, status, catetoryid
+		) AS t
+       WHERE num BETWEEN #{pageStart} AND #{pageStart}+14 and ${query} like #{search}
+        group by status, type, subtype
+        ORDER BY num;
+	</select>
+	
+	<!-- 브랜드 개수 가져오기 -->	
+	<select id="searchCount" resultType="Integer"  parameterType="com.springlec.base.model.Category">
+			SELECT COUNT(subtype) FROM catetory where ${query} like #{search}
+	</select>
 </mapper>

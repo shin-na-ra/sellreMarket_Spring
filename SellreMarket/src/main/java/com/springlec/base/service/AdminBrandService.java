@@ -33,4 +33,12 @@ public interface AdminBrandService {
 	//브랜드명 중복 체크
 	public int checkBrand(String bname) throws Exception;
 
+	//제품명 검색
+	public List<BrandDto> listQuery(String search, int pageStart) throws Exception;
+	
+	//게시글 수 검색 
+	public int searchCount(String search) throws Exception;
+
+	//페이징
+	public AdminPageDto pagingParam2(int page, String search) throws Exception;
 }

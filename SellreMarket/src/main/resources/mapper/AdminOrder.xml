@@ -64,5 +64,38 @@
 		update product set pstock = (pstock + #{rcount}) where productid = #{productid}
 	</update>
 	
+	<select id="listQuery" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.AdminOrderDto">
+		 SELECT 
+		    t.productid,
+		    t.pname,
+		    t.pstock,
+		    t.amount,
+		    CASE t.status
+		        WHEN '0' THEN '판매종료'
+		        WHEN '1' THEN '판매중'
+		        ELSE ''
+		    END AS status
+		FROM (
+		    SELECT 
+		        p.productid, 
+		        p.pname, 
+		        IFNULL(p.pstock, 0) AS pstock,
+		        p.pstock - (SELECT COALESCE(SUM(pur.amount), 0) FROM purchase pur WHERE p.productid = pur.productid) AS amount,
+		        p.status,
+		        ROW_NUMBER() OVER (ORDER BY p.productid DESC) AS rownum
+		    FROM product p
+		    LEFT OUTER JOIN purchase pur ON p.productid = pur.productid
+		    GROUP BY p.productid
+		) AS t
+		WHERE t.rownum BETWEEN #{pageStart} AND #{pageStart}+14 and pname like #{search}
+		ORDER BY t.rownum;
+		        
+	</select>
+	
+	<!-- 브랜드 개수 가져오기 -->	
+	<select id="searchCount" resultType="Integer"  parameterType="com.springlec.base.model.AdminOrderDto">
+			select count(productid) from product where pname like #{search};
+	</select>
+	
 	
 </mapper>

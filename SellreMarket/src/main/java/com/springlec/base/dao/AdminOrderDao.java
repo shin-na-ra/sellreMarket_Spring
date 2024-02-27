@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.springlec.base.model.AdminOrderDto;
 import com.springlec.base.model.AdminPageDto;
+import com.springlec.base.model.AdminProductDto;
 
 public interface AdminOrderDao {
 
@@ -24,4 +25,15 @@ public interface AdminOrderDao {
 	
 	//제품 개수도 update
 	public void insertProduct(int rcount, int productid) throws Exception;
+	
+	//제품명 검색
+	public List<AdminOrderDto> listQuery(String search, int pageStart) throws Exception;
+	
+	//게시글 수 검색 
+	public int searchCount(String search) throws Exception;
+
+	//페이징
+	public AdminPageDto pagingParam2(int page, String search) throws Exception;
+
+	
 }

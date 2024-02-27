@@ -102,4 +102,40 @@ public class AdminBrandServiceImpl implements AdminBrandService {
 		return dao.checkBrand(bname);
 	}
 
+	@Override
+	public List<BrandDto> listQuery(String search, int page) throws Exception {
+		search = '%'+search+'%';
+		int pageStart = (page - 1) * pageLimit + 1;
+		return dao.listQuery(search, pageStart);
+	}
+
+	@Override
+	public int searchCount(String search) throws Exception {
+		search = '%'+search+'%';
+		return dao.searchCount(search);
+	}
+
+	@Override
+	public AdminPageDto pagingParam2(int page, String search) throws Exception {
+		search = '%'+search+'%';
+		int boardCount = dao.searchCount(search);
+		
+		int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+		
+		//시작페이지 계산
+		int startPage = (int)(Math.ceil((double) page / blockLimit) - 1) * blockLimit + 1;
+		
+		int endPage = startPage + blockLimit -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		dto.setPage(page);
+		dto.setStartPage(startPage);
+		dto.setMaxPage(maxPage);
+		dto.setEndPage(endPage);
+		
+		return dto;
+	}
+
 }
