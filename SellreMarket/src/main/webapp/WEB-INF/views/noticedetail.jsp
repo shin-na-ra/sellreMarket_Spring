@@ -31,7 +31,15 @@
 						<div class="css-titlename">작성일자</div>
 						<div class="css-width"><input type="text" value="${detailDto.inputdate}" style="height: 30px; width: 250px; padding-left: 10px; margin-top: 6px; margin-bottom: 10px; margin-left: 57px; border: solid; border-color: lightgrey; border-width: 1px;" readonly="readonly"></div>
 						<div class="css-titlename">진행여부</div>
-						<div class="css-width"><input type="text" value="${detailDto.status}" style="height: 30px; width: 250px; padding-left: 10px; margin-top: 6px; margin-left: 30px; border: solid; border-color: lightgrey; border-width: 1px;" readonly="readonly"></div>
+						<div class="css-width">
+							<c:choose>
+								<c:when test="${detailDto.status eq 1}">
+									<input type="text" value="진행중" style="height: 30px; width: 250px; padding-left: 10px; margin-top: 6px; margin-left: 30px; border: solid; border-color: lightgrey; border-width: 1px;" readonly="readonly"></div>
+								</c:when>
+								<c:otherwise>
+									<input type="text" value="종료" style="height: 30px; width: 250px; padding-left: 10px; margin-top: 6px; margin-left: 30px; border: solid; border-color: lightgrey; border-width: 1px;" readonly="readonly"></div>
+								</c:otherwise>
+							</c:choose>
 					</div>
 					</div>
 					<c:choose>
@@ -79,7 +87,7 @@
 					</div>
 					<div class="css-inputrow">
 						<div class="css-titlename">첨부파일</div>
-						<img class="css-width" src="/image/event/new/${detailDto.img}" alt="첨부파일">
+						<img class="css-width" src="/image/event/${detailDto.img}" alt="첨부파일">
 					</div>
 					<div class="css-inputrow" style="border-bottom: solid; border-bottom-width: 2px;"></div>
 					<div class="css-inputrow" style="justify-content: right;">감사합니다.</div>
