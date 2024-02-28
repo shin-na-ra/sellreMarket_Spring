@@ -12,7 +12,7 @@
 				salerate
 		FROM (
 		    SELECT ROW_NUMBER() OVER (ORDER BY eventid desc ) AS num, ename, startdate, enddate, salerate, eventid
-		    FROM event 
+		    FROM event where category = 1
 		) AS t
        WHERE num BETWEEN #{pageStart} AND #{pageStart}+14
        ORDER BY num;
@@ -26,7 +26,7 @@
 	
 	<insert id="insert">
 		insert into event (img, ename, econtent, startdate, enddate, salerate, inputdate, status, productid, category) values 
-		(#{image}, #{ename}, #{econtent}, #{startdate}, #{enddate}, #{salerate}, now(), '1', #{produdctid}, #{catetoryid}) 
+		(#{image}, #{ename}, #{econtent}, #{startdate}, #{enddate}, #{salerate}, now(), '1', #{produdctid}, '1') 
 	</insert>
 	
 	<!-- 2024.02.21 snr : 카테고리 상세 조회하기  -->
@@ -76,7 +76,7 @@
 				salerate
 		FROM (
 		    SELECT ROW_NUMBER() OVER (ORDER BY eventid desc ) AS num, ename, startdate, enddate, salerate, eventid
-		    FROM event 
+		    FROM event  where category = 1
 		) AS t
        WHERE num BETWEEN ${pageStart} AND ${pageStart}+14 and ${query} like #{search}
        ORDER BY num;
