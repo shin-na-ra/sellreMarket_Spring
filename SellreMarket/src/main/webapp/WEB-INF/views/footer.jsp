@@ -140,7 +140,7 @@
 						class="css-1uz1ro8 eam2qm59">월~토요일 오전 7시 - 오후 6시</span>
 					</strong>
 
-					<div class="css-1fttcpj eam2qm57">
+					<div class="css-1fttcpj eam2qm57" style="margin-top: 45px;">
 
 						<div class="css-ho1qnd eam2qm53">
 
@@ -195,30 +195,6 @@
 						채용문의 :<a href="mailto:sellremarket0987@gmail.com" class="css-1tby8gd ebj6vxr0">sellremarket0987@gmail.com</a><br />
 						팩스: 070 - 1111 - 0000
 					</div>
-
-					<ul class="css-zjik7 ek68y4g1">
-
-						<a href="https://instagram.com/marketkurly" target="_blank"
-							rel="noreferrer" class="css-9ipg3 ek68y4g0"><img
-							src="https://res.kurly.com/pc/ico/1810/ico_instagram.png"
-							alt="셀리 인스타그램 바로가기" /></a>
-						<a href="https://www.facebook.com/marketkurly" target="_blank"
-							rel="noreferrer" class="css-9ipg3 ek68y4g0"><img
-							src="https://res.kurly.com/pc/ico/1810/ico_fb.png"
-							alt="셀리 페이스북 바로가기" /></a>
-						<a href="https://blog.naver.com/marketkurly" target="_blank"
-							rel="noreferrer" class="css-9ipg3 ek68y4g0"><img
-							src="https://res.kurly.com/pc/ico/1810/ico_blog.png"
-							alt="셀리 네이버블로그 바로가기" /></a>
-						<a href="https://m.post.naver.com/marketkurly" target="_blank"
-							rel="noreferrer" class="css-9ipg3 ek68y4g0"><img
-							src="https://res.kurly.com/pc/ico/1810/ico_naverpost.png"
-							alt="셀리 네이버포스트 바로가기" /></a>
-						<a href="https://www.youtube.com/channel/UCfpdjL5pl-1qKT7Xp4UQzQg"
-							target="_blank" rel="noreferrer" class="css-9ipg3 ek68y4g0"><img
-							src="https://res.kurly.com/pc/ico/1810/ico_youtube.png"
-							alt="셀리 유튜브 바로가기" /></a>
-					</ul>
 				</div>
 			</div>
 		</div>
