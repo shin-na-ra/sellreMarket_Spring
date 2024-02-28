@@ -133,7 +133,7 @@
 							style="width: 300px; height: 350px; display: flex; flex-direction: column; justify-content: center;">
 							<div class="product-img position-relative overflow-hidden">
 									<a href="/productDetailPage?productId=${dto.productid}" ><img class="img-fluid w-100"
-										src="${pageContext.request.contextPath}/image/product/${dto.pimage}"
+										src="${pageContext.request.contextPath}/image/${dto.pimage}"
 										alt="Product Image"
 										 style="object-fit: cover; width: 100%; height: 100%;">
 									</a>
