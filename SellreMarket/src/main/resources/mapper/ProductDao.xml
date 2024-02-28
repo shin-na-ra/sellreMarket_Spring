@@ -70,6 +70,33 @@
 		ORDER BY CAST(dPrice AS SIGNED) DESC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
+	
+	
+		
+		
+	<select id="newBestProduct" resultType="com.springlec.base.model.Product">
+		SELECT DISTINCT (
+		    CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
+		    ELSE FORMAT(price, 0)
+		    END
+		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, 
+		p.productid, FORMAT(e.salerate, 0) AS salerate
+		FROM product p
+		LEFT JOIN price pr ON pr.productid = p.productid
+		LEFT JOIN product_image pi ON pi.productid = p.productid
+		LEFT JOIN event e ON e.eventid = p.eventid
+		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW()
+		GROUP BY dPrice, price, p.pname, pi.image, p.productid
+		ORDER BY (
+			SELECT COUNT(productid)
+            FROM purchase
+            WHERE productid = p.productid
+        ) DESC
+		LIMIT #{limitFrom}, #{countPerPage}
+	</select>
+	
+	
+	
 	<!-- New Product End -->
 	
 	
@@ -246,12 +273,16 @@
 	
 	<!-- Event Image -->
 	<select id="newAdImg" resultType="String">
-		SELECT MAX(img) AS img FROM event WHERE category = 1
+		SELECT MAX(img) AS img FROM event WHERE category = 3 AND status = 1;
 	</select>
 	
 	<select id="bestAdImgs" resultType="com.springlec.base.model.Product">
-		SELECT img FROM event WHERE category = 3;
+		SELECT img FROM event WHERE category = 4 AND status = 1 LIMIT 3;
 	</select>
+	
+	<!-- <select id="firstBestEventImage" resultType="String">
+		SELECT MIN(img) FROM event WHERE category = 4 AND status = 1;
+	</select> -->
 	
 	
 	<!-- Purchase Start -->

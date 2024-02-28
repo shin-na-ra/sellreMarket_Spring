@@ -94,17 +94,17 @@
 	<!-- Align by Category Start -->
 	<div class="setAlign" style="margin-left: 75%; color: #919492;">
 		<c:if test="${alignCategory eq '레시피'}">
-			<a href="/alignRecipeLowPrice?curPage=1">낮은 가격순</a>
+			<a href="/alignRecipeLowPrice">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="/alignRecipeHighPrice?curPage=1">높은 가격순</a>
+			<a href="/alignRecipeHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '낮은 가격순'}">
 			<span style="color: black; font-weight: bold">낮은 가격순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="/alignRecipeHighPrice?curPage=1">높은 가격순</a>
+			<a href="/alignRecipeHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '높은 가격순'}">
-			<a href="/alignRecipeLowPrice?curPage=1">낮은 가격순</a>
+			<a href="/alignRecipeLowPrice">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">높은 가격순</span>
 		</c:if>

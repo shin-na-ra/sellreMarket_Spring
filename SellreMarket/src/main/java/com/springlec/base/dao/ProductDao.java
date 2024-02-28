@@ -13,6 +13,8 @@ public interface ProductDao {
 	public List<Product> newProductAlignAscView(int limitFrom, int countPerPage) throws Exception;
 	// new Product info align desc
 	public List<Product> newProductAlignDescView(int limitFrom, int countPerPage) throws Exception;
+	// Order by best Product of new Product DESC
+	public List<Product> newBestProduct(int limitFrom, int countPerPage) throws Exception;
 	// new ad Img 
 	public String newAdImg() throws Exception;
 	
@@ -24,6 +26,8 @@ public interface ProductDao {
 	// Best Product info align desc
 	public List<Product> bestProductAlignDescView(int limitFrom, int countPerPage) throws Exception;
 	public List<Product> bestAdImgs() throws Exception;
+	// first image from best event
+//	public String firstBestEventImage() throws Exception;
 	
 	// Recipe Product
 	// main Recipe Product info 

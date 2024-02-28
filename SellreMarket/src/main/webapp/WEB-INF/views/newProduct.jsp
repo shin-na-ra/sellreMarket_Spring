@@ -82,8 +82,8 @@
 
 	<!-- Ad Start -->
 	<div class="container" style="width: 100%">
-		<a href="#"><img class="img-fluid w-100"
-			src="${pageContext.request.contextPath}/image/event/new/${img}"
+		<a href="/newBestProduct"><img class="img-fluid w-100"
+			src="${pageContext.request.contextPath}/image/event/${img}"
 			alt="Event Image">
 		</a>
 	</div>
@@ -100,21 +100,21 @@
 		<c:if test="${alignCategory eq '신상품순'}">
 			<span style="color: black; font-weight: bold">신상품순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignNewLowPrice?curPage=1">낮은 가격순</a> 
+			<a href="alignNewLowPrice">낮은 가격순</a> 
 			&nbsp;&nbsp;|&nbsp;&nbsp; 
-			<a href="alignNewHighPrice?curPage=1">높은 가격순</a>
+			<a href="alignNewHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '낮은 가격순'}">
 			<a href="/main?curPage=1">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">낮은 가격순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignNewHighPrice?curPage=1">높은 가격순</a>
+			<a href="alignNewHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '높은 가격순'}">
 			<a href="/main">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignNewLowPrice?curPage=1">낮은 가격순</a>
+			<a href="alignNewLowPrice">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">높은 가격순</span>
 		</c:if>
@@ -132,10 +132,8 @@
 						<div class="product-item bg-light mb-4"
 							style="width: 300px; height: 350px; display: flex; flex-direction: column; justify-content: center;">
 							<div class="product-img position-relative overflow-hidden">
-									<a href="/productDetailPage?productId=${dto.productid}" ><img class="img-fluid w-100"
-										src="${pageContext.request.contextPath}/image/${dto.pimage}"
-										alt="Product Image"
-										 style="object-fit: cover; width: 100%; height: 100%;">
+									<a href="/productDetailPage?productId=${dto.productid}" >
+										<img class="img-fluid w-100" src="${pageContext.request.contextPath}/image/${dto.pimage}" alt="Product Image" style="object-fit: cover; width: 100%; height: 100%;">
 									</a>
 							</div>
 							<div

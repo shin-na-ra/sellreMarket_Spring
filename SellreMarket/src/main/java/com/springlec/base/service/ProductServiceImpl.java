@@ -38,25 +38,27 @@ public class ProductServiceImpl implements ProductService{
 	public List<Product> productView(HttpServletRequest request, int curPage, String headerCategory, String alignCategory) throws Exception {
 		// TODO Auto-generated method stub
 		
+		HttpSession session = request.getSession();
+		
 		// 한 페이지에 몇개를 보여줄 것인가?
 		int countPerPage = 12;
 		// 한 블럭에 몇개의 블럭을 보여줄 것인가?
-		int countPerBlock = 5;
 		
 		// db에 limit의 시작점
-		// ex) (1-1) * 5 = 0, (2-1) * 5 = 5, 
-		int limitFrom = (curPage - 1) * countPerBlock;
-		
-		System.out.println("error check 0");
+		// ex) (1-1) * 5 = 0, (2-1) * 12 = 12, 
+		int limitFrom = (curPage - 1) * countPerPage;
 		
 		if (headerCategory.equals("신상품")) {
 			if (alignCategory.equals("신상품순")) {
+				session.setAttribute("newBestProduct", dao.newBestProduct(limitFrom, countPerPage));
 				return dao.newProductView(limitFrom, countPerPage);
 			}
 			else if (alignCategory.equals("낮은 가격순")) {
+				session.setAttribute("newBestProduct", dao.newBestProduct(limitFrom, countPerPage));
 				return dao.newProductAlignAscView(limitFrom, countPerPage);
 			}
 			else if (alignCategory.equals("높은 가격순")) {
+				session.setAttribute("newBestProduct", dao.newBestProduct(limitFrom, countPerPage));
 				return dao.newProductAlignDescView(limitFrom, countPerPage);
 			}
 		}
@@ -72,22 +74,17 @@ public class ProductServiceImpl implements ProductService{
 			}
 		}
 		else if (headerCategory.equals("레시피")) {
-			System.out.println("error check 1");
 			if (alignCategory.equals("레시피")) {
-				System.out.println("error check 2");
 				return dao.recipeProductView(limitFrom, countPerPage);
 			}
 			else if (alignCategory.equals("낮은 가격순")) {
-				System.out.println("error check 3");
 				return dao.recipeProductAlignAscView(limitFrom, countPerPage);
 				
 			}
 			else if (alignCategory.equals("높은 가격순")) {
-				System.out.println("error check 4");
 				return dao.recipeProductAlignDescView(limitFrom, countPerPage);
 			}
 		}
-		System.out.println("error 04 sibal");
 		return null;
 	}
 	
@@ -302,5 +299,11 @@ public class ProductServiceImpl implements ProductService{
 		return dao.checkPurchaseid();
 	}
 	// order
+
+//	@Override
+//	public String firstBestEventImage() throws Exception {
+//		// TODO Auto-generated method stub
+//		return dao.firstBestEventImage();
+//	}
 
 }

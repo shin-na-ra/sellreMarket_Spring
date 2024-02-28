@@ -43,6 +43,7 @@ public class ProductController {
 		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
+		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
 		
@@ -109,6 +110,30 @@ public class ProductController {
 		return "newProduct";
 	}
 	
+	
+	@GetMapping("/newBestProduct")
+	public String newBestProduct(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
+		HttpSession session = request.getSession();
+		String headerCategory = "신상품";
+		String alignCategory = "높은 가격순";
+		
+		try {
+			curPage = Integer.parseInt(request.getParameter("curPage"));
+		}catch (Exception e) {}
+		
+		service.cartCount(request, id);
+		
+		// for header 클릭 시 컬러 표시
+		session.setAttribute("headerCategory", headerCategory);
+		
+		model.addAttribute("curPage", curPage);
+		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
+		
+		return "newBestProduct";
+	}
+	
 	@GetMapping("/bestProduct")
 	public String bestProductPage(HttpServletRequest request, Model model) throws Exception {
 		int curPage = 1;
@@ -128,7 +153,6 @@ public class ProductController {
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
-		
 		
 		model.addAttribute("curPage", curPage);
 		model.addAttribute("adImgs", adImgs);
