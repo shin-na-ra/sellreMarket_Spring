@@ -15,7 +15,7 @@
 		)
 	</insert>
 	
-	<select id="findCartsByUserId" resultType="com.springlec.sellre.dao.projection.CartListViewProjection">
+	<select id="findCartsByUserId" resultType="com.springlec.sellre.model.CartListViewProjection">
 		SELECT
 			c.cartid as cartId,
 			c.productid as productId,
@@ -37,6 +37,7 @@
 			LEFT JOIN product_image img
 				on c.productid = img.productid
 		WHERE c.userid = #{userId}
+			AND c.status = 1
 	</select>
 	
 	<update id="updateAmountByCartId">
@@ -50,6 +51,7 @@
 		FROM sellremarket.cart
 		WHERE cartid = #{cartId}
 			AND userid = #{userId}
+			AND status = 1
 	</select>
 	
 	<delete id="deleteByCartId">
