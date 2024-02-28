@@ -15,9 +15,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	PurchaseDao dao;
 
 	@Override
-	public List<PurchaseDto> purchaseDao() throws Exception {
+	public List<PurchaseDto> purchaseDao(String userId) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.purchaseDao();
+		return dao.purchaseDao(userId);
 	}
 	
 	@Override

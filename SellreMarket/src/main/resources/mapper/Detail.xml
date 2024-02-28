@@ -37,7 +37,11 @@
  	</select>
  	
  	<insert id="cartInputDao">
- 		INSERT INTO cart (productid, qty, userid) VALUES ((SELECT productid FROM product WHERE pname = #{cartItemNames}), #{cartItemQuantities}, 'baboya')
+ 		INSERT INTO cart (productid, qty, userid, status) VALUES ((SELECT productid FROM product WHERE pname = #{cartItemNames}), #{cartItemQuantities}, #{userId}, 1)
+ 	</insert>
+ 	
+ 	<insert id="cartProductInputDao">
+ 		INSERT INTO cart (productid, qty, userid, status) VALUES (#{sendValue}, 1, #{userId}, 1)
  	</insert>
  	
  	

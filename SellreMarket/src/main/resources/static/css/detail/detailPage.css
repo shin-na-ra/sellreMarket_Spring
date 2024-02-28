@@ -296,6 +296,7 @@
 }
 
 .css-yhijln {
+    padding-top: 30px;
     display: flex;
     -webkit-box-pack: end;
     justify-content: flex-end;
@@ -320,7 +321,7 @@
 
 .css-1jb8hmu {
     padding-left: 5px;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 600;
     color: #333;
     line-height: 30px;
@@ -559,7 +560,8 @@ svg:not(:root) {
     -webkit-box-pack: justify;
     justify-content: space-between;
     padding: 11px 10px 11px 15px;
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: bold;
     border-left: 1px solid rgb(244, 244, 244);
     border-top: 1px solid rgb(244, 244, 244);
     border-right: 1px solid rgb(244, 244, 244);

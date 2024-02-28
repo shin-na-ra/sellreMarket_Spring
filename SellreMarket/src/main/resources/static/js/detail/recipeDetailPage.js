@@ -265,27 +265,25 @@ const updateCartItem = () => {
         $.ajax({
             // 요청:
             type: "POST", // POST 방식으로 변경
-            url: "cartInput", // 서버에 요청할 URL
+            url: "/cartInput", // 서버에 요청할 URL
             data: { 
                 cartItemNames: cartItemNames.join(','),
                 cartItemQuantities: cartItemQuantities.join(',')
             },
             
             // 성공 시 실행할 함수:
-            success: function(response) {
-               // 성공 시 콘솔에 출력
-                console.log('response: ', response); 
+            success: function(res) {
                 // 성공 시 알림창 띄우기
-                alert("성공")
+                alert("장바구니에 담겼습니다.")
                 // 성공 시 상품 선택 페이지로 이동
-                window.location.href = "productSelection"; 
+                window.location.href = "main"; 
             },
             
             error: function(xhr, status, error) {
                 // 실패 시 콘솔에 출력
                 console.error("전송 실패:", error);
                 // 실패 시 알림창 띄우기
-                alert("안돼. 돌아가. 집 못가.")
+                alert("장바구니 담기에 실패했습니다.")
             }
         });
     } else {

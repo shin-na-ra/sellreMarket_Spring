@@ -27,13 +27,20 @@ public class DetailServiceImpl implements DetailService {
 	}
 
 	@Override
-	public void cartInputDao(String[] arrCartItemNames, String[] arrCartItemQuantities) {
+	public void cartInputDao(String[] cartItemNames, String[] cartItemQuantities, String userId) {
 		// TODO Auto-generated method stub
-		for(int i=0; i<arrCartItemNames.length; i++) {
-		dao.cartInputDao(arrCartItemNames[i], arrCartItemQuantities[i]);
-		System.out.println(arrCartItemNames[i]);
-		System.out.println(arrCartItemQuantities[i]);
+		for(int i=0; i<cartItemNames.length; i++) {
+			System.out.println("길이가 얼마나 되냐? : " + cartItemNames.length);
+			System.out.println("name : " + cartItemNames[i]);
+			System.out.println("qty : " + cartItemQuantities[i]);
+			System.out.println("userid : " + userId);
+			dao.cartInputDao(cartItemNames[i], cartItemQuantities[i], userId);
 		}
 	}
 
+	@Override
+	public void cartProductInputDao(String sendValue, String userId) {
+		// TODO Auto-generated method stub
+		dao.cartProductInputDao(sendValue, userId);
+	}
 }
