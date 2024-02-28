@@ -74,4 +74,28 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 		}
 	}
+	
+	function changeProduct() {
+		let productid = $("#productid").val();
+			
+			$.ajax({
+				
+				type : "POST",
+				url : "changeProductStatus",
+				data : {
+					productid: productid
+				},
+				success : function(response){
+					 if (response == "1") {
+						 	alert("상태변경이 완료되었습니다.")
+						 	window.location.href="adminBrand";
+			         } 
+			     },
+				 error:function(request, status, error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					console.log(error);
+				}
+				
+			});
+		}
 

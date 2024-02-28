@@ -230,4 +230,11 @@ public class AdminProductServiceImpl implements AdminProductService {
 	public List<UserInfo> checkID(String userid, String password) throws Exception {
 		return dao.checkID(userid, password);
 	}
+
+	@Override
+	public void changeStatus(int productid) throws Exception {
+		dao.changeStatus(productid);
+	}
+	
+	
 }

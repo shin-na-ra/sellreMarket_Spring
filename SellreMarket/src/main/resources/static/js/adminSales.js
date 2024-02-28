@@ -151,7 +151,7 @@ function gender() {
 		    		],
 		    		
 		    		datasets: [{
-			    		label : '이 달 인기 제품 TOP5',
+			    		label : '가입성비',
 			    		backgroundColor: ["#EB6D85","#58A0E5","#F7CE6B"],
 			    		data : [
 			    			
@@ -198,7 +198,7 @@ function user() {
 		    		],
 		    		
 		    		datasets: [{
-			    		label : '이 달 인기 제품 TOP5',
+			    		label : '많이 주문한 고객',
 			    		backgroundColor: ["#E5756E", "#F6C97C","#FAE594","#A2DB89","#90B9F8"],
 			    		data : [
 			    			

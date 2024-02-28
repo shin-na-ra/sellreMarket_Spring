@@ -448,6 +448,7 @@ public class AdminController {
 		
 		
 		String image = null;
+		
 		if(file != null && !file.isEmpty()) {
 			image = adminProductService.uploadFile(file);
 			adminEventService.update(eventid, ename, econtent, startdate, enddate, salerate, image);
@@ -884,5 +885,19 @@ public class AdminController {
 		
 		return "adminLogin";
 	}
+	
+	//제품 상태 변경 - 다시 살려!!
+	@PostMapping("changeProductStatus")
+	public String changeProductStatus(HttpServletRequest request, Model model) throws Exception {
+		
+		int productid = Integer.parseInt(request.getParameter("productid"));
+		
+		adminProductService.changeStatus(productid);
+		System.out.println("dddd  L: " + productid);
+		
+		return "redirect:/adminProduct";
+	}
+	
+	
 	
 }

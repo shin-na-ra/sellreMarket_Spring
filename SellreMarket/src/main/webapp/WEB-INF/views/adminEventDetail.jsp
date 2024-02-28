@@ -30,7 +30,6 @@
 								src="${pageContext.request.contextPath}/image/${dto.image}" >
 							
 							<input type="text" id="img" name="img" value=${dto.image } readonly="readonly"  style="color:white; border:none">
-							<input type="file" id="image" name="image" onchange="readURL(this)"; accept="*" multiple="multiple">
 						</div>	
 					
 							
@@ -56,7 +55,7 @@
 						
 						<div class="form-group">
 							<label for="salerate">할인율(%) *</label>
-							<input type="text" id="salerate" name="salerate" style="text-align:right" value="${dto.salerate }" readonly="readonly" style="background-color: #efefef">
+							<input type="text" id="salerate" style="background-color: #efefef;" name="salerate" style="text-align:right" value="${dto.salerate }" readonly="readonly" >
 						</div>
 						<input type="text" id="eventid" name="eventid" hidden="true" value="${dto.eventid }">	
 				
@@ -69,6 +68,9 @@
 							<img id="preview" src="" style="max-width: 100%; max-height: 200px;">
 							<img class="img-fluid w-100" id="preview1" style="max-width: 100%; max-height: 200px;"
 								src="${pageContext.request.contextPath}/image/${dto.image}" >
+							
+							<input type="text" id="img" name="img" value=${dto.image } readonly="readonly"  style="color:white; border:none">
+							<input type="file" id="image" name="image" onchange="readURL(this)" accept="*" multiple="multiple">
 						</div>	
 							
 						<div class="form-group">

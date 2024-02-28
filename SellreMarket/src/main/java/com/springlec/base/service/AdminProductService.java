@@ -71,4 +71,7 @@ public interface AdminProductService {
 	//adminLogin Check
 	public List<UserInfo> checkID(String userid, String password) throws Exception;
 	
+	//제품 다시 진행중으로 변경
+	public void changeStatus(int productid) throws Exception;
+	
 }

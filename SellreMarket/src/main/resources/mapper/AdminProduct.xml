@@ -40,17 +40,17 @@
 	
 	<!-- 브랜드 가져오기 -->
 	<select id="brandList" resultType="com.springlec.base.model.BrandDto">
-		select bname from brand group by bname;
+		select bname from brand where status = 1 group by bname 
 	</select>
 	
 	<!-- 카테고리 대분류 가져오기 -->	
 	<select id="categoryList" resultType="com.springlec.base.model.Category">
-		select type from catetory group by type;
+		select type from catetory where status = 1 group by type;
 	</select>
 	
 	<!-- 카테고리 중분류 가져오기 -->
 	<select id="subCategoryList" resultType="com.springlec.base.model.Category">
-		select subtype from catetory where type=#{type} group by subtype;
+		select subtype from catetory where type=#{type} and status = 1 group by subtype;
 	</select>
 	
 	<!-- 포장 타입 가져오기 -->	
@@ -166,7 +166,8 @@
             utype,
             ugram,
             dname,
-            image
+            image,
+            p.status
             
 		from product p 
 			 left join price price on p.productid = price.productid
@@ -261,5 +262,9 @@
 	<select id="checkID" resultType="com.springlec.base.model.UserInfo">
 		SELECT userid, password  FROM customer WHERE userid = 'admin'
 	</select>
+	
+	<update id="changeStatus">
+		update product set status ='1' where productid = #{productid}
+	</update>
 	
 </mapper>
