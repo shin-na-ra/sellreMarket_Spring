@@ -38,7 +38,7 @@
 						  	  <div class="css-1rmc3ba eahaaoi11">적립금</div>
 							  <div>
 								  <span class="css-2pg1ps eahaaoi10" id="discountSum" style="color: #808080;">
-									  +530
+								  0
 								  </span>
 								  <span class="css-158icaa eahaaoi8">원</span>
 							  </div>

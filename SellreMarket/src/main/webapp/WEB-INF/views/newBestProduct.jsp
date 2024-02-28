@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <!--
-	1. Date : 2024.02.11
+	1. Date : 2024.02.10
 	2. Author : Woody Jo
 	3. Version : v1.0.0
-	4. Description : best 제품들 가져오는 jsp 
+	4. Description : new 제품들 가져오는 jsp
 -->
 <head>
 <meta charset="UTF-8">
-<title>Sellre Market Best</title>
+<title>Sellre Market New</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Free HTML Templates" name="keywords">
 <meta content="Free HTML Templates" name="description">
@@ -72,126 +73,71 @@
 </head>
 <body>
 	<!-- for paging -->
-	<input type="hidden" value="베스트" id="category">
+    <input type="hidden" value="신상품" id="category">
     <input type="hidden" value="${alignCategory}" id="alignCategory">
     <input type="hidden" value="${headerCategory}" id="headerCategory">
     
-	<!-- Topbar Start -->
 	<jsp:include page="header.jsp"></jsp:include>
 	<!-- Topbar End -->
-
-
-	<!-- Navbar Start -->
-
-	<!-- Navbar End -->
-	
-	<!-- Carousel Start -->
-	<div class="container" style="width: 100%">
-		<div id="imgslider" class="carousel slide" data-ride="carousel"
-			style="width: 100%;">
-			<!-- indicator 없음 -->
-
-			<!-- 슬라이드 쇼 실행 -->
-			<div class="carousel-inner">
-				<c:forEach items="${adImgs}" var="ad">
-					<!-- 첫번째 이미지일 때 active 설정 -->
-					<c:choose>
-						<c:when test="${ad.eimg eq 'bestpage_event1.jpg'}">
-							<div class="carousel-item active">
-								<a href="#">
-									<img class="d-block w-100"
-										src="${pageContext.request.contextPath}/image/event/${ad.eimg}"
-										alt="Event Image">
-								</a>
-								<!-- 캡션 없음 -->
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="carousel-item">
-								<img
-									src="${pageContext.request.contextPath}/image/event/${ad.eimg}"
-									class="d-block w-100" alt="Event Image">
-								<!-- 캡션 없음 -->
-							</div>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</div>
-
-
-			<!-- 컨트롤 -->
-			<a href="#imgslider" class="carousel-control-prev" data-slide="prev">
-				<span class="carousel-control-prev-icon"></span>
-			</a> <a href="#imgslider" class="carousel-control-next" data-slide="next">
-				<span class="carousel-control-next-icon"></span>
-			</a>
-			
-			
-		</div>
-	</div>
 	<br>
 	<br>
 	<br>
-	<!-- Carousel End -->
-	
-	
-	
-	<h3 align="center">베스트</h3>
 	<br>
+	<h3 align="center">신상품</h3>
 
-	<!-- Align Start -->
+	<br>
+	<br>
+	<!-- Align by Category Start -->
 	<div class="setAlign" style="margin-left: 70%; color: #919492;">
-		<c:if test="${alignCategory eq '베스트순'}">
-			<span style="color: black; font-weight: bold">베스트순</span>
+		<c:if test="${alignCategory eq '신상품순'}">
+			<span style="color: black; font-weight: bold">신상품순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignBestLowPrice">낮은 가격순</a> 
+			<a href="alignNewLowPrice">낮은 가격순</a> 
 			&nbsp;&nbsp;|&nbsp;&nbsp; 
-			<a href="alignBestHighPrice">높은 가격순</a>
+			<a href="alignNewHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '낮은 가격순'}">
-			<a href="bestProduct">베스트순</a>
+			<a href="/main?curPage=1">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">낮은 가격순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignBestHighPrice">높은 가격순</a>
+			<a href="alignNewHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '높은 가격순'}">
-			<a href="bestProduct">베스트순</a>
+			<a href="/main">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignBestLowPrice">낮은 가격순</a>
+			<a href="alignNewLowPrice">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">높은 가격순</span>
 		</c:if>
 	</div>
-	<!-- Align End -->
+	<!-- Align by Category End -->
 	
-
+	
 	<!-- Products Start -->
-	
 	<div class="container-fluid pt-5 pb-3">
 		<div class="row px-xl-5 justify-content-center"
 			style="margin-left: 10%; margin-right: 0%;">
-			<c:if test="${not empty bestProducts}">
-				<c:forEach items="${bestProducts}" var="dto">
+			<c:if test="${not empty newBestProduct}">
+				<c:forEach items="${newBestProduct}" var="dto">
 					<div class="col-lg-4 col-md-4 col-sm-6 pb-10 mx-auto">
 						<div class="product-item bg-light mb-4"
 							style="width: 300px; height: 350px; display: flex; flex-direction: column; justify-content: center;">
 							<div class="product-img position-relative overflow-hidden">
-								<a href="/productDetailPage?productId=${dto.productid}"> <img class="img-fluid w-100"
-									src="${pageContext.request.contextPath}/image/${dto.pimage}"
-									alt="Product Image"
-									 style="object-fit: cover; width: 100%; height: 100%;">
-								</a>
+									<a href="/productDetailPage?productId=${dto.productid}" >
+										<img class="img-fluid w-100" src="${pageContext.request.contextPath}/image/${dto.pimage}" alt="Product Image" style="object-fit: cover; width: 100%; height: 100%;">
+									</a>
 							</div>
 							<div
 								style="margin-top: 7px; margin-left: 1%; border: 1px solid lightgray; border-radius: 5px; width: 98%;">
-								<button
-									onclick="sendProductInfo(${dto.productid}); return false;"
-									class="btn btn-primary btn-light align-items-center"
-									style="width: 100%;">장바구니</button>
-								<input type="hidden" id="id" value="${id}">
+									<button
+										onclick="sendProductInfo(${dto.productid}); return false;"
+										class="btn btn-primary btn-light align-items-center"
+										style="width: 100%;">장바구니</button>
+									<input type="hidden" id="id" value="${id}">
+									<!-- test -->
+									<!-- <input type="hidden" id="id" value="admin"> -->
 							</div>
-							
 							<div class="text-center py-4"
 								style="display: flex; flex-direction: column; justify-content: center;">
 								<a class="h6 text-decoration-none text-truncate" href="/productDetailPage?productId=${dto.productid}" style="font-weight: bold;">${dto.pname}</a>
@@ -212,7 +158,6 @@
 									&nbsp;&nbsp;
 									<h6>${dto.dPrice}</h6>
 									<h6>원</h6>
-									
 								</div>
 							</div>
 						</div>
@@ -223,17 +168,16 @@
 	</div>
 	<!-- Products End -->
 
-
 	<!-- Paging Start -->
 	<script src="js/paging.js"></script>
 	<div id="showPaging" style="text-align: center; margin: 20px 0px 20px 0px;"></div>
 	<input type="hidden" value="${curPage}" id="curPage">
 	<!-- Paging End -->
-	
 
 	<!-- Footer Start -->
 	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- Footer End -->
+
 
 </body>
 </html>

@@ -8,19 +8,17 @@ public class Recipe {
 	String ytitle;
 	String dPrice;
 	String price;
-	String recipelike;
 	int recipeid;
 	String salerate;
 	
 	
-	public Recipe(String yname, String ysrc, String ytitle, String dPrice, String price, String recipelike, int recipeid, String salerate) {
+	public Recipe(String yname, String ysrc, String ytitle, String dPrice, String price, int recipeid, String salerate) {
 		super();
 		this.yname = yname;
 		this.ysrc = ysrc;
 		this.ytitle = ytitle;
 		this.dPrice = dPrice;
 		this.price = price;
-		this.recipelike = recipelike;
 		this.recipeid = recipeid;
 		this.salerate = salerate;
 	}
@@ -83,16 +81,6 @@ public class Recipe {
 
 	public void setPrice(String price) {
 		this.price = price;
-	}
-
-
-	public String getRecipelike() {
-		return recipelike;
-	}
-
-
-	public void setRecipelike(String recipelike) {
-		this.recipelike = recipelike;
 	}
 
 

@@ -94,17 +94,17 @@
 	<!-- Align by Category Start -->
 	<div class="setAlign" style="margin-left: 75%; color: #919492;">
 		<c:if test="${alignCategory eq '레시피'}">
-			<a href="/alignRecipeLowPrice?curPage=1">낮은 가격순</a>
+			<a href="/alignRecipeLowPrice">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="/alignRecipeHighPrice?curPage=1">높은 가격순</a>
+			<a href="/alignRecipeHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '낮은 가격순'}">
 			<span style="color: black; font-weight: bold">낮은 가격순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="/alignRecipeHighPrice?curPage=1">높은 가격순</a>
+			<a href="/alignRecipeHighPrice">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '높은 가격순'}">
-			<a href="/alignRecipeLowPrice?curPage=1">낮은 가격순</a>
+			<a href="/alignRecipeLowPrice">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">높은 가격순</span>
 		</c:if>
@@ -124,7 +124,7 @@
 							style="width: 300px; height: 350px; display: flex; flex-direction: column; justify-content: center;">
 							<div class="product-img position-relative overflow-hidden">
 								<a href="/recipeDetailPage?recipeId=${dto.recipeid}"> <img class="img-fluid w-100"
-									src="${pageContext.request.contextPath}/image/product/${dto.ysrc}"
+									src="${pageContext.request.contextPath}/image/${dto.ysrc}"
 									alt="Product Image"
 									style="object-fit: cover; width: 100%; height: 100%;">
 								</a>
@@ -164,12 +164,6 @@
 									<h6>${dto.dPrice}</h6>
 									<h6>원</h6>
 								</div>
-								<div
-									class="d-flex align-items-center justify-content-center mb-1">
-									<img
-										src="https://cdn-icons-png.flaticon.com/128/535/535234.png"
-										style="width: 12px; height: 12px;">&nbsp; <small>${dto.recipelike}</small>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -181,10 +175,9 @@
 
 	<!-- Paging Start -->
 	<script src="js/paging.js"></script>
-	<div id="showPaging" style="text-align: center;"></div>
+	<div id="showPaging" style="text-align: center; margin: 20px 0px 20px 0px;"></div>
 	<input type="hidden" value="${curPage}" id="curPage">
 	<!-- Paging End -->
-
 
 	<!-- Footer Start -->
 	<jsp:include page="footer.jsp"></jsp:include>

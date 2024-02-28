@@ -25,25 +25,24 @@ public class ProductController {
 	ProductService service;
 	
 	
-	int curPage = 1;
+	
 	String id = null;
 	
 	@GetMapping({"/main","/"})
 	public String newProductPage(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
 		HttpSession session = request.getSession();
 		String id = null;
-		
 		String adImage = service.newAdImg();
 		String headerCategory = "신상품";
 		String alignCategory = "신상품순";
 		 
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
 		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
+		
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -59,6 +58,7 @@ public class ProductController {
 	
 	@GetMapping("/alignNewLowPrice")
 	public String newProductPageAlignAsc(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
 		HttpSession session = request.getSession();
 		String adImage = service.newAdImg();
 		String headerCategory = "신상품";
@@ -66,9 +66,7 @@ public class ProductController {
 		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
 		
 		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
@@ -87,6 +85,7 @@ public class ProductController {
 	
 	@GetMapping("/alignNewHighPrice")
 	public String newProductPageAlignDesc(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
 		HttpSession session = request.getSession();
 		String adImage = service.newAdImg();
 		String headerCategory = "신상품";
@@ -94,9 +93,7 @@ public class ProductController {
 		 
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
 		
 		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
@@ -113,8 +110,33 @@ public class ProductController {
 		return "newProduct";
 	}
 	
+	
+	@GetMapping("/newBestProduct")
+	public String newBestProduct(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
+		HttpSession session = request.getSession();
+		String headerCategory = "신상품";
+		String alignCategory = "높은 가격순";
+		
+		try {
+			curPage = Integer.parseInt(request.getParameter("curPage"));
+		}catch (Exception e) {}
+		
+		service.cartCount(request, id);
+		
+		// for header 클릭 시 컬러 표시
+		session.setAttribute("headerCategory", headerCategory);
+		
+		model.addAttribute("curPage", curPage);
+		model.addAttribute("alignCategory", alignCategory);
+		model.addAttribute("headerCategory", headerCategory);
+		
+		return "newBestProduct";
+	}
+	
 	@GetMapping("/bestProduct")
 	public String bestProductPage(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
 		HttpSession session = request.getSession();
 		List<Product> adImgs = service.bestAdImgs();
 		String headerCategory = "베스트";
@@ -123,9 +145,7 @@ public class ProductController {
 		// session으로 보내서 request로 받는게 가능하다?
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
 		
 		
 		List<Product> bestProducts = service.productView(request, curPage, headerCategory, alignCategory);
@@ -133,7 +153,6 @@ public class ProductController {
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
-		
 		
 		model.addAttribute("curPage", curPage);
 		model.addAttribute("adImgs", adImgs);
@@ -146,6 +165,7 @@ public class ProductController {
 	
 	@GetMapping("/alignBestLowPrice")
 	public String bestProductPageAlignAsc(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
 		HttpSession session = request.getSession();
 		List<Product> adImgs = service.bestAdImgs();
 		String headerCategory = "베스트";
@@ -153,9 +173,7 @@ public class ProductController {
 		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
 		
 		List<Product> bestProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
@@ -174,6 +192,7 @@ public class ProductController {
 	
 	@GetMapping("/alignBestHighPrice")
 	public String bestProductPageAlignDesc(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
 		HttpSession session = request.getSession();
 		List<Product> adImgs = service.bestAdImgs();
 		String headerCategory = "베스트";
@@ -181,9 +200,7 @@ public class ProductController {
 		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
 		
 		List<Product> bestProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
@@ -202,6 +219,7 @@ public class ProductController {
 	
 	@GetMapping("/recipeProduct")
 	public String recipeProductPage(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
 		HttpSession session = request.getSession();
 		String headerCategory = "레시피";
 		String alignCategory = "레시피";
@@ -209,9 +227,7 @@ public class ProductController {
 		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
 		
 		List<Product> recipeProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
@@ -230,15 +246,14 @@ public class ProductController {
 	
 	@GetMapping("/alignRecipeLowPrice")
 	public String recipeProductPageAlignAsc(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
 		HttpSession session = request.getSession();
 		String headerCategory = "레시피";
 		String alignCategory = "낮은 가격순";
 		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
 		
 		List<Product> recipeProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
@@ -256,15 +271,14 @@ public class ProductController {
 	
 	@GetMapping("/alignRecipeHighPrice")
 	public String recipeProductPageAlignDesc(HttpServletRequest request, Model model) throws Exception {
+		int curPage = 1;
 		HttpSession session = request.getSession();
 		String headerCategory = "레시피";
 		String alignCategory = "높은 가격순";
 		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
 		
 		
 		List<Product> recipeProducts = service.productView(request, curPage, headerCategory, alignCategory);
@@ -309,33 +323,33 @@ public class ProductController {
 	
 	
 	
-	/************* TEST Start *************/
-	// get in product detail for test
-	// productDetailPage
-	@GetMapping("/productDetail")
-	public String pDeatilPage(HttpServletRequest request, Model model) {
-		model.addAttribute("productId", request.getParameter("productId"));
-		
-		return "test";
-	}
-	
-	// get in recipe detail for test
-	// recipeDetailPage
-	@GetMapping("/recipeDetail")
-	public String rDeatilPage(HttpServletRequest request, Model model) {
-		model.addAttribute("recipeId", request.getParameter("recipeId"));
-		
-		return "test";
-	}
-	/************* TEST End *************/
+//	/************* TEST Start *************/
+//	// get in product detail for test
+//	// productDetailPage
+//	@GetMapping("/productDetail")
+//	public String pDeatilPage(HttpServletRequest request, Model model) {
+//		model.addAttribute("productId", request.getParameter("productId"));
+//		
+//		return "test";
+//	}
+//	
+//	// get in recipe detail for test
+//	// recipeDetailPage
+//	@GetMapping("/recipeDetail")
+//	public String rDeatilPage(HttpServletRequest request, Model model) {
+//		model.addAttribute("recipeId", request.getParameter("recipeId"));
+//		
+//		return "test";
+//	}
+//	/************* TEST End *************/
 	
 	
 	/************* Order Start *************/
 	@GetMapping("/order")
 	public String order(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
-		// test 용
-		id = "admin";
+		// id 받아오기
+		id = (String) session.getAttribute("id");
 //		int deliveryFee = 0;
 		
 		List<Product> list = service.orderList(id, request);
@@ -402,7 +416,10 @@ public class ProductController {
 		
 		return "popup";
 	}
+	/************* popup *************/
 	
+	
+	/************* sccessfully order *************/
 	@PostMapping("/sccessfulOrder")
 	public String sccessfulOrder(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
@@ -411,6 +428,9 @@ public class ProductController {
 		// get payMethod from purchaseProduct.js
 		int paymethod = Integer.parseInt(request.getParameter("payMethod"));
 		int randomNumber = 0;
+		// get together address + detail address
+		String address = request.getParameter("address") + " " + request.getParameter("addressDetail");
+		
 		// while문을 돌리기 위한 변수
 		Boolean checkFlag = true;
 		
@@ -429,10 +449,9 @@ public class ProductController {
 			}
 			checkFlag = false;
 		}
-		
 		// insert and delete same time 
 		for (Product insert : orderList) {
-			service.finalOrderBtn(insert.getQty(), id, insert.getCartid(), paymethod, randomNumber);
+			service.finalOrderBtn(insert.getQty(), id, insert.getCartid(), paymethod, address, randomNumber);
 		}
 		
 		model.addAttribute("id", request.getParameter("id"));
@@ -440,14 +459,5 @@ public class ProductController {
 		
 		return "sccessfulOrder";
 	}
-	
-	@GetMapping("/test")
-	public String test(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		
-		
-		return "test";
-	}
-	/************* popup *************/
 	
 }

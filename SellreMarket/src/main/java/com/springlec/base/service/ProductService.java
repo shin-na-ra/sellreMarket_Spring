@@ -13,6 +13,8 @@ public interface ProductService {
 	public List<Product> productView(HttpServletRequest request, int curPag, String headerCategory, String alignCategory) throws Exception;
 	public String newAdImg() throws Exception;
 	public List<Product> bestAdImgs() throws Exception;
+	// first image from best event
+//	public String firstBestEventImage() throws Exception;
 	
 	// product page count 
 	public Map<String, Object> productPageCount(HttpServletRequest request, HttpServletResponse response, String headerCategory, String alignCategory, String id, int curPage) throws Exception;
@@ -31,7 +33,7 @@ public interface ProductService {
 //	// 구매할 때 고객 정보
 	public Product userInfo(String id) throws Exception;
 	// 최종적으로 구매 버튼 클릭 시
-	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception;
+	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, String address, int purchaseid) throws Exception;
 	// check Purchaseid
 	public Integer[] checkPurchaseid() throws Exception;
 	
