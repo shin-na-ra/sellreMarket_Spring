@@ -6,7 +6,7 @@
 	
 	<!-- CREATE -->
 	<insert id="getProductCart">
-		INSERT INTO cart (qty, userid, productid) VALUES (1, #{id} ,#{productid})
+		INSERT INTO cart (qty, userid, productid, status) VALUES (1, #{id} ,#{productid}, 1)
 	</insert>
 	
 	<insert id="finalOrderBtn">
@@ -22,7 +22,7 @@
 	<!-- New Product Start -->
 	<select id="newProductView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-		    CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price/salerate), 0)
+		    CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
 		    ELSE FORMAT(price, 0)
 		    END
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount,
@@ -40,7 +40,7 @@
 	
 	<select id="newProductAlignAscView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT ( 
-		CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0) 
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0) 
 		ELSE FORMAT(price, 0) 
 		END 
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, 
@@ -58,7 +58,7 @@
 	
 	<select id="newProductAlignDescView" resultType="com.springlec.base.model.Product">
 		SELECT distinct ( 
-		CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0) 
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0) 
 		ELSE FORMAT(price, 0) 
 		END 
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, 
@@ -79,7 +79,7 @@
 	<!-- Best Product Start-->
 	<select id="bestProductView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-        CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
+        CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
              ELSE FORMAT(price, 0)
 		        END
 		    ) AS dPrice,
@@ -101,7 +101,7 @@
 	
 	<select id="bestProductAlignAscView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-        CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
+        CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
              ELSE FORMAT(price, 0)
 		        END
 		    ) AS dPrice,
@@ -123,7 +123,7 @@
 	
 	<select id="bestProductAlignDescView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-        CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
+        CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
              ELSE FORMAT(price, 0)
 		        END
 		    ) AS dPrice,
@@ -145,96 +145,65 @@
 	<!-- Best Product End -->
 	
 	<!-- Recipe Product Start -->
-	<select id="recipeProductView" resultType="com.springlec.base.model.Product">
-		SELECT y.yname,
-		       y.ysrc,
-		       UPPER(y.ytitle) AS ytitle,
-		       (
-		           CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
-		                ELSE FORMAT(price, 0)
-		           END
-		       ) AS dPrice,
-		       FORMAT(i.price, 0) AS price,
-		       SUM(likecount) AS likecount,
-		       ry.recipeid,
-		       FORMAT(e.salerate, 0) AS salerate
+	<select id="recipeProductView" resultType="com.springlec.base.model.Recipe">
+		SELECT y.yname, y.ysrc, y.ytitle,
+		FORMAT(SUM(
+		        CASE
+		            WHEN p.eventid = e.eventid THEN ROUND(price - (price / salerate), -1)
+		            ELSE price
+		        END
+		    ), 0) AS dPrice,
+		FORMAT(SUM(price), 0) AS price, SUM(likecount) AS likecount, ry.recipeid, salerate
 		FROM youtuber y
-		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
+		LEFT JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
 		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
-		JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
-		JOIN product p ON p.productid = pr.productid
+		LEFT JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
+		LEFT JOIN product p ON p.productid = pr.productid
 		LEFT JOIN event e ON e.eventid = p.eventid
-		JOIN price i ON i.productid = p.productid
-		GROUP BY y.yname,
-		         y.ysrc,
-		         ytitle,
-		         dPrice,
-		         price,
-		         ry.recipeid,
-		         salerate
-		ORDER BY UPPER(yname) DESC
+		LEFT JOIN price i ON i.productid = p.productid
+		GROUP BY y.yname, y.ysrc, ytitle, ry.recipeid, salerate
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
-	<select id="recipeProductAlignAscView" resultType="com.springlec.base.model.Product">
-		SELECT y.yname,
-		       y.ysrc,
-		       UPPER(y.ytitle) AS ytitle,
-		       (
-		           CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
-		                ELSE FORMAT(price, 0)
-		           END
-		       ) AS dPrice,
-		       FORMAT(i.price, 0) AS price,
-		       SUM(likecount) AS likecount,
-		       ry.recipeid,
-		       FORMAT(e.salerate, 0) AS salerate
+	<select id="recipeProductAlignAscView" resultType="com.springlec.base.model.Recipe">
+		SELECT y.yname, y.ysrc, y.ytitle,
+		FORMAT(SUM(
+		        CASE
+		            WHEN p.eventid = e.eventid THEN ROUND(price - (price / salerate), -1)
+		            ELSE price
+		        END
+		    ), 0) AS dPrice,
+		FORMAT(SUM(price), 0) AS price, SUM(likecount) AS likecount, ry.recipeid, salerate
 		FROM youtuber y
-		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
+		LEFT JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
 		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
-		JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
-		JOIN product p ON p.productid = pr.productid
+		LEFT JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
+		LEFT JOIN product p ON p.productid = pr.productid
 		LEFT JOIN event e ON e.eventid = p.eventid
-		JOIN price i ON i.productid = p.productid
-		GROUP BY y.yname,
-		         y.ysrc,
-		         ytitle,
-		         dPrice,
-		         price,
-		         ry.recipeid,
-		         salerate
-		ORDER BY dPrice DESC
-		LIMIT #{limitFrom}, #{countPerPage}
-	</select>
-	
-	<select id="recipeProductAlignDescView" resultType="com.springlec.base.model.Product">
-		SELECT y.yname,
-		       y.ysrc,
-		       UPPER(y.ytitle) AS ytitle,
-		       (
-		           CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
-		                ELSE FORMAT(price, 0)
-		           END
-		       ) AS dPrice,
-		       FORMAT(i.price, 0) AS price,
-		       SUM(likecount) AS likecount,
-		       ry.recipeid,
-		       FORMAT(e.salerate, 0) AS salerate
-		FROM youtuber y
-		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
-		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
-		JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
-		JOIN product p ON p.productid = pr.productid
-		LEFT JOIN event e ON e.eventid = p.eventid
-		JOIN price i ON i.productid = p.productid
-		GROUP BY y.yname,
-		         y.ysrc,
-		         ytitle,
-		         dPrice,
-		         price,
-		         ry.recipeid,
-		         salerate
+		LEFT JOIN price i ON i.productid = p.productid
+		GROUP BY y.yname, y.ysrc, ytitle, ry.recipeid, salerate
 		ORDER BY dPrice
+		LIMIT #{limitFrom}, #{countPerPage}
+	</select>
+	
+	<select id="recipeProductAlignDescView" resultType="com.springlec.base.model.Recipe">
+		SELECT y.yname, y.ysrc, y.ytitle,
+		FORMAT(SUM(
+		        CASE
+		            WHEN p.eventid = e.eventid THEN ROUND(price - (price / salerate), -1)
+		            ELSE price
+		        END
+		    ), 0) AS dPrice,
+		FORMAT(SUM(price), 0) AS price, SUM(likecount) AS likecount, ry.recipeid, salerate
+		FROM youtuber y
+		LEFT JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
+		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
+		LEFT JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
+		LEFT JOIN product p ON p.productid = pr.productid
+		LEFT JOIN event e ON e.eventid = p.eventid
+		LEFT JOIN price i ON i.productid = p.productid
+		GROUP BY y.yname, y.ysrc, ytitle, ry.recipeid, salerate
+		ORDER BY dPrice DESC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	<!-- Recipe Product End -->
@@ -364,6 +333,12 @@
 		WHERE p.productid = #{productid} AND cus.userid = #{id};
 	</update>
 	
+	<update id="updateCartStatus">
+		UPDATE cart c
+		SET status = 0
+		WHERE cartid = #{cartid}
+	</update>
+	
 	<!-- <update id="updateRecipeCart">
 		UPDATE cart c
 		JOIN product p ON p.productid = c.productid
@@ -374,10 +349,10 @@
 	
 	
 	<!-- DELETE -->
-	<delete id="deleteCart">
+	<!-- <delete id="deleteCart">
 		DELETE FROM cart c
         WHERE cartid = #{cartid}
-	</delete>
+	</delete> -->
 	
 	
 	

@@ -28,7 +28,7 @@ public class ProductController {
 	int curPage = 1;
 	String id = null;
 	
-	@GetMapping("/main")
+	@GetMapping({"/main","/"})
 	public String newProductPage(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
 		String id = null;
@@ -42,14 +42,7 @@ public class ProductController {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		try {
-			id = (String) session.getAttribute("id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		List<Product> newProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -77,13 +70,7 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		
-		try {
-			id = (String) session.getAttribute("id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		List<Product> newProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -111,13 +98,7 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		
-		try {
-			id = (String) session.getAttribute("id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		List<Product> newProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -147,13 +128,7 @@ public class ProductController {
 		}
 		
 		
-		try {
-			id = (String) session.getAttribute("id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		List<Product> bestProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		List<Product> bestProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -182,13 +157,7 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		
-		try {
-			id = (String) session.getAttribute("id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		List<Product> bestProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		List<Product> bestProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -216,13 +185,7 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		
-		try {
-			id = (String) session.getAttribute("id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		List<Product> bestProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		List<Product> bestProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -243,19 +206,14 @@ public class ProductController {
 		String headerCategory = "레시피";
 		String alignCategory = "레시피";
 		
+		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		try {
-			id = (String) session.getAttribute("id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		List<Product> recipeProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		List<Product> recipeProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -267,6 +225,7 @@ public class ProductController {
 		model.addAttribute("recipeProducts", recipeProducts);
 		
 		return "recipeList";
+		
 	}
 	
 	@GetMapping("/alignRecipeLowPrice")
@@ -281,13 +240,7 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		
-		try {
-			id = (String) session.getAttribute("id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		List<Product> recipeProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		List<Product> recipeProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -314,13 +267,7 @@ public class ProductController {
 		}
 		
 		
-		try {
-			id = (String) session.getAttribute("id");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		List<Product> recipeProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		List<Product> recipeProducts = service.productView(request, curPage, headerCategory, alignCategory);
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -345,7 +292,8 @@ public class ProductController {
 		String align = request.getParameter("align");
 		String category = request.getParameter("category");
 		
-		System.out.println("chceck inside Controller curPage :" + curPage);
+		System.out.println("align :" + align);
+		System.out.println("category :" + category);
 		
 		
 		try {
@@ -394,6 +342,7 @@ public class ProductController {
 		
 		model.addAttribute("id", id);
 		model.addAttribute("orderList", list);
+		model.addAttribute("userInfo", service.userInfo(id));
 		// if 구매한다면 정보를 받기 위해 session으로 보냄
 		session.setAttribute("orderList", list);
 		// 구매할 때 고객 정보와 sum result 값

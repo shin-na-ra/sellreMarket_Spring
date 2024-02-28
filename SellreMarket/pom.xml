@@ -116,14 +116,14 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		
+
 		<!-- mail -->
 		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>javax.mail-api</artifactId>
-		    <version>1.6.2</version>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
@@ -135,7 +135,7 @@
 			<artifactId>jakarta.mail</artifactId>
 			<version>2.0.1</version>
 		</dependency>
-		
+
 		<!-- ajax 사용 위해 -->
 		<!--<dependency>
 		    <groupId>net.sf.json-lib</groupId>
@@ -154,34 +154,40 @@
 		    <artifactId>jackson-core-asl</artifactId>
 		    <version>1.9.13</version>
 		</dependency> -->
-		
+
 		<!-- log4j
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 		 	<artifactId>log4j-slf4j-impl</artifactId>
 			<version>2.10.0</version>
 		</dependency>-->
-		
+
 		<!-- log4j -->
 		<dependency>
-		    <groupId>log4j</groupId>
-		    <artifactId>log4j</artifactId>
-		    <version>1.2.17</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
-		
+
 		<!-- ******************************************************** -->
-		
+
 		<!-- Lombok 라이브러리 -->
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
-	    <groupId>org.projectlombok</groupId>
-	    <artifactId>lombok</artifactId>
-	    <version>1.18.30</version>
-	    <scope>provided</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.30</version>
+			<scope>provided</scope>
 		</dependency>
-		
+
+		<!-- security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 		<!-- ******************************************************** -->
-		
+
 	</dependencies>
 
 	<build>
