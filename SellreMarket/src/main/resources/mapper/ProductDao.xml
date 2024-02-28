@@ -6,7 +6,7 @@
 	
 	<!-- CREATE -->
 	<insert id="getProductCart">
-		INSERT INTO cart (qty, userid, productid) VALUES (1, #{id} ,#{productid})
+		INSERT INTO cart (qty, userid, productid, status) VALUES (1, #{id} ,#{productid}, 1)
 	</insert>
 	
 	<insert id="finalOrderBtn">
@@ -349,10 +349,10 @@
 	
 	
 	<!-- DELETE -->
-	<delete id="deleteCart">
+	<!-- <delete id="deleteCart">
 		DELETE FROM cart c
         WHERE cartid = #{cartid}
-	</delete>
+	</delete> -->
 	
 	
 	
