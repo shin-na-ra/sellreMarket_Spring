@@ -86,7 +86,7 @@
 	
 	<!-- 브랜드 insert -->
 	<insert id="insertBrand">
-		insert into brand (bname, productid) values (#{bname}, #{productid})
+		insert into brand (bname, productid, status) values (#{bname}, #{productid}, '1')
 	</insert>
 	
 	<!-- 카테고리 insert -->

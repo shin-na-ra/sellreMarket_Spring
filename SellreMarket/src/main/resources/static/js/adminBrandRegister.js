@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", function() {
+    let form = document.querySelector("form");
+
+    form.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            return false;
+        }
+    });
+});
 
 /************************************************************************************************
 	 * Function : 정규식 체크 

@@ -10,47 +10,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:8080/SellreMarket/image/logo.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:8080/SellreMarket/image/logo.png" />
 <link rel="stylesheet" href="css/adminOrderDetail.css" />
-<!-- <script src="js/adminOrderDetail.js"></script> -->
-<script>
-function order() {
-	
-	let form = document.categoryForm;
-	let regExp = /^\d+$/;
-	let num = 0;
-	
-	let nullMsg = "수량을 입력하세요.";
-	let checkMsg = "숫자만 입력하세요.";
-	let regSpan = document.getElementById("reg");
-	
-	let rcount = form.rcount.value;
-	
-	if(rcount == "") {
-		regSpan.style.display = "block";
-		regSpan.innerText = nullMsg;
-		form.rcount.select()
-		num++;
-		return
-	} 
-	
-	if(!regExp.test(rcount)) {
-		regSpan.style.display = "block";
-		regSpan.innerText = checkMsg;
-		num++;
-		return;
-	}
-	
-	
-	if(num == 0 ) {
-		let form = document.categoryForm;
-		alert('입고요청 되었습니다.')
-		form.method="get";
-		form.action = "adminOrderInsert";
-		form.submit();
-		
-	}
-}
-	
-</script>
+<script src="js/adminOrderDetail.js"></script>
 </head>
 <body id="body">
 	<jsp:include page="adminHeader.jsp" flush="false" />

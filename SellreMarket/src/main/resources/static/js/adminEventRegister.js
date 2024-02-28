@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", function() {
+    let form = document.querySelector("form");
+
+    form.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            return false;
+        }
+    });
+});
 
 function insertCheck() {
 	let form = document.eventForm;

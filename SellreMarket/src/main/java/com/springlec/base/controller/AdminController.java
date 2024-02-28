@@ -3,6 +3,7 @@ package com.springlec.base.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import com.springlec.base.model.AdminProductDto;
 import com.springlec.base.model.AdminQuestDto;
 import com.springlec.base.model.BrandDto;
 import com.springlec.base.model.Category;
+import com.springlec.base.model.UserInfo;
 import com.springlec.base.service.AdminBrandService;
 import com.springlec.base.service.AdminCategoryService;
 import com.springlec.base.service.AdminChartService;
@@ -330,11 +332,13 @@ public class AdminController {
 	//관리자 카테고리 수정하기
 	@PostMapping("adminCategoryUpdate")
 	public String adminCategoryUpdate(HttpServletRequest request, Model model) throws Exception {
-		int catetoryid = Integer.parseInt(request.getParameter("catetoryid"));
 		String type = request.getParameter("type");
+		String oldtype = request.getParameter("oldtype");
 		String subtype = request.getParameter("subtype");
+		String oldsubtype = request.getParameter("oldsubtype");
 		
-		adminCategoryService.update(catetoryid, type, subtype);
+		adminCategoryService.update(type, subtype, oldtype, oldsubtype);
+		
 		
 		return "redirect:/adminCategory";
 	}
@@ -342,9 +346,11 @@ public class AdminController {
 	//관리자 카테고리 삭제
 	@PostMapping("adminCategoryDelete")
 	public String adminCategoryDelete(HttpServletRequest request, Model model) throws Exception {
-		int catetoryid = Integer.parseInt(request.getParameter("catetoryid"));
 		
-		adminCategoryService.delete(catetoryid);
+		String type = request.getParameter("type");
+		String subtype = request.getParameter("subtype");
+		
+		adminCategoryService.delete(type, subtype);
 		
 		return "redirect:/adminCategory";
 	}
@@ -352,9 +358,11 @@ public class AdminController {
 	//관리자 카테고리 상태변경
 	@PostMapping("adminCategoryChangeStatus")
 	public String adminCategoryChangeStatus(HttpServletRequest request, Model model) throws Exception {
-		int catetoryid = Integer.parseInt(request.getParameter("catetoryid"));
 		
-		adminCategoryService.changeStatus(catetoryid);
+		String type = request.getParameter("type");
+		String subtype = request.getParameter("subtype");
+		
+		adminCategoryService.changeStatus(type, subtype);
 		
 		return "redirect:/adminCategory";
 	}
@@ -840,6 +848,41 @@ public class AdminController {
 	public List<AdminChartDto> showUser(Model model) throws Exception {
 		List<AdminChartDto> list = adminChartService.user();
 		return list;
+	}
+	
+	//adminLogin 페이지 이동
+	@GetMapping("adminLogin")
+	public String adminLogin() throws Exception {
+		return "adminLogin";
+	}
+	
+	//adminLogin Check
+	@PostMapping("adminLoginCheck")
+	public  ResponseEntity<String> adminLoginCheck(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		
+		List<UserInfo> check = adminProductService.checkID(id, password);
+		
+		if (check.get(0).getUserid().equals(id) && check.get(0).getPassword().equals(password)) {
+			session.setAttribute("adminLogin", id);
+			return ResponseEntity.ok("true");
+			
+		} else {
+			return ResponseEntity.ok("false");
+		}
+	}
+	
+	@GetMapping("adminLogout")
+	public String adminLogout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+		    session.removeAttribute("adminid"); // adminid 제거
+		}
+		
+		return "adminLogin";
 	}
 	
 }

@@ -10,7 +10,7 @@
 		DATE_FORMAT(insertdate,'%Y-%m-%d') as insertdate,
         status
 		FROM (
-		    SELECT ROW_NUMBER() OVER (ORDER BY inquiryid) AS num, b.inquiryid, intitle, insertdate, status
+		    SELECT ROW_NUMBER() OVER (ORDER BY inquiryid desc) AS num, b.inquiryid, intitle, insertdate, status
 		    FROM personal_inquiry b 
 		) AS t
         WHERE num BETWEEN #{pageStart} AND #{pageStart}+14
@@ -45,7 +45,8 @@
 	<update id="updateAnswer">
 		UPDATE personal_inquiry SET
 		answer = #{answer},
-		status = '답변완료'
+		status = '답변완료',
+		answerdate = now()
 		WHERE inquiryid = #{inquiryid}
 	</update>
 	
