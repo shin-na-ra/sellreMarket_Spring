@@ -1366,19 +1366,15 @@
 }
 
 
-.parent {
-  position: relative;
-  z-index: 1;
+.css-1rz7w0y {
+    position: relative;
+    width: 284px;
 }
-
-.css-9i9om4.epvroj90 {
-  position: sticky;
-  right: 0;
-  margin-left: auto;
-  /* 추가적인 스타일링을 원하신다면 여기에 작성해주세요 */
-  padding-top: 60px;
+.css-1gxrfiw {
+    width: 284px;
+    position: sticky;
+    top: 60px;
 }
-
 .css-6hge48 {
     display: flex;
     flex-direction: row;
@@ -1387,7 +1383,6 @@
     -webkit-box-align: center;
     align-items: center;
 }
-
 .css-hdnk73 {
     width: 100%;
     padding-top: 17px;
@@ -1421,7 +1416,6 @@
     border-image-outset: 0;
     border-image-repeat: stretch;
 }
-
 .css-1hvttuk:first-of-type {
     margin-top: 0px;
 }

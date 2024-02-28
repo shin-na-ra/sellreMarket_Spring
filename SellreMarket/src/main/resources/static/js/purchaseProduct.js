@@ -2,49 +2,8 @@
  * 
  */
 
-/*
-window.onload = function() {
-    var discountSum = parseFloat(document.getElementById("discountSum").innerText);
-    var deliveryFee = parseFloat(document.getElementById("deliveryFee").innerText);
-    var totalPrice = document.getElementById("totalPrice");
-
-    // Assuming you want to display the result in totalPrice
-    totalPrice.innerText = (discountSum + deliveryFee).toFixed(2); // Assuming you want to display with 2 decimal places
-}
-*/
-
-
-
-function updateCharacterCount(textarea) {
-    var characterCount = textarea.value.length;
-    document.getElementById('character-count').innerText = characterCount;
-}
-
-function changeAddress() {
-	var check = confirm("장바구니로 이동하여 다른 배송지로 변경하시겠습니까?");
-	var changeAddressElement = document.getElementById('changeAddress');
-	
-	if (check == true) {
-		
-		// Change font size after redirection
-        if (changeAddressElement) {
-            changeAddressElement.style.fontSize = "16px";
-        }
-		window.location.href = "/cart";
-	}
-	else window.close();
-}
-
-function confirmPurchase() {
-	var con = confirm("구매를 완료하시겠습니까?");
-	
-	if(con) {
-		window.location.href = "";
-	}
-	else window.close();
-}
  
-function deliveryMessage(uname, tel_no) {
+ function deliveryMessage(uname, tel_no) {
 	 
     var width = 500;
     var height = 650;

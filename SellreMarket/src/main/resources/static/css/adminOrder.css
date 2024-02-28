@@ -35,12 +35,13 @@ body {
 }
 	
 .btnGroup {
-    text-align: right;
+	display: flex;
+	justify-content: space-between;
+    /*text-align: right;*/
     width: 80%;
     margin-right: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 } 
-
 .registerBtn {
   background-color: #f2f2f2;
   color: #6F6F67;
@@ -51,13 +52,24 @@ body {
   margin-top: 20px;
 }
 
+.searchBtn {
+	background-color: #f2f2f2;
+  	color: #6F6F67;
+  	padding: 10px 20px;
+  	border: none;
+  	border-radius: 5px;
+  	cursor: pointer;
+  	margin-top: 20px;
+  	margin-right: 10px;;
+}
+
 .tableContainer {
   margin: 0 auto;
   width: 80%;
 }
 
 
-.registerBtn:hover {
+.registerBtn:hover, .searchBtn:hover {
   background-color: #E5E5D1;
   color : black;
 }
@@ -70,7 +82,7 @@ table {
 
 table th, table td {
   padding: 15px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #ccc;
   white-space: nowrap;
   overflow: hidden;
@@ -104,7 +116,8 @@ table tr:hover {
        margin-bottom: 150px;
    } 
    
-#paging button {
+#paging button,
+#paging .button {
     background-color: #f2f2f2;
     border: none;
     color: #333;
@@ -114,11 +127,25 @@ table tr:hover {
     border-radius: 4px;
 }
 
-#paging button:hover {
+#paging button:hover,
+#paging .button:hover {
     background-color: #f9f9f9;
 }
 
-#paging button:disabled {
+#paging button:disabled,
+#paging .button:disabled {
     background-color: #ddd;
     cursor: not-allowed;
+}
+
+.button {
+	text-decoration: none;
 }  
+
+#search {
+  padding: 6px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-right: 10px;
+  border: 1px solid black;
+}

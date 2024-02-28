@@ -33,4 +33,5 @@ public class DataAccessConfig {
 	SqlSessionTemplate sessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
+	
 }

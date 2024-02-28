@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.springlec.base.dao.AdminChartDao"> 
+	
+	
+	<!-- 2024.02.21 snr : 매출 차트  -->
+	<select id="list" resultType="com.springlec.base.model.AdminChartDto">
+	
+		select date(purchasedate) as purchasedate, sum(amount * price) as total
+		from purchase pur
+		left join price p on p.productid = pur.productid
+		where purchasedate between date_add(now(), interval -1 week) and now()
+		group by purchasedate;
+	
+	</select>
+	
+	<select id="popular" resultType="com.springlec.base.model.AdminChartDto">
+	
+		select sum(amount) as amount, p.productid, p.pname as name
+		from purchase pur
+		left join product p on p.productid = pur.productid
+		where substring(purchasedate, 1, 4) = year(sysdate()) and substring(purchasedate,6,8) = month(sysdate())
+		group by  productid
+		order by amount desc limit 5
+	
+	</select>
+	
+	<select id="gender" resultType="com.springlec.base.model.AdminChartDto">
+	
+		select 
+		case 
+			when gender = 0 then '남자'
+			when gender = 1 then '여자'
+	        else '선택안함' end as name,
+		count(gender) as genderCnt
+		from customer
+		group by gender
+	
+	</select>
+	
+	<select id="user" resultType="com.springlec.base.model.AdminChartDto">
+	
+		select sum(amount) as purCnt, pur.userid, c.name 
+		from purchase pur
+		left join customer c on c.userid = pur.userid
+		group by  userid
+		limit 5;
+
+	</select>
+	
+</mapper>

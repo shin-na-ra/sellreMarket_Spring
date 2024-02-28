@@ -300,44 +300,16 @@
 	
 	<!-- Purchase Start -->
 	<select id="purchaseList" resultType="com.springlec.base.model.Product">
-		SELECT c.productid, PRO.pname, SUM(c.qty) AS qty,
-		(
-				           CASE WHEN pro.eventid = e.eventid THEN FORMAT((price - (price * salerate)) * sum(c.qty), 0)
-								WHEN pro.eventid IS NULL THEN FORMAT(price * sum(c.qty), 0)
-				                ELSE FORMAT(price, 0)
-				           END
-				       ) AS dPrice,
-		FORMAT((price * SUM(c.qty)), 0) AS price, PI.image AS image
-		FROM cart c
-		LEFT JOIN price p ON p.productid = c.productid
-		LEFT JOIN product PRO ON PRO.productid = c.productid
-		LEFT JOIN product_image PI ON PI.productid = c.productid
-		LEFT JOIN customer CUS ON CUS.userid = c.userid
-		LEFT JOIN event e ON e.eventid = pro.eventid
-		WHERE CUS.userid = #{id}
-		GROUP BY c.productid, PRO.pname, price, PI.image
-		ORDER BY pro.pname DESC;
+		SELECT P.PNAME, PRICE, PI.IMAGE AS pimage, SUM(C.QTY) AS qty 
+		FROM CART C
+		JOIN PRODUCT P ON P.PRODUCTID = C.PRODUCTID
+		JOIN PRICE PR ON PR.PRODUCTID = C.PRODUCTID
+		JOIN PRODUCT_IMAGE PI ON PI.PRODUCTID = C.PRODUCTID
+		GROUP BY P.PNAME, PI.IMAGE, PRICE;
 	</select>
 	
-	<select id="purchaseInfo" resultType="com.springlec.base.model.Product">
-		SELECT name, tel_no, email, address, detailaddress,
-		FORMAT(SUM(price)-(
-		    SUM(CASE WHEN e.eventid = pro.eventid THEN (salerate*price)
-		             ELSE 0
-		         END)
-		), 0) AS discountSum,
-		FORMAT((
-		    SUM(CASE WHEN e.eventid = pro.eventid THEN (salerate*price)
-		             ELSE 0
-		         END)
-		), 0) AS discount,
-		FORMAT(SUM(price), 0) AS notDiscountSum
-		FROM cart c
-		LEFT JOIN price p ON p.productid = c.productid
-		LEFT JOIN product pro ON pro.productid = c.productid
-		LEFT JOIN event e ON e.eventid = pro.eventid
-		LEFT JOIN customer cus ON cus.userid = c.userid
-		WHERE c.userid = #{id};
+	<select id="userInfo" resultType="com.springlec.base.model.Product">
+		SELECT name, tel_no, email, address, detailaddress FROM CUSTOMER WHERE userid = #{id};
 	</select>
 	<!-- Purchase End -->
 	

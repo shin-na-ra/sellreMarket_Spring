@@ -4,8 +4,6 @@
 	
 	
 	function init() {
-		productNum();
-		questNum();
 		selectCategory();
 		selectPackType();
 		selectPackKind();
@@ -13,46 +11,6 @@
 		selectDeliveryType();
 	}
 	
-	//제품현황 Header 알림표시
-	function productNum() {
-		
-		$.ajax({
-			type : "POST",
-			url : "adminProductNum.do",
-			success : function(response){
-				if(response == "0"){
-					document.getElementById('productNum').style.display = 'none';
-				} else {
-					document.getElementById('productNum').style.display = 'block';
-					document.getElementById('productNum').innerText = response	
-				}
-				
-			},
-			 error:function(request, status, error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	}
-	
-	//문의 진행중 갯수 Header 알림표시
-	function questNum() {
-		
-		$.ajax({
-			type : "POST",
-			url : "adminQuestNum.do",
-			success : function(response){
-				if(response == "0"){
-					document.getElementById('questNum').style.display = 'none';
-				} else {
-					document.getElementById('questNum').style.display = 'block';
-					document.getElementById('questNum').innerText = response
-				}
-			},
-			 error:function(request, status, error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	}
 	
 	 /************************************************************************************************
 	 * Function : 브랜드명 조회 - ajax
@@ -63,7 +21,7 @@
 		 
 		$.ajax({
 			type : "POST",
-			url : "selectBrand.do",
+			url : "selectBrand",
 			success : function(response){
 				createBrand(response)
 			},
@@ -89,7 +47,6 @@
 		$("#bname").html(option);
 		
 	}
-	
 	
 	/************************************************************************************************
 	 * Function : 카테고리 대분류 조회 - ajax
@@ -451,25 +408,6 @@
 	 * @param 	: null
 	 * @return 	: null
 	************************************************************************************************/
-	
-/*	function insertProduct() {
-					 
-		try {
-			insertInfo();
-			insertPrice();
-			insertBrand();
-			insertCategory();
-			insertPacking();
-			insertUnit();
-			
-			alert('등록되었습니다.')
-			
-			
-		} catch (error) {
-			console.error('error : '+error);
-		}
-			
-	} */
 
 function insertProduct() {
 	insertInfo();
@@ -482,7 +420,7 @@ function insertProduct() {
 	insertImage()
 	
 	alert('등록되었습니다.')
-	window.location.replace("/SellreMarket/admin_product.jsp");
+	window.location.href = "adminProduct";
 }	
 	
 function insertInfo() {

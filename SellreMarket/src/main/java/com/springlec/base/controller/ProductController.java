@@ -352,64 +352,45 @@ public class ProductController {
 	
 	/************* TEST Start *************/
 	// get in product detail for test
-	// productDetailPage
-	@GetMapping("/productDetail")
-	public String pDeatilPage(HttpServletRequest request, Model model) {
-		model.addAttribute("productId", request.getParameter("productId"));
-		try { 
-			model.addAttribute("recipeId", request.getParameter("recipeId"));
-		}catch (Exception e) {
-			model.addAttribute("recipeId", null);
-			e.printStackTrace();
-		}
-		return "test";
-	}
+//	@GetMapping("/productDetailPage")
+//	public String pDeatilPage(HttpServletRequest request, Model model) {
+//		model.addAttribute("productId", request.getParameter("productId"));
+//		try { 
+//			model.addAttribute("recipeId", request.getParameter("recipeId"));
+//		}catch (Exception e) {
+//			model.addAttribute("recipeId", null);
+//			e.printStackTrace();
+//		}
+//		return "test";
+//	}
 	
 	// get in recipe detail for test
-	// recipeDetailPage
-	@GetMapping("/recipeDetail")
-	public String rDeatilPage(HttpServletRequest request, Model model) {
-		model.addAttribute("recipeId", request.getParameter("recipeId"));
-		try { 
-			model.addAttribute("productId", request.getParameter("productId"));
-		}catch (Exception e) {
-			model.addAttribute("productId", null);
-			e.printStackTrace();
-		}
-		return "test";
-	}
+//	@GetMapping("/recipeDetailPage")
+//	public String rDeatilPage(HttpServletRequest request, Model model) {
+//		model.addAttribute("recipeId", request.getParameter("recipeId"));
+//		try { 
+//			model.addAttribute("productId", request.getParameter("productId"));
+//		}catch (Exception e) {
+//			model.addAttribute("productId", null);
+//			e.printStackTrace();
+//		}
+//		return "test";
+//	}
 	/************* TEST End *************/
 	
 	
 	/************* Order Start *************/
-	
 	@GetMapping("/order")
 	public String order(Model model) throws Exception {
 		
 		// test 용
 		id = "admin";
 				
-		List<Product> list = service.purchaseList(id);
-		Product purchaseInfo = service.purchaseInfo(id);
-		
-		System.out.println(purchaseInfo.getDiscount()+ " : discount controller");
-		System.out.println(purchaseInfo.getPrice() + " : ");
-		System.out.println(purchaseInfo.getdPrice() + " : dPrice ");
-		
-		
-		int discountPrice = Integer.parseInt(purchaseInfo.getdPrice().replace(",", ""));
-		// ex) sumDiscountPrice 100,000 이상 배송비 무료
-		if(discountPrice <= 100000) {
-			discountPrice += 3000;
-		}
-		// formatting decimal
-		String strDiscountPrice = String.format("%,d", discountPrice);
+		List<Product> list = service.purchaseList();
+		Product userInfo = service.userInfo(id);
 		
 		model.addAttribute("orderList", list);
-		// 구매할 때 고객 정보와 sum result 값
-		model.addAttribute("purchaseInfo", purchaseInfo);
-		// 배송비를 포함한 결제 금액 보내기
-		model.addAttribute("sumDiscountPrice", strDiscountPrice);
+		model.addAttribute("userInfo", userInfo);
 		
 		return "purchaseProduct";
 	}
