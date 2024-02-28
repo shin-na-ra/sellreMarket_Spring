@@ -3,8 +3,9 @@
  <mapper namespace="com.springlec.base.dao.PurchaseDao">
  	<select id="purchaseDao">
  		SELECT pur.purchaseid as purchaseId, pur.purchasedate as purchaseDate, img.image as productImage, p.pname as productName, pur.finalprice as purchasePrice, pur.amount as purchaseAmount
-		FROM purchase pur, product p, cart c, product_image img
-		WHERE c.productid = p.productid
+		FROM purchase pur, product p, cart c, product_image img, customer cus
+		WHERE cus.userid = #{userId}
+		AND c.productid = p.productid
 		AND pur.cartid = c.cartid
 		AND p.productid = img.productid
 		ORDER BY pur.purchaseDate DESC, p.pname DESC

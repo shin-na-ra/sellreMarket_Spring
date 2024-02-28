@@ -12,6 +12,7 @@ import com.springlec.base.model.PurchaseDto;
 import com.springlec.base.service.PurchaseService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PurchaseListController {
@@ -23,8 +24,18 @@ public class PurchaseListController {
 	@GetMapping("/purchaseListPage")
 	public String purchaseListPage(HttpServletRequest request, Model model) throws Exception {	
 		
+		// 언어 번역 장착
+		request.setCharacterEncoding("utf-8");
+		
+		// 상품 선택창에서 productId 값 가져와 String 형태로 값 저장
+		String productId = request.getParameter("productId");
+		
+		// 세션 생성, 그리고 세션에 productId 값을  PRODUCTID에 넣음
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("id");
+		
 		//	Dao에서 구매내역 불러오기
-		List<PurchaseDto> listDao = service.purchaseDao();
+		List<PurchaseDto> listDao = service.purchaseDao(userId);
 		model.addAttribute("purchase", listDao);
 		
 		

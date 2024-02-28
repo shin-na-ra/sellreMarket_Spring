@@ -101,21 +101,23 @@
 								</dd>
 							</li>
 						</ul>
-						<div class="css-1bp09d0 e17iylht1">
-							<div class="css-9y0nwt e17iylht0">
-								<div class="css-ixlb9s eebc7rx8">
-									<div class="css-yhijln eebc7rx7">
-										<span class="css-w1is7v eebc7rx6">총 상품금액 :</span>
-										<span class="css-x4cdgl eebc7rx5">
-											<fmt:formatNumber value="${dto.discountedPrice}" pattern="#,###" />
-										</span>
-										<span class="css-1jb8hmu eebc7rx4">원</span>
-									</div>
+					    <div class="css-9y0nwt e17iylht0">
+							<div class="css-ixlb9s eebc7rx8">									
+								<div class="css-yhijln eebc7rx7">
+									<span class="css-w1is7v eebc7rx6">총 상품금액 :</span>
+									<span class="css-x4cdgl eebc7rx5"></span>
+									<span class="css-1jb8hmu eebc7rx4">
+										<fmt:formatNumber value="${dto.discountedPrice}" pattern="#,###" />원
+									</span>
 								</div>
-							</div>
+							</div>			                
+						</div>
+						<div class="css-1bp09d0 e17iylht1">
 							<div class="css-gnxbjx e10vtr1i2">
 								<div class="css-14jnwd7 e10vtr1i0">
 									<button class="cart-button css-1qirdbn e4nu7ef3" type="button" radius="3">
+<%-- 									<c:set var="productName" value="${dto.productName}" /> --%>
+									<input type="hidden" value="${dto.productId}" id="productId">
 										<span class="css-nytqmg e4nu7ef1">장바구니 담기</span>
 									</button>
 								</div>
@@ -126,11 +128,8 @@
 		</div>
 	</div>
 	<jsp:include page="../footer.jsp" flush="false" />
-	<script>
-	    // 페이지 로드 시 자동으로 지정된 URL로 이동하는 함수
-	    function redirectToURL() {
-	        window.location.href = "/detail.do.do"; // 이동할 URL 설정
-	    }
-	</script>
+	    <!-- 외부 JavaScript 파일 -->
+    <script src="js/detail/productDetailPage.js"></script>    
+
 </body>
 </html>
