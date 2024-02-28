@@ -10,7 +10,7 @@
 	</insert>
 	
 	<insert id="finalOrderBtn">
-		INSERT INTO purchase (purchasedate, amount, userid, cartid, payid, purchaseid) VALUES (now(), #{qty}, #{id}, #{cartid}, #{paymethod}, #{purchaseid})
+		INSERT INTO purchase (purchasedate, amount, userid, cartid, payid, addressid, purchaseid) VALUES (now(), #{qty}, #{id}, #{cartid}, #{paymethod}, #{address}, #{purchaseid})
 	</insert>
 	
 	<!-- <insert id="getRecipeCart">
@@ -25,12 +25,11 @@
 		    CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
 		    ELSE FORMAT(price, 0)
 		    END
-		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount,
+		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, 
 		p.productid, FORMAT(e.salerate, 0) AS salerate
 		FROM product p
 		LEFT JOIN price pr ON pr.productid = p.productid
 		LEFT JOIN product_image pi ON pi.productid = p.productid
-		LEFT JOIN productlike pl ON pl.productid = p.productid
 		LEFT JOIN event e ON e.eventid = p.eventid
 		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW()
 		GROUP BY dPrice, price, p.pname, pi.image, p.productid
@@ -43,16 +42,15 @@
 		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0) 
 		ELSE FORMAT(price, 0) 
 		END 
-		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, 
+		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image,  
 		p.productid, FORMAT(e.salerate, 0) AS salerate 
 		FROM product p 
 		LEFT JOIN price pr ON pr.productid = p.productid 
-		LEFT JOIN product_image pi ON pi.productid = p.productid 
-		LEFT JOIN productlike pl ON pl.productid = p.productid 
+		LEFT JOIN product_image pi ON pi.productid = p.productid  
 		LEFT JOIN event e ON e.eventid = p.eventid 
 		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW() 
 		GROUP BY dPrice, price, p.pname, pi.image, p.productid 
-		ORDER BY dPrice  
+		ORDER BY CAST(dPrice AS SIGNED) ASC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
@@ -61,16 +59,15 @@
 		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0) 
 		ELSE FORMAT(price, 0) 
 		END 
-		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, 
+		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image,  
 		p.productid, FORMAT(e.salerate, 0) AS salerate 
 		FROM product p 
 		LEFT JOIN price pr ON pr.productid = p.productid 
-		LEFT JOIN product_image pi ON pi.productid = p.productid 
-		LEFT JOIN productlike pl ON pl.productid = p.productid 
+		LEFT JOIN product_image pi ON pi.productid = p.productid  
 		LEFT JOIN event e ON e.eventid = p.eventid 
 		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW() 
 		GROUP BY dPrice, price, p.pname, pi.image, p.productid 
-		ORDER BY dPrice DESC 
+		ORDER BY CAST(dPrice AS SIGNED) DESC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	<!-- New Product End -->
@@ -79,23 +76,25 @@
 	<!-- Best Product Start-->
 	<select id="bestProductView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-        CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
-             ELSE FORMAT(price, 0)
-		        END
-		    ) AS dPrice,
-		    FORMAT(price, 0) AS price,
-		    UPPER(p.pname) AS pname,
-		    pi.image,
-		    SUM(pl.likecount) AS likecount,
-		    p.productid,
-		    FORMAT(e.salerate, 0) AS salerate
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
+		 ELSE FORMAT(price, 0)
+			END
+		) AS dPrice,
+		FORMAT(price, 0) AS price,
+		UPPER(p.pname) AS pname,
+		pi.image, p.productid,
+		FORMAT(e.salerate, 0) AS salerate
 		FROM product p
 		LEFT JOIN price pr ON pr.productid = p.productid
 		LEFT JOIN product_image pi ON pi.productid = p.productid
-		LEFT JOIN productlike pl ON pl.productid = p.productid
+        LEFT JOIN purchase pur on pur.productid = p.productid
 		LEFT JOIN event e ON e.eventid = p.eventid
-		GROUP BY dPrice, price, pname, pi.image, p.productid
-		ORDER BY likecount DESC
+        GROUP BY dPrice, price, pname, pi.image, p.productid, salerate
+        ORDER BY (
+			SELECT COUNT(productid)
+			FROM purchase
+			WHERE productid = p.productid
+		) DESC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
@@ -108,16 +107,18 @@
 		    FORMAT(price, 0) AS price,
 		    UPPER(p.pname) AS pname,
 		    pi.image,
-		    SUM(pl.likecount) AS likecount,
 		    p.productid,
 		    FORMAT(e.salerate , 0) AS salerate
 		FROM product p
 		LEFT JOIN price pr ON pr.productid = p.productid
 		LEFT JOIN product_image pi ON pi.productid = p.productid
-		LEFT JOIN productlike pl ON pl.productid = p.productid
 		LEFT JOIN event e ON e.eventid = p.eventid
 		GROUP BY dPrice, price, pname, pi.image, p.productid
-		ORDER BY dPrice ASC
+		ORDER BY CAST(dPrice AS SIGNED) ASC, (
+			SELECT COUNT(productid)
+            FROM purchase
+            WHERE productid = p.productid
+        ) DESC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
@@ -130,16 +131,18 @@
 		    FORMAT(price, 0) AS price,
 		    UPPER(p.pname) AS pname,
 		    pi.image,
-		    SUM(pl.likecount) AS likecount,
 		    p.productid,
-		    FORMAT(e.salerate, 0) AS salerate
+		    FORMAT(e.salerate , 0) AS salerate
 		FROM product p
 		LEFT JOIN price pr ON pr.productid = p.productid
 		LEFT JOIN product_image pi ON pi.productid = p.productid
-		LEFT JOIN productlike pl ON pl.productid = p.productid
 		LEFT JOIN event e ON e.eventid = p.eventid
 		GROUP BY dPrice, price, pname, pi.image, p.productid
-		ORDER BY UPPER(dPrice) DESC
+		ORDER BY CAST(dPrice AS SIGNED) DESC, (
+			SELECT COUNT(productid)
+            FROM purchase
+            WHERE productid = p.productid
+        ) DESC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	<!-- Best Product End -->
@@ -153,10 +156,9 @@
 		            ELSE price
 		        END
 		    ), 0) AS dPrice,
-		FORMAT(SUM(price), 0) AS price, SUM(likecount) AS likecount, ry.recipeid, salerate
+		FORMAT(SUM(price), 0) AS price, ry.recipeid, salerate
 		FROM youtuber y
 		LEFT JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
-		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
 		LEFT JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
 		LEFT JOIN product p ON p.productid = pr.productid
 		LEFT JOIN event e ON e.eventid = p.eventid
@@ -173,16 +175,15 @@
 		            ELSE price
 		        END
 		    ), 0) AS dPrice,
-		FORMAT(SUM(price), 0) AS price, SUM(likecount) AS likecount, ry.recipeid, salerate
+		FORMAT(SUM(price), 0) AS price, ry.recipeid, salerate
 		FROM youtuber y
 		LEFT JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
-		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
 		LEFT JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
 		LEFT JOIN product p ON p.productid = pr.productid
 		LEFT JOIN event e ON e.eventid = p.eventid
 		LEFT JOIN price i ON i.productid = p.productid
 		GROUP BY y.yname, y.ysrc, ytitle, ry.recipeid, salerate
-		ORDER BY dPrice
+		ORDER BY CAST(dPrice AS SIGNED) ASC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
@@ -194,16 +195,15 @@
 		            ELSE price
 		        END
 		    ), 0) AS dPrice,
-		FORMAT(SUM(price), 0) AS price, SUM(likecount) AS likecount, ry.recipeid, salerate
+		FORMAT(SUM(price), 0) AS price, ry.recipeid, salerate
 		FROM youtuber y
 		LEFT JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
-		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
 		LEFT JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
 		LEFT JOIN product p ON p.productid = pr.productid
 		LEFT JOIN event e ON e.eventid = p.eventid
 		LEFT JOIN price i ON i.productid = p.productid
 		GROUP BY y.yname, y.ysrc, ytitle, ry.recipeid, salerate
-		ORDER BY dPrice DESC
+		ORDER BY CAST(dPrice AS SIGNED) DESC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	<!-- Recipe Product End -->
@@ -211,27 +211,14 @@
 	
 	<!-- Page Count Start -->
 	<select id="newProductPageCount" resultType="Integer">
-		SELECT COUNT(*) FROM (
-		SELECT DISTINCT (
-			CASE WHEN p.eventid = e.eventid THEN FORMAT(price - (price / salerate), 0)
-				ELSE FORMAT(price, 0)
-			END
-		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount,
-		p.productid, FORMAT(e.salerate, 0) AS salerate
-		FROM product p
-		LEFT JOIN price pr ON pr.productid = p.productid
-		LEFT JOIN product_image pi ON pi.productid = p.productid
-		LEFT JOIN productlike pl ON pl.productid = p.productid
-		LEFT JOIN event e ON e.eventid = p.eventid
+		SELECT COUNT(*) 
+		FROM product
 		WHERE pinsertdate <![CDATA[>=]]> NOW() - INTERVAL 2 WEEK AND pinsertdate <![CDATA[<=]]> NOW()
-		GROUP BY dPrice, price, p.pname, pi.image, p.productid
-		ORDER BY p.productid DESC
-		) AS subquery
 	</select>
 	
 	
 	<select id="bestProductPageCount" resultType="Integer">
-		SELECT COUNT(*) FROM (
+		<!-- SELECT COUNT(*) FROM (
 			SELECT DISTINCT FORMAT(pr.price, 0) AS price, p.pname, pi.image, SUM(pl.likecount) AS likecount, p.productid
 			FROM product p
 			LEFT JOIN product_image pi ON p.productid = pi.productid
@@ -239,19 +226,15 @@
 			LEFT JOIN productlike pl ON p.productid = pl.productid
 			GROUP BY price, p.pname, pi.image, p.productid
 			ORDER BY likecount DESC
-			) AS subquery
+			) AS subquery -->
+		SELECT COUNT(*)
+		FROM product p;
 	</select>
 	
 	
 	<select id="recipeProductPageCount" resultType="Integer">
 		SELECT COUNT(*) count
-		FROM youtuber y
-		JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
-		LEFT JOIN recipelike rl ON ry.recipeid = rl.recipeid
-		JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
-		JOIN product p ON p.productid = pr.productid
-		JOIN price i ON i.productid = p.productid
-		ORDER BY y.youtubeid DESC
+		FROM youtuber y;
 	</select>
 	<!-- Page Count End -->
 	
@@ -263,11 +246,11 @@
 	
 	<!-- Event Image -->
 	<select id="newAdImg" resultType="String">
-		SELECT MAX(img) AS img FROM event WHERE category = 2	
+		SELECT MAX(img) AS img FROM event WHERE category = 1
 	</select>
 	
 	<select id="bestAdImgs" resultType="com.springlec.base.model.Product">
-		SELECT img FROM event WHERE category = 1;
+		SELECT img FROM event WHERE category = 3;
 	</select>
 	
 	
@@ -312,11 +295,14 @@
 	</select>
 	<!-- Search Cart Exist -->
 	
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<!-- Cart에서 받아와야 할 ids -->
 	<!-- when click order btn for test -->
 	<!-- List type 또한 그냥 just 타입형태만 써주면 된다 -->
 	<select id="clickOrderBtn" resultType="Integer">
-		SELECT cartid FROM cart WHERE cartid = 2 OR cartid = 3;
+		SELECT cartid FROM cart WHERE cartid = #{cartid};
 	</select>
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 	
 	<select id="checkPurchaseid" resultType="Integer">
 		SELECT purchaseid FROM purchase;

@@ -164,12 +164,6 @@
 									<h6>${dto.dPrice}</h6>
 									<h6>원</h6>
 								</div>
-								<div
-									class="d-flex align-items-center justify-content-center mb-1">
-									<img
-										src="https://cdn-icons-png.flaticon.com/128/535/535234.png"
-										style="width: 12px; height: 12px;">&nbsp; <small>${dto.recipelike}</small>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -181,10 +175,9 @@
 
 	<!-- Paging Start -->
 	<script src="js/paging.js"></script>
-	<div id="showPaging" style="text-align: center;"></div>
+	<div id="showPaging" style="text-align: center; margin: 20px 0px 20px 0px;"></div>
 	<input type="hidden" value="${curPage}" id="curPage">
 	<!-- Paging End -->
-
 
 	<!-- Footer Start -->
 	<jsp:include page="footer.jsp"></jsp:include>

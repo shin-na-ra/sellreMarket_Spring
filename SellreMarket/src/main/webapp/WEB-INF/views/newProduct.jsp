@@ -123,7 +123,6 @@
 	
 	
 	<!-- Products Start -->
-	
 	<div class="container-fluid pt-5 pb-3">
 		<div class="row px-xl-5 justify-content-center"
 			style="margin-left: 10%; margin-right: 0%;">
@@ -169,13 +168,6 @@
 									&nbsp;&nbsp;
 									<h6>${dto.dPrice}</h6>
 									<h6>원</h6>
-									
-								</div>
-								<div
-									class="d-flex align-items-center justify-content-center mb-1">
-									<img
-										src="https://cdn-icons-png.flaticon.com/128/535/535234.png"
-										style="width: 12px; height: 12px;">&nbsp; <small>${dto.plikecount}</small>
 								</div>
 							</div>
 						</div>
@@ -186,15 +178,11 @@
 	</div>
 	<!-- Products End -->
 
-
 	<!-- Paging Start -->
 	<script src="js/paging.js"></script>
-	<div id="showPaging" style="text-align: center;"></div>
+	<div id="showPaging" style="text-align: center; margin: 20px 0px 20px 0px;"></div>
 	<input type="hidden" value="${curPage}" id="curPage">
 	<!-- Paging End -->
-
-	
-
 
 	<!-- Footer Start -->
 	<jsp:include page="footer.jsp"></jsp:include>

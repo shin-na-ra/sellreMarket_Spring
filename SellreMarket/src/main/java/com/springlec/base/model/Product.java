@@ -18,7 +18,6 @@ public class Product {
 	int recipeid;
 	int productid;
 	String pimage;
-	String plikecount;
 	String salerate;
 	int qty;
 	String uname;
@@ -55,13 +54,12 @@ public class Product {
 		this.detailaddress = detailaddress;
 	}
 
-	public Product(String price, String dPrice, String pname, String pimage, String plikecount, int productid, String salerate) {
+	public Product(String price, String dPrice, String pname, String pimage, int productid, String salerate) {
 		super();
 		this.price = price;
 		this.dPrice = dPrice;
 		this.pname = pname;
 		this.pimage = pimage;
-		this.plikecount = plikecount;
 		this.productid = productid;
 		this.salerate = salerate;
 	}
@@ -124,14 +122,6 @@ public class Product {
 
 	public void setPimage(String pimage) {
 		this.pimage = pimage;
-	}
-
-	public String getPlikecount() {
-		return plikecount;
-	}
-
-	public void setPlikecount(String plikecount) {
-		this.plikecount = plikecount;
 	}
 
 	public String getdPrice() {
@@ -245,5 +235,7 @@ public class Product {
 	public void setPurchaseid(int purchaseid) {
 		this.purchaseid = purchaseid;
 	}
+	
+	
 
 }

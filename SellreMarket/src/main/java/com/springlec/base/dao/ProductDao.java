@@ -53,13 +53,21 @@ public interface ProductDao {
 	public int searchCart(String id, int productid) throws Exception;
 	// update cart
 	public void updateProductCart(String id, int productid, int qty) throws Exception;
+//	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//  카트에서 버튼 클릭할 때 가져와야 할 cart ids
 	// click order button for test
 	public Integer[] clickOrderBtn() throws Exception;
+//	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
 	
 	// Order
 	public Product orderList(String id, int cartid) throws Exception;
 	public Product userInfo(String id) throws Exception;
-	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception;
+	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, String address, int purchaseid) throws Exception;
 	public void updateCartStatus(int cartid) throws Exception;
 //	public void deleteCart(int cartid) throws Exception;
 	// check Purchaseid

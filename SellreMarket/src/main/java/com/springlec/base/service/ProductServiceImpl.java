@@ -291,8 +291,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 	// insert purchase and delete cart
 	@Override
-	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception {
-		dao.finalOrderBtn(qty, id, cartid, paymethod, purchaseid);
+	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, String address, int purchaseid) throws Exception {
+		dao.finalOrderBtn(qty, id, cartid, paymethod, address, purchaseid);
 		dao.updateCartStatus(cartid);
 	}
 	

@@ -350,7 +350,6 @@
 							<br>
 							<div class="css-1r0yqr6 e1vfdada1">
 								<p class="css-i7dt79 e1vfdada0">이메일을 통해 주문처리과정을 보내드립니다.</p>
-								<p class="css-i7dt79 e1vfdada0">정보 변경은 마이컬리 &gt; 개인정보 수정 메뉴에서 가능합니다.</p>
 							</div>
 						</div>
 					</div>
@@ -383,11 +382,11 @@
 							<div class="css-82a6rk e150alo80">
 								<span class="css-3uygi7 e17yjk9v3">기본배송지</span>
 								<p class="css-36j4vu e17yjk9v2">${userInfo.address} ${userInfo.detailaddress}</p>
-								<div class="css-iqoq9n e17yjk9v0">
+								<!-- <div class="css-iqoq9n e17yjk9v0">
 									<button class="css-1xky6jf e4nu7ef3" type="button" width="60" height="30" radius="3">
 										<span class="css-nytqmg e4nu7ef1">변경</span>
 									</button>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
@@ -398,11 +397,11 @@
 							<div class="css-82a6rk e150alo80">
 								<span class="css-3uygi7 e17yjk9v3">기본배송지</span>
 								<p class="css-36j4vu e17yjk9v2">${userInfo.uname} ${userInfo.tel_no}</p>
-								<div class="css-iqoq9n e17yjk9v0">
+								<%-- <div class="css-iqoq9n e17yjk9v0">
 									<button id="changeAddress" class="css-1xky6jf e4nu7ef3" type="button" width="60" height="30" radius="3" onclick="deliveryMessage(${purchaseInfo.uname}, ${purchaseInfo.tel_no})">
 										<span class="css-nytqmg e4nu7ef1">수정</span>
 									</button>
-								</div>
+								</div> --%>
 							</div>
 						</div>
 					</div>
@@ -447,85 +446,6 @@
 								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="phonebill" id="phone" onclick="payMethod(this)">휴대폰</button>
 							 </div>
 						 </div>
-						 <div class="css-nemdq9 evz7bw03">
-							 <div class="css-nznuh9 evz7bw02">
-								 <label class="css-11zj85u et8nqc33" for="naver-pay">
-								 <input data-testid="radio-naver-pay" id="naver-pay" name="naver-pay" type="radio" class="css-1pes2r6 et8nqc32" value="naver-pay">
-								 <span class="css-198i9ca e2sqze61">
-								 	<div class="css-1dahn5m e2sqze60"></div>
-								 </span>
-								 <span aria-labelledby="naver-pay" class="css-mgd87h et8nqc31">
-								 	<span class="css-s5xdrg evz7bw00">네이버페이 </span>
-								 </span>
-								 </label>
-							 </div>
-							 <div class="css-nznuh9 evz7bw02">
-								 <label class="css-11zj85u et8nqc33" for="toss">
-									 <input data-testid="radio-toss" id="toss" name="toss" type="radio" class="css-1pes2r6 et8nqc32" value="toss" checked="">
-									 <span class="css-5xw1m2 e2sqze61"><div class="css-1vic0rk e2sqze60"></div></span>
-									 <span aria-labelledby="toss" class="css-mgd87h et8nqc31">
-										 <span class="css-s5xdrg evz7bw00">토스 
-										 	<span class="css-1ox35cj evz7bw01">혜택</span>
-										 </span>
-									 </span>
-								 </label>
-							 </div>
-							 <div class="css-nznuh9 evz7bw02">
-								 <label class="css-11zj85u et8nqc33" for="payco">
-									 <input data-testid="radio-payco" id="payco" name="payco" type="radio" class="css-1pes2r6 et8nqc32" value="payco">
-									 <span class="css-198i9ca e2sqze61">
-									 	<div class="css-1dahn5m e2sqze60"></div>
-									 </span>
-									 <span aria-labelledby="payco" class="css-mgd87h et8nqc31">
-									 <span class="css-s5xdrg evz7bw00">페이코 
-									 	<span class="css-1ox35cj evz7bw01">혜택</span>
-									 </span>
-									 </span>
-								 </label>
-							 </div>
-						 </div>
-						 <div class="css-p04ye2 eqgsbpy1">
-							 <div class="css-1uv50i eqgsbpy0">
-							 <span>혜택안내</span>
-							 <button class="css-1lecd96 ekuwusm0">무이자 혜택 안내 
-								 <svg width="12" height="12" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
-								 <title>Shape</title>
-									 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-										 <g id="commonIcon_info" fill="#999" fill-rule="nonzero">
-											 <path d="M6.3,3.5 L7.7,3.5 L7.7,4.9 L6.3,4.9 L6.3,3.5 Z M6.3,6.3 L7.7,6.3 L7.7,10.5 L6.3,10.5 L6.3,6.3 Z
-											  M0,7 C0,10.864 3.129,14 6.993,14 C10.864,14 14,10.864 14,7 C14,3.136 10.864,0 6.993,0 C3.129,0 0,3.136 
-											  0,7 Z M1.4,7 C1.4,3.906 3.906,1.4 7,1.4 C10.094,1.4 12.6,3.906 12.6,7 C12.6,10.094 10.094,12.6 7,12.6 
-											  C3.906,12.6 1.4,10.094 1.4,7 Z" id="Shape">
-											  </path>
-										  </g>
-									  </g>
-								  </svg>
-							  </button>
-							  </div>
-							  <div class="css-1eyoyxr e1dfkh4o6">
-								  <div class="css-109w7xc e1dfkh4o3">
-									  <p class="css-1rlhglk e1dfkh4o2">토스</p>
-									  <p class="css-5jw6s3 e1dfkh4o1">토스페이 6만원 이상 결제 시 2천원 즉시할인</p>
-									  <p class="css-95xna2 e1dfkh4o0">토스머니 &amp; 후불결제 6만원 이상 결제 시 2천원 즉시할인</p>
-									  <p class="css-95xna2 e1dfkh4o0">기간중, 인당 1회 사용가능</p>
-									  <p class="css-95xna2 e1dfkh4o0">2/15 11시 ~ 2/26 11시</p>
-								  </div>
-								  <div class="css-109w7xc e1dfkh4o3">
-									  <p class="css-1rlhglk e1dfkh4o2">컬리페이</p>
-									  <p class="css-5jw6s3 e1dfkh4o1">컬리카드 &amp; 컬리페이 결제 혜택</p>
-									  <p class="css-95xna2 e1dfkh4o0">1. 컬리카드 첫 결제 3만원 즉시 할인 + 2만원 쿠폰팩 + 8만원 적립금 제공</p>
-									  <p class="css-95xna2 e1dfkh4o0">24/02/01~ 02/29</p>
-									  <p class="css-95xna2 e1dfkh4o0">2. 컬리페이 X 현대카드 5만원 이상 결제 시, 최대 2천원 M포인트 차감 할인 ...</p>
-								  </div>
-								  <button class="css-755sul e1dfkh4o5">
-								  <span class="css-1b9oelf e1dfkh4o4">혜택 더보기</span>
-								  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									  <path d="M13 7L9 11L5 7" stroke="#333" stroke-width="1.2">
-									  </path>
-								  </svg>
-								  </button>
-							  </div>
-						  </div>
 					  </div>
 				  </div>
 			  </div>
@@ -627,6 +547,8 @@
 					<input type="hidden" value="${id}" name="id">
 					<input type="hidden" value="${finalResult}" name="finalResult">
 					<input type="hidden" value="" name="payMethod" id="payMethod">
+					<input type="hidden" value="${userInfo.address}" name="address">
+					<input type="hidden" value="${userInfo.detailaddress}" name="addressDetail">
 					<div class="css-1azakc el0c5j40">
 					  <button class="css-1lha8en e4nu7ef3" type="button" width="240" height="56" radius="3" onclick="confirmPurchase()">
 					  	<span class="css-nytqmg e4nu7ef1">${finalResult}원 결제하기</span>
