@@ -35,12 +35,8 @@ public class ProductServiceImpl implements ProductService{
 	/*** New Page Start ***/
 	// new page product load
 	@Override
-	public List<Product> productView(HttpServletRequest request, String id, int curPage, String headerCategory, String alignCategory) throws Exception {
+	public List<Product> productView(HttpServletRequest request, int curPage, String headerCategory, String alignCategory) throws Exception {
 		// TODO Auto-generated method stub
-		
-		HttpSession session = request.getSession();
-		
-		int cartCount = 0;
 		
 		// 한 페이지에 몇개를 보여줄 것인가?
 		int countPerPage = 12;
@@ -51,42 +47,48 @@ public class ProductServiceImpl implements ProductService{
 		// ex) (1-1) * 5 = 0, (2-1) * 5 = 5, 
 		int limitFrom = (curPage - 1) * countPerBlock;
 		
+		System.out.println("error check 0");
+		
 		if (headerCategory.equals("신상품")) {
 			if (alignCategory.equals("신상품순")) {
-				return dao.newProductView(limitFrom, countPerPage, id, curPage);
+				return dao.newProductView(limitFrom, countPerPage);
 			}
 			else if (alignCategory.equals("낮은 가격순")) {
-				return dao.newProductAlignAscView(limitFrom, countPerPage, id, curPage);
+				return dao.newProductAlignAscView(limitFrom, countPerPage);
 			}
 			else if (alignCategory.equals("높은 가격순")) {
-				return dao.newProductAlignDescView(limitFrom, countPerPage, id, curPage);
+				return dao.newProductAlignDescView(limitFrom, countPerPage);
 			}
 		}
 		else if (headerCategory.equals("베스트")) {
 			if (alignCategory.equals("베스트순")) {
-				return dao.bestProductView(limitFrom, countPerPage, id, curPage);
+				return dao.bestProductView(limitFrom, countPerPage);
 			}
 			else if (alignCategory.equals("낮은 가격순")) {
-				return dao.bestProductAlignAscView(limitFrom, countPerPage, id, curPage);
+				return dao.bestProductAlignAscView(limitFrom, countPerPage);
 			}
 			else if (alignCategory.equals("높은 가격순")) {
-				return dao.bestProductAlignDescView(limitFrom, countPerPage, id, curPage);
+				return dao.bestProductAlignDescView(limitFrom, countPerPage);
 			}
 		}
 		else if (headerCategory.equals("레시피")) {
+			System.out.println("error check 1");
 			if (alignCategory.equals("레시피")) {
-				return dao.recipeProductView(limitFrom, countPerPage, id, curPage);
+				System.out.println("error check 2");
+				return dao.recipeProductView(limitFrom, countPerPage);
 			}
 			else if (alignCategory.equals("낮은 가격순")) {
-				return dao.recipeProductAlignAscView(limitFrom, countPerPage, id, curPage);
+				System.out.println("error check 3");
+				return dao.recipeProductAlignAscView(limitFrom, countPerPage);
+				
 			}
 			else if (alignCategory.equals("높은 가격순")) {
-				return dao.recipeProductAlignDescView(limitFrom, countPerPage, id, curPage);
+				System.out.println("error check 4");
+				return dao.recipeProductAlignDescView(limitFrom, countPerPage);
 			}
 		}
-		
+		System.out.println("error 04 sibal");
 		return null;
-		
 	}
 	
 	/*** Paging Start ***/
@@ -281,17 +283,17 @@ public class ProductServiceImpl implements ProductService{
 		return result;
 	}
 	
-//	// 구매할 때 고객 정보와 sum result 값
-//	@Override
-//	public Product userInfo(String id) throws Exception {
-//		// TODO Auto-generated method stub
-//		return dao.userInfo(id);
-//	}
+//	// 구매할 때 고객 정보
+	@Override
+	public Product userInfo(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.userInfo(id);
+	}
 	// insert purchase and delete cart
 	@Override
 	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception {
 		dao.finalOrderBtn(qty, id, cartid, paymethod, purchaseid);
-		dao.deleteCart(cartid);
+		dao.updateCartStatus(cartid);
 	}
 	
 	@Override
