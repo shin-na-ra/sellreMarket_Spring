@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.springlec.base.dao.AdminProductDao"> 
+	
+
+	<!-- 브랜드 개수 가져오기 -->	
+	<select id="listCount" resultType="Integer"  parameterType="com.springlec.base.model.AdminProductDto">
+			select count(productid) from product;
+	</select>
+	
+	
+	<!-- 브랜드 페이지에 맞게 리스트 가져오기  -->
+	 <select id="list" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.AdminProductDto">
+		 SELECT 
+		    t.productid,
+		    t.pname,
+		    t.pstock,
+		    t.amount,
+		    CASE t.status
+		        WHEN '0' THEN '판매종료'
+		        WHEN '1' THEN '판매중'
+		        ELSE ''
+		    END AS status
+		FROM (
+		    SELECT 
+		        p.productid, 
+		        p.pname, 
+		        IFNULL(p.pstock, 0) AS pstock,
+		        p.pstock - (SELECT COALESCE(SUM(pur.amount), 0) FROM purchase pur WHERE p.productid = pur.productid) AS amount,
+		        p.status,
+		        ROW_NUMBER() OVER (ORDER BY p.productid DESC) AS rownum
+		    FROM product p
+		    LEFT OUTER JOIN purchase pur ON p.productid = pur.productid
+		    GROUP BY p.productid
+		) AS t
+		WHERE t.rownum BETWEEN #{pageStart} AND #{pageStart}+14
+		ORDER BY t.rownum;
+	</select>
+	
+	<!-- 브랜드 가져오기 -->
+	<select id="brandList" resultType="com.springlec.base.model.BrandDto">
+		select bname from brand group by bname;
+	</select>
+	
+	<!-- 카테고리 대분류 가져오기 -->	
+	<select id="categoryList" resultType="com.springlec.base.model.Category">
+		select type from catetory group by type;
+	</select>
+	
+	<!-- 카테고리 중분류 가져오기 -->
+	<select id="subCategoryList" resultType="com.springlec.base.model.Category">
+		select subtype from catetory where type=#{type} group by subtype;
+	</select>
+	
+	<!-- 포장 타입 가져오기 -->	
+	<select id="selectPackType" resultType="com.springlec.base.model.AdminPackDto">
+		 select packtype from packing group by packtype;
+	</select>
+	
+	<!-- 포장 종류 가져오기 -->	
+	<select id="selectPackKind" resultType="com.springlec.base.model.AdminPackDto">
+		select packkind from packing group by packkind;
+	</select>
+	
+	<!-- 배달 종류 가져오기 -->
+	<select id="selectDelivery" resultType="com.springlec.base.model.AdminDeliveryDto">
+		select dname from delivery_type group by dname;
+	</select>
+	
+	<!-- 제품 insert -->
+	<insert id="productInsert">
+		insert into product (pname, pEngname, allery, nutrition, pstock, origin, description, status, pinsertdate)
+		values (#{pname}, #{pEngname}, #{allery}, #{nutrition}, #{pstock}, #{origin}, #{description}, '1', now())
+	</insert> 
+
+	<!-- 제품 id 가져오기 -->	
+	<select id="getProductId" resultType="Integer"  parameterType="com.springlec.base.model.AdminProductDto">
+		select productid from product where pname = #{pname} and pEngname = #{pEngname} and allery = #{allery}
+	</select>
+	
+	<!-- 가격 insert -->
+	<insert id="insertPrice">
+		insert into price (price, productid) values (#{price}, #{productid})
+	</insert>
+	
+	<!-- 브랜드 insert -->
+	<insert id="insertBrand">
+		insert into brand (bname, productid) values (#{bname}, #{productid})
+	</insert>
+	
+	<!-- 카테고리 insert -->
+	<insert id="insertCategory">
+		insert into catetory (productid, type, subtype, status) values (#{productid}, #{type}, #{subtype}, '1')
+	</insert>
+	
+	<!-- 포장타입 종류 insert -->
+	<insert id="insertPack">
+		insert into packing (packtype, packkind, productid) values (#{packtype}, #{packkind}, #{productid})
+	</insert>
+	
+	<!-- 단위 insert -->
+	<insert id="insertUnit">
+		insert into saleunit (productid, utype, ugram) values  (#{productid}, #{utype}, #{ugram})
+	</insert>
+	
+	<!-- 배달방식 insert -->
+	<insert id="insertDelivery">
+		insert into delivery_type (dname, productid) values (#{dname}, #{productid})
+	</insert>
+	
+	<!-- 첫 페이지 조회시 '과일/견과/쌀'로 가져오게  -->
+	<select id="selectSubCategory" resultType="com.springlec.base.model.Category">
+		select subtype from catetory where type = '과일/견과/쌀' group by subtype;
+	</select>
+	
+	
+	 <select id="listQuery" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.AdminProductDto">
+		 SELECT 
+		    t.productid,
+		    t.pname,
+		    t.pstock,
+		    t.amount,
+		    CASE t.status
+		        WHEN '0' THEN '판매종료'
+		        WHEN '1' THEN '판매중'
+		        ELSE ''
+		    END AS status
+		FROM (
+		    SELECT 
+		        p.productid, 
+		        p.pname, 
+		        IFNULL(p.pstock, 0) AS pstock,
+		        p.pstock - (SELECT COALESCE(SUM(pur.amount), 0) FROM purchase pur WHERE p.productid = pur.productid) AS amount,
+		        p.status,
+		        ROW_NUMBER() OVER (ORDER BY p.productid DESC) AS rownum
+		    FROM product p
+		    LEFT OUTER JOIN purchase pur ON p.productid = pur.productid
+		    GROUP BY p.productid
+		) AS t
+		WHERE t.rownum BETWEEN #{pageStart} AND #{pageStart}+14 and pname like #{search}
+		ORDER BY t.rownum;
+	</select>
+	
+	<!-- 브랜드 개수 가져오기 -->	
+	<select id="searchCount" resultType="Integer"  parameterType="com.springlec.base.model.AdminProductDto">
+			select count(productid) from product where pname like #{search};
+	</select>
+	
+	<select id="detail" parameterType="com.springlec.base.model.AdminProductDto">
+        select 
+			p.productid,
+			p.pname,
+            p.pEngname,
+			p.allery,
+            p.nutrition,
+            p.pstock,
+            p.origin,
+            p.description,
+            price,
+            bname,
+            type,
+            subtype,
+            packtype,
+            packkind,
+            utype,
+            ugram,
+            dname,
+            image
+            
+		from product p 
+			 left join price price on p.productid = price.productid
+             left join brand b on p.productid = b.productid
+             left join catetory c on p.productid = c.productid
+             left join packing pack on p.productid = pack.productid
+             left join saleunit s on p.productid = s.productid
+             left join delivery_type d on p.productid = d.productid
+             left join product_image i on p.productid = i.productid
+             
+		where p.productid = #{productid};
+	
+	</select>
+	
+	
+	<!-- 제품 수정 -->
+	<update id="productUpdate">
+		update product set 
+			pname  = #{pname}, 
+			pEngname = #{pEngname}, 
+			allery = #{allery}, 
+			nutrition = #{nutrition},
+			pstock = #{pstock}, 
+			origin = #{origin}, 
+			description = #{description}
+		where productid = #{productid}
+	</update>
+	
+	<!-- 가격수정 -->
+	<update id="updatePrice">
+		update price set 
+			price  = #{price}
+		where productid = #{productid}
+	</update>
+	
+	<!-- 브랜드 수정 -->
+	<update id="updateBrand">
+		update brand set 
+			bname  = #{bname}
+		where productid = #{productid}
+	</update>
+	
+	<!-- 카테고리 수정 -->
+	<update id="updateCategory">
+		update catetory set 
+			type  = #{type},
+			subtype  = #{subtype}
+		where productid = #{productid}
+	</update>
+	
+	<!-- 포장타입, 종류 수정 -->
+	<update id="updatePack">
+		update packing set 
+			packtype  = #{packtype},
+			packkind  = #{packkind}
+		where productid = #{productid}
+	</update>
+	
+	<!-- 단위 수정 -->
+	<update id="updateUnit">
+		update saleunit set 
+			utype  = #{utype},
+			ugram  = #{ugram}
+		where productid = #{productid}
+	</update>
+	
+	<!-- 배달형식 수정 -->
+	<update id="updateDelivery">
+		update delivery_type set 
+			dname  = #{dname}
+		where productid = #{productid}
+	</update>
+	
+	<!-- 제품 삭제 - status : 0으로 변경 -->
+	<update id="delete">
+		update product set 
+			status = '0'
+		where productid = #{productid}
+	</update>
+	
+	<!-- 제품 이미지 등록 -->
+	<insert id="insertImage">
+		insert into product_image (productid, image) values (#{productid}, #{image})
+	</insert>
+	
+	<update id="updateImage">
+		update product_image set
+			image = #{image}
+		where productid = #{productid}
+		
+	</update>
+</mapper>

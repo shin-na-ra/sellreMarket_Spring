@@ -15,13 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.springlec.base.model.Inquiry;
 import com.springlec.base.model.UserInfo;
+//import com.springlec.base.service.AuthService;
 import com.springlec.base.service.InquiryService;
 import com.springlec.base.service.NoticeService;
 import com.springlec.base.service.UserInfoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 @Controller
 public class UserController {
@@ -34,6 +34,103 @@ public class UserController {
 	
 	@Autowired
 	UserInfoService userS;
+	
+	@Autowired
+//	AuthService authS;
+	
+	// 배송지 목록 Page
+	@GetMapping("/addresslist")
+	public String addresslist(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+		String userid = (String)session.getAttribute("id");
+		
+		model.addAttribute("addresslist",userS.addresslist(userid));
+		
+		return "addresslist";
+	}
+	
+	// 배송지 수정 Page
+	@PostMapping("/addresslistUpdatePage")
+	public String addresslistUpdate(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+		String userid = (String)session.getAttribute("id");
+		String addressid = request.getParameter("addressid");
+
+		model.addAttribute("address", userS.addresslistDetail(addressid));
+		
+		return "addresslistdetailpage";
+	}
+	
+	// 배송지(addresslist) 수정 Action
+	@PostMapping("/addresslistUpdate")
+	public String addresslistUpdateAction(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		
+		String userid = (String)session.getAttribute("id");
+		String addressid = request.getParameter("addressid");
+		String address = request.getParameter("address");
+		String detailaddress = request.getParameter("detailAddress");
+		String defaultset = request.getParameter("defaultset");
+	
+		userS.addresslistUpdate(userid, addressid, address, detailaddress, defaultset);
+		
+		return "redirect:/addresslist";
+	}
+	
+	// 배송지 추가 Page
+	@GetMapping("/addresslistAdd")
+	public String addresslistAdd() {
+		return "addresslistAdd";
+	}
+	
+	// 배송지 추가 Action
+	@PostMapping("/addresslistInsert")
+	public String addresslistInsertAction(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		
+		String userid = (String)session.getAttribute("id");
+		String address = request.getParameter("address");
+		String detailaddress = request.getParameter("detailAddress");
+		String defaultset = request.getParameter("defaultset");
+		
+		System.out.println("userid : " + userid);
+		System.out.println("address : " + address);
+		System.out.println("detailaddress : " + detailaddress);
+		System.out.println("defaultset : " + defaultset);
+		
+		userS.addresslistInsert(userid, address, detailaddress, defaultset);
+		
+		return "redirect:/addresslist";
+	}
+	
+	@PostMapping("/addresslistDelete")
+	public String addresslistDeleteAction(HttpServletRequest request) throws Exception {
+		String addressid = request.getParameter("addressid");
+		userS.addresslistDelete(addressid);
+		
+		return "redirect:/addresslist";
+	}
+	
+//	@GetMapping("/kakaologin")
+//	public String kakaologin() {
+//		return "kakaologintest";
+//	}
+//	
+//	@GetMapping("/kakaologinresult")
+//	public String kakaologinresult(@RequestParam String code, Model model) throws Exception {
+//		System.out.println("code : " + code);
+//		String token = authS.getKakaoAccessToken(code);
+//		model.addAttribute("token", token);
+//		model.addAttribute("mapData",authS.createKakaoUser(token));
+//		return "kakaologinresult";
+//	}
+//	
+//	@GetMapping("/kakaologout")
+//	public String kakaologout(@RequestParam String token) {
+//		System.out.println("token : " + token);
+//		authS.kakaologout(token);
+//		return "redirect:/kakaologin";
+//	}
 	
 	// 로그인 Page
 	@GetMapping("/login")
@@ -140,6 +237,7 @@ public class UserController {
 	@PostMapping("/noticelist")
 	public ResponseEntity<Map<String, Object>> noticelistPage(HttpServletRequest request) throws Exception {
 		String keyword = request.getParameter("keyword");
+		keyword = keyword.trim();
 		String curPage = request.getParameter("curPage");
 		
 		Map<String, Object> responseData = noticeS.noticeList(curPage, keyword);
@@ -203,8 +301,7 @@ public class UserController {
 		// 회원가입
 		if(userS.checkDuplicatedId(userid).get("result").equals("true")) {
 			userS.customerSignUp(userid, password, tel, name, email, address, detailAddress, gender, birthdate);
-			// 메인 화면으로!!
-			return "redirect:/notice";
+			return "redirect:/main";
 		}
 		// 정보수정
 		else {
@@ -256,8 +353,7 @@ public class UserController {
 	public String logoutAction(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		// 메인화면으로 수정해야함!
-		return "redirect:/notice";
+		return "redirect:/main";
 	}
 	
 	// 아이디 찾기 Page
@@ -315,8 +411,7 @@ public class UserController {
 		
 		userS.updatePassword(userid, password);
 		
-		// 메인 페이지로 리턴!!
-		return "redirect:/notice";
+		return "redirect:/main";
 	}
 	
 }

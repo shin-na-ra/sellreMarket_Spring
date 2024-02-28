@@ -54,23 +54,20 @@ function inquirywrite() {
 <body>
 	<div class="css-16h7nba e1p13h9k3">
 		<div class="css-pqw0uk e1p13h9k2">
+		<c:choose>
+		<c:when test="${sessionScope.id != null }">
+			<a href="main" rel="noreferrer" target="_self"
+				class="css-129c9b5 e1p13h9k1">
+				<div>지금 바로, <b>셀리마켓</b> 가입하세요!</div>
+			</a>
+		</c:when>
+		<c:otherwise>
 			<a href="login" rel="noreferrer" target="_self"
-				class="css-129c9b5 e1p13h9k1"><div>
-					지금 바로, <b>셀리마켓</b> 가입하세요!
-				</div></a>
-			<button type="button" class="css-10w9uhr e1p13h9k0">
-				<svg width="20" height="20" viewBox="0 0 32 32" fill="none"
-					xmlns="http://www.w3.org/2000/svg">
-					<g clip-path="url(#clip0_2073_60924)">
-					<path d="M26 26L6 6" stroke="rgba(242, 242, 242, 0.7)"
-						stroke-linecap="round" stroke-width="0"></path>
-					<path d="M6 26L26 6" stroke="rgba(242, 242, 242, 0.7)"
-						stroke-linecap="round" stroke-width="0"></path></g>
-					<path fill-rule="evenodd" clip-rule="evenodd"
-						d="M6.28431 5.58859L6.35355 5.64645L16 15.293L25.6464 5.64645C25.8417 5.45118 26.1583 5.45118 26.3536 5.64645C26.5271 5.82001 26.5464 6.08944 26.4114 6.28431L26.3536 6.35355L16.707 16L26.3536 25.6464C26.5488 25.8417 26.5488 26.1583 26.3536 26.3536C26.18 26.5271 25.9106 26.5464 25.7157 26.4114L25.6464 26.3536L16 16.707L6.35355 26.3536C6.15829 26.5488 5.84171 26.5488 5.64645 26.3536C5.47288 26.18 5.4536 25.9106 5.58859 25.7157L5.64645 25.6464L15.293 16L5.64645 6.35355C5.45118 6.15829 5.45118 5.84171 5.64645 5.64645C5.82001 5.47288 6.08944 5.4536 6.28431 5.58859Z"
-						fill="rgba(242, 242, 242, 0.7)"></path></svg>
-				<div class="css-7qb0sc e1ilyb3p0">배너 하루 안보기</div>
-			</button>
+				class="css-129c9b5 e1p13h9k1">
+				<div>지금 바로, <b>셀리마켓</b> 가입하세요!</div>
+			</a>
+		</c:otherwise>
+		</c:choose>
 		</div>
 	</div>
 	<div>
@@ -92,6 +89,7 @@ function inquirywrite() {
 						<div class="css-12olpw6 ecncdj40"><a href="#">주문내역</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 상품</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 레시피</a></div>
+						<div class="css-12olpw6 ecncdj40"><a href="addresslist">배송지 관리</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="inquiry">1:1 문의</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="logout">로그아웃</a></div>
 					</div>
@@ -155,10 +153,10 @@ function inquirywrite() {
 						<li class="css-59mmhh e17w4cfr4" style="margin-right: 15px;">
 							<span class="css-1xyu7j9 e17w4cfr2">
 								<c:if test="${headerCategory eq '신상품'}">
-									<a href="/main" style="color: #c14a09; font-weight: bold;">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="/main" style="color: #c14a09; font-weight: bold;">신상품</a>
 								</c:if>
 								<c:if test="${headerCategory ne '신상품'}">
-									<a href="/main">신상품&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="/main">신상품</a>
 								</c:if>
 							</span>
 						</li>
@@ -166,10 +164,10 @@ function inquirywrite() {
 					<li class="css-59mmhh e17w4cfr4" style="margin-right: 15px;">
 						<span class="css-1xyu7j9 e17w4cfr2">
 							<c:if test="${headerCategory eq '베스트'}">
-								<a href="/bestProduct" style="color: #c14a09; font-weight: bold;">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="/bestProduct" style="color: #c14a09; font-weight: bold;">베스트</a>
 							</c:if>
 							<c:if test="${headerCategory ne '베스트'}">
-								<a href="/bestProduct">베스트&nbsp;&nbsp;&nbsp;&nbsp;</a>
+								<a href="/bestProduct">베스트</a>
 							</c:if>
 						</span>
 					<li class="css-59mmhh e17w4cfr4">

@@ -67,12 +67,14 @@
 </script>
 
 <!-- // js 따로 관리한다. -->
-<script src="js/newProductPage.js"></script>
+<script src="js/getCart.js"></script>
 
 </head>
 <body>
+	<!-- for paging -->
     <input type="hidden" value="신상품" id="category">
     <input type="hidden" value="${alignCategory}" id="alignCategory">
+    <input type="hidden" value="${headerCategory}" id="headerCategory">
     
 	<jsp:include page="header.jsp"></jsp:include>
 	<!-- Topbar End -->
@@ -97,21 +99,21 @@
 		<c:if test="${alignCategory eq '신상품순'}">
 			<span style="color: black; font-weight: bold">신상품순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignNewLowPrice">낮은 가격순</a> 
+			<a href="alignNewLowPrice?curPage=1">낮은 가격순</a> 
 			&nbsp;&nbsp;|&nbsp;&nbsp; 
-			<a href="alignNewHighPrice">높은 가격순</a>
+			<a href="alignNewHighPrice?curPage=1">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '낮은 가격순'}">
-			<a href="/main">신상품순</a>
+			<a href="/main?curPage=1">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">낮은 가격순</span>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignNewHighPrice">높은 가격순</a>
+			<a href="alignNewHighPrice?curPage=1">높은 가격순</a>
 		</c:if>
 		<c:if test="${alignCategory eq '높은 가격순'}">
 			<a href="/main">신상품순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="alignNewLowPrice">낮은 가격순</a>
+			<a href="alignNewLowPrice?curPage=1">낮은 가격순</a>
 			&nbsp;&nbsp;|&nbsp;&nbsp;
 			<span style="color: black; font-weight: bold">높은 가격순</span>
 		</c:if>
@@ -130,7 +132,7 @@
 						<div class="product-item bg-light mb-4"
 							style="width: 300px; height: 350px; display: flex; flex-direction: column; justify-content: center;">
 							<div class="product-img position-relative overflow-hidden">
-									<a href="productDetail.do?productId=${dto.productid}" ><img class="img-fluid w-100"
+									<a href="/productDetailPage?productId=${dto.productid}" ><img class="img-fluid w-100"
 										src="${pageContext.request.contextPath}/image/product/${dto.pimage}"
 										alt="Product Image"
 										 style="object-fit: cover; width: 100%; height: 100%;">
@@ -142,13 +144,13 @@
 										onclick="sendProductInfo(${dto.productid}); return false;"
 										class="btn btn-primary btn-light align-items-center"
 										style="width: 100%;">장바구니</button>
-									<input type="hidden" id="productid" value="${dto.productid}">
 									<input type="hidden" id="id" value="${id}">
+									<!-- test -->
+									<!-- <input type="hidden" id="id" value="admin"> -->
 							</div>
-							
 							<div class="text-center py-4"
 								style="display: flex; flex-direction: column; justify-content: center;">
-								<a class="h6 text-decoration-none text-truncate" href="productDetail.do?productId=${dto.productid}" style="font-weight: bold;">${dto.pname}</a>
+								<a class="h6 text-decoration-none text-truncate" href="/productDetailPage?productId=${dto.productid}" style="font-weight: bold;">${dto.pname}</a>
 								<div class="d-flex align-items-center justify-content-center mt-2">
 									<h7 class="text-muted ml-2">
 										<c:if test="${dto.price ne dto.dPrice}">

@@ -1,6 +1,7 @@
 package com.springlec.base.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springlec.base.dao.UserInfoDao;
+import com.springlec.base.model.DeliveryInfo;
 import com.springlec.base.model.UserInfo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -185,6 +187,43 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public void updatePassword(String userid, String password) throws Exception {
 		dao.updatePassword(userid, password);
+	}
+
+	@Override
+	public List<DeliveryInfo> addresslist(String userid) throws Exception {
+		return dao.addresslist(userid);
+	}
+
+	@Override
+	public DeliveryInfo addresslistDetail(String addressid) throws Exception {
+		return dao.addresslistDetail(addressid);
+	}
+
+	@Override
+	public void addresslistUpdate(String userid, String addressid, String address, String detailaddress, String defaultset) throws Exception {
+		// defaultset이 1, 즉 대표주소로 설정 될때마다 모든 주소의 대표주소 여부를 초기화 후 해당하는 주소를 대표주소로 설정
+		if(defaultset.equals("1")) {
+			dao.addresslistReset(userid);
+		}
+		
+		dao.addresslistUpdate(addressid, address, detailaddress, defaultset);
+	}
+
+	// 배송지 추가
+	@Override
+	public void addresslistInsert(String userid, String address, String detailaddress, String defaultset) throws Exception {
+		// String.valueOf : 객체를 문자열로 변환
+		int intDefaultset = Integer.parseInt(defaultset);
+		System.out.println("intDefaultset : " + intDefaultset);
+		if(intDefaultset == 1) {
+			dao.addresslistReset(userid);
+		}
+		dao.deliveryInfo(address, detailaddress, intDefaultset, userid);
+	}
+
+	@Override
+	public void addresslistDelete(String addressid) throws Exception {
+		dao.addresslistDelete(addressid);
 	}
 
 	

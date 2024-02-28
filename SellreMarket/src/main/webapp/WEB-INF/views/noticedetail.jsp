@@ -67,7 +67,7 @@
 								<div class="css-titlename">적용 상품</div>
 								<div class="css-width">
 									<input type="text" style="height: 30px; width: 250px; padding-left: 10px; margin-top: 6px; border: solid; border-color: lightgrey; border-width: 1px;" readonly="readonly" value="${detailDto.pname}">
-									<a href="#" style="margin-left: 30px; text-decoration: underline; font-weight: bold; color: blue;">상품 보러가기</a>
+									<a href="productDetailPage?productId=${detailDto.productid}" style="margin-left: 30px; text-decoration: underline; font-weight: bold; color: blue;">상품 보러가기</a>
 									</div>
 							</div>
 						</c:otherwise>

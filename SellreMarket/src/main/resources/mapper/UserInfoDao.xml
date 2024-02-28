@@ -49,4 +49,24 @@
 		UPDATE customer SET password = #{password}, updatedate = now() WHERE userid = #{userid}
 	</update>
 	
+	<select id="addresslist" resultType="com.springlec.base.model.DeliveryInfo">
+		SELECT addressid, address, detailaddress, defaultset, (SELECT tel_no FROM customer WHERE userid = #{userid}) AS tel FROM addresslist WHERE userid = #{userid} ORDER BY defaultset DESC
+	</select>
+	
+	<select id="addresslistDetail" resultType="com.springlec.base.model.DeliveryInfo">
+		SELECT addressid, address, detailaddress, defaultset FROM addresslist WHERE addressid = #{addressid}
+	</select>
+	
+	<update id="addresslistReset">
+		UPDATE addresslist SET defaultset = 0 WHERE userid = #{userid}
+	</update>
+	
+	<update id="addresslistUpdate">
+		UPDATE addresslist SET address = #{address}, detailaddress = #{detailaddress}, defaultset = #{defaultset} WHERE addressid = #{addressid}
+	</update>
+	
+	<delete id="addresslistDelete">
+		DELETE FROM addresslist WHERE addressid = #{addressid}
+	</delete>
+	
 </mapper>

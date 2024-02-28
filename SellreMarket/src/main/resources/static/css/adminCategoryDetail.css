@@ -31,8 +31,7 @@ body {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  margin-top : 0px;
-  margin-bottom : 50px;
+  margin-bottom : 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 	
@@ -48,7 +47,6 @@ form {
     label {
       display: block;
       font-weight: bold;
-      margin-bottom: 5px;
     }
     
     .updateBtn {
@@ -59,10 +57,8 @@ form {
       border-radius: 3px;
       font-size: 16px;
       cursor: pointer;
-        width: 80%;
-  		max-width: 700px; 
+        width: 100%;
       margin-top: 30px;
-      margin-left : 10px;
     }
     
     .updateBtn:hover {
@@ -78,11 +74,9 @@ form {
       border-radius: 3px;
       font-size: 16px;
       cursor: pointer;
-     	width: 80%;
-  		max-width: 700px; 
+     	width: 100%;
       margin-top: 30px;
       margin-bottom: 200px;
-      margin-left : 10px;
     }
     
     .deleteBtn:hover {
@@ -96,4 +90,5 @@ form {
       padding: 8px;
       border-radius: 3px;
       border: 1px solid #ccc;
+      margin-bottom: 20px;
     }

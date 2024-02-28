@@ -47,4 +47,22 @@ public interface ProductDao {
 	// Cart
 	// sum cart Count 
 	public int cartCount(String id) throws Exception;
+	// input cart
+	public void getProductCart(String id, int productid) throws Exception;
+	// search cart
+	public int searchCart(String id, int productid) throws Exception;
+	// update cart
+	public void updateProductCart(String id, int productid, int qty) throws Exception;
+	// click order button for test
+	public Integer[] clickOrderBtn() throws Exception;
+	
+	// Order
+	public Product orderList(String id, int cartid) throws Exception;
+	public Product userInfo(String id, int cartid) throws Exception;
+	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception;
+	public void deleteCart(int cartid) throws Exception;
+	// check Purchaseid
+	public Integer[] checkPurchaseid() throws Exception;
+	
+//	public List<Product> 
 }

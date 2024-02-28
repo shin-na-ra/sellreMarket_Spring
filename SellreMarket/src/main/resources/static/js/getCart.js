@@ -41,6 +41,7 @@ function sendProductInfo(productid) {
 	var pname = productContainer.querySelector('.text-truncate').innerText;
     /* var form = document.myForm; */
     var customerid = document.getElementById('id').value;
+    // var headerCategory = document.getElementById("headerCategory").value;
 	
 	
 	if (customerid == null || customerid == "") {
@@ -56,9 +57,11 @@ function sendProductInfo(productid) {
 		   
 	    	$.ajax({
 	            type: 'POST',
-	            url: 'bestPageCart.do',
+	            url: '/getCart',
 	            data: {
-	                productid: productid
+					id:customerid,
+	                productid: productid,
+//	                headerCategory:headerCategory
 	            },
 	            success: function(response) {
 	                // 서버로부터 장바구니 개수를 가져옵니다.
@@ -74,4 +77,8 @@ function sendProductInfo(productid) {
 			alert("장바구니에 상품 담기가 취소되었습니다.");
 		}
 	}
+}
+
+function sendRecipeInfo(recipeid) {
+	window.location.href= "/recipeDetail?recipeId=" + recipeid;	    	
 }

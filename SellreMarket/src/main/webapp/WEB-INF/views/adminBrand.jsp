@@ -22,7 +22,12 @@
 	<jsp:include page="adminHeader.jsp" flush="false" />
 		<div class="main">
 			<div class="title" style="display : inline-block">브랜드 관리</div>
-			<div class="btnGroup" style="display : inline-block">
+			<div class="btnGroup">
+				<form action="brandListQuery" method="post">
+					브랜드명 : &nbsp;
+					<input type="text" id="search" name="search">
+					<input type="submit" value="검색" class="searchBtn">
+				</form>
 				<a href="adminBrandRegister"><button class="registerBtn">등록</button></a>
 			</div>
 			<div class="main_content">

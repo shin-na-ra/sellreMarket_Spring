@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,22 +19,39 @@
 		<div class="main">
 			<div class="title">카테고리 상세</div>
 		
-			<form name="categoryForm">
+			<form name="categoryForm" method="post">
+				<c:forEach items="${list}" var="dto">
+				
+					<c:if test="${dto.status==0}">
+						<label for="type">대분류 *</label>
+						<input type="text" id="type" name="type" value="${dto.type }" readonly="readonly" style="background-color: #efefef;">
+						
+						<label for="subtype">중분류 *</label>
+						<input type="text" id="subtype" name="subtype" value="${dto.subtype }"  readonly="readonly" style="background-color: #efefef;">
+					 	<span id="reg" style="color:red; display:none; margin-top:10px;"></span>
+					 	
+						<input type="text" id="catetoryid" name="catetoryid" value="${dto.catetoryid }" hidden="true">
+						
+						<input type="submit" class="deleteBtn" onclick="ChangeStatus()" value="상태변경">	
+					</c:if>
 					
-				<div class="form-group">
-					<label for="type">대분류 *</label>
-					<input type="text" id="type" name="type">
-				</div>
+					<c:if test="${dto.status==1}">
+						<label for="type">대분류 *</label>
+						<input type="text" id="type" name="type" value="${dto.type }">
+						
+						<label for="subtype">중분류 *</label>
+						<input type="text" id="subtype" name="subtype" value="${dto.subtype }">
+					 	<span id="reg" style="color:red; display:none; margin-top:10px;"></span>
+					 	
+						<input type="text" id="catetoryid" name="catetoryid" value="${dto.catetoryid }" hidden="true">
+						
+						<input type="submit" class="updateBtn" onclick="updateCategory()" value="수정">
+						<input type="submit" class="deleteBtn" onclick="deleteCategory()" value="삭제">	
+					</c:if>
 				
-				<div class="form-group">
-					<label for="subtype">중분류 *</label>
-					<input type="text" id="subtype" name="subtype">
-				</div>
-				
-				<input type="text" id="catetoryid" name="catetoryid" hidden="true">
+				</c:forEach>	
 			</form>
-			<input type="submit" class="updateBtn" onclick="updateCategory()" value="수정">
-			<input type="submit" class="deleteBtn" onclick="deleteCategory()" value="삭제">
+		
 	</div>
 </body>
 </html>
