@@ -46,6 +46,11 @@ public class Product {
 	String email;
 	String address;
 	String detailaddress;
+	int priceGetDiscount;
+	int discount;
+	int priceNotDiscount;
+	int cartid;
+	int purchaseid;
 	
 	
 	public Product(String eimg) {
@@ -61,7 +66,14 @@ public class Product {
 		this.qty = qty;
 	}
 	
-	
+	public Product(String uname, String tel_no, String email, String address, String detailaddress) {
+		super();
+		this.uname = uname;
+		this.tel_no = tel_no;
+		this.email = email;
+		this.address = address;
+		this.detailaddress = detailaddress;
+	}
 
 	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
 		super();
@@ -73,7 +85,19 @@ public class Product {
 		this.productid = productid;
 		this.salerate = salerate;
 	}
-
+	
+	public Product(int productid, String pname, int qty, int priceGetDiscount, int discount, int priceNotDiscount,  String pimage, int cartid) {
+		super();
+		this.productid = productid;
+		this.pname = pname;
+		this.qty = qty;
+		this.priceGetDiscount = priceGetDiscount;
+		this.discount = discount;
+		this.priceNotDiscount = priceNotDiscount;
+		this.pimage = pimage;
+		this.cartid = cartid;
+	}
+	
 	public Product(String yname, String ysrc, String ytitle, String price, String dPrice, String recipelike, int recipeid, String salerate) {
 		super();
 		this.yname = yname;
@@ -86,15 +110,6 @@ public class Product {
 		this.salerate = salerate;
 	}
 	
-	public Product(String uname, String tel_no, String email, String address, String detailaddress) {
-		super();
-		this.uname = uname;
-		this.tel_no = tel_no;
-		this.email = email;
-		this.address = address;
-		this.detailaddress = detailaddress;
-	}
-
 	public Product(int yid, String yname, String ysrc, String ytitle, int rid, String rcontent, int pid, String pname,
 			String pengname, String allery, String nutrition, int pstock, Date pinsertdate, String origin,
 			Date expirationdate, String description, int status, int priceid, String dPrice, String price,
@@ -421,4 +436,52 @@ public class Product {
 	public void setDetailaddress(String detailaddress) {
 		this.detailaddress = detailaddress;
 	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+	public int getPriceGetDiscount() {
+		return priceGetDiscount;
+	}
+
+
+	public void setPriceGetDiscount(int priceGetDiscount) {
+		this.priceGetDiscount = priceGetDiscount;
+	}
+
+
+	public int getPriceNotDiscount() {
+		return priceNotDiscount;
+	}
+
+
+	public void setPriceNotDiscount(int priceNotDiscount) {
+		this.priceNotDiscount = priceNotDiscount;
+	}
+
+
+	public int getCartid() {
+		return cartid;
+	}
+
+
+	public void setCartid(int cartid) {
+		this.cartid = cartid;
+	}
+
+
+	public int getPurchaseid() {
+		return purchaseid;
+	}
+
+
+	public void setPurchaseid(int purchaseid) {
+		this.purchaseid = purchaseid;
+	}
+
 }

@@ -136,7 +136,7 @@
 								<button
 									onclick="sendRecipeInfo(${dto.recipeid}); return false;"
 									class="btn btn-primary btn-light align-items-center"
-									style="width: 100%;">장바구니</button>
+									style="width: 100%;">상세보기</button>
 								<input type="hidden" id="id" value="${id}">
 								<!-- test -->
 								<!-- <input type="hidden" id="id" value="admin"> -->

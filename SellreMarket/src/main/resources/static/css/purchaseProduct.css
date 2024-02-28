@@ -30,6 +30,13 @@
 }
 
 
+.css-17jyui4 {
+    width: 60px;
+    height: 78px;
+    cursor: pointer;
+    background-color: rgb(245, 245, 245);
+}
+
 .css-1uom1od {
     width: 1050px;
     padding-top: 60px;
@@ -91,6 +98,8 @@
 .item-info {
     display: flex;
     flex-direction: column;
+    margin-left: 30px;
+    margin-top: 7px;
 }
 
 .item-name {
@@ -244,15 +253,16 @@
     border-right-style: solid;
     border-bottom-style: solid;
     border-left-style: solid;
-    border-top-color: rgb(226, 226, 226);
-    border-right-color: rgb(226, 226, 226);
-    border-bottom-color: rgb(226, 226, 226);
-    border-left-color: rgb(226, 226, 226);
+    border-top-color: rgb(249, 249, 228);
+    border-right-color: rgb(249, 249, 228);
+    border-bottom-color: rgb(249, 249, 228);
+    border-left-color: rgb(249, 249, 228);
     border-image-source: none;
     border-image-slice: 100%;
     border-image-width: 1;
     border-image-outset: 0;
     border-image-repeat: stretch;
+   	color: #333;
     font-size: 14px;
     font-weight: 500;
     border-top-left-radius: 3px;
@@ -407,7 +417,7 @@
     border-top-right-radius: 9px;
     border-bottom-right-radius: 9px;
     border-bottom-left-radius: 9px;
-    background-color: rgb(255, 255, 255);
+    /*background-color: rgb(255, 255, 255);*/
     font-weight: 500;
     font-size: 10px;
     color: rgb(250, 98, 47);
@@ -991,26 +1001,17 @@
     border-right-style: solid;
     border-bottom-style: solid;
     border-left-style: solid;
+    border-top-color: rgb(249, 249, 228);
+    border-right-color: rgb(249, 249, 228);
+    border-bottom-color: rgb(249, 249, 228);
+    border-left-color: rgb(249, 249, 228);
     border-image-source: none;
     border-image-slice: 100%;
     border-image-width: 1;
     border-image-outset: 0;
     border-image-repeat: stretch;
+   	color: #333;
     font-size: 14px;
-    color: rgb(255, 255, 255);
-    background-image: none;
-    background-position-x: 0%;
-    background-position-y: 0%;
-    background-size: auto;
-    background-repeat: repeat;
-    background-attachment: scroll;
-    background-origin: padding-box;
-    background-clip: border-box;
-    background-color: rgb(95, 0, 128);
-    border-top-color: rgb(95, 0, 128);
-    border-right-color: rgb(95, 0, 128);
-    border-bottom-color: rgb(95, 0, 128);
-    border-left-color: rgb(95, 0, 128);
     font-weight: 500;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
@@ -1329,12 +1330,12 @@
     overflow-y: hidden;
     width: 240px;
     height: 56px;
+    font-weight: bold;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(95, 0, 128);
+    background-color: rgb(249, 249, 228);
     border-top-width: 0px;
     border-right-width: 0px;
     border-bottom-width: 0px;
@@ -1493,6 +1494,21 @@
     font-size: 22px;
     font-weight: bold;
 }
+
+.css-1r0yqr6 {
+	margin-top: 18px;
+	color:darkgray;
+	font-size: 12px;
+}
+
+.css-36j4vu {
+	margin-top: 18px;
+}
+
+.css-iqoq9n {
+	margin-top: 24px;
+}
+
 .css-1ujngs9 {
     display: flex;
     -webkit-box-pack: end;
@@ -1503,7 +1519,7 @@
     font-size: 12px;
     line-height: 16px;
     letter-spacing: -0.5px;
-    color: rgb(141, 76, 196);
+    color: rgb(255, 165, 0);
 }
 
 .css-productInfo {
