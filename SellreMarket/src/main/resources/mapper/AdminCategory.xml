@@ -47,21 +47,21 @@
 		update catetory set
 		type = #{type},
 		subtype = #{subtype}
-		where catetoryid = #{catetoryid}
+		where type = #{oldtype} and subtype = #{oldsubtype}
 	</update>
 	
 	<!-- 카테고리 미사용 처리 -->
 	<update id="delete">
 		update catetory set
 		status = '0'
-		where catetoryid = #{catetoryid}
+		where type=#{type} and subtype = #{subtype}
 	</update>
 	
 	<!-- 카테고리 사용 처리 -->
 	<update id="changeStatus">
 		update catetory set
 		status = '1'
-		where catetoryid = #{catetoryid}
+		where type=#{type} and subtype = #{subtype}
 	</update>
 	
 	

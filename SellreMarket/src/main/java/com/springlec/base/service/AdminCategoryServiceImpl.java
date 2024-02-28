@@ -67,20 +67,20 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
 	}
 
 	@Override
-	public void update(int catetoryid, String type, String subtype) throws Exception {
-		dao.update(catetoryid, type, subtype);
+	 public void update(String type, String subtype, String oldtype, String oldsubtype) throws Exception {
+		dao.update(type, subtype, oldtype, oldsubtype);
 	}
 
 	@Override
-	public void delete(int catetoryid) throws Exception {
-		dao.delete(catetoryid);
-		
+	public void delete(String type, String subtype) throws Exception {
+		dao.delete(type, subtype);
 	}
 
 	@Override
-	public void changeStatus(int catetoryid) throws Exception {
-		dao.changeStatus(catetoryid);
+	public void changeStatus(String type, String subtype) throws Exception {
+		dao.changeStatus(type, subtype);
 	}
+
 
 
 	@Override
@@ -118,7 +118,5 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
 		
 		return dto;
 	}
-
-	
 
 }

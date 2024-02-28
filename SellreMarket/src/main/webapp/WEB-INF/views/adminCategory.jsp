@@ -15,6 +15,18 @@
 <link rel="stylesheet" href="css/adminCategory.css" />
 <!-- <script src="js/adminCategory.js"></script> -->
 </head>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let form = document.querySelector("form");
+
+    form.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            return false;
+        }
+    });
+});
+</script>
 <body>
 	<main>
 	<jsp:include page="adminHeader.jsp" flush="false" />

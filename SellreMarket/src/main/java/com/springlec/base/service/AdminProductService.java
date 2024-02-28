@@ -10,6 +10,7 @@ import com.springlec.base.model.AdminPageDto;
 import com.springlec.base.model.AdminProductDto;
 import com.springlec.base.model.BrandDto;
 import com.springlec.base.model.Category;
+import com.springlec.base.model.UserInfo;
 
 public interface AdminProductService {
 
@@ -66,5 +67,8 @@ public interface AdminProductService {
 	
 	//파일 등록
 	public String uploadFile(MultipartFile file) throws Exception;
+	
+	//adminLogin Check
+	public List<UserInfo> checkID(String userid, String password) throws Exception;
 	
 }

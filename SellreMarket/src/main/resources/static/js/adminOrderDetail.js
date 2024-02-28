@@ -1,107 +1,48 @@
+document.addEventListener("DOMContentLoaded", function() {
+    let form = document.querySelector("form");
 
-window.onload=function(){
-	init();
-}	
-	
-function init() {
-	select();
-	productNum();
-	questNum();
-}
-
-
-//header-제품현황 알림표시
-function productNum() {
-		
-		$.ajax({
-			type : "POST",
-			url : "adminProductNum.do",
-			success : function(response){
-				if(response == "0"){
-					document.getElementById('productNum').style.display = 'none';
-				} else {
-					document.getElementById('productNum').style.display = 'block';
-					document.getElementById('productNum').innerText = response	
-				}
-				
-			},
-			 error:function(request, status, error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	}
-	
-	//문의 진행중 갯수 Header 알림표시
-	function questNum() {
-		
-		$.ajax({
-			type : "POST",
-			url : "adminQuestNum.do",
-			success : function(response){
-				if(response == "0"){
-					document.getElementById('questNum').style.display = 'none';
-				} else {
-					document.getElementById('questNum').style.display = 'block';
-					document.getElementById('questNum').innerText = response
-				}
-			},
-			 error:function(request, status, error){
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	}
-
-function select() {
-	
-	$.ajax({
-		type : "POST",
-		url : "selectAdminOrderDetail.do",
-		success : function(response){
-			$("#pname").val(response[0].pname);
-			$("#productid").val(response[0].productid);
-		},
-		 error:function(request, status, error){
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		}
-	});
-}
-
-
-
-/************************************************************************************************
- * Function : 작성한 정보 inset하기
- * @param 	: null
- * @return 	: null
-************************************************************************************************/
+    form.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            return false;
+        }
+    });
+});
 
 function order() {
-				
-	let pname = $("#pname").val();			 
-	let content = $("#content").val();
-	let count = $("#count").val();
-	let productid = $("#productid").val();
-
+	
+	let form = document.categoryForm;
+	let regExp = /^\d+$/;
+	let num = 0;
+	
+	let nullMsg = "수량을 입력하세요.";
+	let checkMsg = "숫자만 입력하세요.";
+	let regSpan = document.getElementById("reg");
+	
+	let rcount = form.rcount.value;
+	
+	if(rcount == "") {
+		regSpan.style.display = "block";
+		regSpan.innerText = nullMsg;
+		form.rcount.select()
+		num++;
+		return
+	} 
+	
+	if(!regExp.test(rcount)) {
+		regSpan.style.display = "block";
+		regSpan.innerText = checkMsg;
+		num++;
+		return;
+	}
+	
+	
+	if(num == 0 ) {
+		let form = document.categoryForm;
+		alert('입고요청 되었습니다.')
+		form.method="get";
+		form.action = "adminOrderInsert";
+		form.submit();
 		
-	$.ajax({
-		
-		type : "POST",
-		url : "orderProduct.do",
-		data : {
-			count : count,
-			productid : productid,
-			content : content
-		},
-		success : function(response){
-				 if (response == "2") {
-					alert(pname+"["+count+"개 요청되었습니다.")
-	                window.location.replace("/SellreMarket/adminOrder.jsp"); 
-	         	} else {
-	         		alert('수정에 실패했습니다.')
-	         	}
-	        },
-		 error:function(request, status, error){
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		}
-		
-	});
+	}
 }

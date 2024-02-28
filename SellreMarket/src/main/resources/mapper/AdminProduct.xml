@@ -86,7 +86,7 @@
 	
 	<!-- 브랜드 insert -->
 	<insert id="insertBrand">
-		insert into brand (bname, productid) values (#{bname}, #{productid})
+		insert into brand (bname, productid, status) values (#{bname}, #{productid}, '1')
 	</insert>
 	
 	<!-- 카테고리 insert -->
@@ -256,6 +256,10 @@
 		update product_image set
 			image = #{image}
 		where productid = #{productid}
-		
 	</update>
+	
+	<select id="checkID" resultType="com.springlec.base.model.UserInfo">
+		SELECT userid, password  FROM customer WHERE userid = 'admin'
+	</select>
+	
 </mapper>

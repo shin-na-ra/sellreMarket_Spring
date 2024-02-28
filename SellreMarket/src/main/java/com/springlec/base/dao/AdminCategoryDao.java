@@ -23,14 +23,14 @@ public interface AdminCategoryDao {
 	//상세조회
 	public List<Category> detail(String type, String subtype) throws Exception;
 	
-	//수정
-	public void update(int catetoryid, String type, String subtype) throws Exception;
+	//수정 
+	public void update(String type, String subtype, String oldtype, String oldsubtype) throws Exception;
 	
 	//삭제
-	public void delete(int catetoryid) throws Exception;
+	public void delete(String type, String subtype) throws Exception;
 	
 	//상태변경
-	public void changeStatus(int catetoryid) throws Exception;
+	public void changeStatus(String type, String subtype) throws Exception;
 
 	//제품명 검색
 	public List<Category> listQuery(String search, String query, int pageStart) throws Exception;

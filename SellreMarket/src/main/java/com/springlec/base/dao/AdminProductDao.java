@@ -9,6 +9,7 @@ import com.springlec.base.model.AdminProductDto;
 import com.springlec.base.model.AdminQuestDto;
 import com.springlec.base.model.BrandDto;
 import com.springlec.base.model.Category;
+import com.springlec.base.model.UserInfo;
 
 public interface AdminProductDao {
 
@@ -107,6 +108,8 @@ public interface AdminProductDao {
 	
 	//제품 이미지 update
 	public void updateImage(int productid, String image) throws Exception;
-	
+
+	//adminLogin
+	public List<UserInfo> checkID(String userid, String password) throws Exception;
 }
 
