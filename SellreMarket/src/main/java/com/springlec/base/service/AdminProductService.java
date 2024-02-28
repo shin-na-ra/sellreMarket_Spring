@@ -41,7 +41,7 @@ public interface AdminProductService {
 	//배달 타입 가져오기
 	public List<AdminDeliveryDto> selectDelivery() throws Exception;
 
-	public void insertInfo(String pname, String pEngname, String allery, String nutrition, int pstock, String origin, String description
+	public void insertInfo(String pname, String allery, String nutrition, int pstock, String origin, String description
 			,int price, String bname, String subtype, String type, String packkind, String packtype, String utype, String ugram, String dname, String image) throws Exception;
 	
 	//초기 subtype 가져오기
@@ -59,7 +59,7 @@ public interface AdminProductService {
 	public List<AdminProductDto> detail(int productid) throws Exception;
 	
 	//제품수정
-	public void updateInfo(String pname, String pEngname, String allery, String nutrition, int pstock, String origin, String description
+	public void updateInfo(String pname,  String allery, String nutrition, int pstock, String origin, String description
 			,int price, String bname, String subtype, String type, String packkind, String packtype, String utype, String ugram, String dname, int productid, String image) throws Exception;
 	
 	//제품 삭제
@@ -70,5 +70,8 @@ public interface AdminProductService {
 	
 	//adminLogin Check
 	public List<UserInfo> checkID(String userid, String password) throws Exception;
+	
+	//제품 다시 진행중으로 변경
+	public void changeStatus(int productid) throws Exception;
 	
 }

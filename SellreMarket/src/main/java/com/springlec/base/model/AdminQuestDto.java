@@ -10,6 +10,7 @@ public class AdminQuestDto {
 	String insertdate;
 	String answerdate;
 	String status;
+	String userid;
 	
 	public AdminQuestDto() {
 		// TODO Auto-generated constructor stub
@@ -77,6 +78,14 @@ public class AdminQuestDto {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 	
 }

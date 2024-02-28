@@ -448,6 +448,7 @@ public class AdminController {
 		
 		
 		String image = null;
+		
 		if(file != null && !file.isEmpty()) {
 			image = adminProductService.uploadFile(file);
 			adminEventService.update(eventid, ename, econtent, startdate, enddate, salerate, image);
@@ -534,7 +535,6 @@ public class AdminController {
 	@PostMapping("adminProductInsert")
 	public String adminProductInsert(HttpServletRequest request, Model model, @RequestParam("image") MultipartFile file)  throws Exception {
 		String pname = request.getParameter("pname");
-		String pEngname = request.getParameter("pEngname");
 		String allery = request.getParameter("allery");
 		String nutrition = request.getParameter("nutrition");
 		int pstock = Integer.parseInt(request.getParameter("pstock"));
@@ -556,7 +556,7 @@ public class AdminController {
 		
 		
 		//제품등록
-		adminProductService.insertInfo(pname, pEngname, allery, nutrition, pstock, origin, description
+		adminProductService.insertInfo(pname,  allery, nutrition, pstock, origin, description
 				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname, image);
 	
 		return "redirect:/adminProduct";
@@ -776,7 +776,6 @@ public class AdminController {
 	@PostMapping("adminProductUpdate")
 	public String adminProductUpdate(HttpServletRequest request, Model model, @RequestParam("image") MultipartFile file) throws Exception {
 		String pname = request.getParameter("pname");
-		String pEngname = request.getParameter("pEngname");
 		String allery = request.getParameter("allery");
 		String nutrition = request.getParameter("nutrition");
 		int pstock = Integer.parseInt(request.getParameter("pstock"));
@@ -799,7 +798,7 @@ public class AdminController {
 		if(file != null && !file.isEmpty()) image = adminProductService.uploadFile(file);
 		
 		//제품등록
-		adminProductService.updateInfo(pname, pEngname, allery, nutrition, pstock, origin, description
+		adminProductService.updateInfo(pname, allery, nutrition, pstock, origin, description
 				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname, productid, image);
 	
 		return "redirect:/adminProduct";
@@ -884,5 +883,19 @@ public class AdminController {
 		
 		return "adminLogin";
 	}
+	
+	//제품 상태 변경 - 다시 살려!!
+	@PostMapping("changeProductStatus")
+	public String changeProductStatus(HttpServletRequest request, Model model) throws Exception {
+		
+		int productid = Integer.parseInt(request.getParameter("productid"));
+		
+		adminProductService.changeStatus(productid);
+		System.out.println("dddd  L: " + productid);
+		
+		return "redirect:/adminProduct";
+	}
+	
+	
 	
 }

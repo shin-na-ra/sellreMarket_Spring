@@ -1,4 +1,13 @@
+document.addEventListener("DOMContentLoaded", function() {
+    let form = document.querySelector("form");
 
+    form.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            return false;
+        }
+    });
+});
 /************************************************************************************************
  * Function : 이미지 선택했을 때 preview에 이미지 넣기 이벤트 
  * @param 	: null
@@ -186,4 +195,12 @@ function selectSubCategory() {
 		alert('삭제되었습니다.');
 		form.action = "adminProductDelete";
 		form.submit();
+	}
+	
+	function changeProduct() {
+		let form = document.productForm;
+		alert('변경되었습니다.');
+		form.action = "changeProductStatus";
+		form.submit();
+	
 	}

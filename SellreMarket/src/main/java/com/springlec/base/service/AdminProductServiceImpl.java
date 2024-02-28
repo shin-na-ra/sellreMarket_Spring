@@ -96,16 +96,16 @@ public class AdminProductServiceImpl implements AdminProductService {
 	}
 
 	@Override
-	public void insertInfo(String pname, String pEngname, String allery, String nutrition, int pstock, String origin,
+	public void insertInfo(String pname, String allery, String nutrition, int pstock, String origin,
 			String description, int price, String bname, String subtype, String type, String packkind, String packtype,
 			String utype, String ugram, String dname, String image) throws Exception {
 		
 		
 		//제품 등록하기
-		dao.productInsert(pname, pEngname, allery, nutrition, pstock, origin, description);
+		dao.productInsert(pname, allery, nutrition, pstock, origin, description);
 		
 		//등록된 제품 가져오기
-		int productid = dao.getProductId(pname, pEngname, allery);
+		int productid = dao.getProductId(pname, allery);
 		
 		//가격 등록
 		dao.insertPrice(price, productid);
@@ -175,12 +175,12 @@ public class AdminProductServiceImpl implements AdminProductService {
 	}
 
 	@Override
-	public void updateInfo(String pname, String pEngname, String allery, String nutrition, int pstock, String origin,
+	public void updateInfo(String pname, String allery, String nutrition, int pstock, String origin,
 			String description, int price, String bname, String subtype, String type, String packkind, String packtype,
 			String utype, String ugram, String dname, int productid, String image) throws Exception {
 		
 		//제품 등록하기
-		dao.productUpdate(pname, pEngname, allery, nutrition, pstock, origin, description, productid);
+		dao.productUpdate(pname, allery, nutrition, pstock, origin, description, productid);
 		
 		//가격 등록
 		dao.updatePrice(price, productid);
@@ -230,4 +230,11 @@ public class AdminProductServiceImpl implements AdminProductService {
 	public List<UserInfo> checkID(String userid, String password) throws Exception {
 		return dao.checkID(userid, password);
 	}
+
+	@Override
+	public void changeStatus(int productid) throws Exception {
+		dao.changeStatus(productid);
+	}
+	
+	
 }

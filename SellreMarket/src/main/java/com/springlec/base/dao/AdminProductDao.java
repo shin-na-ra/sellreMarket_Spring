@@ -41,10 +41,10 @@ public interface AdminProductDao {
 	public List<AdminDeliveryDto> selectDelivery() throws Exception;
 	
 	//제품등록
-	public void productInsert(String pname, String pEngname, String allery, String nutrition, int pstock, String origin, String description) throws Exception;
+	public void productInsert(String pname, String allery, String nutrition, int pstock, String origin, String description) throws Exception;
 	
 	//insert한 productid 가져오기
-	public int getProductId(String pname, String pEngname, String allery) throws Exception;
+	public int getProductId(String pname, String allery) throws Exception;
 	
 	//insert 가격
 	public void insertPrice(int price, int productid) throws Exception;
@@ -80,7 +80,7 @@ public interface AdminProductDao {
 	public List<AdminProductDto> detail(int productid) throws Exception;
 	
 	//제품 수정
-	public void productUpdate(String pname, String pEngname, String allery, String nutrition, int pstock, String origin, String description, int productid) throws Exception;
+	public void productUpdate(String pname, String allery, String nutrition, int pstock, String origin, String description, int productid) throws Exception;
 	
 	//가격 수정
 	public void updatePrice(int price, int productid) throws Exception;
@@ -111,5 +111,8 @@ public interface AdminProductDao {
 
 	//adminLogin
 	public List<UserInfo> checkID(String userid, String password) throws Exception;
+	
+	//제품 다시 진행중으로 변경
+	public void changeStatus(int productid) throws Exception;
 }
 
