@@ -14,7 +14,7 @@
 <body>
 	<div class="css-16h7nba e1p13h9k3">
 		<div class="css-pqw0uk e1p13h9k52">
-			<a href="Login.jsp" rel="noreferrer" target="_self"
+			<a href="#" rel="noreferrer" target="_self"
 				class="css-129c9b5 e1p13h9k1"><div>
 					관리자님<b> &nbsp;환영합니다!</b>
 				</div></a>
@@ -27,14 +27,14 @@
 			<div class="css-r7wmjj e15sbxqa3">
 				<div class="css-boc80u ekdqe1a1">
 					<div class="css-boc80u ekdqe1a1">
-					<a href="header.jsp"> <img src="image/Sellre.png"
+					<a href="#"> <img src="image/Sellre.png"
 						alt="셀리마켓 로고" class="css-17mnrrx e1s3pt0j0">
 						<button class="active css-mxd3pm ekdqe1a0">셀리마켓</button>
 					</a>
 					<div class="css-1xfyvd1 eo7pjfk4">
 						<a class="css-xygizb eo7pjfk2" href="#"></a>
 						<div class="css-1qgm48u eo7pjfk0"></div>
-						<a class="css-oyffzd eo7pjfk2" href="logout.do">로그아웃</a>
+						<a class="css-oyffzd eo7pjfk2" href="adminLogout">로그아웃</a>
 						<div class="css-1qgm48u eo7pjfk0"></div>
 					</div>
 				</div>

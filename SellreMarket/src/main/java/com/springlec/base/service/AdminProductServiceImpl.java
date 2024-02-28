@@ -17,6 +17,7 @@ import com.springlec.base.model.AdminPageDto;
 import com.springlec.base.model.AdminProductDto;
 import com.springlec.base.model.BrandDto;
 import com.springlec.base.model.Category;
+import com.springlec.base.model.UserInfo;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -223,5 +224,10 @@ public class AdminProductServiceImpl implements AdminProductService {
 			file.transferTo(new File(path + "/" + image));
 		}
 		return image;
+	}
+
+	@Override
+	public List<UserInfo> checkID(String userid, String password) throws Exception {
+		return dao.checkID(userid, password);
 	}
 }

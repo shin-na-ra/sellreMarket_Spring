@@ -180,6 +180,11 @@
 							
 						<li class=" css-slkv2p e13nap1l1"><a href="user_guide.jsp"
 							target="_self" class="css-1tfhwyj e13nap1l0">이용안내</a></li>
+							
+							
+						<li class=" css-slkv2p e13nap1l1"><a href="adminLogin"
+							target="_self" class="css-1tfhwyj e13nap1l0">관리자로그인</a></li>
+								
 					</ul>
 
 					<div class="css-bz7mfs ebj6vxr2">

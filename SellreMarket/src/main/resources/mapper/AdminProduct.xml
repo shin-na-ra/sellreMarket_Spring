@@ -256,6 +256,10 @@
 		update product_image set
 			image = #{image}
 		where productid = #{productid}
-		
 	</update>
+	
+	<select id="checkID" resultType="com.springlec.base.model.UserInfo">
+		SELECT userid, password  FROM customer WHERE userid = 'admin'
+	</select>
+	
 </mapper>
