@@ -7,10 +7,10 @@
 	 var url = "";
 	 
 	 if (which == 1) {
-		var url = "signUpCondition1.jsp";		 
+		var url = "http://localhost:8080/signUpCondition1"; 
 	 }
 	 else if (which == 2) {
-		 var url = "signUpCondition2.jsp";
+		 var url = "http://localhost:8080/signUpCondition2";
 	 }
 	
 	var width = 400;  // 팝업 창의 가로 크기
@@ -23,5 +23,6 @@
 	
 	var features = "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top + ", resizable=no, scrollbars=no, toolbar=no, menubar=no";
 	window.open(url, "_blank", features);
- }
+	
+}
  

@@ -11,29 +11,9 @@ public class Product {
 	4. Description : view 관련 DTO
 */
 	
-	int yid;
-	String yname;
-	String ysrc;
-	String ytitle;
-	int rid;
-	String rcontent;
-	int pid;
 	String pname;
-	String pengname;
-	String allery;
-	String nutrition;
-	int pstock;
-	Date pinsertdate;
-	String origin;
-	Date expirationdate;
-	String description;
-	int status;
-	int priceid;
 	String dPrice;
 	String price;
-	String recipelike;
-	String ename;
-	String econtent;
 	String eimg;
 	int recipeid;
 	int productid;
@@ -75,11 +55,11 @@ public class Product {
 		this.detailaddress = detailaddress;
 	}
 
-	public Product(String pname, String price, String dPrice, String pimage, String plikecount, int productid, String salerate) {
+	public Product(String price, String dPrice, String pname, String pimage, String plikecount, int productid, String salerate) {
 		super();
-		this.pname = pname;
 		this.price = price;
 		this.dPrice = dPrice;
+		this.pname = pname;
 		this.pimage = pimage;
 		this.plikecount = plikecount;
 		this.productid = productid;
@@ -97,112 +77,6 @@ public class Product {
 		this.pimage = pimage;
 		this.cartid = cartid;
 	}
-	
-	public Product(String yname, String ysrc, String ytitle, String price, String dPrice, String recipelike, int recipeid, String salerate) {
-		super();
-		this.yname = yname;
-		this.ysrc = ysrc;
-		this.ytitle = ytitle;
-		this.price = price;
-		this.dPrice = dPrice;
-		this.recipelike = recipelike;
-		this.recipeid = recipeid;
-		this.salerate = salerate;
-	}
-	
-	public Product(int yid, String yname, String ysrc, String ytitle, int rid, String rcontent, int pid, String pname,
-			String pengname, String allery, String nutrition, int pstock, Date pinsertdate, String origin,
-			Date expirationdate, String description, int status, int priceid, String dPrice, String price,
-			String recipelike, String ename, String econtent, String eimg, int recipeid, int productid, String pimage,
-			String plikecount, String salerate, int qty) {
-		super();
-		this.yid = yid;
-		this.yname = yname;
-		this.ysrc = ysrc;
-		this.ytitle = ytitle;
-		this.rid = rid;
-		this.rcontent = rcontent;
-		this.pid = pid;
-		this.pname = pname;
-		this.pengname = pengname;
-		this.allery = allery;
-		this.nutrition = nutrition;
-		this.pstock = pstock;
-		this.pinsertdate = pinsertdate;
-		this.origin = origin;
-		this.expirationdate = expirationdate;
-		this.description = description;
-		this.status = status;
-		this.priceid = priceid;
-		this.dPrice = dPrice;
-		this.price = price;
-		this.recipelike = recipelike;
-		this.ename = ename;
-		this.econtent = econtent;
-		this.eimg = eimg;
-		this.recipeid = recipeid;
-		this.productid = productid;
-		this.pimage = pimage;
-		this.plikecount = plikecount;
-		this.salerate = salerate;
-		this.qty = qty;
-	}
-
-	public int getYid() {
-		return yid;
-	}
-
-	public void setYid(int yid) {
-		this.yid = yid;
-	}
-
-	public String getYname() {
-		return yname;
-	}
-
-	public void setYname(String yname) {
-		this.yname = yname;
-	}
-
-	public String getYsrc() {
-		return ysrc;
-	}
-
-	public void setYsrc(String ysrc) {
-		this.ysrc = ysrc;
-	}
-
-	public String getYtitle() {
-		return ytitle;
-	}
-
-	public void setYtitle(String ytitle) {
-		this.ytitle = ytitle;
-	}
-
-	public int getRid() {
-		return rid;
-	}
-
-	public void setRid(int rid) {
-		this.rid = rid;
-	}
-
-	public String getRcontent() {
-		return rcontent;
-	}
-
-	public void setRcontent(String rcontent) {
-		this.rcontent = rcontent;
-	}
-
-	public int getPid() {
-		return pid;
-	}
-
-	public void setPid(int pid) {
-		this.pid = pid;
-	}
 
 	public String getPname() {
 		return pname;
@@ -212,116 +86,12 @@ public class Product {
 		this.pname = pname;
 	}
 
-	public String getPengname() {
-		return pengname;
-	}
-
-	public void setPengname(String pengname) {
-		this.pengname = pengname;
-	}
-
-	public String getAllery() {
-		return allery;
-	}
-
-	public void setAllery(String allery) {
-		this.allery = allery;
-	}
-
-	public String getNutrition() {
-		return nutrition;
-	}
-
-	public void setNutrition(String nutrition) {
-		this.nutrition = nutrition;
-	}
-
-	public int getPstock() {
-		return pstock;
-	}
-
-	public void setPstock(int pstock) {
-		this.pstock = pstock;
-	}
-
-	public Date getPinsertdate() {
-		return pinsertdate;
-	}
-
-	public void setPinsertdate(Date pinsertdate) {
-		this.pinsertdate = pinsertdate;
-	}
-
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	public Date getExpirationdate() {
-		return expirationdate;
-	}
-
-	public void setExpirationdate(Date expirationdate) {
-		this.expirationdate = expirationdate;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public int getPriceid() {
-		return priceid;
-	}
-
-	public void setPriceid(int priceid) {
-		this.priceid = priceid;
-	}
-
 	public String getPrice() {
 		return price;
 	}
 
 	public void setPrice(String price) {
 		this.price = price;
-	}
-
-	public String getLike() {
-		return recipelike;
-	}
-
-	public void setLike(String recipelike) {
-		this.recipelike = recipelike;
-	}
-
-	public String getEname() {
-		return ename;
-	}
-
-	public void setEname(String ename) {
-		this.ename = ename;
-	}
-
-	public String getEcontent() {
-		return econtent;
-	}
-
-	public void setEcontent(String econtent) {
-		this.econtent = econtent;
 	}
 
 	public String getEimg() {
@@ -370,14 +140,6 @@ public class Product {
 
 	public void setdPrice(String dPrice) {
 		this.dPrice = dPrice;
-	}
-
-	public String getRecipelike() {
-		return recipelike;
-	}
-
-	public void setRecipelike(String recipelike) {
-		this.recipelike = recipelike;
 	}
 
 	public String getSalerate() {
