@@ -8,30 +8,30 @@ public interface ProductDao {
 	
 	// New Product
 	// main new Product info 
-	public List<Product> newProductView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> newProductView(int limitFrom, int countPerPage) throws Exception;
 	// new Product info align asc
-	public List<Product> newProductAlignAscView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> newProductAlignAscView(int limitFrom, int countPerPage) throws Exception;
 	// new Product info align desc
-	public List<Product> newProductAlignDescView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> newProductAlignDescView(int limitFrom, int countPerPage) throws Exception;
 	// new ad Img 
 	public String newAdImg() throws Exception;
 	
 	// Best Product
 	// main Best Product info 
-	public List<Product> bestProductView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> bestProductView(int limitFrom, int countPerPage) throws Exception;
 	// Best Product info align asc
-	public List<Product> bestProductAlignAscView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> bestProductAlignAscView(int limitFrom, int countPerPage) throws Exception;
 	// Best Product info align desc
-	public List<Product> bestProductAlignDescView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> bestProductAlignDescView(int limitFrom, int countPerPage) throws Exception;
 	public List<Product> bestAdImgs() throws Exception;
 	
 	// Recipe Product
 	// main Recipe Product info 
-	public List<Product> recipeProductView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> recipeProductView(int limitFrom, int countPerPage) throws Exception;
 	// Recipe Product info align asc
-	public List<Product> recipeProductAlignAscView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> recipeProductAlignAscView(int limitFrom, int countPerPage) throws Exception;
 	// Recipe Product info align desc
-	public List<Product> recipeProductAlignDescView(int limitFrom, int countPerPage, String id, int curPage) throws Exception;
+	public List<Product> recipeProductAlignDescView(int limitFrom, int countPerPage) throws Exception;
 	
 	
 	
@@ -60,8 +60,8 @@ public interface ProductDao {
 	public Product orderList(String id, int cartid) throws Exception;
 	public Product userInfo(String id) throws Exception;
 	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception;
-//	public void deleteCart(int cartid) throws Exception;
 	public void updateCartStatus(int cartid) throws Exception;
+//	public void deleteCart(int cartid) throws Exception;
 	// check Purchaseid
 	public Integer[] checkPurchaseid() throws Exception;
 	

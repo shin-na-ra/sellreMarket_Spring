@@ -15,7 +15,7 @@
 		)
 	</insert>
 	
-	<select id="findCartsByUserId" resultType="com.springlec.sellre.dao.projection.CartListViewProjection">
+	<select id="findCartsByUserId" resultType="com.springlec.sellre.model.CartListViewProjection">
 		SELECT
 			c.cartid as cartId,
 			c.productid as productId,
