@@ -281,17 +281,18 @@ public class ProductServiceImpl implements ProductService{
 		return result;
 	}
 	
-//	// 구매할 때 고객 정보와 sum result 값
-//	@Override
-//	public Product userInfo(String id) throws Exception {
-//		// TODO Auto-generated method stub
-//		return dao.userInfo(id);
-//	}
+	// 구매할 때 고객 정보
+	@Override
+	public Product userInfo(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.userInfo(id);
+	}
 	// insert purchase and delete cart
 	@Override
 	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception {
-		dao.finalOrderBtn(qty, id, cartid, paymethod, purchaseid);
-		dao.deleteCart(cartid);
+		System.out.println(cartid);
+//		dao.finalOrderBtn(qty, id, cartid, paymethod, purchaseid);
+//		dao.updateCartStatus(cartid);
 	}
 	
 	@Override

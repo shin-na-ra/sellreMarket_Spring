@@ -58,9 +58,10 @@ public interface ProductDao {
 	
 	// Order
 	public Product orderList(String id, int cartid) throws Exception;
-	public Product userInfo(String id, int cartid) throws Exception;
+	public Product userInfo(String id) throws Exception;
 	public void finalOrderBtn(int qty, String id, int cartid, int paymethod, int purchaseid) throws Exception;
-	public void deleteCart(int cartid) throws Exception;
+//	public void deleteCart(int cartid) throws Exception;
+	public void updateCartStatus(int cartid) throws Exception;
 	// check Purchaseid
 	public Integer[] checkPurchaseid() throws Exception;
 	
