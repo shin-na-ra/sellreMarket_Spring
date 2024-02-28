@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springlec.sellre.dao.CartDao">
+
+	<insert id="save">
+		INSERT INTO cart (
+				userid,
+				productid,
+				qty
+		) VALUES (
+				#{userId},
+				#{productId},
+				#{amount}
+		)
+	</insert>
+	
+	<select id="findCartsByUserId" resultType="com.springlec.sellre.dao.projection.CartListViewProjection">
+		SELECT
+			c.cartid as cartId,
+			c.productid as productId,
+			c.recipeid as recipeId,
+			c.qty as amount,
+			prod.pname as productName,
+			price.priceid as priceId,
+			price.price as price,
+			event.eventid as eventId,
+			event.salerate as saleRate,
+			img.image as imagePath
+		FROM cart c
+			INNER JOIN product prod
+				ON c.productid = prod.productid
+			INNER JOIN price
+				ON c.productid = price.productid
+			LEFT JOIN event
+				ON c.productid = event.productid
+			LEFT JOIN product_image img
+				on c.productid = img.productid
+		WHERE c.userid = #{userId}
+	</select>
+	
+	<update id="updateAmountByCartId">
+		UPDATE cart
+		SET qty = #{amount}
+		WEHRE cartid = #{cartId}
+	</update>
+	
+	<select id="existsByUserIdAndCartId">
+		SELECT count(cartid) as result
+		FROM sellremarket.cart
+		WHERE cartid = #{cartId}
+			AND userid = #{userId}
+	</select>
+	
+	<delete id="deleteByCartId">
+		DELETE FROM cart
+		WHERE cartid = #{cartId}
+	</delete>
+	
+</mapper>
