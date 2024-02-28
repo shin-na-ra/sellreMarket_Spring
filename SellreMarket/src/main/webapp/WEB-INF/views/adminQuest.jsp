@@ -33,6 +33,7 @@
 					<table style="text-align:center;">
 						<tr>
 							<th>행번호</th>
+							<th>사용자아이디</th>
 							<th>문의제목</th>
 							<th>문의일자</th>
 							<th>상태</th>
@@ -41,6 +42,7 @@
 						<c:forEach items="${list}" var="dto">
 							<tr>
 								<td><a href="adminQuestDetail?inquiryid=${dto.inquiryid }">${rowNum}</a></td>
+								<td><a href="adminQuestDetail?inquiryid=${dto.inquiryid }">${dto.userid}</a></td>
 								<td><a href="adminQuestDetail?inquiryid=${dto.inquiryid }">${dto.intitle }</a></td>
 								<td><a href="adminQuestDetail?inquiryid=${dto.inquiryid }">${dto.insertdate }</a></td>
 								<td><a href="adminQuestDetail?inquiryid=${dto.inquiryid }">${dto.status }</a></td>

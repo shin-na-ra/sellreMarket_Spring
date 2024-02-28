@@ -6,11 +6,12 @@
 	<!-- 고객문의 페이지에 맞게 리스트 가져오기  -->
 	 <select id="questList" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.AdminQuestDto">
 		SELECT inquiryid,
+		userid,
 		intitle,
 		DATE_FORMAT(insertdate,'%Y-%m-%d') as insertdate,
         status
 		FROM (
-		    SELECT ROW_NUMBER() OVER (ORDER BY inquiryid desc) AS num, b.inquiryid, intitle, insertdate, status
+		    SELECT ROW_NUMBER() OVER (ORDER BY inquiryid desc) AS num, b.inquiryid, intitle, insertdate, status, userid
 		    FROM personal_inquiry b 
 		) AS t
         WHERE num BETWEEN #{pageStart} AND #{pageStart}+14
@@ -26,7 +27,7 @@
 	<!-- 고개문의 상세 조회 -->
 	<select id="detail" parameterType="com.springlec.base.model.AdminQuestDto">
         SELECT 
-        
+        	userid,
         	inquiryid,
 	        intitle,
 	        incontent,
@@ -53,11 +54,12 @@
 	
 	 <select id="listQuery" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.AdminQuestDto">
 		 SELECT inquiryid,
+		 userid,
 			intitle,
 			DATE_FORMAT(insertdate,'%Y-%m-%d') as insertdate,
 	        status
 			FROM (
-			    SELECT ROW_NUMBER() OVER (ORDER BY inquiryid) AS num, b.inquiryid, intitle, insertdate, status
+			    SELECT ROW_NUMBER() OVER (ORDER BY inquiryid) AS num, b.inquiryid, intitle, insertdate, status, userid
 			    FROM personal_inquiry b 
 			) AS t
 	        WHERE num BETWEEN ${pageStart} AND ${pageStart}+14 and ${query} like #{search}

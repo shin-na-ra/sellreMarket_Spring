@@ -30,6 +30,9 @@
 							    <img id="preview" src="${dto.inimage}" style="max-width: 100%; max-height: 200px;">
 							</c:if>
 							
+							<label for="userid">사용자 아이디</label>
+							<input type="text" id="userid" name="userid" value="${dto.userid }" readonly="readonly" style="background-color: #efefef;">
+							
 							<label for="intitle">문의 제목</label>
 							<input type="text" id="intitle" name="intitle" value="${dto.intitle }" readonly="readonly" style="background-color: #efefef;">
 					
