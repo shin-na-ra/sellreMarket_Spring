@@ -70,13 +70,13 @@
 	
 	<!-- 제품 insert -->
 	<insert id="productInsert">
-		insert into product (pname, pEngname, allery, nutrition, pstock, origin, description, status, pinsertdate)
-		values (#{pname}, #{pEngname}, #{allery}, #{nutrition}, #{pstock}, #{origin}, #{description}, '1', now())
+		insert into product (pname,  allery, nutrition, pstock, origin, description, status, pinsertdate)
+		values (#{pname},  #{allery}, #{nutrition}, #{pstock}, #{origin}, #{description}, '1', now())
 	</insert> 
 
 	<!-- 제품 id 가져오기 -->	
 	<select id="getProductId" resultType="Integer"  parameterType="com.springlec.base.model.AdminProductDto">
-		select productid from product where pname = #{pname} and pEngname = #{pEngname} and allery = #{allery}
+		select productid from product where pname = #{pname} and allery = #{allery}
 	</select>
 	
 	<!-- 가격 insert -->
@@ -151,7 +151,6 @@
         select 
 			p.productid,
 			p.pname,
-            p.pEngname,
 			p.allery,
             p.nutrition,
             p.pstock,
@@ -187,7 +186,6 @@
 	<update id="productUpdate">
 		update product set 
 			pname  = #{pname}, 
-			pEngname = #{pEngname}, 
 			allery = #{allery}, 
 			nutrition = #{nutrition},
 			pstock = #{pstock}, 

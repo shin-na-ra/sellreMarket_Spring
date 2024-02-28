@@ -56,11 +56,6 @@
 							</div>
 							
 							<div class="form-group">
-								<label for="pEngname">영문명 *</label>
-								<input type="text" id="pEngname" name="pEngname" value="${item.pEngname }">
-							</div>
-							
-							<div class="form-group">
 								<label for="allery">알레르기</label>
 								<input type="text" id="allery" name="allery" value="${item.allery }">
 							</div>
@@ -188,12 +183,6 @@
 								<label for="pname">제품명 *</label>
 								<input type="text" id="pname" name="pname" value="${item.pname }" readonly="readonly" style="background-color: #efefef;">
 							</div>
-							
-							<div class="form-group">
-								<label for="pEngname">영문명 *</label>
-								<input type="text" id="pEngname" name="pEngname" value="${item.pEngname }" readonly="readonly" style="background-color: #efefef;">
-							</div>
-							
 							<div class="form-group">
 								<label for="allery">알레르기</label>
 								<input type="text" id="allery" name="allery" value="${item.allery }" readonly="readonly" style="background-color: #efefef;">

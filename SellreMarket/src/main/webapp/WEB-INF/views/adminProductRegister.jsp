@@ -43,11 +43,11 @@
 						<input type="text" id="pname" name="pname">
 					</div>
 					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="pEngname">영문명 *</label>
 						<input type="text" id="pEngname" name="pEngname">
 					</div>
-					
+					 -->
 					<div class="form-group">
 						<label for="allery">알레르기</label>
 						<input type="text" id="allery" name="allery">

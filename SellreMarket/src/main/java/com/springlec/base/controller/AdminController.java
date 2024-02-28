@@ -535,7 +535,6 @@ public class AdminController {
 	@PostMapping("adminProductInsert")
 	public String adminProductInsert(HttpServletRequest request, Model model, @RequestParam("image") MultipartFile file)  throws Exception {
 		String pname = request.getParameter("pname");
-		String pEngname = request.getParameter("pEngname");
 		String allery = request.getParameter("allery");
 		String nutrition = request.getParameter("nutrition");
 		int pstock = Integer.parseInt(request.getParameter("pstock"));
@@ -557,7 +556,7 @@ public class AdminController {
 		
 		
 		//제품등록
-		adminProductService.insertInfo(pname, pEngname, allery, nutrition, pstock, origin, description
+		adminProductService.insertInfo(pname,  allery, nutrition, pstock, origin, description
 				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname, image);
 	
 		return "redirect:/adminProduct";
@@ -777,7 +776,6 @@ public class AdminController {
 	@PostMapping("adminProductUpdate")
 	public String adminProductUpdate(HttpServletRequest request, Model model, @RequestParam("image") MultipartFile file) throws Exception {
 		String pname = request.getParameter("pname");
-		String pEngname = request.getParameter("pEngname");
 		String allery = request.getParameter("allery");
 		String nutrition = request.getParameter("nutrition");
 		int pstock = Integer.parseInt(request.getParameter("pstock"));
@@ -800,7 +798,7 @@ public class AdminController {
 		if(file != null && !file.isEmpty()) image = adminProductService.uploadFile(file);
 		
 		//제품등록
-		adminProductService.updateInfo(pname, pEngname, allery, nutrition, pstock, origin, description
+		adminProductService.updateInfo(pname, allery, nutrition, pstock, origin, description
 				,price, bname, subtype, type, packkind, packtype, utype, ugram, dname, productid, image);
 	
 		return "redirect:/adminProduct";
