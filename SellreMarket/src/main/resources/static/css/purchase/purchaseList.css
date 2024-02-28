@@ -12,10 +12,12 @@
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    font-size: 1.25rem;
+    font-size: 2rem;
     line-height: 1.4;
     letter-spacing: -0.5px;
     color: rgb(15, 15, 15);
+    padding-top: 50px; 
+    padding-bottom: 3px; 
 }
 
 /*구매목록 검색 + 년도 버튼*/
@@ -65,12 +67,11 @@
 }
 
 /* ---상품 목록 리스트---*/
-.fullList{
+.fullListContainer{
     display: flex;
     justify-content: center; 
     align-items: center; 
 }
-
 
 /* 구매 번호별*/
 .purchaseNumListContainer {
@@ -259,4 +260,77 @@
 
 .purchaseNumListBottom {
     margin-top: 10px;
+}
+
+
+/* 구매 상세 페이지 */
+.margin {
+    margin-top: 10px;
+}
+
+.contentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;	
+}
+
+.contentCenter {
+    width: 800px;
+    margin-top: 25px;
+}
+
+.contentTitle {
+    padding-bottom: 12px;
+    color: rgb(17, 17, 17);
+    font-size: 1rem;
+}
+
+.contentTable {
+    border-top: 2px solid rgb(51, 51, 51);
+    border-bottom: 1px solid rgb(204, 204, 204);
+    width: 100%;
+    font-size: 0.75rem;
+}
+
+.contentCaption {
+    display: table-caption;
+    position: static;
+    height: 0px;
+    line-height: 0;
+    overflow: hidden;
+    font-size: 0px;
+    width: 1px;
+    text-indent: -9999px;
+    text-align: left;
+}
+
+.customerInformationTbody {
+    font-size: 0.875rem;
+}
+
+.customerInformationTr:first-child th, 
+.customerInformationTr:first-child td {
+    padding: 14px 0px 4px;
+}
+
+.customerInformationTitle {
+    font-weight: normal;
+    padding: 4px 0px;
+    text-align: left;
+}
+
+.customerInformationContent {
+    font-weight: normal;
+    color: rgb(17, 17, 17);
+}
+
+.customerInformationMargin {
+    font-weight: normal;
+    color: rgb(17, 17, 17);
+    text-align: right;
+}
+
+.customerInformationTr:last-child th, 
+.customerInformationTr:last-child td {
+    padding: 4px 0px 13px;
 }

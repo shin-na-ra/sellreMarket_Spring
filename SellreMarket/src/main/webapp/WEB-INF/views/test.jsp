@@ -10,5 +10,6 @@
 <body>
 	<p>${productId} : productid</p> 
 	<p>${recipeId} : recipeid </p> 
+	<p>${}</p>
 </body>
 </html>

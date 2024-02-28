@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -251,8 +252,8 @@
 			<div class="css-ixlb9s epvroj94">
 				<div class="css-zo1i6f edbbr7c2">
 			  	<h3 class="css-1ddzp0m edbbr7c1">주문 상품</h3>
-			  	<button data-testid="fold-button" class="css-lvqq7y e17cst860" id="fold" onclick="toggleDropdown()">
-				  <!-- ^ 버튼 -->
+			  	<!-- <button data-testid="fold-button" class="css-lvqq7y e17cst860" id="fold" onclick="toggleDropdown()">
+				  ^ 버튼
 				  <svg id="fold-svg" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" style="display:none;">
 				    <defs>
 				    	<path id="7a02qqg3ja" d="M11 12h9v9"></path>
@@ -262,7 +263,7 @@
 				      <use stroke="#333" stroke-width="2" stroke-linecap="round" transform="rotate(-45 15.5 16.5)" href="#7a02qqg3ja"></use>
 				    </g>
 				  </svg>
-				  <!-- v 표시 -->
+				  v 표시
 				  <svg id="open-svg" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
 				    <defs>
 				      <path id="7a02qqg3ja" d="M15 11l6 9h-12z"></path>
@@ -272,7 +273,7 @@
 				      <use stroke="#333" stroke-width="2" stroke-linecap="round" transform="rotate(136 15 19.5)" href="#7a02qqg3ja"></use>
 				    </g>
 				  </svg>
-				</button>
+				</button> -->
 			</div>
 
 				<%-- <div class="css-bd9p1l e17a7yib10">
@@ -300,7 +301,7 @@
 				    <c:forEach items="${orderList}" var="item">
 				        <div class="item-container">
 				            <div class="item-image">
-				                <img src="https://img-cf.kurly.com/cdn-cgi/image/width=120,height=156,fit=crop,quality=85/shop/data/goods/1654846801479l0.jpg" alt="상품 이미지" class="css-17jyui4 e17a7yib9">
+				                <img src="${pageContext.request.contextPath}/image/product/${item.pimage}" alt="상품 이미지" class="css-17jyui4 e17a7yib9">
 				            </div>
 				            <div class="item-info">
 				                <div class="item-name">
@@ -310,8 +311,14 @@
 				                    <span class="css-1efb5i1 e17a7yib5">${item.qty}개</span>
 				                </div>
 				                <div class="item-price">
-				                    <span class="discount-price css-9dxu4e e17a7yib2">${item.price}원 할인가</span>
-				                    <span class="original-price css-jnogx7 e17a7yib3">${item.price}원 </span>
+				                	<c:if test="${item.priceNotDiscount eq item.priceGetDiscount}">
+				                		<span class="discount-price css-9dxu4e e17a7yib2"><fmt:formatNumber value="${item.priceNotDiscount}" pattern="#,### 원"/></span>
+				                	</c:if>
+				                	<c:if test="${item.priceNotDiscount ne item.priceGetDiscount}">
+					                    <span class="discount-price css-9dxu4e e17a7yib2"><fmt:formatNumber value="${item.priceGetDiscount}" pattern="#,### 원"/></span>
+					                    <br>
+					                    <span class="original-price css-jnogx7 e17a7yib3"><fmt:formatNumber value="${item.priceNotDiscount}" pattern="#,### 원"/></span>
+				                    </c:if>
 				                </div>
 				            </div>
 				        </div>
@@ -353,7 +360,7 @@
 					<div class="css-12aowi2 edbbr7c2">
 						<h3 class="css-1ddzp0m edbbr7c1">배송 정보</h3>
 						<div class="css-bjn8wh er4y7r83">
-							<a class="css-orhu8r er4y7r82">배송지 변경 안내
+							<a class="css-orhu8r er4y7r82" onclick="alert('장바구니, 홈에서 배송지를 변경할 수 있어요')">배송지 변경 안내
 								<span class="css-gwort8 er4y7r81"></span>
 							</a>
 							<div width="188" height="60" class="css-1k2fiq3 ev65imb2">
@@ -384,16 +391,15 @@
 							</div>
 						</div>
 					</div>
-					<div id="checkout-shipping-details" class="css-1y0xj4c e1pxan881">
-						<div class="css-kc45zq e150alo82">
-							<span class="css-ln1csn e150alo81">배송 요청사항</span>
+					
+					<div class="css-5d6nlw e17yjk9v4">
+						<div class="css-1gshg9u e150alo82">
+						<span class="css-ln1csn e150alo81">배송 요청사항</span>
 							<div class="css-82a6rk e150alo80">
-								<div>
-									<span class="css-11y0tcn efthce41"></span>
-								</div>
-								<div class="css-rqc9f e14u1xpe0">${userInfo.uname}, ${userInfo.tel_no}</div>
-								<div class="css-iqoq9n e1pxan880">
-									<button class="css-117jo2j e4nu7ef3" type="button" width="60" height="30" radius="3" onclick="deliveryMessage(${userInfo.uname}, ${userInfo.tel_no})">
+								<span class="css-3uygi7 e17yjk9v3">기본배송지</span>
+								<p class="css-36j4vu e17yjk9v2">${userInfo.uname} ${userInfo.tel_no}</p>
+								<div class="css-iqoq9n e17yjk9v0">
+									<button id="changeAddress" class="css-1xky6jf e4nu7ef3" type="button" width="60" height="30" radius="3" onclick="deliveryMessage(${purchaseInfo.uname}, ${purchaseInfo.tel_no})">
 										<span class="css-nytqmg e4nu7ef1">수정</span>
 									</button>
 								</div>
@@ -412,7 +418,7 @@
 					  <div class="css-gd125q e4nb37r1">
 						  <div>
 							  <div class="css-18dvwsu ef0cmoa0">
-								  <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="kakao-pay-button" color="#f6e500">
+								  <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="kakao-pay-button" color="#f6e500" onclick="payMethod(this)" id="kakao">
 								  	<span class="css-1oanxtx e106vb1p0">혜택</span>
 									  <img class="css-1wbfblw e1ewacwr0" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iMjAiIH
 									  htbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgI
@@ -435,12 +441,10 @@
 									  c3ZnPgo=" alt="카카오페이">
 								  </button>
 							  </div>
+							  
 							 <div class="css-18dvwsu ef0cmoa0">
-								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="creditcard-button">신용카드</button>
-								 <button type="button" class="css-1pvbmgb ehlmjxl0" data-testid="simplepay-button">
-								 	<span class="css-1oanxtx e106vb1p0">혜택</span>간편 결제
-								 </button>
-								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="phonebill">휴대폰</button>
+								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="creditcard-button" id="credit" onclick="payMethod(this)">신용카드</button>
+								 <button type="button" class="css-1wlyg0y ehlmjxl0" data-testid="phonebill" id="phone" onclick="payMethod(this)">휴대폰</button>
 							 </div>
 						 </div>
 						 <div class="css-nemdq9 evz7bw03">
@@ -526,7 +530,7 @@
 				  </div>
 			  </div>
 			  <ul class="css-wx42bm e4nb37r0">
-				  <li>※ 카카오페이, 토스, 네이버페이, 페이코 결제 시, 결제하신 수단으로만 환불되는 점 양해부탁드립니다.</li>
+				  <li>※ 카카오페이 결제하신 수단으로만 환불되는 점 양해부탁드립니다.</li>
 				  <li>※ 고객님은 안전거래를 위해 현금 등으로 결제시 저희 쇼핑몰에서 가입한 토스 페이먼츠의 구매안전(에스크로) 서비스를 이용하실 수 있습니다.</li>
 			  </ul>
 			  
@@ -547,144 +551,88 @@
 		  	  </div>
 			  <p class="css-1tak4sl eh5sxvr3">주문완료 상태일 경우에만 주문 취소가 가능하며, 상품 미배송 시 결제하신 수단으로 환불됩니다.</p>
 			  <p class="css-1tak4sl eh5sxvr3">컬리 내 개별 판매자가 등록한 오픈마켓 상품의 경우 컬리는 통신판매중개자로서 주문, 품질, 교환/환불 등 의무와 책임을 부담하지 않습니다.</p>
-			  <div class="css-1azakc el0c5j40">
-				  <button class="css-1lha8en e4nu7ef3" type="button" width="240" height="56" radius="3">
-				  	<span class="css-nytqmg e4nu7ef1">37,810원 결제하기</span>
-				  </button>
-			  </div>
 		  </div>
-	  
-	  
 		  <div class="css-1rz7w0y epvroj91">
-			  <div class="css-9i9om4 epvroj90">
-				  <div class="css-6hge48 edbbr7c2">
-				  <h3 class="css-1ddzp0m edbbr7c1">결제 금액</h3>
-				  </div>
-				  <div class="css-hdnk73 e12lli9y0">
-					  <div class="css-1hvttuk eahaaoi12">
-					  	  <div class="css-1rmc3ba eahaaoi11">주문금액</div>
-						  <div>
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3"></span>
-								  34,810
-							  </span>
-							  <span class="css-158icaa eahaaoi8">원</span>
-						  </div>
+				  <div class="css-9i9om4 epvroj90">
+					  <div class="css-6hge48 edbbr7c2">
+					  <h3 class="css-1ddzp0m edbbr7c1">결제 금액</h3>
 					  </div>
-					  <div class="css-sk644d eahaaoi9">
-						  <div class="css-zjik7 eahaaoi0">
-							  <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-								  <path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path>
-							  </svg>
-							  <div class="css-1rmc3ba eahaaoi11">상품금액</div>
+					  <hr/>
+					  <div class="css-hdnk73 e12lli9y0">
+						  <div class="css-1hvttuk eahaaoi12">
+						  	  <div class="css-1rmc3ba eahaaoi11">주문금액</div>
+							  <div>
+								  <span class="css-2pg1ps eahaaoi10" id="discountSum">
+									  <span class="css-rfpchb eahaaoi3"></span>
+									  ${discountSum}
+								  </span>
+								  <span class="css-158icaa eahaaoi8">원</span>
+							  </div>
 						  </div>
-						  <div>
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3"></span>
-								  36,400
-							  </span>
-							  <span class="css-158icaa eahaaoi8">원</span>
+						  <div class="css-sk644d eahaaoi9">
+							  <div class="css-zjik7 eahaaoi0">
+								  <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path>
+								  </svg>
+								  <div class="css-1rmc3ba eahaaoi11">상품금액</div>
+							  </div>
+							  <div>
+								  <span class="css-2pg1ps eahaaoi10">
+									  <span class="css-rfpchb eahaaoi3"></span>
+									  ${sum}
+								  </span>
+								  <span class="css-158icaa eahaaoi8">원</span>
+							  </div>
 						  </div>
-					  </div>
-					  <div class="css-sk644d eahaaoi9">
-						  <div class="css-zjik7 eahaaoi0">
-							  <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							  	<path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path>
-							  </svg>
-						  	<div class="css-1rmc3ba eahaaoi11">상품할인금액</div>
+						  <div class="css-sk644d eahaaoi9">
+							  <div class="css-zjik7 eahaaoi0">
+								  <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+								  	<path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path>
+								  </svg>
+							  	<div class="css-1rmc3ba eahaaoi11">상품할인금액</div>
+							  </div>
+							  <div>
+								  <span class="css-2pg1ps eahaaoi10">
+									  <span class="css-rfpchb eahaaoi3">-</span>
+									  ${discount}
+								  </span>
+								  <span class="css-158icaa eahaaoi8">원</span>
+							  </div>
 						  </div>
-						  <div>
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3">-</span>
-								  1,590
-							  </span>
-							  <span class="css-158icaa eahaaoi8">원</span>
+						  <div class="css-1bj5qaf eahaaoi12">
+							  <div class="css-1rmc3ba eahaaoi11">배송비</div>
+							  <div>
+								  <span class="css-2pg1ps eahaaoi10" id="deliveryFee">
+									  <span class="css-rfpchb eahaaoi3">+</span>
+								  		${deliveryFee}
+								  </span>
+								  <span class="css-158icaa eahaaoi8">원</span>
+							  </div>
 						  </div>
-					  </div>
-					  <div class="css-1bj5qaf eahaaoi12">
-						  <div class="css-1rmc3ba eahaaoi11">배송비</div>
-						  <div>
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3">+</span>
-								  3,000
-							  </span>
-							  <span class="css-158icaa eahaaoi8">원</span>
+						  <div class="css-1hgn7mh eahaaoi7">
+						  	  <div class="css-1rmc3ba eahaaoi11">최종결제금액</div>
+							  <div>
+								  <span class="css-2pg1ps eahaaoi10" id="totalPrice">
+									  <span class="css-rfpchb eahaaoi3"></span>
+								  		${finalResult}
+								  </span>
+							  	  <span class="css-158icaa eahaaoi8">원</span>
+							  </div>
 						  </div>
-					  </div>
-					  <div class="css-1bj5qaf eahaaoi12">
-						  <div class="css-1rmc3ba eahaaoi11">쿠폰할인</div>
-						  <div class="css-0">
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3"></span>
-								  0
-							  </span>
-							  <span class="css-158icaa eahaaoi8">원</span>
-						  </div>
-					  </div>
-					  <div class="css-1bj5qaf eahaaoi12">
-						  <div class="css-1rmc3ba eahaaoi11">카드즉시할인</div>
-						  <div class="css-37wf0k">
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3"></span>
-								  0
-							  </span>
-							  <span class="css-158icaa eahaaoi8">원</span>
-						  </div>
-					  </div>
-					  <div class="css-1hvttuk eahaaoi12">
-						  <div class="css-1rmc3ba eahaaoi11">적립금 ∙ 컬리캐시</div>
-						  <div>
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3"></span>
-								  0
-							  </span>
-							  <span class="css-158icaa eahaaoi8">원</span>
-						  </div>
-					  </div>
-					  <div class="css-sk644d eahaaoi9">
-						  <div class="css-zjik7 eahaaoi0">
-							  <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							  	<path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path>
-							  </svg>
-							  <div class="css-1rmc3ba eahaaoi11">적립금</div>
-						  </div>
-						  <div>
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3"></span>
-								  0
-							  </span>
-							  <span class="css-158icaa eahaaoi8">원</span>
-						  </div>
-					  </div>
-					  <div class="css-sk644d eahaaoi9">
-						  <div class="css-zjik7 eahaaoi0">
-							  <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							  	<path fill-rule="evenodd" clip-rule="evenodd" d="M1 5H0V10V11H1H6V10H1V5Z" fill="#ddd"></path>
-							  </svg>
-						  	<div class="css-1rmc3ba eahaaoi11">컬리캐시</div>
-						  </div>
-						  <div>
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3"></span>
-								  0
-							  </span>
-						  	  <span class="css-158icaa eahaaoi8">원</span>
-						  </div>
-					  </div>
-					  <div class="css-1hgn7mh eahaaoi7">
-					  	  <div class="css-1rmc3ba eahaaoi11">최종결제금액</div>
-						  <div>
-							  <span class="css-2pg1ps eahaaoi10">
-								  <span class="css-rfpchb eahaaoi3"></span>
-								  37,810
-							  </span>
-						  	  <span class="css-158icaa eahaaoi8">원</span>
-						  </div>
-					  </div>
-				  	  <div class="css-1ujngs9 eahaaoi1">컬리카드 결제 시 최대 1,891원 추가 적립</div>
+					  	  <div class="css-1ujngs9 eahaaoi1"></div>
+						</div>
 					</div>
 				</div>
-			</div>
+				<form action="/sccessfulOrder" method="post" id="orderForm">
+					<input type="hidden" value="${id}" name="id">
+					<input type="hidden" value="${finalResult}" name="finalResult">
+					<input type="hidden" value="" name="payMethod" id="payMethod">
+					<div class="css-1azakc el0c5j40">
+					  <button class="css-1lha8en e4nu7ef3" type="button" width="240" height="56" radius="3" onclick="confirmPurchase()">
+					  	<span class="css-nytqmg e4nu7ef1">${finalResult}원 결제하기</span>
+					  </button>
+				  </div>
+			  </form>
 		</div>
 	</div>
    
@@ -692,8 +640,6 @@
 	<!-- footer Start -->
 	<jsp:include page="footer.jsp"></jsp:include>
 	<!-- footer End -->
-	
-	
 	
 
 </body>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.springlec.base.dao.PurchaseDao">
+ 	<select id="purchaseDao">
+ 		SELECT pur.purchaseid as purchaseId, pur.purchasedate as purchaseDate, img.image as productImage, p.pname as productName, pur.finalprice as purchasePrice, pur.amount as purchaseAmount
+		FROM purchase pur, product p, cart c, product_image img
+		WHERE c.productid = p.productid
+		AND pur.cartid = c.cartid
+		AND p.productid = img.productid
+		ORDER BY pur.purchaseDate DESC, p.pname DESC
+ 	</select>
+ 	
+ 	<select id="searchInsideDao">
+ 	SELECT pur.purchaseid as purchaseId, DATE(pur.purchasedate) as purchaseDate, img.image as productImage, p.pname as productName, pur.finalprice as purchasePrice, pur.amount as purchaseAmount
+		FROM purchase pur, product p, cart c, product_image img
+		WHERE c.productid = p.productid
+		AND pur.cartid = c.cartid
+		AND p.productid = img.productid
+        and pur.purchaseid in 
+        (
+			SELECT pur.purchaseid
+			FROM purchase pur, product p, cart c, product_image img
+			WHERE c.productid = p.productid
+			AND pur.cartid = c.cartid
+			AND p.productid = img.productid
+			and p.pname like ('%제주%')
+        )
+		ORDER BY pur.purchaseDate DESC, pur.purchaseid DESC, p.pname DESC ;
+	
+<!--  		SELECT pur.purchaseid as purchaseId, pur.purchasedate as purchaseDate, img.image as productImage, p.pname as productName, pur.finalprice as purchasePrice, pur.amount as purchaseAmount -->
+<!-- 		FROM purchase pur, product p, cart c, product_image img -->
+<!-- 		WHERE c.productid = p.productid -->
+<!-- 		AND pur.cartid = c.cartid -->
+<!-- 		AND p.productid = img.productid -->
+<!-- 		AND p.pname like #{searchText} -->
+<!-- 		ORDER BY pur.purchaseDate DESC, p.pname DESC -->
+ 	</select>
+ 	
+ 	<select id="searchOutsideDao">
+ 	
+		SELECT COUNT(distinct pur.purchaseId)
+		FROM purchase pur, product p, cart c, product_image img
+		WHERE c.productid = p.productid
+		AND pur.cartid = c.cartid
+		AND p.productid = img.productid
+        and pur.purchaseid in 
+        (
+			SELECT pur.purchaseid
+			FROM purchase pur, product p, cart c, product_image img
+			WHERE c.productid = p.productid
+			AND pur.cartid = c.cartid
+			AND p.productid = img.productid
+			and p.pname like ('%제주%')
+        )
+		ORDER BY pur.purchaseid DESC;	
+ 	</select>
+ 	
+ 	<select id="detailDao" resultType="com.springlec.base.model.PurchaseDto">
+ 		SELECT pur.purchaseid as purchaseId, DATE(pur.purchasedate) as purchaseDate, img.image as productImage, p.pname as productName, pur.finalprice as purchasePrice, pur.amount as purchaseAmount
+		FROM purchase pur, product p, cart c, product_image img
+		WHERE c.productid = p.productid
+		AND pur.cartid = c.cartid
+		AND p.productid = img.productid
+		AND pur.purchaseid = #{purchaseId}
+		ORDER BY pur.purchaseDate DESC, p.pname DESC
+ 	</select>
+ 	
+ </mapper> 

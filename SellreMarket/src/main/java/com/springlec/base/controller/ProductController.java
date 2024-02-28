@@ -2,6 +2,7 @@ package com.springlec.base.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ public class ProductController {
 	@GetMapping("/main")
 	public String newProductPage(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
+		String id = null;
 		
 		String adImage = service.newAdImg();
 		String headerCategory = "신상품";
@@ -42,12 +44,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> newProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -75,12 +78,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> newProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -108,12 +112,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> newProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -143,12 +148,13 @@ public class ProductController {
 		
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> bestProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -177,12 +183,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> bestProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -210,12 +217,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> bestProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -242,12 +250,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> recipeProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -273,12 +282,13 @@ public class ProductController {
 		}
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> recipeProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -305,12 +315,13 @@ public class ProductController {
 		
 		
 		try {
-			id = request.getParameter("id");
+			id = (String) session.getAttribute("id");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		List<Product> recipeProducts = service.productView(request, id, curPage, headerCategory, alignCategory);
+		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
 		session.setAttribute("headerCategory", headerCategory);
@@ -352,45 +363,40 @@ public class ProductController {
 	
 	/************* TEST Start *************/
 	// get in product detail for test
-//	@GetMapping("/productDetailPage")
-//	public String pDeatilPage(HttpServletRequest request, Model model) {
-//		model.addAttribute("productId", request.getParameter("productId"));
-//		try { 
-//			model.addAttribute("recipeId", request.getParameter("recipeId"));
-//		}catch (Exception e) {
-//			model.addAttribute("recipeId", null);
-//			e.printStackTrace();
-//		}
-//		return "test";
-//	}
+	// productDetailPage
+	@GetMapping("/productDetail")
+	public String pDeatilPage(HttpServletRequest request, Model model) {
+		model.addAttribute("productId", request.getParameter("productId"));
+		
+		return "test";
+	}
 	
 	// get in recipe detail for test
-//	@GetMapping("/recipeDetailPage")
-//	public String rDeatilPage(HttpServletRequest request, Model model) {
-//		model.addAttribute("recipeId", request.getParameter("recipeId"));
-//		try { 
-//			model.addAttribute("productId", request.getParameter("productId"));
-//		}catch (Exception e) {
-//			model.addAttribute("productId", null);
-//			e.printStackTrace();
-//		}
-//		return "test";
-//	}
+	// recipeDetailPage
+	@GetMapping("/recipeDetail")
+	public String rDeatilPage(HttpServletRequest request, Model model) {
+		model.addAttribute("recipeId", request.getParameter("recipeId"));
+		
+		return "test";
+	}
 	/************* TEST End *************/
 	
 	
 	/************* Order Start *************/
 	@GetMapping("/order")
-	public String order(Model model) throws Exception {
-		
+	public String order(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
 		// test 용
 		id = "admin";
-				
-		List<Product> list = service.purchaseList();
-		Product userInfo = service.userInfo(id);
+//		int deliveryFee = 0;
 		
+		List<Product> list = service.orderList(id, request);
+		
+		model.addAttribute("id", id);
 		model.addAttribute("orderList", list);
-		model.addAttribute("userInfo", userInfo);
+		// if 구매한다면 정보를 받기 위해 session으로 보냄
+		session.setAttribute("orderList", list);
+		// 구매할 때 고객 정보와 sum result 값
 		
 		return "purchaseProduct";
 	}
@@ -401,27 +407,33 @@ public class ProductController {
 	@PostMapping("/getCart")
 	public ResponseEntity<Integer> getCart(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
+		int productid = 0;
+		int queryQty = 0;
 		
 		// ID 받기
 		id = request.getParameter("id");
-		
 		// productid 받기
-		int productid = 0;
-		
-		try {
-			productid = Integer.parseInt(request.getParameter("productid"));
-		} catch (Exception e) {
-			productid = Integer.parseInt(request.getParameter("recipeid"));
-		}
+		productid = Integer.parseInt(request.getParameter("productid"));
 		
 		// recipe인지, product인지 확인하는 분류 받기
-		String headerCategory = request.getParameter("headerCategory");
+//		String headerCategory = request.getParameter("headerCategory");
 		
 		int cartCount = (int) session.getAttribute("cartCount");
 		
-		// getCart insert문
-		service.getCart(id, productid, headerCategory);
 		
+		try {
+			queryQty = service.searchCart(id, productid);
+			System.out.println("forSearch : " + queryQty);
+			// update
+			if (queryQty > 0) {
+				service.updateCart(id, productid, queryQty);
+			}
+		}
+		catch (Exception e) {
+			// insert
+			service.getCart(id, productid);
+			e.printStackTrace();
+		}
 		return ResponseEntity.ok().body(cartCount);
 	}
 	/************* Cart End *************/
@@ -442,7 +454,51 @@ public class ProductController {
 		return "popup";
 	}
 	
+	@PostMapping("/sccessfulOrder")
+	public String sccessfulOrder(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+		// orderList from /order
+		List<Product> orderList =  (List<Product>) session.getAttribute("orderList");
+		// get payMethod from purchaseProduct.js
+		int paymethod = Integer.parseInt(request.getParameter("payMethod"));
+		int randomNumber = 0;
+		// while문을 돌리기 위한 변수
+		Boolean checkFlag = true;
+		
+		// random 번호 생성 for purchaseid
+		while(checkFlag) {
+			Random random = new Random();
+			randomNumber = random.nextInt(900000);
+			
+			Integer[] checkPurchaseid = service.checkPurchaseid();
+			
+			// check purchaseid with randomnumber
+			for (int i=0; i<checkPurchaseid.length; i++) {
+				if (checkPurchaseid[i] == randomNumber) {
+					continue;
+				}
+			}
+			checkFlag = false;
+		}
+		
+		// insert and delete same time 
+		for (Product insert : orderList) {
+			service.finalOrderBtn(insert.getQty(), id, insert.getCartid(), paymethod, randomNumber);
+		}
+		
+		model.addAttribute("id", request.getParameter("id"));
+		model.addAttribute("finalResult", request.getParameter("finalResult"));
+		
+		return "sccessfulOrder";
+	}
 	
+	@GetMapping("/test")
+	public String test(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		
+		return "test";
+	}
 	/************* popup *************/
 	
 }

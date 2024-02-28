@@ -8,11 +8,13 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 /*
 *  Mybatis 사용을 위한 SqlSessionFactoryBean을 생성하는 클래스
 */
 @Configuration
-@MapperScan(basePackages ="com.springlec.base.dao")
+@MapperScan(basePackages ="com.springlec.*.dao")
 public class DataAccessConfig {
 	@Bean
 	SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {

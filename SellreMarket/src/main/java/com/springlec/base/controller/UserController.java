@@ -35,9 +35,6 @@ public class UserController {
 	@Autowired
 	UserInfoService userS;
 	
-	@Autowired
-//	AuthService authS;
-	
 	// 배송지 목록 Page
 	@GetMapping("/addresslist")
 	public String addresslist(HttpServletRequest request, Model model) throws Exception {

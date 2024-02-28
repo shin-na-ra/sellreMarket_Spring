@@ -148,7 +148,6 @@
 									<!-- test -->
 									<!-- <input type="hidden" id="id" value="admin"> -->
 							</div>
-							
 							<div class="text-center py-4"
 								style="display: flex; flex-direction: column; justify-content: center;">
 								<a class="h6 text-decoration-none text-truncate" href="/productDetailPage?productId=${dto.productid}" style="font-weight: bold;">${dto.pname}</a>
