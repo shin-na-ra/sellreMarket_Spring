@@ -411,4 +411,16 @@ public class UserController {
 		return "redirect:/main";
 	}
 	
+	@GetMapping("/signUpCondition1")
+	public String signUpCondition1() {
+		return "signUpCondition1";
+	}
+	
+	@GetMapping("/signUpCondition2")
+	public String signUpCondition2() {
+		return "signUpCondition2";
+	}
+	
+	
+	
 }

@@ -28,7 +28,7 @@ public class ProductController {
 	int curPage = 1;
 	String id = null;
 	
-	@GetMapping("/main")
+	@GetMapping({"/main","/"})
 	public String newProductPage(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
 		String id = null;
