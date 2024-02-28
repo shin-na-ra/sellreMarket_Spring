@@ -52,14 +52,14 @@
 					alt="면·양념·오일" class="css-ar6ptu e1vs1ym82"><span
 						class="css-mhaka4 e1vs1ym84">면·양념·오일</span>
 			</div></li>
-			<li class="css-you2kh e1vs1ym83"><div
+<!-- 			<li class="css-you2kh e1vs1ym83"><div
 				class="css-11n7bn4 e1vs1ym81">
 				<img
 					src="https://collection-image.kurly.com/site-category-groups/8/bKllScRqF9gQ5q58LcmBfOOhgBrCOdVypPiRvQkL.png"
 					alt="생수·음료·커피" class="css-ar6ptu e1vs1ym82"><span
 						class="css-mhaka4 e1vs1ym84">생수·음료·커피</span>
 			</div></li>
-			<li class="css-you2kh e1vs1ym83"><div
+ -->			<li class="css-you2kh e1vs1ym83"><div
 				class="css-11n7bn4 e1vs1ym81">
 				<img
 					src="https://collection-image.kurly.com/site-category-groups/9/5qKRHLtIeBWLxUPa1g3koUhqsAkc39YjtMnyIXCJ.png"

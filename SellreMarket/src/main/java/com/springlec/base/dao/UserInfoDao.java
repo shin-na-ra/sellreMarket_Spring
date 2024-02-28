@@ -16,7 +16,7 @@ public interface UserInfoDao {
 	public void customerSignUp(String userid, String password, String tel, String name, String email, String address, String detailAddress, String gender, String birthdate) throws Exception;
 	
 	public void updateUserInfo(String userid, String password, String tel, String name, String email, String address, String detailAddress, String gender, String birthdate) throws Exception;
-
+	
 	
 	public void deleteUserInfo(String userid) throws Exception;
 	
@@ -39,5 +39,9 @@ public interface UserInfoDao {
 	public void addresslistUpdate(String addressid, String address, String detailaddress, String defaultset) throws Exception;
 	
 	public void addresslistDelete(String addressid) throws Exception;
+	
+	public void customeraddressUpdate(String address, String detailaddress, String userid) throws Exception;
+	
+	public void defaultAddressUpdate(String address, String detailaddress, String userid) throws Exception;
 	
 }

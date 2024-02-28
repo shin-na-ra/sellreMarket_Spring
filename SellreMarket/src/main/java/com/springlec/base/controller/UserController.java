@@ -49,8 +49,6 @@ public class UserController {
 	// 배송지 수정 Page
 	@PostMapping("/addresslistUpdatePage")
 	public String addresslistUpdate(HttpServletRequest request, Model model) throws Exception {
-		HttpSession session = request.getSession();
-		String userid = (String)session.getAttribute("id");
 		String addressid = request.getParameter("addressid");
 
 		model.addAttribute("address", userS.addresslistDetail(addressid));
@@ -90,11 +88,6 @@ public class UserController {
 		String detailaddress = request.getParameter("detailAddress");
 		String defaultset = request.getParameter("defaultset");
 		
-		System.out.println("userid : " + userid);
-		System.out.println("address : " + address);
-		System.out.println("detailaddress : " + detailaddress);
-		System.out.println("defaultset : " + defaultset);
-		
 		userS.addresslistInsert(userid, address, detailaddress, defaultset);
 		
 		return "redirect:/addresslist";
@@ -107,27 +100,6 @@ public class UserController {
 		
 		return "redirect:/addresslist";
 	}
-	
-//	@GetMapping("/kakaologin")
-//	public String kakaologin() {
-//		return "kakaologintest";
-//	}
-//	
-//	@GetMapping("/kakaologinresult")
-//	public String kakaologinresult(@RequestParam String code, Model model) throws Exception {
-//		System.out.println("code : " + code);
-//		String token = authS.getKakaoAccessToken(code);
-//		model.addAttribute("token", token);
-//		model.addAttribute("mapData",authS.createKakaoUser(token));
-//		return "kakaologinresult";
-//	}
-//	
-//	@GetMapping("/kakaologout")
-//	public String kakaologout(@RequestParam String token) {
-//		System.out.println("token : " + token);
-//		authS.kakaologout(token);
-//		return "redirect:/kakaologin";
-//	}
 	
 	// 로그인 Page
 	@GetMapping("/login")
@@ -377,7 +349,6 @@ public class UserController {
 	// 비밀번호 변경 Page
 	@PostMapping("/updatePwPage")
 	public String updatePWPage(Model model, HttpServletRequest request) {
-		System.out.println("request userid : " + request.getParameter("userid"));
 		model.addAttribute("userid",request.getParameter("userid"));
 		return "updateuserpw";
 	}
@@ -411,6 +382,7 @@ public class UserController {
 		return "redirect:/main";
 	}
 	
+	// 회원가입 약관
 	@GetMapping("/signUpCondition1")
 	public String signUpCondition1() {
 		return "signUpCondition1";
@@ -420,7 +392,6 @@ public class UserController {
 	public String signUpCondition2() {
 		return "signUpCondition2";
 	}
-	
 	
 	
 }

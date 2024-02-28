@@ -156,6 +156,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			String detailAddress, String gender, String birthdate) throws Exception {
 		// 회원정보 수정
 		dao.updateUserInfo(userid, password, tel, name, email, address, detailAddress, gender, birthdate);
+		dao.defaultAddressUpdate(address, detailAddress, userid);
 	}
 
 	@Override
@@ -204,6 +205,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		// defaultset이 1, 즉 대표주소로 설정 될때마다 모든 주소의 대표주소 여부를 초기화 후 해당하는 주소를 대표주소로 설정
 		if(defaultset.equals("1")) {
 			dao.addresslistReset(userid);
+			dao.customeraddressUpdate(address, detailaddress, userid);
 		}
 		
 		dao.addresslistUpdate(addressid, address, detailaddress, defaultset);
@@ -217,6 +219,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		System.out.println("intDefaultset : " + intDefaultset);
 		if(intDefaultset == 1) {
 			dao.addresslistReset(userid);
+			dao.customeraddressUpdate(address, detailaddress, userid);
 		}
 		dao.deliveryInfo(address, detailaddress, intDefaultset, userid);
 	}

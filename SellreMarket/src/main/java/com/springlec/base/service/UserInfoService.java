@@ -42,5 +42,4 @@ public interface UserInfoService {
 
 	public void addresslistDelete(String addressid) throws Exception;
 	
-	
 }

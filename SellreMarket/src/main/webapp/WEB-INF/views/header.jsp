@@ -39,6 +39,19 @@ function inquirywrite() {
 		window.location.href = 'inquiry';
 	}
 }
+
+function address() {
+	if (document.getElementById("userid1").value === "") {
+		var result = window.confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")
+		if (result === true) {
+			window.location.href = 'login';
+		}
+	} else {
+		window.location.href = 'addresslist';
+	}
+}
+
+
 </script>
 </head>
 <input type="hidden" id="userid1" value="${sessionScope.id}">
@@ -87,8 +100,8 @@ function inquirywrite() {
 						<div class="css-12olpw6 ecncdj40"><a href="mypageinfo">개인정보 수정</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">장바구니</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">주문내역</a></div>
-						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 상품</a></div>
-						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 레시피</a></div>
+						<!-- <div class="css-12olpw6 ecncdj40"><a href="#">찜한 상품</a></div>
+						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 레시피</a></div> -->
 						<div class="css-12olpw6 ecncdj40"><a href="addresslist">배송지 관리</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="inquiry">1:1 문의</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="logout">로그아웃</a></div>
@@ -125,8 +138,7 @@ function inquirywrite() {
 				</div>
 				<div class="css-pqw0uk e15sbxqa1">
 					<div class="css-c4pbxv e15sbxqa0">
-						<div class=" css-14vnom0 e1n3mt0d1"></div>
-						<button class="css-231fw3 etxxzpc0" aria-label="찜하기" type="button"></button>
+						<div class="css-14vnom0 e1n3mt0d1" onclick="address()"></div>
 						<div class="css-ff2aah e14oy6dx2 parent-container">
 							<!-- 장바구니 카운트 시작 -->
 							<c:if test="${cartCount > 0}">
@@ -184,8 +196,8 @@ function inquirywrite() {
 					</li>
 				</ul>
 				<div class="css-s5xdrg e17w4cfr0">
-					<div class="css-dnwaeo e1mmzaxa1">
-						<span class="css-1s2o3jp e1mmzaxa0">셀리마켓 </span> 배송안내
+					<div class="css-dnwaeo e1mmzaxa1" onclick="window.location.href='user_guide'">
+						<span class="css-1s2o3jp e1mmzaxa0">셀리마켓 </span> 이용안내
 					</div>
 				</div>
 			</div>

@@ -69,4 +69,12 @@
 		DELETE FROM addresslist WHERE addressid = #{addressid}
 	</delete>
 	
+	<update id="customeraddressUpdate">
+		UPDATE customer SET address = #{address}, detailaddress = #{detailaddress} WHERE userid = #{userid}
+	</update>
+	
+	<update id="defaultAddressUpdate">
+		UPDATE addresslist SET address = #{address}, detailaddress = #{detailaddress} WHERE userid = #{userid} AND defaultset = 1
+	</update>
+	
 </mapper>
