@@ -370,11 +370,7 @@ function searchProduct() {
 			
 
 			for (var i = 0; i < data.length; i++) {
-			    if (i == 0) {
-			        label += "<label><input type='checkbox' name='selectedProducts' checked='checked' value='" + data[i].productid + "'> " + data[i].pname + "</label>";
-			    } else {
-			        label += "<label><input type='checkbox' name='selectedProducts' value='" + data[i].productid + "'> " + data[i].pname + "</label>";
-			    }
+			    label += "<label><input type='checkbox' name='selectedProducts' value='" + data[i].productid + "'> " + data[i].pname + "</label>";
 			}
 			
 			  $("#product").html(label); 

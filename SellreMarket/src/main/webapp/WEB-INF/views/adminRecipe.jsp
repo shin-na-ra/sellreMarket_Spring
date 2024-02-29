@@ -64,18 +64,18 @@
 				      <button disabled>&lt;</button>
 				    </c:when>	
 				    <c:otherwise>
-				      <a href="/adminrecipe?page=${paging.page - 1}" class="button">&lt;</a>
+				      <a href="/adminRecipe?page=${paging.page - 1}" class="button">&lt;</a>
 				    </c:otherwise>				
 				  </c:choose>
 				  <!-- 이전버튼 끝 -->
 				  
-				  <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+				  <c:forEach begin="${paging.startPage}" end="${paging.endPage}1" var="i" step="1">
 				    <c:choose>
 				      <c:when test="${i eq paging.page}">
 				        <button class="current">${i}</button>
 				      </c:when>
 				      <c:otherwise>
-				        <a href="/adminrecipe?page=${i}" class="button">${i}</a>
+				        <a href="/adminRecipe?page=${i}" class="button">${i}</a>
 				      </c:otherwise>
 				    </c:choose>
 				  </c:forEach>
@@ -86,7 +86,7 @@
 				      <button disabled>&gt;</button>
 				    </c:when>	
 				    <c:otherwise>
-				      <a href="/adminrecipe?page=${paging.page + 1}" class="button">&gt;</a>
+				      <a href="/adminRecipe?page=${paging.page + 1}" class="button">&gt;</a>
 				    </c:otherwise>				
 				  </c:choose>
 				  <!-- 다음버튼 끝 -->
