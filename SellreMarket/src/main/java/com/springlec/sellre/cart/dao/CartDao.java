@@ -2,11 +2,11 @@
  * Data와 연결되는 공간
  */
 
-package com.springlec.sellre.dao;
+package com.springlec.sellre.cart.dao;
 
 import java.util.List;
 
-import com.springlec.sellre.model.CartListViewProjection;
+import com.springlec.sellre.cart.model.CartListViewProjection;
 
 public interface CartDao {
 	/**
@@ -16,11 +16,12 @@ public interface CartDao {
 	 * @param amount 제품 수량
 	 * @throws Exception
 	 */
-	public int save(
-			String userId,
-			Long productId,
-			Integer amount
-			) throws Exception;
+	int save(
+		String userId,
+		Long productId,
+		Integer amount,
+		Integer status
+	) throws Exception;
 	
 	/**
 	 * <h1>Look up shopping cart product lists by user.</h1>
@@ -32,9 +33,9 @@ public interface CartDao {
 	 * @param userId (주로 로그인 된 사용자로) 사용자 아이디
 	 * @throws Exception
 	 */
-	public List<CartListViewProjection> findCartsByUserId(
+	List<CartListViewProjection> findCartsByUserId(
 			String userId
-			) throws Exception;
+	) throws Exception;
 	
 	/**
 	 * <h1>Changing the quantity of shopping cart products.</h1>
@@ -42,10 +43,10 @@ public interface CartDao {
 	 * @param amount 제품 수량
 	 * @throws Exception
 	 */
-	public int updateAmountByCartId(
-			Long cartId,
-			Integer amount
-			) throws Exception;
+	int updateAmountByCartId(
+		Long cartId,
+		Integer amount
+	) throws Exception;
 	
 	/**
 	 * <h1>Check for matching shopping cart information by user</h1>
@@ -53,17 +54,17 @@ public interface CartDao {
 	 * @param cartId 제품 아이디
 	 * @throws Exception
 	 */
-	public boolean existsByUserIdAndCartId(
+	boolean existsByUserIdAndCartId(
 			String userId,
 			Long cartId
-			) throws Exception;
+	) throws Exception;
 	
 	/**
 	 * <h1>Removing shopping cart products.</h1>
 	 * @param cartId 제품 아이디
 	 * @throws Exception
 	 */
-	public int deleteByCartId(
-			Long cartId
-			) throws Exception;
+	int deleteByCartId(
+		Long cartId
+	) throws Exception;
 }

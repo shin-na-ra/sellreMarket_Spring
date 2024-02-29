@@ -109,9 +109,9 @@ const deleteCartItem = (dto) => {
 	
 	 $.ajax({
 			// 요청:
-			type: "POST",
-			url: "cart/item/delete.do",
-			data: dto,
+			type: "DELETE",
+			url: `api/carts/item/${dto.cartId}`, // "cart/item/" + dto.cartId,
+			// data: dto,
 			
 			// 성공 시 실행할 함수:
 			success: function(response) {
@@ -159,14 +159,14 @@ const increaseAmount = (cartId) => {
 /**
  * @param {CartAmountUpdateDto} dto
  */
-const updateCartAmount = (dto) => {
+const updateCartAmount = ({cartId, amount}) => {
 	const amountElement = document.querySelector('#cart_item_'+ dto.cartId +' .amount-box .amount-value');
 	
 	 $.ajax({
 			// 요청:
-			type: "POST",
-			url: "cart/amount/update.do",
-			data: dto,
+			type: "PATCH",
+			url: `api/carts/item/${cartId}/amount`,
+			data: { amount: amount },
 			
 			// 성공 시 실행할 함수:
 			success: function(response) {
@@ -183,7 +183,7 @@ const updateCartsAndPriceSummary = () => {
 	$.ajax({
 		// 요청:
 		type: "GET",
-		url: "api/cart/query.do",
+		url: "api/carts",
 		
 		success: function(response) {
 			console.log('response: ', response);
@@ -231,7 +231,7 @@ const updateCartsAndPriceSummary = () => {
 const tempLogin = () => $.ajax({
 	// 요청:
 	type: "POST",
-	url: "fake/login.do",
+	url: "api/carts/fake/login",
 	
 	success: function(response) {
 		console.log('response: ', response);

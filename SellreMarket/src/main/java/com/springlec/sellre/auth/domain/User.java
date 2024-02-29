@@ -1,4 +1,4 @@
-package com.springlec.auth.domain;
+package com.springlec.sellre.auth.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

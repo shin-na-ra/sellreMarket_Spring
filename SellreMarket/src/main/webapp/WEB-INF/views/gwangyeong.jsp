@@ -47,7 +47,7 @@
 	</main>
 	
 	<%-- footer --%>
-	<jsp:include page="footer.html"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 	
 </body>
 </html>
