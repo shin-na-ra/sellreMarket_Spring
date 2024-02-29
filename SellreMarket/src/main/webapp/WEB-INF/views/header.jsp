@@ -99,9 +99,7 @@ function address() {
 					<div class="menu css-1ho29iy ecncdj41">
 						<div class="css-12olpw6 ecncdj40"><a href="mypageinfo">개인정보 수정</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="#">장바구니</a></div>
-						<div class="css-12olpw6 ecncdj40"><a href="#">주문내역</a></div>
-						<!-- <div class="css-12olpw6 ecncdj40"><a href="#">찜한 상품</a></div>
-						<div class="css-12olpw6 ecncdj40"><a href="#">찜한 레시피</a></div> -->
+						<div class="css-12olpw6 ecncdj40"><a href="purchaseListPage">주문내역</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="addresslist">배송지 관리</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="inquiry">1:1 문의</a></div>
 						<div class="css-12olpw6 ecncdj40"><a href="logout">로그아웃</a></div>
