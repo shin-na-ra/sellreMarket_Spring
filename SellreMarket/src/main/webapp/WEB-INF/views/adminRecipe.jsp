@@ -64,7 +64,7 @@
 				      <button disabled>&lt;</button>
 				    </c:when>	
 				    <c:otherwise>
-				      <a href="/adminrecipe?page=${paging.page - 1}" class="button">&lt;</a>
+				      <a href="/adminRecipe?page=${paging.page - 1}" class="button">&lt;</a>
 				    </c:otherwise>				
 				  </c:choose>
 				  <!-- 이전버튼 끝 -->
@@ -75,7 +75,7 @@
 				        <button class="current">${i}</button>
 				      </c:when>
 				      <c:otherwise>
-				        <a href="/adminrecipe?page=${i}" class="button">${i}</a>
+				        <a href="/adminRecipe?page=${i}" class="button">${i}</a>
 				      </c:otherwise>
 				    </c:choose>
 				  </c:forEach>
@@ -86,7 +86,7 @@
 				      <button disabled>&gt;</button>
 				    </c:when>	
 				    <c:otherwise>
-				      <a href="/adminrecipe?page=${paging.page + 1}" class="button">&gt;</a>
+				      <a href="/adminRecipe?page=${paging.page + 1}" class="button">&gt;</a>
 				    </c:otherwise>				
 				  </c:choose>
 				  <!-- 다음버튼 끝 -->

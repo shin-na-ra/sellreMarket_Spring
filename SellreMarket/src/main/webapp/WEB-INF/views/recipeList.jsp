@@ -150,7 +150,7 @@
 									<h7 class="text-muted ml-2">
 										<c:if test="${dto.price ne dto.dPrice}">
 											<del>${dto.price}</del>
-											<h7>원</h7>
+											<h7></h7>
 										</c:if>
 									</h7>
 								</div>
@@ -162,7 +162,7 @@
 									</span>
 									&nbsp;&nbsp;
 									<h6>${dto.dPrice}</h6>
-									<h6>원</h6>
+									<h6></h6>
 								</div>
 							</div>
 						</div>

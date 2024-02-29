@@ -176,61 +176,35 @@
 	
 	<!-- Recipe Product Start -->
 	<select id="recipeProductView" resultType="com.springlec.base.model.Recipe">
-		SELECT y.yname, y.ysrc, y.ytitle,
-		FORMAT(SUM(
-		        CASE
-		            WHEN p.eventid = e.eventid THEN ROUND(price - (price * (salerate/100)), -1)
-		            ELSE price
-		        END
-		    ), 0) AS dPrice,
-		FORMAT(SUM(price), 0) AS price, ry.recipeid, salerate
+		SELECT DISTINCT y.yname, y.ysrc, y.ytitle,
+		ry.recipeid
 		FROM youtuber y
 		LEFT JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
 		LEFT JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
 		LEFT JOIN product p ON p.productid = pr.productid
-		LEFT JOIN event e ON e.eventid = p.eventid
 		LEFT JOIN price i ON i.productid = p.productid
-		GROUP BY y.yname, y.ysrc, ytitle, ry.recipeid, salerate
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
 	<select id="recipeProductAlignAscView" resultType="com.springlec.base.model.Recipe">
-		SELECT y.yname, y.ysrc, y.ytitle,
-		FORMAT(SUM(
-		        CASE
-		            WHEN p.eventid = e.eventid THEN ROUND(price - (price * (salerate/100)), -1)
-		            ELSE price
-		        END
-		    ), 0) AS dPrice,
-		FORMAT(SUM(price), 0) AS price, ry.recipeid, salerate
+		SELECT DISTINCT y.yname, y.ysrc, y.ytitle,
+		ry.recipeid
 		FROM youtuber y
 		LEFT JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
 		LEFT JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
 		LEFT JOIN product p ON p.productid = pr.productid
-		LEFT JOIN event e ON e.eventid = p.eventid
 		LEFT JOIN price i ON i.productid = p.productid
-		GROUP BY y.yname, y.ysrc, ytitle, ry.recipeid, salerate
-		ORDER BY CAST(dPrice AS SIGNED) ASC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	
 	<select id="recipeProductAlignDescView" resultType="com.springlec.base.model.Recipe">
-		SELECT y.yname, y.ysrc, y.ytitle,
-		FORMAT(SUM(
-		        CASE
-		            WHEN p.eventid = e.eventid THEN ROUND(price - (price * (salerate/100)), -1)
-		            ELSE price
-		        END
-		    ), 0) AS dPrice,
-		FORMAT(SUM(price), 0) AS price, ry.recipeid, salerate
+		SELECT DISTINCT y.yname, y.ysrc, y.ytitle,
+		ry.recipeid
 		FROM youtuber y
 		LEFT JOIN recipeofYoutuber ry ON y.youtubeid = ry.youtubeid
 		LEFT JOIN productOfRecipe pr ON ry.recipeid = pr.recipeid
 		LEFT JOIN product p ON p.productid = pr.productid
-		LEFT JOIN event e ON e.eventid = p.eventid
 		LEFT JOIN price i ON i.productid = p.productid
-		GROUP BY y.yname, y.ysrc, ytitle, ry.recipeid, salerate
-		ORDER BY CAST(dPrice AS SIGNED) DESC
 		LIMIT #{limitFrom}, #{countPerPage}
 	</select>
 	<!-- Recipe Product End -->
