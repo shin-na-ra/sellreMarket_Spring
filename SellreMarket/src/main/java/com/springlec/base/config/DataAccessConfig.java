@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 *  Mybatis 사용을 위한 SqlSessionFactoryBean을 생성하는 클래스
 */
 @Configuration
-@MapperScan(basePackages ="com.springlec.*.dao")
+@MapperScan(basePackages = {"com.springlec.base.dao", "com.springlec.sellre.cart.dao"})
 public class DataAccessConfig {
 	@Bean
 	SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {

@@ -126,14 +126,7 @@ function address() {
 					</a>
 				</div>
 				</div>
-				<div class="css-pqw0uk e1493ofl4">
-					<div class="css-w444a2 e1493ofl1">
-						<input id="gnb_search" placeholder="검색어를 입력해주세요" required=""
-							class="css-11ntk83 e1493ofl3" value="">
-						<button id="submit" aria-label="submit"
-							class="css-ywxmlw e1493ofl0"></button>
-					</div>
-				</div>
+				<div class="css-pqw0uk e1493ofl4"></div>
 				<div class="css-pqw0uk e15sbxqa1">
 					<div class="css-c4pbxv e15sbxqa0">
 						<div class="css-14vnom0 e1n3mt0d1" onclick="address()"></div>

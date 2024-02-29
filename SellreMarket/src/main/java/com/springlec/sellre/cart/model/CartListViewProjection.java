@@ -1,4 +1,4 @@
-package com.springlec.sellre.model;
+package com.springlec.sellre.cart.model;
 
 import java.text.NumberFormat;
 
