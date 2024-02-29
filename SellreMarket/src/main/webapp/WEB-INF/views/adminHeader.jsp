@@ -57,6 +57,7 @@
 						<li class="css-59mmhh e17w4cfr4"><a href="adminEvent"><span class="css-1xyu7j9 e17w4cfr2">이벤트현황</span></a></li>
 						<li class="css-59mmhh e17w4cfr4"><a href="adminOrder"><span class="css-1xyu7j9 e17w4cfr2">입고요청</span></a></li>
 						<li class="css-59mmhh e17w4cfr4"><a href="adminQuest"><span class="css-1xyu7j9 e17w4cfr2">고객문의</span></a></li>
+						<li class="css-59mmhh e17w4cfr4"><a href="adminRecipe"><span class="css-1xyu7j9 e17w4cfr2">레시피등록</span></a></li>
 					</ul>
 				
 			</div>

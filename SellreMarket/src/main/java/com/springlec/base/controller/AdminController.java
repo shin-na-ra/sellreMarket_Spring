@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springlec.base.dao.YoutubeDao;
 import com.springlec.base.model.AdminChartDto;
 import com.springlec.base.model.AdminDeliveryDto;
 import com.springlec.base.model.AdminEventDto;
@@ -32,6 +33,7 @@ import com.springlec.base.service.AdminEventService;
 import com.springlec.base.service.AdminOrderService;
 import com.springlec.base.service.AdminProductService;
 import com.springlec.base.service.AdminQuestService;
+import com.springlec.base.service.YoutubeService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -66,6 +68,9 @@ public class AdminController {
 	
 	@Autowired
 	AdminChartService adminChartService;
+	
+	@Autowired
+	YoutubeService youtubeService;
 	
 	
 	//관리자 브랜드 현황 조회
@@ -897,5 +902,46 @@ public class AdminController {
 	}
 	
 	
+	//레시피 등록 페이지
+	@GetMapping("adminRecipe")
+	public String adminRecipe(Model model) throws Exception{
+		List<Category> categoryList = youtubeService.categoryList();
+		List<Category> subCategoryList = youtubeService.selectSubCategory();
+		
+		
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("subCategoryList", subCategoryList);
+		
+		
+		return "adminRecipeRegister";
+	}
 	
+	
+	//카테고리에 해당하는 제품 가져오기
+	@ResponseBody
+	@PostMapping("searchForProduct")
+	public List<AdminProductDto> searchForProduct(HttpServletRequest request) throws Exception {
+		
+		String type = request.getParameter("type");
+		String subtype = request.getParameter("subtype");
+	    List<AdminProductDto> list = youtubeService.getProductlist(type, subtype);
+	    
+	    return list;
+	}
+	
+	@PostMapping("adminRecipeInsert")
+	public String adminRecipeInsert(HttpServletRequest request ,@RequestParam("ysrc") MultipartFile file) throws Exception {
+		String yname = request.getParameter("yname");
+		String ytitle = request.getParameter("ytitle");
+		String image = null;
+		String rcontent = request.getParameter("rcontent");
+		String[] selectedProducts = request.getParameterValues("selectedProducts");
+		
+		if(file != null && !file.isEmpty()) image = youtubeService.uploadFile(file);
+		
+		youtubeService.insertInfo(yname, image, rcontent, selectedProducts, ytitle);
+		
+		
+		return "redirect:/adminRecipe";
+	}
 }
