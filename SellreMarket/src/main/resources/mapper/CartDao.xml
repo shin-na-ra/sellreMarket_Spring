@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.springlec.sellre.dao.CartDao">
+<mapper namespace="com.springlec.sellre.cart.dao.CartDao">
 
 	<insert id="save">
 		INSERT INTO cart (
 				userid,
 				productid,
-				qty
+				qty,
+				status
 		) VALUES (
 				#{userId},
 				#{productId},
-				#{amount}
+				#{amount},
+				#{status}
 		)
 	</insert>
 	
-	<select id="findCartsByUserId" resultType="com.springlec.sellre.model.CartListViewProjection">
+	<select id="findCartsByUserId" resultType="com.springlec.sellre.cart.model.CartListViewProjection">
 		SELECT
 			c.cartid as cartId,
 			c.productid as productId,

@@ -1,4 +1,4 @@
-package com.springlec.sellre.config;
+package com.springlec.sellre.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
