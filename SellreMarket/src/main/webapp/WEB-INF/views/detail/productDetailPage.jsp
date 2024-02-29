@@ -35,7 +35,7 @@
 			<main id="product-atf" class="css-1eoy87d e17iylht5">
 				<div class="css-5v50l3 e17iylht4">
 				<c:forEach items="${product}" var="image">
-					<img class="product-image" alt="꼴기.jpg" src="image/product/${image.productImage}">
+					<img class="product-image" alt="꼴기.jpg" src="image/${image.productImage}">
 				</c:forEach>
 				</div>
 				<section class="css-1ua1wyk e17iylht3">
