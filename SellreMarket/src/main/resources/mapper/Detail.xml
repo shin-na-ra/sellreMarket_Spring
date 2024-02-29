@@ -27,13 +27,15 @@
  	<select id="recipeListDao">
  		SELECT r.recipeid, p.pname as productName,
  					  pri.price as productPrice, 
- 					  (pri.price - (pri.price * (e.salerate)/100)) as discountedPrice
-		FROM recipeOfYoutuber r, product p, productOfRecipe pr, price pri, event e
+ 					  (pri.price - (pri.price * (e.salerate)/100)) as discountedPrice,
+ 					  y.ysrc as recipeImage
+		FROM recipeOfYoutuber r, product p, productOfRecipe pr, price pri, event e, youtuber y
 		WHERE r.recipeid = #{RECIPEID}
 					  and r.recipeid = pr.recipeid
 					  and pr.productid = p.productid
 					  and pri.productid = p.productid
 					  and e.productid = p.productid
+					  and r.youtubeid = y.youtubeid
  	</select>
  	
  	<insert id="cartInputDao">
@@ -43,9 +45,5 @@
  	<insert id="cartProductInputDao">
  		INSERT INTO cart (productid, qty, userid, status) VALUES (#{sendValue}, 1, #{userId}, 1)
  	</insert>
- 	
- 	
- 	
- 	
  	
  </mapper>

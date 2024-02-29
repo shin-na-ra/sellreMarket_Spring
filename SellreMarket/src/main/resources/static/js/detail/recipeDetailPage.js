@@ -246,11 +246,19 @@ var cartItemNames = [];
 var cartItemQuantities = [];
 
 // 버튼 클릭 이벤트 핸들러 등록
-$('.cart-button').on('click', function() {
+$('.cart-button').click(function() {
+    
+	if (document.getElementById("userid1").value === "") {
+		var result = window.confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")
+		if (result === true) {
+			window.location.href = 'login';
+		}		
+		return;			
+	}   
     updateCartItem();
 });
 
-const updateCartItem = () => {
+function updateCartItem() {
     // 장바구니에 담긴 상품들의 이름을 업데이트합니다.
     cartItemNames = updateCartItemNames(); // 장바구니에 담긴 상품들의 이름을 업데이트하는 함수 호출
     console.log('update 이름 : ', cartItemNames); // updateCartItemNames() 함수의 반환 값을 콘솔에 출력
@@ -261,7 +269,6 @@ const updateCartItem = () => {
     console.log('update 수량 : ', cartItemQuantities); // updateCartItemQuantities() 함수의 반환 값을 콘솔에 출력
     
     // 장바구니가 비어 있는지 확인합니다.
-    if (cartItemNames.length > 0 && cartItemQuantities.length > 0) {
         $.ajax({
             // 요청:
             type: "POST", // POST 방식으로 변경
@@ -286,7 +293,4 @@ const updateCartItem = () => {
                 alert("장바구니 담기에 실패했습니다.")
             }
         });
-    } else {
-        console.error("장바구니가 비어 있습니다."); // 장바구니가 비어 있을 경우 콘솔에 출력
-    }
 }

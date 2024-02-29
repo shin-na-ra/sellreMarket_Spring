@@ -43,7 +43,9 @@
     <div class="css-n48rgu ex9g78v0">
         <div class="css-16c0d81 e1brqtzw0">
             <main id="product-atf" class="css-1eoy87d e17iylht5">
-                <div class="css-5v50l3 e17iylht4"></div>
+                <div class="css-5v50l3 e17iylht4">
+					<img class="product-image" alt="꼴기.jpg" src="image/${list[0].recipeImage}">              
+				</div>
                 <section class="css-1ua1wyk e17iylht3">
                     <!-- 상품 선택을 위한 컨테이너 -->
                     <div class="css-1bp09d0 e17iylht1">

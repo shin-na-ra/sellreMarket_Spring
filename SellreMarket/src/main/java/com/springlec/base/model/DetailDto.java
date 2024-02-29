@@ -6,7 +6,7 @@ public class DetailDto {
 	String productName, recipeName, deliveryName, productImage,
 			   productAllery, productNutrition, productOrigin, 
 			   productDescription, productPackType, productPackKind,
-			   productUnitType, productUnitGram;
+			   productUnitType, productUnitGram, recipeImage;
 	
 	public DetailDto() {
 		// TODO Auto-generated constructor stub
@@ -146,5 +146,13 @@ public class DetailDto {
 
 	public void setProductUnitGram(String productUnitGram) {
 		this.productUnitGram = productUnitGram;
+	}
+
+	public String getRecipeImage() {
+		return recipeImage;
+	}
+
+	public void setRecipeImage(String recipeImage) {
+		this.recipeImage = recipeImage;
 	}
 }
