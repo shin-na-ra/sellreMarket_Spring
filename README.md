@@ -1,8 +1,8 @@
 # Sellre Market ( Spring Boot Project )
 ----
 
-# Navigation
-1. [주요 기능](#주요-기능)
+<!--# Navigation
+1. [주요 기능](#주요-기능)-->
 
 
 # 프로젝트 소개 
@@ -31,11 +31,12 @@
  ## 개발환경
 ![Windows](https://img.shields.io/badge/Windows-0078D4.svg?&style=for-the-badge&logo=Windows&logoColor=white)
 ![MacOs](https://img.shields.io/badge/Mac%20Os-8D8D8D.svg?&style=for-the-badge&logo=MacOs&logoColor=white)<br>
-![Eclipse%20IDE](https://img.shields.io/badge/Eclipse%20IDE-2C2255.svg?&style=for-the-badge&logo=Eclipse%20IDE&logoColor=white)<br>
+![Eclipse%20IDE](https://img.shields.io/badge/Eclipse%20IDE-2C2255.svg?&style=for-the-badge&logo=Eclipse%20IDE&logoColor=white)
 <!--![SpringBoot]-->
 
-<br><br>
-# 주요 기능
+<br>
+
+## 주요 기능
 1. 제품 및 상세정보 조회
 2. 제품 구매기능, 장바구니 담기 기능
 3. 구매내역 확인
