@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.springlec.sellre.common.support.Constants.LOGIN_USER_SESSION_NAME;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import com.springlec.base.model.UserInfo;
 import com.springlec.base.service.InquiryService;
 import com.springlec.base.service.NoticeService;
 import com.springlec.base.service.UserInfoService;
+import com.springlec.sellre.auth.domain.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -128,6 +131,12 @@ public class UserController {
 			// 로그인 하였을 때 id와 name의 session 생성
 			session.setAttribute("userName", name);
 			session.setAttribute("id", userid);
+			
+			User loginUser = User.builder().
+					id(userid).
+					name(name).
+					build();
+			session.setAttribute(LOGIN_USER_SESSION_NAME, loginUser);
 		}
 		
 		return ResponseEntity.ok(name);
