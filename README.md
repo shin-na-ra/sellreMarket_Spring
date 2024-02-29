@@ -32,16 +32,15 @@
 ![Windows](https://img.shields.io/badge/Windows-0078D4.svg?&style=for-the-badge&logo=Windows&logoColor=white)
 ![MacOs](https://img.shields.io/badge/Mac%20Os-8D8D8D.svg?&style=for-the-badge&logo=MacOs&logoColor=white)<br>
 ![Eclipse%20IDE](https://img.shields.io/badge/Eclipse%20IDE-2C2255.svg?&style=for-the-badge&logo=Eclipse%20IDE&logoColor=white)<br>
-![SpringBoot]
+<!--![SpringBoot]-->
 
 <br><br>
 # 주요 기능
-1. 셀리마켓 제품 조회 기능
-2. 제품 클릭 시, 상세정보 조회 기능
-3. 제품 구매기능, 장바구니 담기 기능
-4. 구매내역 확인
-5. 일반사용자 로그인 기능
-6. 회원가입 기능
-7. 관리자 상품등록, 이벤트 등록, 카테고리 등록, 매출현황 조회 기능
+1. 제품 및 상세정보 조회
+2. 제품 구매기능, 장바구니 담기 기능
+3. 구매내역 확인
+4. 일반사용자 로그인 기능
+5. 회원가입 기능
+6. 관리자 상품등록, 이벤트 등록, 카테고리 등록, 매출현황 조회 기능
 
   
