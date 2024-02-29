@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.springlec.base.dao.YoutubeDao"> 
+	
+	<!-- 카테고리 대분류 가져오기 -->	
+	<select id="categoryList" resultType="com.springlec.base.model.Category">
+		select type from catetory where status = 1 group by type;
+	</select>
+	
+	<!-- 카테고리 중분류 가져오기 -->
+	<select id="subCategoryList" resultType="com.springlec.base.model.Category">
+		select subtype from catetory where type=#{type} and status = 1 group by subtype;
+	</select>
+	
+	<select id="selectSubCategory" resultType="com.springlec.base.model.Category">
+		select subtype from catetory where type = '과일/견과/쌀' group by subtype;
+	</select>
+	
+	<select id="getProductlist" resultType="com.springlec.base.model.AdminProductDto">
+		select c.productid, p.pname from catetory  c
+        left join product p on p.productid = c.productid
+        where type=#{type} and subtype=#{subtype} and pname is not null;
+	</select>
+	
+	<insert id="insertYoutubeInfo">
+		insert into youtuber (yname, ysrc, ytitle) values (#{yname}, #{image}, #{ytitle})
+	</insert>
+	
+	<select id="selectYoutubeId" resultType="Integer"  parameterType="com.springlec.base.model.YoutubeDto">
+		select youtubeid from youtuber where yname = #{yname} and ysrc= #{image} 
+	</select>
+	
+	<insert id="insertRecipeInfo">
+		insert into recipeOfYoutuber (rcontent, youtubeid) values (#{rcontent}, #{youtubeid})
+	</insert>
+	
+	<select id="selectRecipeId"  resultType="Integer"  parameterType="com.springlec.base.model.YoutubeDto">
+		select recipeid from recipeOfYoutuber where rcontent=#{rcontent} and youtubeid=#{youtubeid}
+	</select>
+	
+	<insert id="insertProductToRecipe">
+		insert into productOfRecipe (recipeid, productid) values (#{recipeid}, #{productid})
+	</insert>
+	
+	
+	 
+</mapper>
