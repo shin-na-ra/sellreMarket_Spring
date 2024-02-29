@@ -102,7 +102,7 @@
 										<div class="purchaseProductImageArea">
 											<div class="purchaseProductImageContainer">
 												<!-- 이미지 DAO에서 불러오기 -->
-												<img loading="lazy" width="64" height="64" src="image/product/${info.productImage}" alt="에궁.jpg">
+												<img loading="lazy" width="64" height="64" src="image/product/${info.productImage}" alt="이미지.jpg">
 											</div>
 										</div>
 										<div class="purchaseInformationArea">		
