@@ -180,6 +180,14 @@ form {
 	  margin-right: 5px;
 	}
 	
+	.search {
+		background-color: #f2f2f2;
+		  color: #6F6F67;
+		  padding: 10px 20px;
+		  border: none;
+		  border-radius: 5px;
+		  cursor: pointer;
+	}
    
 
 </style>
@@ -416,7 +424,7 @@ function searchProduct() {
 				
 			<!-- product_image -->
 			<!-- product -->
-			<div class="form-group1">
+			<div class="form-group">
 				<label for="bname">유튜버명 *</label>
 				<input type="text" id="yname" name="yname" /> 
 			</div>
@@ -447,7 +455,7 @@ function searchProduct() {
 						<option value="${dto.subtype}" id="${dto.subtype}">${dto.subtype}</option>
 					</c:forEach>
 				</select>
-				<input type="button" class="searchBtn" onclick="searchProduct()" value="검색">
+				<input type="button" class="search" onclick="searchProduct()" value="검색">
 			</div>
 					
 			<div id="product"></div>

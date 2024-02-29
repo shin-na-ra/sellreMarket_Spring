@@ -9,6 +9,7 @@ public class YoutubeDto {
 	String rcontent;
 	int productid;
 	int recipeid;
+	String type;
 	
 	public YoutubeDto() {
 		// TODO Auto-generated constructor stub
@@ -69,6 +70,14 @@ public class YoutubeDto {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	

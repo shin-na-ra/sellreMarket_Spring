@@ -2,8 +2,10 @@ package com.springlec.base.dao;
 
 import java.util.List;
 
+import com.springlec.base.model.AdminPageDto;
 import com.springlec.base.model.AdminProductDto;
 import com.springlec.base.model.Category;
+import com.springlec.base.model.YoutubeDto;
 
 public interface YoutubeDao {
 	
@@ -33,4 +35,21 @@ public interface YoutubeDao {
 	
 	//제품과 레시피 연결
 	public void insertProductToRecipe(int recipeid, String productid) throws Exception;
+	
+	//게시글 리스트 조회
+	public List<YoutubeDto> pageList(int pageStart) throws Exception;
+	
+	//게시글 수
+	public int boardCount() throws Exception;
+	
+	//페이징 처리
+	public AdminPageDto pagingParam(int page) throws Exception;
+	
+	//제품명 검색
+	public List<YoutubeDto> listQuery(String search, String query, int pageStart) throws Exception;
+	
+	//게시글 수 검색 
+	public int searchCount(String search, String query) throws Exception;
+	
+	public AdminPageDto pagingParam2(int page, String search, String query) throws Exception;
 }
