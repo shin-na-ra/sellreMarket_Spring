@@ -9,7 +9,7 @@ public interface ProductDao {
 	// New Product
 	// main new Product info 
 	public List<Product> newProductView(int limitFrom, int countPerPage) throws Exception;
-	// new Product info align asc
+	// new Product info align asccartCount
 	public List<Product> newProductAlignAscView(int limitFrom, int countPerPage) throws Exception;
 	// new Product info align desc
 	public List<Product> newProductAlignDescView(int limitFrom, int countPerPage) throws Exception;
