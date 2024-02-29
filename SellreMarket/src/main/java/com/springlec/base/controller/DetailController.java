@@ -42,6 +42,7 @@ public class DetailController {
 		
 		// 상품 선택창에서 productId 값 가져와 String 형태로 값 저장
 		String productId = request.getParameter("productId");
+		System.out.println("띠바 해치웠나? : " + productId);
 		
 		// 세션 생성, 그리고 세션에 productId 값을  PRODUCTID에 넣음
 		HttpSession session = request.getSession();
