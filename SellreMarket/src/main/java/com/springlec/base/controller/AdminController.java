@@ -26,6 +26,7 @@ import com.springlec.base.model.AdminQuestDto;
 import com.springlec.base.model.BrandDto;
 import com.springlec.base.model.Category;
 import com.springlec.base.model.UserInfo;
+import com.springlec.base.model.YoutubeDto;
 import com.springlec.base.service.AdminBrandService;
 import com.springlec.base.service.AdminCategoryService;
 import com.springlec.base.service.AdminChartService;
@@ -903,7 +904,7 @@ public class AdminController {
 	
 	
 	//레시피 등록 페이지
-	@GetMapping("adminRecipe")
+	@GetMapping("adminrecipeRegister")
 	public String adminRecipe(Model model) throws Exception{
 		List<Category> categoryList = youtubeService.categoryList();
 		List<Category> subCategoryList = youtubeService.selectSubCategory();
@@ -943,5 +944,65 @@ public class AdminController {
 		
 		
 		return "redirect:/adminRecipe";
+	}
+	
+	//레시피 조회 페이지
+	@GetMapping("adminRecipe")
+	public String adminRecipe (HttpServletRequest request, Model model) throws Exception {
+
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int totalCnt = youtubeService.boardCount();
+		int index_no = (page - 1) * 15;
+		
+		List<YoutubeDto> list = youtubeService.pageList(page);
+		AdminPageDto dto = youtubeService.pagingParam(page);
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		
+		return "adminRecipe";
+	}
+	
+	//레시피 검색
+	//카테고리 검색
+	@PostMapping("recipeQuery")
+	public String recipeQuery(HttpServletRequest request, Model model) throws Exception {
+		String search = request.getParameter("search");
+		String query = request.getParameter("query");
+		
+		int page = 0;
+		if((request.getParameter("page") == "") || request.getParameter("page") == null) {
+			page = 1;
+		} else {
+			
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		List<YoutubeDto> list = youtubeService.listQuery(search, query, page);
+		
+		int totalCnt = youtubeService.searchCount(search, query);
+		int index_no = (page - 1) * 15;
+		
+		AdminPageDto dto = youtubeService.pagingParam2(page,search,query);
+		
+		
+		int rowNum = totalCnt - index_no;
+		
+		model.addAttribute("list", list);
+		model.addAttribute("paging", dto);
+		model.addAttribute("rowNum", rowNum);
+		
+		
+		return "adminRecipe";
 	}
 }

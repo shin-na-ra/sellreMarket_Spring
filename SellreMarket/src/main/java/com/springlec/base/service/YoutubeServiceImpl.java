@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springlec.base.dao.YoutubeDao;
+import com.springlec.base.model.AdminPageDto;
 import com.springlec.base.model.AdminProductDto;
 import com.springlec.base.model.Category;
 import com.springlec.base.model.YoutubeDto;
@@ -21,8 +22,14 @@ import com.springlec.base.model.YoutubeDto;
 @Transactional(rollbackFor = Exception.class)
 public class YoutubeServiceImpl implements YoutubeService{
 
+	int pageLimit = 15;
+	int blockLimit = 5;
+	
 	@Autowired
 	YoutubeDao dao;
+	
+	@Autowired
+	AdminPageDto dto;
 
 	@Override
 	public List<Category> categoryList() throws Exception {
@@ -80,8 +87,74 @@ public class YoutubeServiceImpl implements YoutubeService{
 	    }
 		
 	}
-	
-	
-	
+
+	@Override
+	public List<YoutubeDto> pageList(int page) throws Exception {
+		int pageStart = (page - 1) * pageLimit + 1;
+		return dao.pageList(pageStart);
+	}
+
+	@Override
+	public int boardCount() throws Exception {
+		return dao.boardCount();
+	}
+
+	@Override
+	public AdminPageDto pagingParam(int page) throws Exception {
+		int boardCount = dao.boardCount();
+		
+		int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+		
+		//시작페이지 계산
+		int startPage = (int)(Math.ceil((double) page / blockLimit) - 1) * blockLimit + 1;
+		
+		int endPage = startPage + blockLimit -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		dto.setPage(page);
+		dto.setStartPage(startPage);
+		dto.setMaxPage(maxPage);
+		dto.setEndPage(endPage);
+		
+		return dto;
+	}
+
+	@Override
+	public List<YoutubeDto> listQuery(String search, String query, int page) throws Exception {
+		search = '%'+search+'%';
+		int pageStart = (page - 1) * pageLimit + 1;
+		return dao.listQuery(search, query, pageStart);
+	}
+
+	@Override
+	public int searchCount(String search, String query) throws Exception {
+		search = '%'+search+'%';
+		return dao.searchCount(search, query);
+	}
+
+	@Override
+	public AdminPageDto pagingParam2(int page, String search, String query) throws Exception {
+		search = '%'+search+'%';
+		int boardCount = dao.searchCount(search, query);
+		
+		int maxPage = (int) (Math.ceil((double) boardCount / pageLimit));
+		
+		//시작페이지 계산
+		int startPage = (int)(Math.ceil((double) page / blockLimit) - 1) * blockLimit + 1;
+		
+		int endPage = startPage + blockLimit -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		dto.setPage(page);
+		dto.setStartPage(startPage);
+		dto.setMaxPage(maxPage);
+		dto.setEndPage(endPage);
+		
+		return dto;
+	}
 	
 }

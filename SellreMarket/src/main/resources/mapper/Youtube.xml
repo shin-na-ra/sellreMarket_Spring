@@ -43,6 +43,46 @@
 		insert into productOfRecipe (recipeid, productid) values (#{recipeid}, #{productid})
 	</insert>
 	
-	
+		<!-- 브랜드 페이지에 맞게 리스트 가져오기  -->
+	 <select id="pageList" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.YoutubeDto">
+		 SELECT 
+		    t.yname,
+		    t.ytitle
+		FROM (
+		    SELECT 
+		        p.yname, 
+		        p.ytitle, 
+		        ROW_NUMBER() OVER (ORDER BY youtubeid DESC) AS rownum, youtubeid
+		    FROM youtuber p
+		) AS t
+		WHERE t.rownum BETWEEN #{pageStart} AND #{pageStart}+14
+		ORDER BY t.rownum;
+	</select>
 	 
+	 <!-- 개수 가져오기 -->	
+	<select id="boardCount" resultType="Integer"  parameterType="com.springlec.base.model.YoutubeDto">
+			select count(youtubeid) from youtuber
+	</select>
+	
+	<!-- 검색 결과 가져오기 -->
+	<select id="listQuery" parameterType="com.springlec.base.model.AdminPageDto" resultType="com.springlec.base.model.YoutubeDto">
+		  SELECT 
+		    t.yname,
+		    t.ytitle
+		FROM (
+		    SELECT 
+		        p.yname, 
+		        p.ytitle, 
+		        ROW_NUMBER() OVER (ORDER BY youtubeid DESC) AS rownum, youtubeid
+		    FROM youtuber p
+		) AS t
+		WHERE t.rownum BETWEEN #{pageStart} AND #{pageStart}+14  and ${query} like #{search}
+		ORDER BY t.rownum;
+	</select>
+	
+	<!-- 브랜드 개수 가져오기 -->	
+	<select id="searchCount" resultType="Integer"  parameterType="com.springlec.base.model.YoutubeDto">
+			select count(youtubeid) from youtuber where ${query} like #{search}
+	</select>
+	
 </mapper>
