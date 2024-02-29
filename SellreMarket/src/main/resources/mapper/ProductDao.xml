@@ -22,7 +22,7 @@
 	<!-- New Product Start -->
 	<select id="newProductView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-		    CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
+		    CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price * (salerate/100)), -1), 0)
 		    ELSE FORMAT(price, 0)
 		    END
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, 
@@ -39,7 +39,7 @@
 	
 	<select id="newProductAlignAscView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT ( 
-		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0) 
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price * (salerate/100)), -1), 0) 
 		ELSE FORMAT(price, 0) 
 		END 
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image,  
@@ -56,7 +56,7 @@
 	
 	<select id="newProductAlignDescView" resultType="com.springlec.base.model.Product">
 		SELECT distinct ( 
-		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0) 
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price * (salerate/100)), -1), 0) 
 		ELSE FORMAT(price, 0) 
 		END 
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image,  
@@ -76,7 +76,7 @@
 		
 	<select id="newBestProduct" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-		    CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
+		    CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price * (salerate/100)), -1), 0)
 		    ELSE FORMAT(price, 0)
 		    END
 		) AS dPrice, FORMAT(price, 0) AS price, p.pname, pi.image, 
@@ -103,7 +103,7 @@
 	<!-- Best Product Start-->
 	<select id="bestProductView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
+		CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price * (salerate/100)), -1), 0)
 		 ELSE FORMAT(price, 0)
 			END
 		) AS dPrice,
@@ -127,7 +127,7 @@
 	
 	<select id="bestProductAlignAscView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-        CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
+        CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price * (salerate/100)), -1), 0)
              ELSE FORMAT(price, 0)
 		        END
 		    ) AS dPrice,
@@ -151,7 +151,7 @@
 	
 	<select id="bestProductAlignDescView" resultType="com.springlec.base.model.Product">
 		SELECT DISTINCT (
-        CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price/salerate), -1), 0)
+        CASE WHEN p.eventid = e.eventid THEN FORMAT(ROUND(price - (price * (salerate/100)), -1), 0)
              ELSE FORMAT(price, 0)
 		        END
 		    ) AS dPrice,
@@ -179,7 +179,7 @@
 		SELECT y.yname, y.ysrc, y.ytitle,
 		FORMAT(SUM(
 		        CASE
-		            WHEN p.eventid = e.eventid THEN ROUND(price - (price / salerate), -1)
+		            WHEN p.eventid = e.eventid THEN ROUND(price - (price * (salerate/100)), -1)
 		            ELSE price
 		        END
 		    ), 0) AS dPrice,
@@ -198,7 +198,7 @@
 		SELECT y.yname, y.ysrc, y.ytitle,
 		FORMAT(SUM(
 		        CASE
-		            WHEN p.eventid = e.eventid THEN ROUND(price - (price / salerate), -1)
+		            WHEN p.eventid = e.eventid THEN ROUND(price - (price * (salerate/100)), -1)
 		            ELSE price
 		        END
 		    ), 0) AS dPrice,
@@ -218,7 +218,7 @@
 		SELECT y.yname, y.ysrc, y.ytitle,
 		FORMAT(SUM(
 		        CASE
-		            WHEN p.eventid = e.eventid THEN ROUND(price - (price / salerate), -1)
+		            WHEN p.eventid = e.eventid THEN ROUND(price - (price * (salerate/100)), -1)
 		            ELSE price
 		        END
 		    ), 0) AS dPrice,
