@@ -43,18 +43,18 @@
 						<h1 class="css-79gmk3 ezpe9l11">${dto.productName}</h1>
 					</div>
 					<h2 class="css-abwjr2 e1q8tigr4">
-						<span class="css-5nirzt e1q8tigr3">${dto.salerate}<!-- -->%</span>
+<%-- 						<span class="css-5nirzt e1q8tigr3">${dto.salerate}<!-- -->%</span> --%>
 						<span class="css-9pf1ze e1q8tigr2">
-						<fmt:formatNumber value="${dto.discountedPrice}" pattern="#,###" />
+						<fmt:formatNumber value="${dto.productPrice}" pattern="#,###" />
 						</span>
 						<span class="css-1x9cx9j e1q8tigr1">원</span>
 					</h2>
-					<span class="css-1e1rd4p e1q8tigr0">
-						<span>
-							<fmt:formatNumber value="${dto.productPrice}" pattern="#,###" />
-						<!-- -->원
-						</span>
-						</span>
+<!-- 					<span class="css-1e1rd4p e1q8tigr0"> -->
+<!-- 						<span> -->
+<%-- 							<fmt:formatNumber value="${dto.productPrice}" pattern="#,###" /> --%>
+<!-- 						원 -->
+<!-- 						</span> -->
+<!-- 					</span> -->
 						<ul class="css-iqoq9n e6qx2kx2">
 							<li class="css-e6zlnr epzddad2">
 								<dt class="css-lytdfk epzddad1">배송</dt>
@@ -107,7 +107,7 @@
 									<span class="css-w1is7v eebc7rx6">총 상품금액 :</span>
 									<span class="css-x4cdgl eebc7rx5"></span>
 									<span class="css-1jb8hmu eebc7rx4">
-										<fmt:formatNumber value="${dto.discountedPrice}" pattern="#,###" />원
+										<fmt:formatNumber value="${dto.productPrice}" pattern="#,###" />원
 									</span>
 								</div>
 							</div>			                

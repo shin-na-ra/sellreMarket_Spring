@@ -2,26 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.springlec.base.dao.DetailDao">
  	<select id="productListDao">
-		SELECT p.productid, p.pname as productName, pr.price as productPrice, 
-					  pr.price-(pr.price*(e.salerate/100))
-					  as discountedPrice,
-					  e.salerate, d.dname as deliveryName, i.image as productImage, 
-		              p.allery as productAllery, p.nutrition as productNutrition,
-		              p.origin as productOrigin, p.description as productDescription,
-		              pack.packtype as productPackType,
-		              pack.packkind as productPackKind,
-		              s.utype as productUnitType,
-		              s.ugram as productUnitGram
-		FROM product p, price pr, event e, delivery_type d, 
-			 	   product_image i, packing pack,
-		     	   saleunit s
-		WHERE p.productid = #{PRODUCTID}
-				   and p.productid = pr.productid
-				   and e.eventid = '1'
-				   and d.productid = p.productid
-				   and i.productid = p.productid
-				   and pack.productid = p.productid
-				   and s.productid = p.productid
+			SELECT DISTINCT p.productid, p.pname as productName, pr.price as productPrice, 
+										  d.dname as deliveryName, i.image as productImage, 
+							              p.allery as productAllery, p.nutrition as productNutrition,
+							              p.origin as productOrigin, p.description as productDescription,
+							              pack.packtype as productPackType,
+							              pack.packkind as productPackKind,
+							              s.utype as productUnitType,
+							              s.ugram as productUnitGram
+			FROM product p 
+			LEFT JOIN price pr on p.productid = pr.productid
+			LEFT JOIN delivery_type d on d.productid = p.productid
+			LEFT JOIN product_image i on i.productid = p.productid
+			LEFT JOIN packing pack on pack.productid = p.productid
+			LEFT JOIN saleunit s on s.productid = p.productid
+			WHERE p.productid = #{PORDUCTID};
  	</select>
  	
  	<select id="recipeListDao">
