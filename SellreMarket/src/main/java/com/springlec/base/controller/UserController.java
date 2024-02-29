@@ -270,7 +270,7 @@ public class UserController {
 		// 회원가입
 		if(userS.checkDuplicatedId(userid).get("result").equals("true")) {
 			userS.customerSignUp(userid, password, tel, name, email, address, detailAddress, gender, birthdate);
-			return "redirect:/main";
+			return "redirect:/login";
 		}
 		// 정보수정
 		else {
