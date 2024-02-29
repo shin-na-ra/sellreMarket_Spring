@@ -20,7 +20,7 @@ public interface ProductService {
 	public Map<String, Object> productPageCount(HttpServletRequest request, HttpServletResponse response, String headerCategory, String alignCategory, String id, int curPage) throws Exception;
 	
 	// Cart
-	public void cartCount(HttpServletRequest request, String id) throws Exception;
+	public int cartCount(HttpServletRequest request, String id) throws Exception;
 	// Input
 	public void getCart(String id, int productid) throws Exception;
 	// Search

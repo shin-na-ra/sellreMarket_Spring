@@ -28,10 +28,6 @@ public class ProductServiceImpl implements ProductService{
 	@Autowired
 	HashMap<String, Object> datas;
 	
-	// spring boot에서 json을 사용하기 위함 gson이 사용이 안되기 때문
-	@Autowired
-	ObjectMapper om;
-	
 	/*** New Page Start ***/
 	// new page product load
 	@Override
@@ -169,8 +165,6 @@ public class ProductServiceImpl implements ProductService{
 		
 //	    session.setAttribute("cartCount", cartCount);
 		
-		System.out.println("chceck inside implementation curPage :" + curPage);
-		
 		datas.put("curPage", curPage);
 		datas.put("endPage", endPage);
 		datas.put("blockStart", blockStart);
@@ -184,17 +178,18 @@ public class ProductServiceImpl implements ProductService{
 
 	// cart count
 	@Override
-	public void cartCount(HttpServletRequest request, String id) throws Exception {
+	public int cartCount(HttpServletRequest request, String id) throws Exception {
+		
 		HttpSession session = request.getSession();
 		try { 
 			if(!id.equals(null)) {
-		
-			dao.cartCount(id);
-			session.setAttribute("cartCount", dao.cartCount(id));
+				// header에서 사용
+				session.setAttribute("cartCount", dao.cartCount(id));
+				// get Cart 사용
+				return dao.cartCount(id);
 			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch (Exception e) {}
+		return 0;
 	}
 	
 	// Cart

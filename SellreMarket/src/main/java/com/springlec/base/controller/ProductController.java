@@ -32,15 +32,17 @@ public class ProductController {
 	public String newProductPage(HttpServletRequest request, Model model) throws Exception {
 		int curPage = 1;
 		HttpSession session = request.getSession();
-		String id = null;
 		String adImage = service.newAdImg();
 		String headerCategory = "신상품";
 		String alignCategory = "신상품순";
+		
+		id = (String) session.getAttribute("id");
 		 
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {}
 		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		
@@ -64,11 +66,14 @@ public class ProductController {
 		String headerCategory = "신상품";
 		String alignCategory = "낮은 가격순";
 		
+		id = (String) session.getAttribute("id");
+		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {}
 		
 		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -90,12 +95,15 @@ public class ProductController {
 		String adImage = service.newAdImg();
 		String headerCategory = "신상품";
 		String alignCategory = "높은 가격순";
-		 
+		
+		id = (String) session.getAttribute("id");
+		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {}
 		
 		List<Product> newProducts = service.productView(request, curPage, headerCategory, alignCategory);
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -118,10 +126,13 @@ public class ProductController {
 		String headerCategory = "신상품";
 		String alignCategory = "높은 가격순";
 		
+		id = (String) session.getAttribute("id");
+		
+		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {}
-		
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -142,6 +153,8 @@ public class ProductController {
 		String headerCategory = "베스트";
 		String alignCategory = "베스트순";
 		
+		id = (String) session.getAttribute("id");
+		
 		// session으로 보내서 request로 받는게 가능하다?
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
@@ -149,6 +162,7 @@ public class ProductController {
 		
 		
 		List<Product> bestProducts = service.productView(request, curPage, headerCategory, alignCategory);
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -171,11 +185,14 @@ public class ProductController {
 		String headerCategory = "베스트";
 		String alignCategory = "낮은 가격순";
 		
+		id = (String) session.getAttribute("id");
+		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {}
 		
 		List<Product> bestProducts = service.productView(request, curPage, headerCategory, alignCategory);
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -198,11 +215,14 @@ public class ProductController {
 		String headerCategory = "베스트";
 		String alignCategory = "높은 가격순";
 		
+		id = (String) session.getAttribute("id");
+		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {}
 		
 		List<Product> bestProducts = service.productView(request, curPage, headerCategory, alignCategory);
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -224,12 +244,15 @@ public class ProductController {
 		String headerCategory = "레시피";
 		String alignCategory = "레시피";
 		
+		id = (String) session.getAttribute("id");
+		
 		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {}
 		
 		List<Product> recipeProducts = service.productView(request, curPage, headerCategory, alignCategory);
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -251,11 +274,14 @@ public class ProductController {
 		String headerCategory = "레시피";
 		String alignCategory = "낮은 가격순";
 		
+		id = (String) session.getAttribute("id");
+		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {}
 		
 		List<Product> recipeProducts = service.productView(request, curPage, headerCategory, alignCategory);
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -276,12 +302,15 @@ public class ProductController {
 		String headerCategory = "레시피";
 		String alignCategory = "높은 가격순";
 		
+		id = (String) session.getAttribute("id");
+		
 		try {
 			curPage = Integer.parseInt(request.getParameter("curPage"));
 		}catch (Exception e) {}
 		
 		
 		List<Product> recipeProducts = service.productView(request, curPage, headerCategory, alignCategory);
+		// 사용은 따로 안하지만 service에서 사용하기 위해 파라미터를 보내준다.
 		service.cartCount(request, id);
 		
 		// for header 클릭 시 컬러 표시
@@ -305,10 +334,6 @@ public class ProductController {
 		int curPage = Integer.parseInt(request.getParameter("curPage"));
 		String align = request.getParameter("align");
 		String category = request.getParameter("category");
-		
-		System.out.println("align :" + align);
-		System.out.println("category :" + category);
-		
 		
 		try {
 			id = request.getParameter("id");
@@ -370,23 +395,20 @@ public class ProductController {
 	@PostMapping("/getCart")
 	public ResponseEntity<Integer> getCart(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
-		int productid = 0;
+		// getCart.js로부터 id, productid를 받는다
 		int queryQty = 0;
 		
 		// ID 받기
-		id = request.getParameter("id");
+		id = (String) session.getAttribute("id");
 		// productid 받기
-		productid = Integer.parseInt(request.getParameter("productid"));
+		int productid = Integer.parseInt(request.getParameter("productid"));
 		
 		// recipe인지, product인지 확인하는 분류 받기
 //		String headerCategory = request.getParameter("headerCategory");
-		
-		int cartCount = (int) session.getAttribute("cartCount");
-		
+//		cartCount = (int) session.getAttribute("cartCount");
 		
 		try {
 			queryQty = service.searchCart(id, productid);
-			System.out.println("forSearch : " + queryQty);
 			// update
 			if (queryQty > 0) {
 				service.updateCart(id, productid, queryQty);
@@ -395,8 +417,11 @@ public class ProductController {
 		catch (Exception e) {
 			// insert
 			service.getCart(id, productid);
-			e.printStackTrace();
 		}
+		
+		// get from serviceimplementation
+		int cartCount = service.cartCount(request, id);
+		
 		return ResponseEntity.ok().body(cartCount);
 	}
 	/************* Cart End *************/
