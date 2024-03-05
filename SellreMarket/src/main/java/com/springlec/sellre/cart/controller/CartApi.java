@@ -4,8 +4,6 @@ import static com.springlec.sellre.common.support.Constants.LOGIN_USER_SESSION_N
 import static com.springlec.sellre.common.util.AuthorityUtil.getUserOrThrow;
 import static com.springlec.sellre.common.util.AuthorityUtil.requireSigning;
 
-import java.io.PrintWriter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -119,7 +117,7 @@ public final class CartApi {
 			@PathVariable Long cartId,
 			HttpServletRequest request,
 			HttpServletResponse response
-	) throws Exception {
+	) {
 		// (요청에 있는 변수 꺼내는 것뿐이니까 로직과 무관)
 		User user = getUserOrThrow(request);
 		
